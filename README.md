@@ -32,6 +32,10 @@ Two consecutive runs, Q4_K_M, all layers on the GPU.
 | Qwen2.5 0.5B | decode | 336 to 343 | 67 to 74 | 158 to 174 | 131 to 144 |
 | Qwen2.5 1.5B | prefill | 6,430 to 6,450 | 6.5 to 6.7 | 12.2 to 12.6 | 10.8 to 11.0 |
 | Qwen2.5 1.5B | decode | 196 to 198 | 142 to 145 | 340 to 345 | 294 |
+| Qwen2.5 7B | prefill | 1,528 | 29 | 54 | 46 |
+| Qwen2.5 7B | decode | 57.7 | 544 | 1,303 | 1,080 |
+
+The 7B row is a single run.
 
 What the numbers already say:
 - Decode costs 20 to 35 times more energy per token than prefill. A benchmark that reports one blended figure hides the phase that matters for chat.
