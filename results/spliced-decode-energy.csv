@@ -56,6 +56,23 @@ machine,runtime,model,params_b,format,batch,tok_s,chip_mj,board_mj,chip_point,bo
 "Apple M5 Pro, 24 GB",llama.cpp b11669,Qwen2.5 1.5B,1.5,Q4_K_M,6,877.5,43.2,,chip (SoC),,AC,3,1,batching-gpu-1.5b-q4_k_m.json
 "Apple M5 Pro, 24 GB",llama.cpp b11669,Qwen2.5 1.5B,1.5,Q4_K_M,7,1001.1,37.9,,chip (SoC),,AC,3,1,batching-gpu-1.5b-q4_k_m.json
 "Apple M5 Pro, 24 GB",llama.cpp b11669,Qwen2.5 1.5B,1.5,Q4_K_M,8,1112.0,33.7,,chip (SoC),,AC,3,1,batching-gpu-1.5b-q4_k_m.json
+"Intel Core Ultra 9 285H, RTX 5070 Ti Laptop, 32 GB",llama.cpp b11851 (CUDA),Qwen2.5 0.5B,0.5,Q4_0,1,623.9,153.5,,"GPU (nvidia-smi, includes VRAM)",,AC,2,12,width-windows-run1.json width-windows-run2.json
+"Intel Core Ultra 9 285H, RTX 5070 Ti Laptop, 32 GB",llama.cpp b11851 (CUDA),Qwen2.5 0.5B,0.5,Q4_K_M,1,566.3,172.6,,"GPU (nvidia-smi, includes VRAM)",,AC,2,12,width-windows-run1.json width-windows-run2.json
+"Intel Core Ultra 9 285H, RTX 5070 Ti Laptop, 32 GB",llama.cpp b11851 (CUDA),Qwen2.5 0.5B,0.5,Q5_K_M,1,590.0,163.8,,"GPU (nvidia-smi, includes VRAM)",,AC,2,12,width-windows-run1.json width-windows-run2.json
+"Intel Core Ultra 9 285H, RTX 5070 Ti Laptop, 32 GB",llama.cpp b11851 (CUDA),Qwen2.5 0.5B,0.5,Q6_K,1,550.8,175.3,,"GPU (nvidia-smi, includes VRAM)",,AC,2,12,width-windows-run1.json width-windows-run2.json
+"Intel Core Ultra 9 285H, RTX 5070 Ti Laptop, 32 GB",llama.cpp b11851 (CUDA),Qwen2.5 0.5B,0.5,Q8_0,1,538.4,178.6,,"GPU (nvidia-smi, includes VRAM)",,AC,2,12,width-windows-run1.json width-windows-run2.json
+"Intel Core Ultra 9 285H, RTX 5070 Ti Laptop, 32 GB",llama.cpp b11851 (CUDA),Qwen2.5 1.5B,1.5,Q5_K_M,1,284.0,350.7,,"GPU (nvidia-smi, includes VRAM)",,AC,2,12,width-windows-run1.json width-windows-run2.json
+"Intel Core Ultra 9 285H, RTX 5070 Ti Laptop, 32 GB",llama.cpp b11851 (CUDA),Qwen2.5 1.5B,1.5,Q6_K,1,263.3,375.9,,"GPU (nvidia-smi, includes VRAM)",,AC,2,12,width-windows-run1.json width-windows-run2.json
+"Intel Core Ultra 9 285H, RTX 5070 Ti Laptop, 32 GB",llama.cpp b11851 (CUDA),Qwen2.5 3B,3.1,Q4_0,1,192.9,511.0,,"GPU (nvidia-smi, includes VRAM)",,AC,2,12,width-windows-run1.json width-windows-run2.json
+"Intel Core Ultra 9 285H, RTX 5070 Ti Laptop, 32 GB",llama.cpp b11851 (CUDA),Qwen2.5 3B,3.1,Q4_K_M,1,167.2,596.4,,"GPU (nvidia-smi, includes VRAM)",,AC,2,12,width-windows-run1.json width-windows-run2.json
+"Intel Core Ultra 9 285H, RTX 5070 Ti Laptop, 32 GB",llama.cpp b11851 (CUDA),Qwen2.5 3B,3.1,Q5_K_M,1,150.4,665.1,,"GPU (nvidia-smi, includes VRAM)",,AC,2,12,width-windows-run1.json width-windows-run2.json
+"Intel Core Ultra 9 285H, RTX 5070 Ti Laptop, 32 GB",llama.cpp b11851 (CUDA),Qwen2.5 3B,3.1,Q6_K,1,145.7,682.6,,"GPU (nvidia-smi, includes VRAM)",,AC,2,12,width-windows-run1.json width-windows-run2.json
+"Intel Core Ultra 9 285H, RTX 5070 Ti Laptop, 32 GB",llama.cpp b11851 (CUDA),Qwen2.5 3B,3.1,Q8_0,1,124.9,805.3,,"GPU (nvidia-smi, includes VRAM)",,AC,2,12,width-windows-run1.json width-windows-run2.json
+"Intel Core Ultra 9 285H, RTX 5070 Ti Laptop, 32 GB",llama.cpp b11851 (CUDA),Qwen2.5 7B,7.6,Q4_0,1,98.1,1004.5,,"GPU (nvidia-smi, includes VRAM)",,AC,2,12,width-windows-run1.json width-windows-run2.json
+"Intel Core Ultra 9 285H, RTX 5070 Ti Laptop, 32 GB",llama.cpp b11851 (CUDA),Qwen2.5 7B,7.6,Q4_K_M,1,84.7,1170.5,,"GPU (nvidia-smi, includes VRAM)",,AC,2,12,width-windows-run1.json width-windows-run2.json
+"Intel Core Ultra 9 285H, RTX 5070 Ti Laptop, 32 GB",llama.cpp b11851 (CUDA),Qwen2.5 7B,7.6,Q5_K_M,1,75.2,1344.8,,"GPU (nvidia-smi, includes VRAM)",,AC,2,12,width-windows-run1.json width-windows-run2.json
+"Intel Core Ultra 9 285H, RTX 5070 Ti Laptop, 32 GB",llama.cpp b11851 (CUDA),Qwen2.5 7B,7.6,Q6_K,1,67.7,1433.3,,"GPU (nvidia-smi, includes VRAM)",,AC,2,12,width-windows-run1.json width-windows-run2.json
+"Intel Core Ultra 9 285H, RTX 5070 Ti Laptop, 32 GB",llama.cpp b11851 (CUDA),Qwen2.5 7B,7.6,Q8_0,1,53.7,1793.1,,"GPU (nvidia-smi, includes VRAM)",,AC,2,12,width-windows-run1.json width-windows-run2.json
 "Intel Core Ultra 9 285H, RTX 5070 Ti Laptop, 32 GB",llama.cpp b11851 (CUDA),Qwen2.5 1.5B,1.5,Q4_0,1,348.0,278.0,,"GPU (nvidia-smi, includes VRAM)",,AC,3,10,batching-windows-q4_0.json
 "Intel Core Ultra 9 285H, RTX 5070 Ti Laptop, 32 GB",llama.cpp b11851 (CUDA),Qwen2.5 1.5B,1.5,Q4_0,2,607.4,163.5,,"GPU (nvidia-smi, includes VRAM)",,AC,3,10,batching-windows-q4_0.json
 "Intel Core Ultra 9 285H, RTX 5070 Ti Laptop, 32 GB",llama.cpp b11851 (CUDA),Qwen2.5 1.5B,1.5,Q4_0,3,790.9,126.3,,"GPU (nvidia-smi, includes VRAM)",,AC,3,10,batching-windows-q4_0.json

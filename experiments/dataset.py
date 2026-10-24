@@ -76,6 +76,11 @@ def main():
                          "chip_mj": round(mean([r[i]["soc_mj_per_tok"] for r in runs]), 1), "board_mj": "",
                          "chip_point": "chip (SoC)", "board_point": "", "power_state": "AC", "passes": len(runs),
                          "note": 1, "source": f"batching-gpu-1.5b-{q}.json"})
+    for r in llamacpp(["width-windows-run1.json", "width-windows-run2.json"], 12, machine=WIN,
+                      chip="GPU (nvidia-smi, includes VRAM)", board="", state="AC"):
+        if r["model"] in ("Qwen2.5 0.5B", "Qwen2.5 3B", "Qwen2.5 7B") or r["format"] in ("Q5_K_M", "Q6_K"):
+            r["runtime"], r["board_mj"] = "llama.cpp b11851 (CUDA)", ""
+            rows.append(r)
     for q, fmt in (("q4_0", "Q4_0"), ("q4_k_m", "Q4_K_M")):
         runs = json.load(open(R / f"batching-windows-{q}.json"))["runs"]
         for i in range(len(runs[0])):
