@@ -52,6 +52,7 @@ Raw JSON is in `results/`.
 - [5. The cost of unpacking](notes/2026-10-kernel-energy.md): each format's matrix-vector kernel measured alone. Q4_0 and Q4_K read identical bytes at identical speed, and Q4_K's unpacking costs 40% more chip energy.
 - [6. Small models pay more per weight](notes/2026-10-model-width.md): five formats across 0.5B, 1.5B, 3B and 7B. A weight in a 0.5B model costs up to 1.6 times one in a 7B; Q4_0 is cheapest at every width; the Q5_K_M against Q6_K order flips with width.
 - [7. Faster is not cheaper](notes/2026-10-speculative-decoding.md): speculative decoding with a draft model and with n-gram copying, three tasks. It can be faster and cost more energy at once; copy-based drafting on edits costs 32% of plain decoding.
+- [8. Tokens per megawatt-hour](notes/2026-10-tokens-per-megawatt-hour.md): every MLPerf v5.0 and v5.1 LLM result with measured wall power (two servers). A B200 server buys 2.7 times the tokens per joule of an H100 NVL one; the roofline says it must batch 58 or more sequences per weight pass.
 
 ## Known limits
 
