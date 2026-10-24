@@ -20,7 +20,7 @@ EDGE_S = 0.3
 
 def run(sampler, model, batches, n_prompt, n_gen):
     cmd = ["llama-batched-bench", "-m", model, "-c", str(max(batches) * (n_prompt + n_gen) + 64),
-           "-b", "2048", "-ub", "512", "-npp", str(n_prompt), "-ntg", str(n_gen),
+           "-b", str(max(2048, n_prompt)), "-ub", "512", "-npp", str(n_prompt), "-ntg", str(n_gen),
            "-npl", ",".join(map(str, batches)), "--output-format", "jsonl"]
     out = subprocess.run(cmd, capture_output=True, text=True, check=True).stdout
     end = time.monotonic()
