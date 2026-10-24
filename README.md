@@ -47,6 +47,7 @@ Raw JSON is in `results/`.
 
 - [1. Fewer bits is not fewer joules](notes/2026-10-formats-and-batching.md): eight quantization formats and batch 1 to 8, chip and board energy, on Apple M5 Pro.
 - [2. Where the joules go](notes/2026-10-roofline-and-energy-model.md): a decode roofline from measured bandwidth, and a validated energy model whose residuals isolate the cost of unpacking each format.
+- [3. Does it hold?](notes/2026-10-scale-and-runtime.md): the format study at 7B, where it replicates, and in MLX, where repeat runs do not yet agree and only claims that survive both passes are made.
 
 ## Known limits
 
