@@ -9,6 +9,7 @@ the clocks are still ramping.
 import math
 import time
 from dataclasses import asdict, dataclass
+from pathlib import Path
 
 from . import llamacpp
 from .power import Sampler, mean_power
@@ -62,7 +63,7 @@ def measure(sampler: Sampler, idle: tuple[float, float], model: str, phase: str,
     soc_j, soc_net = energy(soc_w, idle[0], run.tokens_per_s)
     sys_j, sys_net = energy(sys_w, idle[1], run.tokens_per_s)
     return Result(
-        model=model.rsplit("/", 1)[-1], model_type=run.model_type, phase=phase,
+        model=Path(model).name, model_type=run.model_type, phase=phase,
         tokens=tokens, tokens_per_s=run.tokens_per_s, soc_w=soc_w, sys_w=sys_w,
         soc_j_per_tok=soc_j, sys_j_per_tok=sys_j,
         soc_net_j_per_tok=soc_net, sys_net_j_per_tok=sys_net,

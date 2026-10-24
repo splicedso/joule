@@ -11,11 +11,49 @@ from .power import Sampler, idle_baseline
 
 
 def machine() -> dict:
+    if platform.system() == "Windows":
+        return _machine_windows()
     def sysctl(key):
         return subprocess.run(["sysctl", "-n", key], capture_output=True, text=True).stdout.strip()
     on_ac = "AC Power" in subprocess.run(["pmset", "-g", "batt"], capture_output=True, text=True).stdout
     return {"chip": sysctl("machdep.cpu.brand_string"), "ram_bytes": int(sysctl("hw.memsize")),
             "macos": platform.mac_ver()[0], "on_ac": on_ac}
+
+
+def _machine_windows() -> dict:
+    import ctypes
+    import winreg
+
+    def cpu_name():
+        with winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE,
+                            r"HARDWARE\DESCRIPTION\System\CentralProcessor\0") as k:
+            return winreg.QueryValueEx(k, "ProcessorNameString")[0].strip()
+
+    class _MEM(ctypes.Structure):
+        _fields_ = [("dwLength", ctypes.c_ulong), ("dwMemoryLoad", ctypes.c_ulong),
+                    ("ullTotalPhys", ctypes.c_ulonglong), ("ullAvailPhys", ctypes.c_ulonglong),
+                    ("ullTotalPageFile", ctypes.c_ulonglong), ("ullAvailPageFile", ctypes.c_ulonglong),
+                    ("ullTotalVirtual", ctypes.c_ulonglong), ("ullAvailVirtual", ctypes.c_ulonglong),
+                    ("ullAvailExtendedVirtual", ctypes.c_ulonglong)]
+    mem = _MEM()
+    mem.dwLength = ctypes.sizeof(_MEM)
+    ctypes.windll.kernel32.GlobalMemoryStatusEx(ctypes.byref(mem))
+
+    class _PWR(ctypes.Structure):
+        _fields_ = [("ACLineStatus", ctypes.c_byte), ("BatteryFlag", ctypes.c_byte),
+                    ("BatteryLifePercent", ctypes.c_byte), ("SystemStatusFlag", ctypes.c_byte),
+                    ("BatteryLifeTime", ctypes.c_ulong), ("BatteryFullLifeTime", ctypes.c_ulong)]
+    pwr = _PWR()
+    ctypes.windll.kernel32.GetSystemPowerStatus(ctypes.byref(pwr))
+
+    try:
+        gpus = subprocess.run(["nvidia-smi", "--query-gpu=name", "--format=csv,noheader"],
+                              capture_output=True, text=True).stdout.strip().splitlines()
+    except FileNotFoundError:
+        gpus = []
+    return {"chip": cpu_name(), "ram_bytes": int(mem.ullTotalPhys),
+            "windows": platform.version(), "gpus": [g.strip() for g in gpus],
+            "on_ac": pwr.ACLineStatus == 1}
 
 
 def table(results: list[dict]) -> str:
