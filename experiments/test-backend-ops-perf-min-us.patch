@@ -1,0 +1,13 @@
+diff --git a/tests/test-backend-ops.cpp b/tests/test-backend-ops.cpp
+index ba7f7eb4e..c484e2c37 100644
+--- a/tests/test-backend-ops.cpp
++++ b/tests/test-backend-ops.cpp
+@@ -1700,7 +1700,7 @@ struct test_case {
+ 
+             // re-draw any data-dependent inputs (expert ids) outside the timed region
+             reinit_perf_iter(ctx.get());
+-        } while (total_time_us < 1000*1000); // run for at least 1 second
++        } while (total_time_us < (getenv("PERF_MIN_US") ? atoll(getenv("PERF_MIN_US")) : 1000*1000)); // run for at least 1 second, or PERF_MIN_US
+ 
+         // Create test result
+         double avg_time_us      = (double) total_time_us / total_runs;

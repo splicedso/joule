@@ -19,6 +19,8 @@ So the first job is the real bandwidth, not the spec sheet. `experiments/bandwid
 
 Many smaller layer-shaped matrix-vector products in one batch reached the same 243 to 265 GB/s, so about **266 GB/s** is the roof.
 
+**Correction, note 5:** llama.cpp's own F16 kernel moves 306 to 309 GB/s, so this MLX-measured roof is low and the shares of roof below are overstated by about 15%. The rankings do not change.
+
 ## 2. Bytes per token, and the first mistake
 
 The first attempt used the model file size as bytes per token. F16 then decoded at 298 GB/s, above the roof, which is impossible. The data was right and the byte count was wrong:
