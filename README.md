@@ -46,6 +46,7 @@ Raw JSON is in `results/`.
 ## Research notes
 
 - [Fewer bits is not fewer joules](notes/2026-10-formats-and-batching.md): eight quantization formats and batch 1 to 8, chip and board energy, on Apple M5 Pro.
+- [Fewer bits is not fewer joules, on a Windows laptop](notes/2026-10-windows-rtx5070ti.md): the same study on an NVIDIA RTX 5070 Ti laptop. The format ranking holds, but chip-only measurement does not misrank F16 on this dGPU, unlike on Apple silicon.
 
 ## Known limits
 

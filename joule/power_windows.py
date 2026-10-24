@@ -29,6 +29,13 @@ from statistics import median
 
 from .power import Sample
 
+# nvidia-smi with -lms intermittently reports a spurious power.draw (seen as a
+# ~11000 W spike every third sample while the GPU sits at a low-power idle state,
+# against a true draw of ~20 W). No laptop GPU draws anywhere near this, so a
+# reading above this ceiling is a driver glitch and is dropped rather than
+# averaged into a window. The ceiling is far above any real board power.
+_MAX_GPU_W = 1000.0
+
 
 # The battery poller asks the WMI BatteryStatus class for its discharge rate (mW)
 # and whether the pack is discharging. One long-lived PowerShell process is cheaper
@@ -89,6 +96,8 @@ class Sampler:
                 mhz = float(parts[1])
             except ValueError:
                 continue  # [N/A] / [Not Supported] rows
+            if not 0.0 <= gpu_w <= _MAX_GPU_W:
+                continue  # spurious nvidia-smi spike (see _MAX_GPU_W)
             self.samples.append(
                 Sample(time.monotonic(), gpu_w, self._batt_w, gpu_w, mhz, 0.0))
 
