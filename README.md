@@ -50,6 +50,7 @@ Raw JSON is in `results/`.
 - [3. Does it hold?](notes/2026-10-scale-and-runtime.md): the format study at 7B, where it replicates, and in MLX, where repeat runs do not yet agree and only claims that survive both passes are made.
 - [4. Two machines, one token](notes/2026-10-two-machines.md): the study on a Windows laptop with an RTX 5070 Ti, on battery. What transfers from the Mac, what does not, and why GPU power and chip power are not the same quantity.
 - [5. The cost of unpacking](notes/2026-10-kernel-energy.md): each format's matrix-vector kernel measured alone. Q4_0 and Q4_K read identical bytes at identical speed, and Q4_K's unpacking costs 40% more chip energy.
+- [6. Small models pay more per weight](notes/2026-10-model-width.md): five formats across 0.5B, 1.5B, 3B and 7B. A weight in a 0.5B model costs up to 1.6 times one in a 7B; Q4_0 is cheapest at every width; the Q5_K_M against Q6_K order flips with width.
 
 ## Known limits
 
