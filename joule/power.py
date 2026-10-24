@@ -18,6 +18,9 @@ class Sample:
     t: float
     soc_w: float
     sys_w: float
+    gpu_w: float = 0.0
+    gpu_mhz: float = 0.0
+    cpu_w: float = 0.0
 
 
 class Sampler:
@@ -45,7 +48,8 @@ class Sampler:
     def _read(self):
         for line in self._proc.stdout:
             row = json.loads(line)
-            self.samples.append(Sample(time.monotonic(), row["all_power"], row["sys_power"]))
+            self.samples.append(Sample(time.monotonic(), row["all_power"], row["sys_power"],
+                                       row["gpu_power"], row["gpu_freq_mhz"], row["cpu_power"]))
 
     def window(self, start: float, end: float) -> list[Sample]:
         return [s for s in self.samples if start <= s.t <= end]

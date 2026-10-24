@@ -43,6 +43,10 @@ What the numbers already say:
 
 Raw JSON is in `results/`.
 
+## Research notes
+
+- [Fewer bits is not fewer joules](notes/2026-10-formats-and-batching.md): eight quantization formats and batch 1 to 8, chip and board energy, on Apple M5 Pro.
+
 ## Known limits
 
 - **Repeatability.** Prefill and 1.5B decode repeat within 3%. 0.5B decode drifted 58 to 74 mJ/tok across three runs while throughput held, so power rose, probably heat or other load on a working laptop. Results are not yet taken on an idle, thermally settled machine, and the table shows ranges, not a single number.
