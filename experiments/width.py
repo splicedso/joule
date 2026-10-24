@@ -46,7 +46,9 @@ def main():
             tps = sum(g["tokens_per_s"] for g in got) / len(got)
             soc = sum(g["soc_j_per_tok"] for g in got) / len(got)
             board = sum(g["sys_j_per_tok"] for g in got) / len(got)
-            spread = (max(g["sys_j_per_tok"] for g in got) - min(g["sys_j_per_tok"] for g in got)) / board
+            # board is 0 where whole-system power is unreadable (e.g. Windows on AC);
+            # report the spread only when there is a board signal.
+            spread = (max(g["sys_j_per_tok"] for g in got) - min(g["sys_j_per_tok"] for g in got)) / board if board else 0.0
             rows.append({"size": size, "width": width, "format": fmt, "weights": weights, "bytes": nbytes,
                          "tok_s": tps, "roof_share": tps * nbytes / 1e9 / ROOF_GB_S,
                          "soc_pj_per_weight": soc / weights * 1e12, "board_pj_per_weight": board / weights * 1e12,
