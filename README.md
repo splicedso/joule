@@ -48,12 +48,13 @@ Raw JSON is in `results/`.
 - [1. Fewer bits is not fewer joules](notes/2026-10-formats-and-batching.md): eight quantization formats and batch 1 to 8, chip and board energy, on Apple M5 Pro.
 - [2. Where the joules go](notes/2026-10-roofline-and-energy-model.md): a decode roofline from measured bandwidth, and a validated energy model whose residuals isolate the cost of unpacking each format.
 - [3. Does it hold?](notes/2026-10-scale-and-runtime.md): the format study at 7B, where it replicates, and in MLX, where repeat runs do not yet agree and only claims that survive both passes are made.
+- [4. Two machines, one token](notes/2026-10-two-machines.md): the study on a Windows laptop with an RTX 5070 Ti, on battery. What transfers from the Mac, what does not, and why GPU power and chip power are not the same quantity.
 
 ## Known limits
 
 - **Repeatability.** Prefill and 1.5B decode repeat within 3%. 0.5B decode drifted 58 to 74 mJ/tok across three runs while throughput held, so power rose, probably heat or other load on a working laptop. Results are not yet taken on an idle, thermally settled machine, and the table shows ranges, not a single number.
 - **sys is not wall power.** It excludes the adapter's own loss. A wall meter is the next step.
-- **One machine, one runtime.** Apple Silicon and llama.cpp only so far. MLX and other boards come next.
+- **Two machines so far.** Apple Silicon (macmon) and Windows with an NVIDIA GPU (nvidia-smi plus battery discharge, unplugged only).
 
 ## License
 
