@@ -6,7 +6,7 @@ Note 8 found a 405B datacenter result costing 60 times the energy per token of a
 
 ## Method
 
-`experiments/batching.py` (llama-batched-bench), batch sizes 1, 2, 4 and 8, 512 generated tokens per sequence, three passes. Two context lengths per sequence: 64 and 4096 prompt tokens. Two models, 1.5B and 7B Q4_0. Flash attention left at the script's default. GPU (chip) energy only, as in note 4; there is no whole-system reading on AC here. Batch 8 at 4096 tokens fit in the 12 GB of VRAM for both models, so nothing was dropped. The three passes agreed within 5% on chip energy per token at batch 2 and above; batch 1, with the shortest decode windows, varied up to 14%, and those cells are the least precise.
+`experiments/batching.py` (llama-batched-bench), batch sizes 1, 2, 4 and 8, 512 generated tokens per sequence, three passes. Two context lengths per sequence: 64 and 4096 prompt tokens. Two models, 1.5B and 7B Q4_0. Flash attention left at the script's default. GPU (chip) energy only, as in note 4; there is no whole-system reading on AC here. Batch 8 at 4096 tokens fit in the 12 GB of VRAM for both models, so nothing was dropped. The three passes agreed within 4% on chip energy per token at batches 4 and 8. At batches 1 and 2 two cells spread wider: 15% at batch 1 and 8% at batch 2 on the 1.5B at 64 tokens, and 11% at batch 2 on the 7B at 4096. Those cells are the least precise. The 1.5B decode windows are short, 1.5 to 4 seconds, which is why its batch-1 cells are the noisiest.
 
 ## Results
 
@@ -59,7 +59,7 @@ This does not reproduce note 8's 60 times gap, and it is not meant to. Note 8's 
 
 ## Limits
 
-GPU (chip) energy only; no whole-system figure on AC. A 12 GB card, so the memory-bound regime where a long context forces the batch down, which is note 8's actual mechanism, is exactly what is not tested here. Batches to 8, contexts to 4096, two models, one quantization, greedy decode through llama-batched-bench. Build 11851 (CUDA) differs from the Mac's 11669 (Metal).
+GPU (chip) energy only; no whole-system figure on AC. A 12 GB card, so the memory-bound regime where a long context forces the batch down, which is note 8's actual mechanism, is exactly what is not tested here. Short decode windows on the 1.5B (1.5 to 4 s), so its small-batch cells are noisy. Batches to 8, contexts to 4096, two models, one quantization, greedy decode through llama-batched-bench. Build 11851 (CUDA) differs from the Mac's 11669 (Metal).
 
 ## Reproduce
 
