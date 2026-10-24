@@ -28,12 +28,14 @@ CONDS = ["plain", "stock-4", "spliced-4", "stock-8", "spliced-8"]
 
 
 def server_args(cond):
+    """plain, or NAME-K[-pP]: draft model NAME drafting up to K tokens, threshold P (default 0.5)."""
     args = ["-m", ss.TARGET, "-c", "4096", "-ngl", "99", "--no-webui"]
     if cond == "plain":
         return args
-    name, k = cond.split("-")
-    return args + ["--spec-type", "draft-simple", "-md", DRAFTS[name], "-ngld", "99",
-                   "--spec-draft-n-max", k, "--spec-draft-p-min", "0.5"]
+    parts = cond.split("-")
+    p = parts[2][1:] if len(parts) > 2 else "0.5"
+    return args + ["--spec-type", "draft-simple", "-md", DRAFTS[parts[0]], "-ngld", "99",
+                   "--spec-draft-n-max", parts[1], "--spec-draft-p-min", p]
 
 
 def chat(prompt):
@@ -42,6 +44,7 @@ def chat(prompt):
 
 def main():
     out = Path(sys.argv[1])
+    conds = sys.argv[2].split(",") if len(sys.argv) > 2 else CONDS
     held = [json.loads(l) for l in open("results/drafter/eval-prompts.jsonl")]
     prompts = [h for h in held if h["kind"] == "chat"][:20] + [h for h in held if h["kind"] == "code"][:20]
     ss.N = N
@@ -49,7 +52,7 @@ def main():
     rows = []
     with Sampler(100) as s:
         idle = idle_baseline(s, 8)
-        for rep, order in enumerate((CONDS, CONDS[::-1])):
+        for rep, order in enumerate((conds, conds[::-1])):
             for cond in order:
                 server = ss.Server(cond)
                 try:
@@ -61,7 +64,7 @@ def main():
                         rows.append(r)
                     got = [r for r in rows if r["cond"] == cond and r["rep"] == rep]
                     acc = [r["accept"] for r in got if r["accept"] is not None]
-                    print(f"{rep} {cond:10} {sum(r['tok_s'] for r in got) / len(got):6.1f} tok/s  "
+                    print(f"{rep} {cond:16} {sum(r['tok_s'] for r in got) / len(got):6.1f} tok/s  "
                           f"accept {sum(acc) / len(acc) if acc else 0:.0%}  chip {sum(r['soc_mj'] for r in got) / len(got):6.1f} mJ/tok", flush=True)
                 finally:
                     server.close()
