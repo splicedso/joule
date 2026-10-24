@@ -54,8 +54,13 @@ def command(cond, prompt):
     spec = ["llama-speculative-simple", "-m", TARGET, "-p", prompt, *COMMON]
     if cond == "ngram":
         return spec + ["--spec-type", "ngram-simple"]
-    k = cond.split("-")[1]
-    return spec + ["--spec-type", "draft-simple", "-md", DRAFT, "-ngld", "99", "--spec-draft-n-max", k]
+    # draft-K, or draft-K-pP: draft up to K tokens, stopping when the draft model's
+    # confidence in its next token falls below P.
+    parts = cond.split("-")
+    args = ["--spec-type", "draft-simple", "-md", DRAFT, "-ngld", "99", "--spec-draft-n-max", parts[1]]
+    if len(parts) > 2:
+        args += ["--spec-draft-p-min", parts[2][1:]]
+    return spec + args
 
 
 def run(sampler, cond, prompt):
@@ -79,7 +84,7 @@ def run(sampler, cond, prompt):
 
 def main():
     out = Path(sys.argv[1])
-    conds = ["plain", "draft-2", "draft-4", "draft-8", "draft-16", "ngram"]
+    conds = sys.argv[2].split(",") if len(sys.argv) > 2 else ["plain", "draft-2", "draft-4", "draft-8", "draft-16", "ngram"]
     jobs = [(c, p) for c in conds for p in PROMPTS]
     rows = []
     random.seed(7)
@@ -93,7 +98,7 @@ def main():
                 r.update(cond=cond, prompt=p, rep=rep)
                 rows.append(r)
                 acc = f"{r['accept']:.0%}" if r["accept"] is not None else "  -"
-                print(f"{rep} {cond:8} {p:5} {r['tok_s']:5.1f} tok/s accept {acc:>4}  chip {r['soc_mj']:6.1f} mJ  "
+                print(f"{rep} {cond:13} {p:5} {r['tok_s']:5.1f} tok/s accept {acc:>4}  chip {r['soc_mj']:6.1f} mJ  "
                       f"board {r['sys_mj']:6.1f} mJ  n={r['samples']}", flush=True)
     out.write_text(json.dumps({"idle_w": {"soc": idle[0], "sys": idle[1]}, "n": N, "rows": rows}, indent=2) + "\n")
 
