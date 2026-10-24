@@ -45,13 +45,14 @@ def run(sampler, model, batches, n_prompt, n_gen):
 def main():
     model, out = sys.argv[1], Path(sys.argv[2])
     batches = [int(b) for b in sys.argv[3].split(",")] if len(sys.argv) > 3 else [1, 2, 4, 8, 16, 32]
+    n_prompt = int(sys.argv[4]) if len(sys.argv) > 4 else 64
     runs = []
     with Sampler(100) as s:
         idle = idle_baseline(s, 8)
         for _ in range(3):
             time.sleep(4)
-            runs.append(run(s, model, batches, 64, 512))
-    out.write_text(json.dumps({"model": Path(model).name, "idle_soc_w": idle[0], "n_prompt": 64,
+            runs.append(run(s, model, batches, n_prompt, 512))
+    out.write_text(json.dumps({"model": Path(model).name, "idle_soc_w": idle[0], "n_prompt": n_prompt,
                                "n_gen": 512, "runs": runs}, indent=2) + "\n")
     for b in range(len(batches)):
         vals = [r[b]["soc_mj_per_tok"] for r in runs]
