@@ -11,6 +11,6 @@ jobs:
       - uses: actions/checkout@v4
       - name: Release notes from CHANGELOG
         run: awk -v v="${GITHUB_REF_NAME#v}" '$0 ~ "^## "v{f=1;next} /^## /{f=0} f' CHANGELOG.md > notes.txt
-      - run: gh release create "$GITHUB_REF_NAME" --title "joule $GITHUB_REF_NAME" --notes-file notes.txt
+      - run: gh release create "$GITHUB_REF_NAME" --title "Phase $GITHUB_REF_NAME" --notes-file notes.txt
         env:
           GH_TOKEN: ${{ github.token }}

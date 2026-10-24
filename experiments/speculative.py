@@ -28,7 +28,7 @@ import sys
 import time
 from pathlib import Path
 
-from joule.power import Sampler, idle_baseline, mean_power
+from phase.power import Sampler, idle_baseline, mean_power
 
 TARGET = "models/quant/7b-Q4_0.gguf"
 DRAFT = "models/quant/0.5b-Q4_0.gguf"

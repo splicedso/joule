@@ -68,7 +68,7 @@ def table(results: list[dict]) -> str:
 
 
 def main(argv=None):
-    p = argparse.ArgumentParser(prog="joule", description="Measure energy per token for llama.cpp models.")
+    p = argparse.ArgumentParser(prog="phase", description="Measure energy per token for llama.cpp models.")
     p.add_argument("models", nargs="+", help="GGUF files")
     p.add_argument("--prefill", type=int, default=512, help="prompt tokens per prefill repetition")
     p.add_argument("--decode", type=int, default=128, help="generated tokens per decode repetition")

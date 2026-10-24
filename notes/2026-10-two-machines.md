@@ -6,13 +6,13 @@ Notes 1 to 3 measured one machine. A finding from one machine might be physics, 
 
 ## Method
 
-The Windows study used joule with a new power backend, written for this note (`joule/power_windows.py`), that needs no admin rights:
+The Windows study used Phase with a new power backend, written for this note (`phase/power_windows.py`), that needs no admin rights:
 
 - **GPU** power from `nvidia-smi`, every 200 ms. This is the nearest thing to the Mac's chip reading, with one difference that matters below: it includes the GPU's own memory.
 - **System** power from the battery's discharge rate (WMI `BatteryStatus`), the whole laptop, readable only while unplugged. The machine ran on battery throughout; both result files record `on_ac: false`.
 - **CPU** package power is not read: on Windows it needs a kernel driver. It is left out, not estimated.
 
-Same model, same eight formats quantized from F16, same perplexity settings, same `joule --seconds 15`, two passes.
+Same model, same eight formats quantized from F16, same perplexity settings, same `phase --seconds 15`, two passes.
 
 ## Repeatability, and one figure we discard
 
@@ -88,7 +88,7 @@ On the Mac, power varied by format (note 1: 11 to 34 W at the chip), so energy a
 
 ```bash
 # Windows, on battery, NVIDIA driver installed
-uv run joule models\quant\1.5b-*.gguf --seconds 15 --out results\run.json
+uv run phase models\quant\1.5b-*.gguf --seconds 15 --out results\run.json
 ```
 
 Raw results: `results/quant-energy-windows-battery-run1.json`, `results/quant-energy-windows-battery-run2.json`, `results/quant-ppl-windows.txt`, `results/summary-two-machines.json`.

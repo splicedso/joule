@@ -2,9 +2,9 @@ import json
 
 import pytest
 
-from joule.llamacpp import parse
-from joule.measure import energy
-from joule.power import Sample, mean_power
+from phase.llamacpp import parse
+from phase.measure import energy
+from phase.power import Sample, mean_power
 
 
 def test_parse_reads_throughput_and_compute_time():

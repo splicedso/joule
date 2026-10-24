@@ -8,7 +8,7 @@ Note 3 saw the 7B model use the memory system better than the 1.5B. Note 5 measu
 
 The obvious instrument, one matrix-vector kernel at several sizes, is the wrong one here. A 1536 x 1536 matrix is 1.3 to 4.7 MB depending on format. Repeated in a loop, it stays in the chip's cache, and the benchmark measures cache bandwidth, not memory: a first test reported 288 GB/s for it. Real decode streams every layer's weights once per token, far more than any cache holds.
 
-So the sweep uses real models whose layers have different widths: Qwen2.5 0.5B, 1.5B, 3B and 7B, with hidden sizes 896, 1536, 2048 and 3584. Each was quantized from its own F16 GGUF into Q4_0, Q4_K_M, Q5_K_M, Q6_K and Q8_0, and decoded with `joule --seconds 12`, two passes, the second in reverse order. 18 of the 20 models repeated within 3% at the board; the 0.5B Q4_0 and Q4_K_M, which decode fastest and so have the shortest windows, repeated within 8% and 5%.
+So the sweep uses real models whose layers have different widths: Qwen2.5 0.5B, 1.5B, 3B and 7B, with hidden sizes 896, 1536, 2048 and 3584. Each was quantized from its own F16 GGUF into Q4_0, Q4_K_M, Q5_K_M, Q6_K and Q8_0, and decoded with `phase --seconds 12`, two passes, the second in reverse order. 18 of the 20 models repeated within 3% at the board; the 0.5B Q4_0 and Q4_K_M, which decode fastest and so have the shortest windows, repeated within 8% and 5%.
 
 To compare models of different sizes, energy per token is divided by the weights read per token (every tensor except the token embedding table), giving **energy per weight**. Share of roof uses the 307 GB/s from note 5.
 
@@ -72,7 +72,7 @@ One machine, one model family. Width is not the only difference between these mo
 ## Reproduce
 
 ```bash
-uv run joule models/quant/{0.5b,1.5b,3b,7b}-{Q4_0,Q4_K_M,Q5_K_M,Q6_K,Q8_0}.gguf --seconds 12 --out results/width.json
+uv run phase models/quant/{0.5b,1.5b,3b,7b}-{Q4_0,Q4_K_M,Q5_K_M,Q6_K,Q8_0}.gguf --seconds 12 --out results/width.json
 uv run --with gguf python experiments/width.py results/width-run1.json results/width-run2.json results/summary-width.json
 ```
 

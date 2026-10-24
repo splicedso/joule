@@ -26,7 +26,7 @@ import sys
 import time
 from pathlib import Path
 
-from joule.power import Sampler, idle_baseline, mean_power
+from phase.power import Sampler, idle_baseline, mean_power
 
 BIN = Path(__file__).parent.parent / "vendor/llama.cpp/build/bin/test-backend-ops"
 M, K = 4096, 14336

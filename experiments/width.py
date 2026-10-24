@@ -6,7 +6,7 @@ measures cache bandwidth, not memory. Real decode streams every layer's weights,
 than any cache holds. So the sweep uses real models of four widths, Qwen2.5 0.5B, 1.5B, 3B
 and 7B (hidden size 896, 1536, 2048, 3584), each quantized from its own F16 GGUF.
 
-This script reads the energy runs made with `joule` and normalises them per weight: decode
+This script reads the energy runs made with `phase` and normalises them per weight: decode
 energy per token divided by the weights read per token (every tensor except the token
 embedding table, as in note 2). It also reports the share of the bandwidth roof, using the
 307 GB/s llama.cpp's own F16 kernel reaches (note 5).

@@ -1,8 +1,8 @@
-# joule
+# Phase
 
 Energy per token for local LLM inference, measured, with prefill and decode reported apart.
 
-Published edge-LLM energy figures disagree because they measure different things: chip package only, a TDP estimate, or one device in one paper. `joule` measures two things on the machine in front of it and says which is which:
+Published edge-LLM energy figures disagree because they measure different things: chip package only, a TDP estimate, or one device in one paper. `phase` measures two things on the machine in front of it and says which is which:
 
 - **SoC**: the chip (CPU, GPU, ANE, memory interface), sampled every 200 ms.
 - **sys**: the logic board's DC input as the SMC reports it. Close to wall power minus adapter loss, but smoothed to about 1 Hz, so it is only used as a mean over a long steady window.
@@ -13,7 +13,7 @@ Each is reported gross and **net** of an idle baseline taken at the start of the
 
 ```bash
 brew install macmon llama.cpp
-uv run joule model-a.gguf model-b.gguf --out results/run.json
+uv run phase model-a.gguf model-b.gguf --out results/run.json
 ```
 
 Arguments after `--` go to `llama-bench` (for example `-- -fa on -t 8`).

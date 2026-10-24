@@ -20,7 +20,7 @@ import mlx.nn as nn
 from mlx_lm import load
 from mlx_lm.generate import generate_step
 
-from joule.power import Sampler, idle_baseline, mean_power
+from phase.power import Sampler, idle_baseline, mean_power
 
 PROMPT = "Write a short paragraph about how electricity reaches a house."
 CTX, CHUNKS = 512, 60

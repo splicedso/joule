@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.0
+
+- Renamed from joule to Phase: the repository, the Python package and the `phase` command. Old GitHub links redirect. The tool's core idea is measuring each phase of inference, prefill and decode, apart.
+- `experiments/speculative_server.py`: the speculative decoding experiment through llama-server, for machines whose llama.cpp build lacks `llama-speculative-simple`.
+
 ## 0.2.0
 
 - Windows backend: NVIDIA GPU power from `nvidia-smi` and whole-system power from the battery's discharge rate, unplugged; drops spurious `nvidia-smi` power spikes.
@@ -9,4 +14,4 @@
 
 ## 0.1.0
 
-- `joule`: energy per token for llama.cpp on Apple silicon, chip and board, prefill and decode apart, no sudo.
+- `phase`: energy per token for llama.cpp on Apple silicon, chip and board, prefill and decode apart, no sudo.

@@ -1,6 +1,6 @@
-# Porting joule to Windows
+# Porting Phase to Windows
 
-joule measures LLM energy per token at two points, the chip and the whole board, with prefill and decode reported apart. Today it only runs on macOS, where `macmon` reads both without sudo. This is the brief for a second machine.
+Phase measures LLM energy per token at two points, the chip and the whole board, with prefill and decode reported apart. Today it only runs on macOS, where `macmon` reads both without sudo. This is the brief for a second machine.
 
 ## Goal
 
@@ -13,13 +13,13 @@ Run the study in `notes/2026-10-formats-and-batching.md` on a Windows laptop, so
 3. GPU power, the nearest equivalent of the Mac's chip reading on a discrete GPU: `nvidia-smi --query-gpu=power.draw --format=csv -lms 100` on NVIDIA.
 4. CPU package power only if it can be read without installing a driver. If it cannot, say so. Do not estimate it from TDP.
 
-Add the backend beside `joule/power.py` behind the same `Sampler` interface, so `measure.py` and `experiments/batching.py` run unchanged.
+Add the backend beside `phase/power.py` behind the same `Sampler` interface, so `measure.py` and `experiments/batching.py` run unchanged.
 
 ## The study
 
 - llama.cpp, Qwen2.5 1.5B Instruct, the same eight formats quantized from the F16 GGUF with `llama-quantize`, no importance matrix.
 - Perplexity: WikiText-2 raw test, `-c 512 --chunks 60`.
-- Energy: `joule --seconds 15`, two passes, the second in reverse order.
+- Energy: `phase --seconds 15`, two passes, the second in reverse order.
 - Batching: `experiments/batching.py` at batch 1 to 8, three passes.
 
 ## Output

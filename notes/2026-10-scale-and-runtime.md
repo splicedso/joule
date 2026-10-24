@@ -6,7 +6,7 @@ Note 1 found that energy per token does not follow bit width, and that Q4_0 is t
 
 ## Method
 
-- **7B, llama.cpp.** Qwen2.5 7B Instruct, the official F16 GGUF, quantized with `llama-quantize` into the same seven formats as note 1. Perplexity as before: WikiText-2 raw test, 512-token windows, 60 chunks. Energy: `joule --seconds 15`, two passes, the second in reverse order.
+- **7B, llama.cpp.** Qwen2.5 7B Instruct, the official F16 GGUF, quantized with `llama-quantize` into the same seven formats as note 1. Perplexity as before: WikiText-2 raw test, 512-token windows, 60 chunks. Energy: `phase --seconds 15`, two passes, the second in reverse order.
 - **1.5B, MLX.** The Hugging Face weights converted with `mlx_lm.convert` to bf16, fp16, and affine 8, 6, 4 and 3 bit (group size 64), plus mxfp4. Perplexity is computed to match `llama-perplexity` exactly: the same text, tokenizer, windows and scoring of the second half of each window (`experiments/mlx_formats.py`). Energy: one continuous decode of about 15 s with end-of-text ignored, two passes, the second in reverse order.
 
 ## 7B: the findings replicate
@@ -67,7 +67,7 @@ One machine. MLX was measured at 1.5B only. The F16 7B run is affected by memory
 ## Reproduce
 
 ```bash
-uv run joule models/quant/7b-*.gguf --seconds 15 --out results/quant-energy-7b.json
+uv run phase models/quant/7b-*.gguf --seconds 15 --out results/quant-energy-7b.json
 uv run --extra mlx python experiments/mlx_formats.py models/mlx/1.5b-mlx-* results/mlx.json
 ```
 

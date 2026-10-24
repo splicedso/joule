@@ -1,12 +1,12 @@
 [project]
-name = "joule"
-version = "0.2.0"
+name = "phase"
+version = "0.3.0"
 description = "Energy per token for local LLM inference, measured, with prefill and decode reported apart."
 requires-python = ">=3.11"
 dependencies = []
 
 [project.scripts]
-joule = "joule.cli:main"
+phase = "phase.cli:main"
 
 [project.optional-dependencies]
 mlx = [
@@ -21,7 +21,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = ["joule"]
+packages = ["phase"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

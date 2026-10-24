@@ -9,7 +9,7 @@ Does a lower-bit format cost less energy per decoded token on unified memory, an
 ## Method
 
 - One model, Qwen2.5 1.5B Instruct, quantized from the same F16 GGUF with `llama-quantize` (no importance matrix) into Q2_K, Q3_K_M, Q4_0, Q4_K_M, Q5_K_M, Q6_K, Q8_0, plus F16.
-- Energy: `joule` (this repository). Decode is 128 generated tokens per repetition, about 15 timed seconds per format, first quarter of the window dropped, idle baseline taken first. Two full passes, the second in reverse order to expose drift and order effects.
+- Energy: `phase` (this repository). Decode is 128 generated tokens per repetition, about 15 timed seconds per format, first quarter of the window dropped, idle baseline taken first. Two full passes, the second in reverse order to expose drift and order effects.
 - Quality: `llama-perplexity` on the WikiText-2 raw test set, 512-token context, 60 chunks.
 - Batching: `experiments/batching.py` runs `llama-batched-bench` (64 prompt tokens, 512 generated per sequence) at batch 1 to 8, three passes, and aligns each decode window to the power samples. Chip power only, since the board reading is smoothed to about 1 Hz.
 
@@ -60,7 +60,7 @@ We first suspected llama.cpp's Metal kernel selection: its small-batch matrix-ve
 
 ```bash
 brew install macmon llama.cpp
-uv run joule models/quant/1.5b-*.gguf --seconds 15 --out results/run.json
+uv run phase models/quant/1.5b-*.gguf --seconds 15 --out results/run.json
 uv run python experiments/batching.py model.gguf results/batch.json 1,2,3,4,5,6,7,8
 ```
 

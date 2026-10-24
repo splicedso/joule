@@ -1,10 +1,10 @@
 cff-version: 1.2.0
-title: "joule: energy per token for local LLM inference, measured at the chip and the board"
-message: "If you use joule or its measurements, please cite it."
+title: "Phase: energy per token for local LLM inference, measured at the chip and the board"
+message: "If you use Phase or its measurements, please cite it."
 type: software
 authors:
   - name: "Spliced"
-repository-code: "https://github.com/splicedso/joule"
+repository-code: "https://github.com/splicedso/phase"
 url: "https://splicedso.github.io"
 license: Apache-2.0
 date-released: "2026-10-24"
