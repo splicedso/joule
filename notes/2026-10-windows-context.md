@@ -49,6 +49,27 @@ The reason is that the cache was never the constraint. Both models and all depth
 1. Context depth is a real per-token energy cost: about 1.3 times at 16k on both models here, at batch 1. That direct cost is far too small to explain note 8's 60 times gap by itself; the untested remainder is the loss of batching at long contexts.
 2. Quantizing the KV cache is not a free efficiency win. On a GPU with room for the f16 cache it cost energy and speed at every depth measured, more so the deeper the context. It earns its place only when it is the difference between fitting on the GPU and not.
 
+## The Mac half
+
+The same runs on the Apple M5 Pro (24 GB, Metal, build 11669), same models, depths, flags and two passes, 12-second windows. Chip and whole-system energy per decoded token (mJ), mean of two passes; passes agreed within 5.2% on chip energy except the 1.5B 8-bit cache at depths 0 and 1024 (7.7% and 6.0%).
+
+| model | depth | f16 chip | f16 system | f16 tok/s | q8_0 chip | q8_0 tok/s |
+|---|---:|---:|---:|---:|---:|---:|
+| 1.5B | 0 | 103.1 | 288.9 | 206.6 | 108.4 | 178.9 |
+| 1.5B | 4096 | 120.4 | 339.5 | 186.7 | 131.3 | 173.3 |
+| 1.5B | 8192 | 135.1 | 384.4 | 169.7 | 153.5 | 159.3 |
+| 1.5B | 16384 | 198.7 | 528.7 | 133.7 | 193.2 | 137.3 |
+| 7B | 0 | 354.8 | 1054.7 | 62.0 | 378.8 | 59.7 |
+| 7B | 4096 | 413.7 | 1187.3 | 57.9 | 435.3 | 56.5 |
+| 7B | 8192 | 445.8 | 1295.3 | 54.4 | 484.5 | 53.2 |
+| 7B | 16384 | 589.0 | 1600.9 | 47.0 | 583.4 | 47.5 |
+
+Depth costs more on the Mac. With the f16 cache, a token at 16k costs 1.93 times one at zero on the 1.5B and 1.66 times on the 7B (chip), against about 1.3 times on the NVIDIA card. Whole-system energy follows: 1.83 and 1.52 times. The cost is not linear in depth: up to 8k it tracks the NVIDIA card (1.31 and 1.26 times), and nearly all of the extra appears between 8k and 16k. We have not isolated why. The likely candidates are the attention kernel's path at that length and the cache outgrowing the chip's on-die cache, and this run does not tell them apart.
+
+The 8-bit cache tells the same story as on Windows at short depths, costing 5 to 16% more energy up to 8k, but not at 16k: there it is level with f16 (193.2 against 198.7 mJ on the 1.5B, 583.4 against 589.0 on the 7B, differences inside the pass spread). So on this machine an 8-bit cache stops costing extra once the context is deep enough that reading the cache dominates, though it still does not save energy at batch 1. Its case remains memory: fitting more context, or a bigger batch, than the f16 cache allows.
+
+Two machines, one direction: depth is a real per-token cost, between 1.3 and 1.9 times at 16k depending on hardware, still far short of note 8's 60 times.
+
 ## Limits
 
 GPU (chip) energy only; there is no whole-system figure on AC on this machine. Two models, one quantization (Q4_0), one family, greedy decode through llama-bench. Depths to 16384 only, and only depths that fit the 12 GB card, so the regime where an 8-bit cache is the only way to fit a context is exactly the one not tested here. The 8-bit cache result is therefore a statement about the not-VRAM-bound case. Build 11851 (CUDA) differs from the Mac's 11669 (Metal), a caveat on any cross-machine comparison with the Mac half of this note.
@@ -65,4 +86,6 @@ Windows, no admin, plugged in. With a clone and a prebuilt llama.cpp CUDA build 
 # run the whole set twice, the second reversed, with a -run2 suffix on the second pass.
 ```
 
-Raw results: `results/depth-windows-{1.5b,7b}-d{0,1024,4096,8192,16384}[-kvq8][-run2].json`, `results/summary-context-windows.json`.
+Mac: `sh experiments/context.sh mac`.
+
+Raw results: `results/depth-mac-{1.5b,7b}-d{0,1024,4096,8192,16384}[-kvq8][-run2].json`, `results/depth-windows-{1.5b,7b}-d{0,1024,4096,8192,16384}[-kvq8][-run2].json`, `results/summary-context-windows.json`.

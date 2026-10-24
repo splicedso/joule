@@ -1,0 +1,63 @@
+{
+  "machine": {
+    "chip": "Apple M5 Pro",
+    "ram_bytes": 25769803776,
+    "macos": "27.0.1",
+    "on_ac": true
+  },
+  "idle_w": {
+    "soc": 1.0840608034584973,
+    "sys": 14.368137153419289
+  },
+  "settings": {
+    "prefill": 512,
+    "decode": 128,
+    "seconds": 12.0,
+    "bench_args": [
+      "-d",
+      "8192",
+      "-fa",
+      "on",
+      "-ctk",
+      "q8_0",
+      "-ctv",
+      "q8_0"
+    ]
+  },
+  "results": [
+    {
+      "model": "1.5b-Q4_0.gguf",
+      "model_type": "qwen2 1.5B Q4_0",
+      "phase": "prefill",
+      "tokens": 512,
+      "tokens_per_s": 3341.23754,
+      "soc_w": 42.254399676655616,
+      "sys_w": 71.37744601937227,
+      "soc_j_per_tok": 0.012646332136162822,
+      "sys_j_per_tok": 0.021362577537475013,
+      "soc_net_j_per_tok": 0.012321883248443664,
+      "sys_net_j_per_tok": 0.017062333396970327,
+      "steady_s": 9.079685468255775,
+      "samples": 43,
+      "reps": 79,
+      "build": "620d2225c (11669)"
+    },
+    {
+      "model": "1.5b-Q4_0.gguf",
+      "model_type": "qwen2 1.5B Q4_0",
+      "phase": "decode",
+      "tokens": 128,
+      "tokens_per_s": 158.430342,
+      "soc_w": 24.836436382559842,
+      "sys_w": 65.88516324065452,
+      "soc_j_per_tok": 0.15676565529701275,
+      "sys_j_per_tok": 0.4158620274937898,
+      "soc_net_j_per_tok": 0.14992314779640722,
+      "sys_net_j_per_tok": 0.3251714629716272,
+      "steady_s": 9.089360965503147,
+      "samples": 43,
+      "reps": 15,
+      "build": "620d2225c (11669)"
+    }
+  ]
+}
