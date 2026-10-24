@@ -32,6 +32,8 @@ Energy is the mean of two passes, which agreed within 4% for every format. Perpl
 2. **Chip-only measurement misranks F16.** On the chip F16 matches Q4_K_M, because the GPU draws only about 11 W while it waits on memory. At the board F16 is the most expensive format, 2.1 times Q4_0. The memory traffic is real energy that a package measurement does not see.
 3. **Q4_0 is the efficient 4-bit format here.** Its perplexity is within error of Q4_K_M at 18% less board energy and 26% less chip energy, at the same speed. The formats nothing else beats on both quality and board energy are Q4_0, Q4_K_M, Q6_K and Q8_0. Q5_K_M, Q3_K_M and Q2_K are each beaten on both.
 
+<!-- chart:fmt -->
+
 ## Results: batching
 
 | batch | Q4_0 chip mJ/tok | Q4_0 GPU W | Q4_K_M chip mJ/tok | Q4_K_M GPU W |
@@ -40,6 +42,8 @@ Energy is the mean of two passes, which agreed within 4% for every format. Perpl
 | 2 | 103.3 | 32.7 | 120.9 | 36.4 |
 | 4 | 54.3 | 33.3 | 62.0 | 35.0 |
 | 8 | 29.3 | 33.2 | 33.7 | 34.6 |
+
+<!-- chart:bat -->
 
 GPU power is a step, not a ramp. At batch 1 the GPU is memory-bound and draws 18 to 24 W. At batch 2 it reaches its ceiling and stays there through batch 8, while throughput keeps rising. So the second sequence pays for nearly the whole power step: batch 2 saves 1% per token on Q4_0. Batch 8 saves 72%.
 

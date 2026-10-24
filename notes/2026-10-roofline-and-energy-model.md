@@ -41,6 +41,8 @@ The first attempt used the model file size as bytes per token. F16 then decoded 
 | Q3_K_M | 0.82 | 204.4 | 324.7 | 63% | 0.41 |
 | Q2_K | 0.67 | 227.7 | 396.4 | 57% | 0.42 |
 
+<!-- chart:roof -->
+
 F16 runs at 97% of the roof: a textbook memory-bound kernel. Every step down in bits uses less of the bandwidth. Low-bit weights must be unpacked before they are multiplied, and as the bytes shrink that unpacking becomes the bottleneck. Q2_K reads 4.6 times fewer bytes than F16 but decodes only 2.7 times faster. The same effect shows in energy: each byte of Q2_K costs 2.4 times what a byte of F16 does.
 
 ## 4. An energy model, and the second mistake
