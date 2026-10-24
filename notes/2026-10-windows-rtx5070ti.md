@@ -1,8 +1,10 @@
-# Fewer bits is not fewer joules, on a Windows laptop
+# Batching without a step: a discrete GPU on AC power
 
-Spliced research note 2, 24 October 2026. Windows 11 laptop: Intel Core Ultra 9 285H, NVIDIA GeForce RTX 5070 Ti Laptop GPU (12 GB, Blackwell, compute 12.0), 32 GB RAM, on a battery. llama.cpp build 11851 (prebuilt CUDA 13.4 x64), CUDA backend, all layers on the GPU, no admin rights.
+Spliced research note 10, 24 October 2026. Windows 11 laptop: Intel Core Ultra 9 285H, NVIDIA GeForce RTX 5070 Ti Laptop GPU (12 GB, Blackwell, compute 12.0), 32 GB RAM, on a battery. llama.cpp build 11851 (prebuilt CUDA 13.4 x64), CUDA backend, all layers on the GPU, no admin rights.
 
-This repeats note 1 (`notes/2026-10-formats-and-batching.md`, Apple M5 Pro) on different hardware, to see whether the format ranking and the batching step hold. They mostly do. One headline finding of note 1 does not, and that is the interesting part.
+This repeats note 1 (`notes/2026-10-formats-and-batching.md`, Apple M5 Pro) on different hardware, to see whether the format ranking and the batching step hold. Note 4 (`notes/2026-10-two-machines.md`) compared the two machines on battery; this note adds the machine plugged in, where its GPU is not power-capped, and the batch sweep. The format ranking mostly holds. The batching step does not, and neither does note 1's chip-only finding for F16.
+
+The llama.cpp build here is 11851, against 11669 on the Mac, because the prebuilt CUDA package for that build was what was available. Kernel changes between the two builds are possible and are a caveat on every cross-machine comparison below.
 
 ## Question
 
@@ -38,7 +40,7 @@ Decode. Energy is the mean of the two passes (they agreed within about 5%). Perp
 
 1. **Energy still does not fall with bit width.** Q3_K_M costs more per token than Q4_K_M and Q5_K_M despite fewer bits, and Q2_K buys almost nothing over Q4_0 in energy while its perplexity collapses to 16. The cheapest formats are Q4_0 and Q2_K; the dividing line for quality is between Q4_0 (ppl 10.1) and Q3_K_M (10.9).
 
-2. **Chip-only does NOT misrank F16 here — note 1's headline finding is hardware-specific.** On this discrete GPU the chip already names F16 the most expensive format, about 2.5x Q4_0 (753 vs 295 mJ/tok on AC). The reason is the opposite of the Mac's: this GPU holds roughly 90–105 W whether compute- or memory-bound rather than dropping to ~11 W, so chip energy per token is essentially power divided by throughput, and the slow formats are the expensive ones on the chip too. The whole-system reading adds only a near-constant overhead (board is about 1.15–1.38x chip across formats), so the board does not re-order anything. The effect that made package-only measurement misleading on Apple silicon does not appear on this dGPU.
+2. **Chip-only does NOT misrank F16 here — note 1's headline finding is hardware-specific.** On this discrete GPU the chip already names F16 the most expensive format, about 2.5x Q4_0 (753 vs 295 mJ/tok on AC). The reason is the opposite of the Mac's: this GPU holds roughly 90–105 W whether compute- or memory-bound rather than dropping to ~11 W, so chip energy per token is essentially power divided by throughput, and the slow formats are the expensive ones on the chip too. The whole-system reading adds only a near-constant overhead (board is about 1.15–1.38x chip across formats), so the board does not re-order anything. The effect that made package-only measurement misleading on Apple silicon does not appear on this dGPU. Note 4 gives the other half of the reason: NVIDIA's GPU reading includes the card's own memory, which Apple's chip reading leaves out.
 
 3. **Q4_0 is the efficient 4-bit format here, as on the Mac.** Its perplexity is within error of Q4_K_M at lower chip and board energy and higher throughput. Nothing beats Q4_0 on both quality and board energy except by a margin inside the noise.
 
