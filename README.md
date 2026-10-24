@@ -56,6 +56,7 @@ Raw JSON is in `results/`.
 - [9. One flag fixes speculative decoding's energy problem](notes/2026-10-speculative-threshold.md): a draft confidence threshold (`--spec-draft-p-min`, about 0.5) removes the energy penalty on every task and makes speculation on prose a free 1.3x speed-up.
 - [10. The same token, plugged in, and under batching](notes/2026-10-windows-ac-and-batching.md): the Windows laptop on AC power and a batch sweep on CUDA. Plugging in costs 23 to 33% more energy per token for 34 to 46% more speed, and the GPU is at its 100 W ceiling from batch 1, so the second request saves 43% where on the Mac it saved 1%.
 - [11. Same result, second tool](notes/2026-10-speculative-second-tool.md): notes 7 and 9 repeated through llama-server. Every finding holds; the server is slightly more favourable to speculation; and why Windows Smart App Control blocked the Windows run.
+- [12. Small models pay more per weight, on a discrete GPU too](notes/2026-10-windows-width.md): note 6's width sweep on the RTX 5070 Ti. The penalty is larger here — up to 2.2x, steepest for the low-bit formats; Q4_0 is cheapest at every width; Q5_K_M beats Q6_K at every width, with no flip.
 
 ## Known limits
 
