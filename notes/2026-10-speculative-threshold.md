@@ -61,7 +61,25 @@ At 0.95 the draft model stops almost immediately, so drafts are short and nearly
 
 ## Limits
 
-One machine, one model pair, greedy decoding, three prompts, three thresholds. 0.5 was the lowest threshold tried, so a lower value might do better still. Some threshold conditions varied by up to 23% between runs, more than the untreated conditions; the conclusions above hold within those spreads, but the exact percentages should be read as approximate. Chip energy only.
+One machine, one model pair, greedy decoding, three prompts, three thresholds. 0.5 was the lowest threshold in the first run; the addendum tries lower ones. Some threshold conditions varied by up to 23% between runs, more than the untreated conditions; the conclusions above hold within those spreads, but the exact percentages should be read as approximate. Chip energy only.
+
+## Addendum: thresholds below 0.5
+
+0.5 was the lowest threshold in the first run, so a lower one might have done better. A second run (`results/speculative-pmin-low-7b.json`) tried 0.1, 0.2 and 0.3, with 0.5 repeated in the same session for comparison.
+
+| prompt | strategy | accepted | speed | energy vs plain |
+|---|---|---:|---:|---:|
+| prose | draft-8, p 0.1 | 28% | 0.86x | 1.63 |
+| prose | draft-8, p 0.2 | 30% | 0.90x | 1.65 |
+| prose | draft-8, p 0.3 | 39% | 1.07x | 1.35 |
+| prose | draft-8, p 0.5 | 68% | 1.30x | **1.01** |
+| prose | draft-16, p 0.5 | 62% | 1.26x | 1.09 |
+| edit | draft-8, p 0.1 to 0.5 | 97% | 2.25x to 2.29x | 0.59 to 0.61 |
+| edit | draft-16, p 0.5 | 94% | 1.90x | 0.80 |
+
+**Lower is worse.** Below 0.5 the threshold stops too few bad drafts, and on prose the energy penalty returns: 1.35 times plain decoding at 0.3, 1.65 at 0.2. At 0.5 prose is again energy-neutral at 1.3 times the speed, matching the first run (0.99 there, 1.01 here). On the edit task the threshold barely matters, since almost every draft is right. Together with the first run, the best value on this machine lies between 0.5 and 0.8, and 0.5 remains the recommendation. Even with a threshold, drafts of 8 beat drafts of 16 on every prompt.
+
+The code prompt was noisy in this session: plain decoding itself varied by 27% between its three runs, and the code conditions by up to 29%, so code is left out of the table. Prose and edit repeated within 5% to 24% and agree with the first run.
 
 ## Reproduce
 
@@ -70,4 +88,4 @@ uv run python experiments/speculative.py results/speculative-pmin-7b.json \
   plain,draft-8,draft-8-p0.5,draft-8-p0.8,draft-8-p0.95,draft-16,draft-16-p0.8
 ```
 
-Raw results: `results/speculative-pmin-7b.json`, `results/summary-speculative-pmin.json`.
+Raw results: `results/speculative-pmin-7b.json`, `results/summary-speculative-pmin.json`, `results/speculative-pmin-low-7b.json`, `results/summary-speculative-pmin-low.json`.
