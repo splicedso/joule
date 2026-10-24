@@ -56,6 +56,13 @@ def main():
     rows += llamacpp(["quant-energy-7b.json", "quant-energy-7b-run2.json"], 3, skip=("F16",))
     rows += llamacpp(["quant-energy-windows-battery-run1.json", "quant-energy-windows-battery-run2.json"], 4,
                      machine=WIN, chip="GPU (nvidia-smi, includes VRAM)", board="battery discharge", state="battery")
+    rows += llamacpp(["quant-energy-windows-ac-run1.json", "quant-energy-windows-ac-run2.json"], 10,
+                     machine=WIN, chip="GPU (nvidia-smi, includes VRAM)", board="", state="AC")
+    for r in rows:
+        if r["note"] == 10:
+            r["runtime"], r["board_mj"] = "llama.cpp b11851 (CUDA)", ""
+        if r["note"] == 4:
+            r["runtime"] = "llama.cpp b11851 (CUDA)"
     for name, got in decode_rows(["width-run1.json", "width-run2.json"]).items():
         size, fmt = size_and_format(name)
         if size in ("0.5b", "3b"):
@@ -69,6 +76,15 @@ def main():
                          "chip_mj": round(mean([r[i]["soc_mj_per_tok"] for r in runs]), 1), "board_mj": "",
                          "chip_point": "chip (SoC)", "board_point": "", "power_state": "AC", "passes": len(runs),
                          "note": 1, "source": f"batching-gpu-1.5b-{q}.json"})
+    for q, fmt in (("q4_0", "Q4_0"), ("q4_k_m", "Q4_K_M")):
+        runs = json.load(open(R / f"batching-windows-{q}.json"))["runs"]
+        for i in range(len(runs[0])):
+            rows.append({"machine": WIN, "runtime": "llama.cpp b11851 (CUDA)", "model": "Qwen2.5 1.5B", "params_b": 1.5,
+                         "format": fmt, "batch": runs[0][i]["batch"],
+                         "tok_s": round(mean([r[i]["tokens_per_s"] for r in runs]), 1),
+                         "chip_mj": round(mean([r[i]["soc_mj_per_tok"] for r in runs]), 1), "board_mj": "",
+                         "chip_point": "GPU (nvidia-smi, includes VRAM)", "board_point": "", "power_state": "AC",
+                         "passes": len(runs), "note": 10, "source": f"batching-windows-{q}.json"})
     names = {"NVIDIA H100-NVL-94GB": "8x NVIDIA H100 NVL server", "NVIDIA B200-SXM-180GB": "8x NVIDIA B200 server"}
     models = {"llama2-70b-99": ("Llama 2 70B", 70), "llama3.1-8b": ("Llama 3.1 8B", 8), "llama3.1-405b": ("Llama 3.1 405B", 405)}
     for r in csv.DictReader(open(R / "mlperf-llm-power.csv")):
