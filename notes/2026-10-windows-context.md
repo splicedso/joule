@@ -1,0 +1,66 @@
+# What a long context costs, and what an 8-bit KV cache does not save
+
+Spliced research note 13 (Windows half), 24 October 2026. Windows 11 laptop: Intel Core Ultra 9 285H, NVIDIA GeForce RTX 5070 Ti Laptop GPU (12 GB, Blackwell), 32 GB RAM, on AC. llama.cpp build 11851 (prebuilt CUDA 13.4 x64), CUDA backend, all layers on the GPU. Qwen2.5 1.5B and 7B, Q4_0.
+
+Note 8 found that a 405B model's measured energy per token was far above what its weights alone predict, and named the long input as the likely cause. This note measures that cause directly on one machine: how much more does a token cost when the context is already deep, and does quantizing the KV cache to 8 bits, the usual fix for a large cache, save that energy back?
+
+## Method
+
+`phase --seconds 12` with llama-bench's decode test at a given context depth (`-d`), flash attention on (`-fa on`). Depths 0, 1024, 4096, 8192, 16384 tokens already in the cache. Two configurations: the default f16 KV cache, and an 8-bit cache (`-ctk q8_0 -ctv q8_0`). Two models, 1.5B and 7B Q4_0. The whole set ran twice, the second pass in reverse order. GPU (chip) energy only, as in note 4: there is no whole-system reading on AC on this machine. Every depth fit in the 12 GB of VRAM for both models and both cache types, so nothing was skipped or spilled to the CPU. The two passes agreed within 6% on chip energy per token for every cell.
+
+## Results
+
+Chip energy per decoded token (mJ) and decode speed (tok/s), mean of two passes:
+
+1.5B Q4_0:
+
+| depth | f16 tok/s | f16 mJ/tok | q8 tok/s | q8 mJ/tok | q8 / f16 |
+|---:|---:|---:|---:|---:|---:|
+| 0 | 349.1 | 288.0 | 332.9 | 300.2 | 1.04 |
+| 1024 | 328.7 | 304.2 | 309.0 | 322.4 | 1.06 |
+| 4096 | 305.4 | 322.6 | 269.2 | 357.5 | 1.11 |
+| 8192 | 297.1 | 331.8 | 235.9 | 420.3 | 1.27 |
+| 16384 | 258.5 | 367.5 | 193.1 | 521.8 | 1.42 |
+
+7B Q4_0:
+
+| depth | f16 tok/s | f16 mJ/tok | q8 tok/s | q8 mJ/tok | q8 / f16 |
+|---:|---:|---:|---:|---:|---:|
+| 0 | 97.5 | 1027.0 | 95.6 | 1046.1 | 1.02 |
+| 1024 | 95.5 | 1024.2 | 95.4 | 1041.9 | 1.02 |
+| 4096 | 85.9 | 1160.3 | 88.3 | 1131.1 | 0.97 |
+| 8192 | 89.9 | 1095.5 | 75.3 | 1313.9 | 1.20 |
+| 16384 | 76.2 | 1325.5 | 64.2 | 1544.8 | 1.17 |
+
+## 1. A deep context makes every token more expensive
+
+With the default cache, a token at 16k of depth costs 1.28 times one at zero depth on the 1.5B (288.0 to 367.5 mJ) and 1.29 times on the 7B (1027.0 to 1325.5 mJ), while decode speed falls to 0.74 and 0.78 of its shallow-context rate. The 1.5B rises smoothly with depth; the 7B rises toward 16k but is not strictly monotonic in the middle (4096 reads higher than 8192), a wobble inside the 6% pass spread. The direction is clear on both: attention over a longer cache is real per-token work, and it is the kind of cost note 8 pointed to. A per-token energy figure measured at zero depth understates a long-context workload by about a third at 16k here.
+
+## 2. The 8-bit KV cache saves no energy here, and costs more with depth
+
+Quantizing the cache to 8 bits did not reduce energy at any depth on either model. At zero depth it was within 2 to 4% of the f16 cache. By 16k it cost 1.42 times the f16 cache on the 1.5B and 1.17 times on the 7B, and it decoded slower at every depth past 1024 (193 against 258 tok/s at 16k on the 1.5B). Its own depth penalty is steeper than the f16 cache's: 16k against zero is 1.74 times the energy on the 1.5B and 1.48 times on the 7B, against 1.28 and 1.29 for f16.
+
+The reason is that the cache was never the constraint. Both models and all depths fit in 12 GB with the full f16 cache, so the memory the 8-bit cache frees was not needed, while reading it still requires dequantizing every key and value on every attention step. On this GPU that extra arithmetic shows up as power and time, not as a saving. An 8-bit KV cache is a tool for fitting a context that would otherwise not fit, or run on the CPU; where the f16 cache already fits on the GPU, it is a net cost, and a growing one as the context deepens.
+
+## What to take from this
+
+1. Context depth is a real per-token energy cost: about 1.3 times at 16k on both models here, which is consistent with note 8's long-context result being a context cost rather than a weight cost.
+2. Quantizing the KV cache is not a free efficiency win. On a GPU with room for the f16 cache it cost energy and speed at every depth measured, more so the deeper the context. It earns its place only when it is the difference between fitting on the GPU and not.
+
+## Limits
+
+GPU (chip) energy only; there is no whole-system figure on AC on this machine. Two models, one quantization (Q4_0), one family, greedy decode through llama-bench. Depths to 16384 only, and only depths that fit the 12 GB card, so the regime where an 8-bit cache is the only way to fit a context is exactly the one not tested here. The 8-bit cache result is therefore a statement about the not-VRAM-bound case. Build 11851 (CUDA) differs from the Mac's 11669 (Metal), a caveat on any cross-machine comparison with the Mac half of this note.
+
+## Reproduce
+
+Windows, no admin, plugged in. With a clone and a prebuilt llama.cpp CUDA build on `PATH`:
+
+```powershell
+.\.venv\Scripts\python -m pip install -e .
+# for each size in 1.5b, 7b and each depth D in 0 1024 4096 8192 16384:
+.\.venv\Scripts\phase models/quant/<size>-Q4_0.gguf --seconds 12 --out results/depth-windows-<size>-d<D>.json -- -d <D> -fa on
+.\.venv\Scripts\phase models/quant/<size>-Q4_0.gguf --seconds 12 --out results/depth-windows-<size>-d<D>-kvq8.json -- -d <D> -fa on -ctk q8_0 -ctv q8_0
+# run the whole set twice, the second reversed, with a -run2 suffix on the second pass.
+```
+
+Raw results: `results/depth-windows-{1.5b,7b}-d{0,1024,4096,8192,16384}[-kvq8][-run2].json`, `results/summary-context-windows.json`.
