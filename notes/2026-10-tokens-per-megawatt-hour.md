@@ -49,7 +49,9 @@ On the same B200 server, per billion parameters:
 
 The 8B model costs 5.6 times as much per parameter as the 70B. Note 6 found the same shape on a laptop: narrow models leave the hardware underused, so each weight costs more. It is the same physics at a thousand times the power.
 
-The 405B figure is the outlier, 60 times the 70B's energy per token for 5.8 times the parameters. The likely reason is the benchmark, not the model: MLPerf counts only output tokens, and the 405B task's prompts are drawn from long-context datasets (LongBench, GovReport, Ruler), so a large amount of prefill work is charged to relatively few output tokens. We have not verified the average input length, so this is a hypothesis, and the 405B figure should not be compared with the others as a cost of the model.
+The 405B figure is the outlier, 60 times the 70B's energy per token for 5.8 times the parameters. The reason is the benchmark's shape, not only the model. MLCommons states that the 405B task's prompts average about 9,400 input tokens against about 680 output tokens ([MLCommons, MLPerf Inference v5.0](https://mlcommons.org/2025/04/llm-inference-v5/)), roughly 14 input tokens per output token, drawn from long-context datasets (LongBench, GovReport, Ruler). MLPerf counts only output tokens, so all of that work is charged to them.
+
+Long prefill alone cannot account for a 60-fold gap: prefill costs far less per token than decode (note 1 measured 20 to 35 times less on a laptop). The larger effect is likely what long contexts do to decode itself. Each sequence's key-value cache, its memory of the context, grows with every input token, so at 9,400 tokens far fewer sequences fit in memory at once, batching drops, and every decode step must also read that cache. We have not measured how much each effect contributes, and we could not find the 70B task's input length from an official source, so the 405B figure is a cost of long-context serving, not a cost of the model, and should not be compared with the others.
 
 ## 4. From the server to the building
 
@@ -70,13 +72,14 @@ On the M5 Pro, Qwen2.5 7B Q4_0 decoding one request at a time cost 1.15 J per to
 
 ## Limits
 
-Two systems from two submitters, at different precisions and power levels. Tokens per second count output tokens only. The roofline bound uses 4 bits per weight and ignores quantization scales, so the true minimum batch is somewhat higher than 58. Wall power is what MLPerf's power rules measure; it excludes facility overhead, which we apply with published PUE figures, not measurements.
+Two systems from two submitters, at different precisions and power levels. Tokens per second count output tokens only. The 405B explanation is partly confirmed (input lengths) and partly reasoned (the key-value cache effect). The roofline bound uses 4 bits per weight and ignores quantization scales, so the true minimum batch is somewhat higher than 58. Wall power is what MLPerf's power rules measure; it excludes facility overhead, which we apply with published PUE figures, not measurements.
 
 ## Sources
 
 - MLPerf Inference v5.0 and v5.1 results, `summary_results.json`: https://github.com/mlcommons/inference_results_v5.0, https://github.com/mlcommons/inference_results_v5.1
 - B200 memory bandwidth (7.7 TB/s, HGX B200): https://www.nvidia.com/en-us/data-center/hgx/
 - MLPerf 405B dataset sources: https://arxiv.org/pdf/2603.05692
+- MLPerf 405B input and output lengths: https://mlcommons.org/2025/04/llm-inference-v5/
 - Google fleet PUE: https://www.datacenters.google/efficiency
 - Uptime Institute 2024 global survey: https://datacenter.uptimeinstitute.com/rs/711-RIA-145/images/2024.GlobalDataCenterSurvey.Report.pdf
 - Google, measuring the environmental impact of AI inference (2025): https://arxiv.org/pdf/2508.15734
