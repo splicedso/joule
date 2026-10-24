@@ -2,7 +2,7 @@
 
 Spliced research note 13 (Windows half), 24 October 2026. Windows 11 laptop: Intel Core Ultra 9 285H, NVIDIA GeForce RTX 5070 Ti Laptop GPU (12 GB, Blackwell), 32 GB RAM, on AC. llama.cpp build 11851 (prebuilt CUDA 13.4 x64), CUDA backend, all layers on the GPU. Qwen2.5 1.5B and 7B, Q4_0.
 
-Note 8 found that a 405B model's measured energy per token was far above what its weights alone predict, and named the long input as the likely cause. This note measures that cause directly on one machine: how much more does a token cost when the context is already deep, and does quantizing the KV cache to 8 bits, the usual fix for a large cache, save that energy back?
+Note 8 found that a 405B model's measured energy per token was far above what its weights alone predict, on a benchmark whose prompts average about 9,400 tokens. It concluded that long prefill alone could not explain the gap, and that the larger effect was likely what long contexts do to decode: more key-value cache to read per step, and fewer sequences fitting in memory at once, so less batching. This note measures the first of those directly, at batch 1, on one machine: how much more does a token cost when the context is already deep, and does quantizing the KV cache to 8 bits, the usual fix for a large cache, save that energy back?
 
 ## Method
 
@@ -34,7 +34,9 @@ Chip energy per decoded token (mJ) and decode speed (tok/s), mean of two passes:
 
 ## 1. A deep context makes every token more expensive
 
-With the default cache, a token at 16k of depth costs 1.28 times one at zero depth on the 1.5B (288.0 to 367.5 mJ) and 1.29 times on the 7B (1027.0 to 1325.5 mJ), while decode speed falls to 0.74 and 0.78 of its shallow-context rate. The 1.5B rises smoothly with depth; the 7B rises toward 16k but is not strictly monotonic in the middle (4096 reads higher than 8192), a wobble inside the 6% pass spread. The direction is clear on both: attention over a longer cache is real per-token work, and it is the kind of cost note 8 pointed to. A per-token energy figure measured at zero depth understates a long-context workload by about a third at 16k here.
+With the default cache, a token at 16k of depth costs 1.28 times one at zero depth on the 1.5B (288.0 to 367.5 mJ) and 1.29 times on the 7B (1027.0 to 1325.5 mJ), while decode speed falls to 0.74 and 0.78 of its shallow-context rate. The 1.5B rises smoothly with depth; the 7B rises toward 16k but is not strictly monotonic in the middle (4096 reads higher than 8192), a wobble inside the 6% pass spread. The direction is clear on both: attention over a longer cache is real per-token work. A per-token energy figure measured at zero depth understates a 16k-deep workload by about 22% here (the deep token costs 28% more).
+
+This is too small to explain note 8 on its own. A 1.3 times direct cost at 16k is far from the 60 times gap note 8 reported, and its contexts were shorter than 16k on average. The remaining candidate, which this note does not test, is batching: at long contexts each sequence's cache is large, fewer sequences fit in memory at once, and a server loses the batching that makes datacenter tokens cheap (note 8, section 2). Measuring that needs batched decode at depth, the natural next experiment.
 
 ## 2. The 8-bit KV cache saves no energy here, and costs more with depth
 
@@ -44,7 +46,7 @@ The reason is that the cache was never the constraint. Both models and all depth
 
 ## What to take from this
 
-1. Context depth is a real per-token energy cost: about 1.3 times at 16k on both models here, which is consistent with note 8's long-context result being a context cost rather than a weight cost.
+1. Context depth is a real per-token energy cost: about 1.3 times at 16k on both models here, at batch 1. That direct cost is far too small to explain note 8's 60 times gap by itself; the untested remainder is the loss of batching at long contexts.
 2. Quantizing the KV cache is not a free efficiency win. On a GPU with room for the f16 cache it cost energy and speed at every depth measured, more so the deeper the context. It earns its place only when it is the difference between fitting on the GPU and not.
 
 ## Limits
