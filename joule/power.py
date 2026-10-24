@@ -67,3 +67,12 @@ def idle_baseline(sampler: Sampler, seconds: float) -> tuple[float, float]:
     time.sleep(seconds)
     # The sys reading lags by about a second, so skip the first part.
     return mean_power(sampler.window(start + min(2.0, seconds / 2), time.monotonic()))
+
+
+# Pick the backend for this machine. macmon on macOS, nvidia-smi + WMI battery on
+# Windows (see power_windows.py). Sample, mean_power and idle_baseline are shared,
+# so measure.py and experiments/batching.py import from here unchanged.
+import platform as _platform  # noqa: E402
+
+if _platform.system() == "Windows":
+    from .power_windows import Sampler  # noqa: F811
