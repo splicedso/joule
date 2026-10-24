@@ -1,0 +1,85 @@
+{
+  "bandwidth_gb_s": 265.71736641079406,
+  "rows": [
+    {
+      "format": "Q2_K",
+      "gb_per_token": 0.67035392,
+      "tok_s": 227.698465,
+      "ceiling_tok_s": 396.38369894337916,
+      "efficiency": 0.5744395281818218,
+      "achieved_gb_s": 152.6385585907328,
+      "board_mj": 279.2575971349259,
+      "board_nj_per_byte": 0.4165823288315013
+    },
+    {
+      "format": "Q3_K_M",
+      "gb_per_token": 0.818227712,
+      "tok_s": 204.355793,
+      "ceiling_tok_s": 324.7474541791052,
+      "efficiency": 0.6292760431842935,
+      "achieved_gb_s": 167.20957294033562,
+      "board_mj": 332.1033970303594,
+      "board_nj_per_byte": 0.40588138504695304
+    },
+    {
+      "format": "Q4_0",
+      "gb_per_token": 0.929004032,
+      "tok_s": 213.421023,
+      "ceiling_tok_s": 286.0239108314161,
+      "efficiency": 0.74616497054259,
+      "achieved_gb_s": 198.26899088056473,
+      "board_mj": 257.881197932923,
+      "board_nj_per_byte": 0.2775888898756932
+    },
+    {
+      "format": "Q4_K_M",
+      "gb_per_token": 0.980097536,
+      "tok_s": 204.533344,
+      "ceiling_tok_s": 271.11318685204213,
+      "efficiency": 0.7544204926912037,
+      "achieved_gb_s": 200.4626264842404,
+      "board_mj": 314.1715244155815,
+      "board_nj_per_byte": 0.3205512848219032
+    },
+    {
+      "format": "Q5_K_M",
+      "gb_per_token": 1.119099392,
+      "tok_s": 177.994195,
+      "ceiling_tok_s": 237.43857633227458,
+      "efficiency": 0.7496431192836696,
+      "achieved_gb_s": 199.1931954040294,
+      "board_mj": 411.43150523974174,
+      "board_nj_per_byte": 0.36764518699670756
+    },
+    {
+      "format": "Q6_K",
+      "gb_per_token": 1.266788864,
+      "tok_s": 171.0461805,
+      "ceiling_tok_s": 209.75663266550004,
+      "efficiency": 0.8154506407087885,
+      "achieved_gb_s": 216.67939668713393,
+      "board_mj": 369.4543600162665,
+      "board_nj_per_byte": 0.29164635916492115
+    },
+    {
+      "format": "Q8_0",
+      "gb_per_token": 1.64062208,
+      "tok_s": 141.8854745,
+      "ceiling_tok_s": 161.9613496916938,
+      "efficiency": 0.8760452711099912,
+      "achieved_gb_s": 232.78044229597694,
+      "board_mj": 408.26518405712056,
+      "board_nj_per_byte": 0.24884779318410769
+    },
+    {
+      "format": "F16",
+      "gb_per_token": 3.0877184,
+      "tok_s": 83.796787,
+      "ceiling_tok_s": 86.05621756530455,
+      "efficiency": 0.9737447144526197,
+      "achieved_gb_s": 258.7408810807808,
+      "board_mj": 546.5345095947334,
+      "board_nj_per_byte": 0.17700270516726316
+    }
+  ]
+}

@@ -45,10 +45,15 @@ Raw JSON is in `results/`.
 
 ## Research notes
 
-- [Fewer bits is not fewer joules](notes/2026-10-formats-and-batching.md): eight quantization formats and batch 1 to 8, chip and board energy, on Apple M5 Pro.
+- [1. Fewer bits is not fewer joules](notes/2026-10-formats-and-batching.md): eight quantization formats and batch 1 to 8, chip and board energy, on Apple M5 Pro.
+- [2. Where the joules go](notes/2026-10-roofline-and-energy-model.md): a decode roofline from measured bandwidth, and a validated energy model whose residuals isolate the cost of unpacking each format.
 
 ## Known limits
 
 - **Repeatability.** Prefill and 1.5B decode repeat within 3%. 0.5B decode drifted 58 to 74 mJ/tok across three runs while throughput held, so power rose, probably heat or other load on a working laptop. Results are not yet taken on an idle, thermally settled machine, and the table shows ranges, not a single number.
 - **sys is not wall power.** It excludes the adapter's own loss. A wall meter is the next step.
 - **One machine, one runtime.** Apple Silicon and llama.cpp only so far. MLX and other boards come next.
+
+## License
+
+Apache-2.0. Measurements in `results/` may be reused with attribution; see `CITATION.cff`.

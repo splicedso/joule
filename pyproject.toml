@@ -8,6 +8,11 @@ dependencies = []
 [project.scripts]
 joule = "joule.cli:main"
 
+[project.optional-dependencies]
+mlx = [
+    "mlx-lm>=0.32.2",
+]
+
 [dependency-groups]
 dev = ["pytest>=8"]
 
