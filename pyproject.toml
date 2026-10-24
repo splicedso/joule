@@ -1,6 +1,6 @@
 [project]
 name = "joule"
-version = "0.1.0"
+version = "0.2.0"
 description = "Energy per token for local LLM inference, measured, with prefill and decode reported apart."
 requires-python = ">=3.11"
 dependencies = []
