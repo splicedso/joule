@@ -210,6 +210,13 @@ datacenter parts; never consumer machines.
   claim per heading, the numbers under it. Martin mentioned wanting cluster architectures one day, "far from
   there"; nothing on the site about it until measured.
 
+- 15:50 to 16:00: LinkedIn banners rebuilt from our own 8-GPU board render with the tagline
+  (`brand/banner_photo.py`; the Unsplash wafer photo is retired, CREDITS.md says so); the SVG trace
+  banners carry the tagline too (`brand/build.py`). Writing pass in Etched's register on Research, Data and
+  Learn; Research's open questions now name live work (Kinetic shapes, capped clocks per correct answer, the
+  Trace 35k retrain). A background research agent is writing `docs/clusters-reading.md`, a sourced reading
+  note on inference cluster design (Martin: "I kinda want to get into cluster architectures, far from there").
+
 ## Next, in order
 
 1. Review the capped-quality PR (note 23) and the 7B re-run; update note 22's 7B rows on the site if the means move.
