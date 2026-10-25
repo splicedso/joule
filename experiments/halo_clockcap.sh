@@ -44,7 +44,7 @@ apply() {  # label
 
 # max active shader clock (MHz) sampled for as long as a command runs
 max_mhz_during() {
-  "$@" & local bp=$! mx=0 c
+  "$@" >&2 & local bp=$! mx=0 c   # child's stdout to stderr, so only the MHz is captured
   while kill -0 $bp 2>/dev/null; do c=$(cur_mhz); [ -n "$c" ] && [ "$c" -gt "$mx" ] && mx=$c; sleep 0.2; done
   wait $bp; echo $mx
 }

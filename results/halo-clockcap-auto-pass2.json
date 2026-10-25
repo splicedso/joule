@@ -1,0 +1,60 @@
+{
+  "machine": {
+    "chip": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S",
+    "ram_bytes": 134314074112,
+    "linux": "7.2.7+rex-amd64",
+    "gpus": [
+      "Advanced Micro Devices, Inc. [AMD/ATI] Strix Halo [Radeon Graphics / Radeon 8050S Graphics / Radeon 8060S Graphics] (rev c1)"
+    ],
+    "on_ac": true
+  },
+  "idle_w": {
+    "soc": 11.141725,
+    "sys": 0.0
+  },
+  "settings": {
+    "prefill": 512,
+    "decode": 128,
+    "seconds": 20.0,
+    "bench_args": [
+      "-ngl",
+      "99"
+    ]
+  },
+  "results": [
+    {
+      "model": "7b-Q4_0.gguf",
+      "model_type": "qwen2 7B Q4_0",
+      "phase": "prefill",
+      "tokens": 512,
+      "tokens_per_s": 1549.679735,
+      "soc_w": 140.1455,
+      "sys_w": 0.0,
+      "soc_j_per_tok": 0.09043513755440571,
+      "sys_j_per_tok": 0.0,
+      "soc_net_j_per_tok": 0.08324544232360372,
+      "sys_net_j_per_tok": 0.0,
+      "steady_s": 15.118843633499637,
+      "samples": 74,
+      "reps": 61,
+      "build": "620d2225c (11669)"
+    },
+    {
+      "model": "7b-Q4_0.gguf",
+      "model_type": "qwen2 7B Q4_0",
+      "phase": "decode",
+      "tokens": 128,
+      "tokens_per_s": 50.65832,
+      "soc_w": 114.55194594594593,
+      "sys_w": 0.0,
+      "soc_j_per_tok": 2.2612661838360593,
+      "sys_j_per_tok": 0.0,
+      "soc_net_j_per_tok": 2.041327484724048,
+      "sys_net_j_per_tok": 0.0,
+      "steady_s": 15.160933501501859,
+      "samples": 74,
+      "reps": 8,
+      "build": "620d2225c (11669)"
+    }
+  ]
+}
