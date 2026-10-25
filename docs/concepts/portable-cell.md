@@ -5,16 +5,19 @@ docked, built so that the cost of one is low and the cost of the hundredth is lo
 
 ## The unit
 
-One rack of decode sleds (docs/concepts/decode-first.md) in a sealed, pallet-sized enclosure:
-1.2 by 1.0 metres on a skid, 2.2 metres tall, forklift pockets below, lifting eyes above. Heat
-rejection is on top, a louvred fin block fed by the sleds' liquid loop, so a cell standing alone
-needs only power and a network drop. The front is a single door. Each side is a dock: two
-coolant couplers, a fibre plate, and a busbar cover, all blind-mate, so a second cell pushed against
-the first connects without a technician inside either.
+A low, narrow, deep block: 0.6 metres wide, 1.2 metres tall, 3.0 metres deep, on a skid with
+forklift pockets along its length. The proportions of an accelerator card lying flat, stretched back.
+Decode sleds (docs/concepts/decode-first.md) load from the narrow front in one column and run the
+depth of the cell; heat leaves through a louvred band along the whole top, fed by the sleds'
+liquid loop, so a cell standing alone needs only power and a network drop. The front is a single
+door. Each long side is a dock: two coolant couplers, a fibre plate, and a busbar cover, all
+blind-mate, so a second cell pushed against the first connects without a technician inside either.
+Cells butt together side by side, so a row is wide and three metres deep, with every front door on
+one aisle.
 
 ## The row
 
-Cells butt together end to end. Coolant trunks run through the side docks, so the row shares one
+Cells butt together side by side. Coolant trunks run through the side docks, so the row shares one
 loop and the top blocks share the rejection load; the busbar passes through, so a row takes power
 at one end and distributes it internally; fibre passes through, so the switches in each cell form
 one fabric. A row of a hundred is one unit to the scheduler and a hundred units to the forklift.

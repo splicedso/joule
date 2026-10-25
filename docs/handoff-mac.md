@@ -309,6 +309,24 @@ row are rendering now (`render/log/cellfull.sh`); when `render/log/cell.done` sa
 Linux: Kinetic auto-start stubbed out, 1.5B and the 72B fp16 shards downloading, `experiments/lattice/qat.py`
 being written; one line back after the 50-step smoke test.
 
+## 17:00: the cell's shape, prototypes, and Fabric
+
+Martin on the cell, in order: "a cube, vertically elongated, think of the shape of a GPU", then "no, not
+tall: a long rectangle, long in depth, not in width or height." So: 0.6 wide, 1.2 tall, 3.0 deep, a card
+lying flat and stretched back; sleds load from the narrow front; a louvred heat band runs the length of the
+top; docks on the long sides; cells sit side by side. `render/cell.py` and the brief say so. He also said:
+"make them realistic, we need to build prototypes," "build out the software for these clusters and how they
+work together," and "we need to be the next Etched and Anthropic."
+
+Fabric (`~/Docs/GitHub/spliced/fabric`, local, no remote yet; ask Martin before creating one): the control
+software. A cost model loaded from `costs/strix-halo.json` (every row cites its note), a continuous-batching
+scheduler with a prefill/decode split, a prefix cache with handoff accounting over a link, a clock policy
+(decode capped, prefill auto), a time-stepped simulator that reports joules per correct answer with the
+derived share of every joule printed beside it, five invariants passing. First honest result from the
+demo: at 64 requests the split layout loses to one capped module because three decode modules idle, and
+the prefix cache wins it back; which is why the simulator exists. `fabric/testbed.py` is the stub for the
+two-box experiment that turns the link number from literature into a measurement.
+
 ## Next, in order
 
 1. Review the Trace 35k retrain PR when it lands (bar: 0.79 held-out agreement).
