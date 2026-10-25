@@ -1,0 +1,13 @@
+machine,model,format,calibration,slots,questions,accuracy,chip_j_per_correct,net_j_per_correct,chip_mj_per_token,tok_s,passes,note,source
+"Apple M5 Pro, 24 GB",Qwen2.5 1.5B,Q4_0,none,1,250,0.66,40.22,38.95,106.4,197.2,2,19,quality-mac-1.5b-s1-run1.json quality-mac-1.5b-s1-run2.json
+"Apple M5 Pro, 24 GB",Qwen2.5 1.5B,Q4_0,none,8,250,0.656,13.71,13.43,36.0,865.7,2,19,quality-mac-1.5b-s8-run1.json quality-mac-1.5b-s8-run2.json
+"Apple M5 Pro, 24 GB",Qwen2.5 7B,Q4_0,none,1,250,0.884,101.86,99.5,389.4,59.9,2,19,quality-mac-7b-s1-run1.json quality-mac-7b-s1-run2.json
+"Apple M5 Pro, 24 GB",Qwen2.5 7B,Q4_0,none,8,250,0.88,35.08,34.57,133.5,278.9,2,19,quality-mac-7b-s8-run1.json quality-mac-7b-s8-run2.json
+"AMD Ryzen AI Max+ 395, 128 GB",Qwen2.5 1.5B,Q4_0,none,1,250,0.66,230.87,208.94,611.8,177.8,2,19,quality-halo-1.5b-s1-pass1.json quality-halo-1.5b-s1-pass2.json
+"AMD Ryzen AI Max+ 395, 128 GB",Qwen2.5 1.5B,Q4_0,none,8,250,0.666,65.24,60.91,175.5,648.4,2,19,quality-halo-1.5b-s8-pass1.json quality-halo-1.5b-s8-pass2.json
+"AMD Ryzen AI Max+ 395, 128 GB",Qwen2.5 7B,Q4_0,none,1,250,0.888,609.01,568.12,2337.0,47.7,2,19,quality-halo-7b-s1-pass1.json quality-halo-7b-s1-pass2.json
+"AMD Ryzen AI Max+ 395, 128 GB",Qwen2.5 7B,Q4_0,none,8,250,0.884,156.62,147.04,599.5,210.3,2,19,quality-halo-7b-s8-pass1.json quality-halo-7b-s8-pass2.json
+"Apple M5 Pro, 24 GB",Qwen2.5 1.5B,Q2_K,none,8,250,0.21,39.25,35.32,46.1,772.8,2,20,lattice-v0-energy-1.5b-Q2_K-plain-run1.json lattice-v0-energy-1.5b-Q2_K-plain-run2.json
+"Apple M5 Pro, 24 GB",Qwen2.5 1.5B,Q2_K,"imatrix, general text",8,250,0.372,28.39,26.21,43.1,835.8,2,20,lattice-v0-energy-1.5b-Q2_K-imatgeneral-run1.json lattice-v0-energy-1.5b-Q2_K-imatgeneral-run2.json
+"Apple M5 Pro, 24 GB",Qwen2.5 1.5B,Q2_K,"imatrix, GSM8K-train",8,250,0.424,23.79,21.74,44.2,817.8,2,20,lattice-v0-energy-1.5b-Q2_K-imat-run1.json lattice-v0-energy-1.5b-Q2_K-imat-run2.json
+"Apple M5 Pro, 24 GB",Qwen2.5 1.5B,Q4_0,none,8,250,0.658,14.84,14.13,39.1,851.4,2,20,lattice-v0-energy-1.5b-Q4_0-run1.json lattice-v0-energy-1.5b-Q4_0-run2.json
