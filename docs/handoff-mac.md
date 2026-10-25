@@ -279,6 +279,17 @@ first attempt died silently from geometry count on a 24 GB Mac, so grilles are c
 page has a third section for it. Rule from today: one Blender at a time, and a render is finished only
 when its log says "Blender quit"; the chain scripts in `render/log/` write ok or crashed to a done-file.
 
+## 16:45: the portable cell
+
+Martin: "make realistic portable datacenter modules that can be connected by hundreds to form a cohesive
+unit or be used individually; single cost per unit shouldn't be super high." Done as a concept:
+`docs/concepts/portable-cell.md` and `site/render/cell.py` (one cell, and `--row` for eight docked). The
+brief says why the unit cost stays low (commodity memory, no per-cell power supply, no building) and
+refuses to print a price until a bill of materials exists. The Designs page section is drafted in
+`site/render/log/designs-cell.part` and goes in once `assets/img/cell.webp` and `cell-row.webp` exist
+(the build reads image sizes, so the page cannot reference a file that is not there yet).
+Render queue, one Blender at a time: realism re-renders, then the rack, then the cell test.
+
 ## Next, in order
 
 1. Review the Trace 35k retrain PR when it lands (bar: 0.79 held-out agreement).
