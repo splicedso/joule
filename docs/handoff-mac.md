@@ -1,4 +1,4 @@
-# Handoff: the Mac lead (2026-10-25, 13:20 PT)
+# Handoff: the Mac lead (2026-10-25, 13:30 PT)
 
 You run Spliced from Martin's Mac (Apple M5 Pro, 48 GB). You lead the lab, own the site and the
 Foundry app, and direct the Linux session (AMD Strix Halo) by SendMessage. Martin does not relay.
@@ -122,6 +122,13 @@ Martin, in order: "do QA and make the website more like etched", "make it less l
   haze instead. The first top-view re-render had crashed in Blender (NSException in the log) and the
   labelled image had been re-finished by mistake; the rerun went through. Check the log's tail, not the
   file's existence, before calling a render done.
+- 13:20 to 13:30: Martin: "Foundry looks fine", "Models: no renders, just put the 3 models next to each other,
+  3 boxes, 1 per model" (a big wafer in the background was optional; not done). Models is now `.trio` of
+  three `.model-box` columns divided by rules, Kinetic included with "Planned. Nothing trained yet". The
+  yawed wafer came off Lab ("the side wafer thing: fix it or make it something else"); Lab is prose only.
+  Foundry's top view is lit from above, off-centre (`package.py --angle top` has its own lights now).
+  The site has two renders left: the package (home fall, Phase) and its top view (Foundry).
+  Computer-use access to the running Foundry app was declined, so the real app is still unverified.
 
 ## Martin's latest site asks (12:00; what is still open)
 
