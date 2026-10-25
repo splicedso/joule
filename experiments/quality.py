@@ -10,9 +10,12 @@ Chip energy is sampled over the whole run; idle power, measured first, gives a n
 SLOTS requests run in parallel, so the same harness measures batch 1 and batched serving.
 
     python experiments/quality.py models/quant/1.5b-Q4_0.gguf results/quality-mac-1.5b.json [N] [SLOTS]
+
+SERVER_ARGS adds llama-server flags, for example SERVER_ARGS="-t 1".
 """
 
 import json
+import os
 import re
 import subprocess
 import sys
@@ -65,7 +68,7 @@ def main():
     slots = int(sys.argv[4]) if len(sys.argv) > 4 else 1
     qs = questions(n)
     server = subprocess.Popen(["llama-server", "-m", model, "-c", str(slots * 2048), "-np", str(slots), "-ngl", "99",
-                               "--port", str(PORT), "--no-webui"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                               "--port", str(PORT), "--no-webui", *os.environ.get("SERVER_ARGS", "").split()], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     try:
         for _ in range(300):
             try:
@@ -94,7 +97,7 @@ def main():
     correct = sum(r["correct"] for r in rows)
     seconds, tokens = t1 - t0, sum(r["tokens"] for r in rows)
     chip_j, net_j = soc_w * seconds, (soc_w - idle[0]) * seconds
-    summary = {"model": Path(model).name, "n": n, "slots": slots, "correct": correct, "accuracy": correct / n,
+    summary = {"model": Path(model).name, "server_args": os.environ.get("SERVER_ARGS", ""), "n": n, "slots": slots, "correct": correct, "accuracy": correct / n,
                "seconds": seconds, "tokens": tokens, "tok_s": tokens / seconds, "soc_w": soc_w, "idle_soc_w": idle[0],
                "chip_j": chip_j, "chip_j_per_correct": chip_j / correct if correct else None,
                "net_j_per_correct": net_j / correct if correct else None, "chip_mj_per_token": chip_j / tokens * 1000}
