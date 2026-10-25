@@ -55,6 +55,10 @@ def rollout(student, tok, prompts):
 
 
 def divergence(s_logits, t_logits, valid):
+    # Qwen2.5 0.5B and 7B pad their vocab differently (151936 vs 152064); the real
+    # tokens are the shared prefix, so compare over the common size.
+    v = min(s_logits.size(-1), t_logits.size(-1))
+    s_logits, t_logits = s_logits[..., :v], t_logits[..., :v]
     s, t = F.log_softmax(s_logits.float(), -1), F.log_softmax(t_logits.float(), -1)
     if DIV == "kl":
         d = F.kl_div(s, t, log_target=True, reduction="none").sum(-1)        # KL(teacher || student)
