@@ -6,7 +6,7 @@ Note 16 found that an 8-bit KV cache did not win in the memory-bound regime it t
 
 ## Finding the regime
 
-At 32768 tokens the f16 cache still fit 4 sequences (batch 6 spilled), so it is not the one-or-two regime. Pushing the context to 65536, twice the model's 32768 native length (llama.cpp extrapolates RoPE beyond the trained length; output quality is not scored here, this is an energy and memory measurement), brings the f16 cache down to 2 sequences. That is the regime the prediction is about.
+At 32768 tokens the f16 cache still fit at least 4 sequences (batches 1 to 4 were measured; batch 6 spilled), so it is not the one-or-two regime. Pushing the context to 65536, twice the model's 32768 native length (llama.cpp extrapolates RoPE beyond the trained length; output quality is not scored here, this is an energy and memory measurement), brings the f16 cache down to 2 sequences. That is the regime the prediction is about.
 
 ## Method
 
@@ -30,7 +30,7 @@ The 8-bit cache does let a third sequence fit, where the f16 cache stops at two.
 
 The prediction rests on two things being true at once: a batch doubling must save a lot, and the 8-bit cache's per-token penalty must be small. Both fail at the context needed to force the f16 cache down to two sequences.
 
-- **The batch saving shrinks as the context grows.** The f16 batch 1 to 2 saving was 42% at 16384 (note 16), 30% at 32768, and 26% at 65536. A longer context makes decode attention-bound: each step must read the whole cache, which batching does not amortise because every sequence has its own cache, so the weight read that batching does share is a smaller part of the step.
+- **The batch saving shrinks as the context grows.** The f16 batch 1 to 2 saving was 42% at 16384 (note 16), 30% at 32768 (a noisy cell: its passes spread 11 to 18%), and 26% at 65536. A longer context makes decode attention-bound: each step must read the whole cache, which batching does not amortise because every sequence has its own cache, so the weight read that batching does share is a smaller part of the step.
 - **The 8-bit penalty grows as the context grows.** The q8 against f16 cost at batch 1 was 1.23 times at 16384 (note 16) and 1.49 times at 65536. A larger cache is more key-value data to dequantize every step.
 
 So the one extra sequence the 8-bit cache buys at 65536 saves only about 6% (batch 2 to 3, 2432.2 to 2281.7 mJ), against a penalty near 1.5 times. The conditions the prediction needs hold at short contexts, where the batch doubling is cheap and the penalty small, but at short contexts the f16 cache already fits many sequences and is never forced to one or two. The regime where f16 is forced low is exactly the regime where batching stops paying and the cache penalty is largest.
