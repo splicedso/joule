@@ -1,4 +1,4 @@
-# Handoff: the Mac lead (2026-10-25, 12:00 PT)
+# Handoff: the Mac lead (2026-10-25, 13:40 PT)
 
 You run Spliced from Martin's Mac (Apple M5 Pro, 48 GB). You lead the lab, own the site and the
 Foundry app, and direct the Linux session (AMD Strix Halo) by SendMessage. Martin does not relay.
@@ -53,7 +53,45 @@ Preview: `.claude/launch.json` config `spliced-site`, port 8772. Images carry `?
   Blender lives in Steam (`.../Blender.app/Contents/MacOS/Blender`). One Blender at a time:
   two at once runs the GPU out of memory.
 
-## Martin's latest site asks (12:00, not done)
+## Done 12:00 to 13:40 (Mac)
+
+- **Home hero:** the chip now sits at the top of the page under the transparent navbar like every
+  other page's render, sticky while it falls over 80vh of scroll, headline beneath (`.fall-stage`).
+  72 frames at 1280x800, composited by `render/fallframes.py`. First 72-frame run left the lid's laser
+  text floating on the floor (FONT objects were not parented to the pivot); `package.py --fall` fixes
+  that and `--from N` resumes an interrupted run.
+- **Martin's calls:** no "New: Trace v1" line in the navbar (Research is already there). Say
+  "Research", never "lab" ("kinda cringe"). Both applied.
+- **Tray:** rebuilt after etched.com's own hero (a chassis underside with a dense curtain of thick
+  black braided cables through a comb bar, low three-quarter camera, rim light). Shipped full width
+  at the top of Models. Loose loops are gone for good.
+- **Board texture:** `studio.pcb_mat` traces are thin runs of random length now, not noise blobs.
+  gpu, hgx, card and package use it. Re-renders queued (`render/queue-textured.sh`, logs in `render/log/`).
+- **Standing wafer:** `wafer.py --stand` relit: one 18-unit softbox on the mirror ray, a weak fill, HDRI
+  at 0.4, 640 samples. Rendered at the end of the queue; not yet judged.
+- **Components:** cards, limits, steps, tables and the closer are rule lines, no white boxes. The Learn
+  button was black on black. Foundry has the top-view package at the top. The band photo no longer drifts.
+- **Phones:** the nav wraps to two rows, so renders start below it there (`nav { margin-bottom: 0 }`).
+- Preview config `.claude/launch.json` is committed; a `python3 -m http.server 8772` from the previous
+  session is still serving.
+- **Renders, all re-done and shipped (no border fade; finish.py no longer fogs the edges, which Martin
+  hated):** tray (Models), gpu (Research), hgx (Data), card (Models), package (Phase), package-top (Foundry).
+  Martin's calls on the tray, in order: cables must fold back into the machine (they now leave the upper
+  unit's port cage, loop, and return into the lower unit), then "make the cables shorter" (done in
+  tray.py; the shorter re-render runs after the wafer, `render/log/after.sh`). Judge it before shipping.
+- **Foundry app** (local repo, no remote; ask Martin before creating one): Stop button and Esc abort a
+  generation and keep what came through, live tokens and tok/s while streaming, a session total in the
+  header, Copy on every answer. `src/dev-shim.js` fakes the Tauri bridge and llama-server so the UI can be
+  checked in a browser: `.claude/launch.json` config `foundry-ui` (port 8773, from ~/Docs). Checked there;
+  not yet run as the real app (`npm run tauri dev`).
+- **Linux (13:00):** Lattice 32B pair running GPU-exclusive from `experiments/lattice_halo_finish.sh`,
+  then Q2_K-imat, then pass 2 reversed, then the 7B pass 2. PR from `linux-lattice-32b` expected
+  13:15 to 13:30 PT with raw JSON for six runs and `results/lattice-halo-idle-pre.csv`. Idle before 32B
+  Q4_0 pass 1: 16.63 W. Then the Trace harvest to 35k (the prompt set was in the previous runner's stash,
+  recovered). Kinetic data is complete (1e9 tokens). Clock cap: Linux says Martin told it directly to run
+  it in the gap before the harvest; I could not confirm that from here and said so.
+
+## Martin's latest site asks (12:00; what is still open)
 
 - **Etched layout.** Study etched.com: a huge render at the top with the headline under it, then
   long sections split in two columns. The left column holds one large still render per section;
