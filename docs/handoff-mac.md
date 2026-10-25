@@ -1,4 +1,4 @@
-# Handoff: the Mac lead (2026-10-25, 14:00 PT)
+# Handoff: the Mac lead (2026-10-25, 14:20 PT)
 
 You run Spliced from Martin's Mac (Apple M5 Pro, 48 GB). You lead the lab, own the site and the
 Foundry app, and direct the Linux session (AMD Strix Halo) by SendMessage. Martin does not relay.
@@ -163,9 +163,20 @@ Q2_K beats Q4_0 per correct answer by 16.0% at equal accuracy, outside the pre-r
 Linux was 25 minutes late with the PR because its own waiter matched its command line; it is on the clock
 cap (Martin's password, 10 minute cutoff) and then the Trace harvest to 35k.
 
+## Clock cap is done (14:20)
+
+PR 18 reviewed (every per-pass value, mean, percentage and spread recomputed from the eight phase JSON
+files; readback shows auto restored) and merged. On the Strix Halo the OD table caps gfx1151; the
+pp_dpm_sclk mask does not. 7B Q4_0 decode at an 1800 MHz cap: 37% less energy per token at 4% less speed;
+at 1200 MHz 42% less at 8% less. Prefill loses a third of its speed. Prediction (12:14, before the run):
+decode direction held, size underestimated; prefill missed. Not yet measured under a cap: J per correct
+answer, 8 slots, 32B. That is the obvious next cheap win for Foundry on this class of machine; it needs
+Martin's sudo again. Linux is on the Trace harvest (10,005 of 35,180 done at 14:06), retrain follows.
+
 ## Next, in order
 
-1. Review the clock-cap PR and the Trace 35k retrain PR when they land (bar: 0.79 held-out agreement).
+1. Review the Trace 35k retrain PR when it lands (bar: 0.79 held-out agreement).
+2. Decide with Martin whether a capped J-per-correct run (quality.py at 1800 MHz) goes before Kinetic.
 2. Check the home hero fall on a real scroll, at desktop and phone width.
 3. Trace: decide between the 35k run and Q4_0-teacher on-policy; queue it on Linux.
 4. Foundry: create its GitHub repo once Martin says yes, then a signed release.
