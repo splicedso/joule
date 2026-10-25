@@ -1,0 +1,11 @@
+{
+  "torch": "2.10.0+rocm7.2.0.gitb6ee5fde",
+  "hip": "7.2.26015",
+  "is_available": true,
+  "device": "AMD Radeon 8060S Graphics",
+  "matmul_n": 8192,
+  "matmul_tflops": 33.5,
+  "matmul_ok": true,
+  "bandwidth_gbps": 230.1,
+  "bandwidth_ok": true
+}
