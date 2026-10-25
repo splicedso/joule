@@ -258,10 +258,19 @@ phase is public Apache-2.0, foundry is private with no licence, no model has bee
 releases are Phase versions). The Lab page says code, data and model weights are open and the company is
 for profit. No closed-model work, no mention of one on the site.
 
+## 16:20: note 23 merged
+
+PR 20 audited (all eight raw files consistent, means match, auto restored in the readback) and merged
+after merging main into the branch; one fix, the capped Q2_K lead is 9.7% on the mean (7.6% and 12.0%
+per pass), not "5 to 10%". Headline: an 1,800 MHz cap cuts J per correct answer 28% (7B Q4_0), 24% (32B
+Q4_0), 19% (32B calibrated Q2_K) at accuracy within a point, for 15%, 11% and 24% less speed. The 7B
+re-run reproduced the old pass 1 within 1% on Q4_0, so note 22's 10% spread is run order; flag stays.
+`docs/local-systems.md` carries the two-pass numbers now. Linux: harvest at 186 tok/s, about 12 h,
+then retrain, eval, Kinetic, chained.
+
 ## Next, in order
 
-1. Review the capped-quality PR (note 23) and the 7B re-run; update note 22's 7B rows on the site if the means move.
-2. Review the Trace 35k retrain PR when it lands (bar: 0.79 held-out agreement).
+1. Review the Trace 35k retrain PR when it lands (bar: 0.79 held-out agreement).
 2. The capped J-per-correct run (quality.py at OD 1800, 7B and 32B, 8 slots, two passes, about 1.5 h
    GPU-exclusive): Linux asked Martin directly at 14:30 whether to run it now (pausing the resumable
    harvest) or after the retrain. Martin answered at 14:50: run it now, pause the harvest, resume after.

@@ -2,8 +2,7 @@
 
 How to run a model well on one machine, decided by what we have measured rather than by
 spec sheets. This is the recipe Foundry follows and the baseline every Spliced model has to
-beat. Each decision cites the note that measured it. Where a decision is still provisional, it
-says so. 25 October 2026.
+beat. Each decision cites the note that measured it. Every number is a two-pass measurement. 25 October 2026.
 
 ## Summary
 
@@ -52,9 +51,11 @@ Trace clears the 3-point bar.
 
 **Clock: cap the shader clock where the platform allows it.** On the Strix Halo, an 1,800 MHz cap
 through the OD table cuts 7B decode energy per token 37% at 4% less speed, and 42% at 8% less
-at 1,200 MHz (results/halo-clockcap.md). Per correct answer, the first pass of the capped
-quality run shows 15 to 28% less energy with accuracy within a point; the two-pass result is in
-note 23 when it lands. Decode is memory bound, so the shader clock buys little speed and costs
+at 1,200 MHz (results/halo-clockcap.md). Per correct answer, under the same cap, a 7B Q4_0 at
+eight slots costs 28% less (111.3 against 153.8 J), a 32B Q4_0 24% less (426.2 against 563.6) and a 32B
+calibrated Q2_K 19% less (384.7 against 473.7), with accuracy within a point everywhere (note 23). The
+speed cost at eight slots is larger than the sweep's 4%: 15% on the 7B, 11% on the 32B Q4_0, 24% on the
+32B Q2_K, because eight slots are closer to compute bound than one. Decode is memory bound, so the shader clock buys little speed and costs
 much power. Prefill is compute bound and loses a third of its speed under the cap, so a system
 that does long prefill should lift the cap for it. This needs root and is Linux only so far.
 
@@ -71,8 +72,8 @@ runs slowly does not save energy per token. Finish fast, then idle.
 | machine | model | format | slots | draft | clock | expected |
 |---|---|---|---:|---|---|---|
 | Apple M5 Pro, 24 GB | Qwen2.5 7B | Q4_0 | 8 | 0.5B, p-min 0.5 | none available | 14.8 J per correct answer at 1.5B scale (note 20); 7B at 8 slots beats it (note 19) |
-| AMD Ryzen AI Max+ 395 | Qwen2.5 7B | Q4_0 | 8 | 0.5B, p-min 0.5 | OD 1,800 MHz | 153.8 J per correct answer on auto (note 22); about 110 capped (note 23, pass 1) |
-| AMD Ryzen AI Max+ 395 | Qwen2.5 32B | Q2_K, calibrated | 8 | none measured | OD 1,800 MHz | 473.7 J per correct answer on auto (note 22); about 403 capped (note 23, pass 1) |
+| AMD Ryzen AI Max+ 395 | Qwen2.5 7B | Q4_0 | 8 | 0.5B, p-min 0.5 | OD 1,800 MHz | 153.8 J per correct answer on auto (note 22); 111.3 capped (note 23) |
+| AMD Ryzen AI Max+ 395 | Qwen2.5 32B | Q2_K, calibrated | 8 | none measured | OD 1,800 MHz | 473.7 J per correct answer on auto (note 22); 384.7 capped (note 23); Q4_0 capped is 426.2, so 2-bit's lead shrinks to 9.7% under the cap |
 
 Foundry today ships the first row without the clock cap and with the draft off by default
 (Fast mode turns it on). The gaps between Foundry and this table are the next things to build.
