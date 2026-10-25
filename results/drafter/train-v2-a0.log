@@ -1,0 +1,9 @@
+3420 train, 180 valid; stock agreement 0.7601
+step 50 epoch 0 loss 1.1550 held-out agreement 0.7268 20 min
+step 100 epoch 0 loss 1.3098 held-out agreement 0.7235 41 min
+step 150 epoch 0 loss 1.2770 held-out agreement 0.7269 61 min
+step 200 epoch 0 loss 1.1814 held-out agreement 0.7327 81 min
+step 250 epoch 0 loss 1.2265 held-out agreement 0.7366 101 min
+step 300 epoch 0 loss 1.2028 held-out agreement 0.7391 122 min
+step 350 epoch 0 loss 1.2227 held-out agreement 0.7415 143 min
+step 400 epoch 0 loss 1.1770 held-out agreement 0.7441 163 min

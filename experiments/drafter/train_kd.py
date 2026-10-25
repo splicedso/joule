@@ -9,13 +9,18 @@ only about 3%: it improved tokens the stock draft already got right. v2 changes 
    1 + ALPHA times as much, because those are the guesses a draft model loses.
 
 Starts from the stock 0.5B, so v2 and v1 differ only in the training signal. Same split as v1:
-prompts in v1's validation set are held out. AdamW, learning rate 1e-5, effective batch 8,
-two epochs. Writes a Hugging Face model directory that convert.sh can quantize.
+prompts in v1's validation set are held out. AdamW, learning rate 1e-5, effective batch 8.
 
-    python experiments/drafter/train_kd.py data/drafter/teacher.jsonl models/hf-drafter2-0.5b
+Weights train in float32 with a 50-step warmup. The first run, bf16 and two epochs, overfit: agreement with the 7B rose on training answers and fell
+on held-out ones. So held-out agreement is now checked every EVAL_EVERY steps and the best
+weights are kept; training stops after PATIENCE checks without improvement. ALPHA and the
+epoch cap come from the environment so the weighting can be tested on and off.
+
+    ALPHA=2 python experiments/drafter/train_kd.py data/drafter/teacher.jsonl models/hf-drafter2-0.5b
 """
 
 import json
+import os
 import random
 import shutil
 import sys
@@ -30,8 +35,10 @@ from mlx_lm import load
 
 BASE = "models/hf-0.5b"
 VALID = Path("models/drafter-0.5b-data/valid.jsonl")
-ALPHA = 2.0
-MICRO, ACCUM, EPOCHS, LR, MAX_LEN = 4, 2, 2, 1e-5, 1536
+ALPHA = float(os.environ.get("ALPHA", 2))
+EPOCHS = int(os.environ.get("EPOCHS", 2))
+MICRO, ACCUM, LR, MAX_LEN = 4, 2, 1e-5, 1536
+EVAL_EVERY, PATIENCE, WARMUP = 50, 4, 50
 
 
 def examples(path, tokenizer, held):
@@ -97,16 +104,19 @@ def agreement(model, exs):
 def main():
     src, out = Path(sys.argv[1]), Path(sys.argv[2])
     model, tokenizer = load(BASE)
+    model.set_dtype(mx.float32)  # bf16 weights cannot hold updates this small
     stock, _ = load(BASE)
     stock.freeze()
     held = {json.loads(l)["messages"][0]["content"] for l in VALID.read_text().splitlines()}
     train, valid = examples(src, tokenizer, held)
     print(f"{len(train)} train, {len(valid)} valid; stock agreement {agreement(stock, valid):.4f}", flush=True)
 
-    opt = optim.AdamW(learning_rate=LR)
+    opt = optim.AdamW(learning_rate=optim.linear_schedule(0, LR, WARMUP))
     grad = nn.value_and_grad(model, loss_fn)
     random.seed(3)
-    steps, t0 = 0, time.monotonic()
+    best = agreement(model, valid)
+    best_w, best_step, misses, trained_best = dict(tree_flatten(model.parameters())), 0, 0, 0.0
+    steps, t0, log = 0, time.monotonic(), []
     for epoch in range(EPOCHS):
         random.shuffle(train)
         acc, losses = None, []
@@ -116,17 +126,31 @@ def main():
             loss, g = grad(model, inp, pos, tid, tp, mask, weight)
             acc = g if acc is None else tree_map(lambda a, b: a + b, acc, g)
             losses.append(loss.item())
-            if len(losses) % ACCUM == 0:
-                opt.update(model, tree_map(lambda a: a / ACCUM, acc))
-                mx.eval(model.parameters(), opt.state)
-                acc, steps = None, steps + 1
-                if steps % 50 == 0:
-                    print(f"epoch {epoch} step {steps} loss {sum(losses[-100:]) / len(losses[-100:]):.4f} "
-                          f"{(time.monotonic() - t0) / 60:.0f} min", flush=True)
-        print(f"epoch {epoch} done; held-out agreement {agreement(model, valid):.4f}", flush=True)
+            if len(losses) % ACCUM:
+                continue
+            opt.update(model, tree_map(lambda a: a / ACCUM, acc))
+            mx.eval(model.parameters(), opt.state)
+            acc, steps = None, steps + 1
+            if steps % EVAL_EVERY:
+                continue
+            agree = agreement(model, valid)
+            log.append({"step": steps, "epoch": epoch, "train_loss": sum(losses[-100:]) / len(losses[-100:]), "agreement": agree})
+            print(f"step {steps} epoch {epoch} loss {log[-1]['train_loss']:.4f} held-out agreement {agree:.4f} "
+                  f"{(time.monotonic() - t0) / 60:.0f} min", flush=True)
+            if agree > best:
+                best, best_w, best_step = agree, dict(tree_flatten(model.parameters())), steps
+            misses = 0 if agree > trained_best else misses + 1  # patience counts against trained checkpoints only
+            trained_best = max(trained_best, agree)
+            if misses >= PATIENCE:
+                break
+        if misses >= PATIENCE:
+            break
+    print(f"best held-out agreement {best:.4f} at step {best_step}", flush=True)
 
     shutil.copytree(BASE, out, dirs_exist_ok=True, ignore=shutil.ignore_patterns("*.safetensors", "*.index.json"))
-    mx.save_safetensors(str(out / "model.safetensors"), dict(tree_flatten(model.parameters())), metadata={"format": "pt"})
+    mx.save_safetensors(str(out / "model.safetensors"), {k: v.astype(mx.bfloat16) for k, v in best_w.items()}, metadata={"format": "pt"})
+    (out / "train_log.json").write_text(json.dumps({"alpha": ALPHA, "best_step": best_step, "best_agreement": best,
+                                                    "log": log}, indent=2) + "\n")
     print("saved", out, flush=True)
 
 
