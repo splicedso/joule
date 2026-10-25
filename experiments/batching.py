@@ -18,10 +18,10 @@ from phase.power import Sampler, idle_baseline, mean_power
 EDGE_S = 0.3
 
 
-def run(sampler, model, batches, n_prompt, n_gen):
+def run(sampler, model, batches, n_prompt, n_gen, extra=()):
     cmd = ["llama-batched-bench", "-m", model, "-c", str(max(batches) * (n_prompt + n_gen) + 64),
            "-b", str(max(2048, n_prompt)), "-ub", "512", "-npp", str(n_prompt), "-ntg", str(n_gen),
-           "-npl", ",".join(map(str, batches)), "--output-format", "jsonl"]
+           "-npl", ",".join(map(str, batches)), "--output-format", "jsonl", *extra]
     out = subprocess.run(cmd, capture_output=True, text=True, check=True).stdout
     end = time.monotonic()
     rows = [json.loads(l) for l in out.splitlines() if l.startswith("{")]
@@ -46,14 +46,15 @@ def main():
     model, out = sys.argv[1], Path(sys.argv[2])
     batches = [int(b) for b in sys.argv[3].split(",")] if len(sys.argv) > 3 else [1, 2, 4, 8, 16, 32]
     n_prompt = int(sys.argv[4]) if len(sys.argv) > 4 else 64
+    extra = sys.argv[5:]  # extra flags passed through to llama-batched-bench, e.g. -ctk q8_0 -ctv q8_0 -fa on
     runs = []
     with Sampler(100) as s:
         idle = idle_baseline(s, 8)
         for _ in range(3):
             time.sleep(4)
-            runs.append(run(s, model, batches, n_prompt, 512))
+            runs.append(run(s, model, batches, n_prompt, 512, extra))
     out.write_text(json.dumps({"model": Path(model).name, "idle_soc_w": idle[0], "n_prompt": n_prompt,
-                               "n_gen": 512, "runs": runs}, indent=2) + "\n")
+                               "n_gen": 512, "extra": extra, "runs": runs}, indent=2) + "\n")
     for b in range(len(batches)):
         vals = [r[b]["soc_mj_per_tok"] for r in runs]
         tps = [r[b]["tokens_per_s"] for r in runs]
