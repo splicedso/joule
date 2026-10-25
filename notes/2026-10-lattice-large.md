@@ -32,9 +32,12 @@ Two passes each, the second in reverse order, means below; every pass and both i
 | Q2_K, calibrated | 84.2% (212, 209) | 195.9 | 160.7 | 187.3 | 695 |
 
 Spread: the 32B cells repeat to within 2.8% on J per correct (Q4_0's mJ per token differs by 3.3%
-between passes, flagged). The 7B cells do not: pass 1 ran in the previous session and drew 10% more
-power than pass 2 at the same speed, so Q4_0's J per correct differs by 10.2% between passes and
-Q2_K's by 4.5%, both flagged. The 7B ranking is far outside that gap. Idle drifted 16.6 to 25.9 W
+between passes, flagged). The 7B cells do not: pass 1 drew 10% more power than pass 2 at the same speed,
+so Q4_0's J per correct differs by 10.2% between passes and Q2_K's by 4.5%, both flagged. Pass 1 was
+re-run in this session (16:00, `results/lattice-halo.md`) and reproduced pass 1 within 1% on Q4_0 (139.8
+against 139.6 W, 160.5 against 161.6 J per correct) and within 3% on Q2_K's power and energy per token, so
+the gap is run order, not the session: pass 2 followed four 32B runs and drew 10% less power at the same
+speed. The flag stays; the 7B ranking is far outside the gap. Idle drifted 16.6 to 25.9 W
 over the afternoon; the chip totals do not depend on it. Each 32B run took 15 to 18 minutes.
 
 ## What to take from this

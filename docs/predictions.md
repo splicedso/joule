@@ -89,3 +89,16 @@ in note 22).
 - 32B Q4_0: J per correct falls 25 to 40% below auto (563.6); calibrated Q2_K stays cheaper than Q4_0
   under the cap, by 16% within 5 points.
 - The cap holds at 1,800 MHz for all six runs; the clock is back on auto afterwards.
+
+## Results so far, 2026-10-25 16:10 PT (predictions above left unedited)
+
+- Capped quality, accuracy: within a point of auto in every cell. Held.
+- Capped quality, 7B Q4_0: 111.3 against 153.8 J per correct answer (-28%), tokens per second -15%. Held.
+- Capped quality, 32B calibrated Q2_K: 384.7 against 473.7 (-19%), tokens per second -24%. Energy held;
+  the speed loss missed (predicted under 10%).
+- Capped quality, 32B Q4_0: 426.2 against 563.6 (-24%), tokens per second -11%. Held. Calibrated Q2_K's
+  lead over Q4_0 under the cap is 5 to 10%, not 16% within 5 points. Missed.
+- Capped quality, the cap held for all six runs and auto was restored. Held. Note 23.
+- Lattice item D, 7B pass 1 re-run on auto in this session (not averaged in): Q4_0 reproduced the previous
+  session's pass 1 within 1%, Q2_K within 3% on power, so the 10% pass-to-pass spread is run order (pass 2
+  followed four 32B runs), not the session.
