@@ -66,6 +66,12 @@ Preview: `.claude/launch.json` config `spliced-site`, port 8772. Images carry `?
 - **Hero fall sharpness.** The 36 frames are 1200x750 at 24 samples and look soft. `package.py`
   now disables depth of field and denoises; re-render `--fall 36` at 1600x1000 and convert with
   the snippet in the session (composite on #eee, JPEG q82 into `assets/fall/`).
+- **Aura and components (12:00).** Martin: "make it more aura like Etched", smoother
+  animations, better components (website design, not renders). Concretely: column rules and
+  generous whitespace, a thin announcement bar, monospace small caps for labels, a full-bleed
+  dark band per page, quieter cards (no boxes, rule lines instead), and one easing curve for
+  every reveal (`cubic-bezier(.2,.7,.2,1)`, 700 ms, opacity + 12 px rise). The hero fall now
+  eases and crossfades between frames (`site.js` `fall()`); keep any new motion that smooth.
 - Martin asked for everything centred. Page heads, section heads and model rows are centred;
   keep it that way in the Etched layout (centre the hero, two balanced columns below).
 
