@@ -347,6 +347,18 @@ fake quantization is on (distinct values per group at most 4, mean abs error mas
 the measured GGUF is the Q2_K file, before any quality number is believed. 72B shards via curl, quantize
 queued, nothing served.
 
+## 17:35: the mark on the designs; what is inside; Spliced Linux
+
+Martin: "put our logo on them, and let's figure out what they are actually going to have inside, running
+our own Linux distro, but our own-made CPUs or existing stuff." The no-logo rule was about real-looking
+boards; the concepts are ours, so the mark goes on them: etched into the decode cold plate and silk in the
+module board's corner, a nameplate on the rack's CDU, an inset plate on the cell door. Re-renders queued
+(`render/log/marks.sh`). Two decision documents: `docs/concepts/inside-the-cell.md` (buy the silicon, own
+everything above it; the own-chip question settled by a measured split of a token's joules, not by taste)
+and `docs/concepts/spliced-linux.md` (an appliance image, not a distribution: upstream kernel, read-only
+root, signed two-slot updates, one workload; first deliverable is a recipe that boots the Strix Halo and
+reproduces note 23 within 3%). Both summarised on the Designs page.
+
 ## Next, in order
 
 1. Review the Trace 35k retrain PR, then the Lattice v1 QAT PR when it lands (bar: 0.79 held-out agreement).
