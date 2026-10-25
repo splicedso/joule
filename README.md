@@ -62,6 +62,7 @@ Raw JSON is in `results/`.
 - [15. Our first model: a distilled draft model](notes/2026-10-spliced-drafter.md): a 0.5B draft distilled from 1.14M tokens of Qwen2.5 7B output. Held-out loss 6% lower, acceptance about 3% higher, 2 to 3% faster; raising its threshold did not help.
 - [16. The memory-bound regime: when a long context caps the batch (Windows half)](notes/2026-10-windows-memory-bound.md): at 8192 and 16384 tokens the 7B's f16 cache fits only batch 8 on a 12 GB card, so memory caps the batching that makes a token cheap. An 8-bit cache does not win it back: at 16384 it fits no larger batch (1.64x the energy), and at 8192 it fits batch 16 but still costs 6% more than f16 at batch 8.
 - [17. The 8-bit cache does not win even when it fits an extra sequence (Windows half)](notes/2026-10-windows-longctx.md): at 65536 tokens, where the 7B f16 cache fits only 2 sequences, the 8-bit cache fits a third but costs 1.58x f16's best. Forcing f16 that low needs a context so long that batching stops paying and the cache penalty is largest, so note 16's predicted win does not occur.
+- [18. Reading the prompt: what prefill costs (Windows half)](notes/2026-10-windows-prefill.md): prefill energy per prompt token on the RTX 5070 Ti. A prompt token costs about 40x less than a generated one, but with a 300-token answer prefill is about 4% of a 500-token request, 13% at 2000 and 40% at 8000; a cached prefix removes that share.
 
 ## Known limits
 
