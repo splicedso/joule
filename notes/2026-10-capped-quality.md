@@ -2,7 +2,7 @@
 
 **Prediction verdict:** held on the headline (15 to 28% fewer joules per correct answer at accuracy within a
 point, every cell); missed on the 32B calibrated Q2_K, which slows 22 to 24% under the cap (predicted under
-10%) and whose lead over Q4_0 shrinks to 5 to 10% (predicted 16% within 5 points).
+10%) and whose lead over Q4_0 shrinks to 9.7% on the mean (7.6% and 12.0% per pass) (predicted 16% within 5 points).
 
 Spliced research note 23, 25 October 2026. AMD Ryzen AI Max+ 395 (Strix Halo, Radeon 8060S, 128 GB, shared GPU memory 90%), Linux, llama.cpp 620d2225c, Vulkan. Qwen2.5 7B and 32B Instruct.
 
