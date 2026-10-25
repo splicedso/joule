@@ -74,3 +74,18 @@ the second reversed).
   with the clock as predicted.
 - Clock cap, `force=low`: 10.7 tok/s (predicted: under half); energy per token flat against auto on the
   mean, spread 10% flagged. The "rises above auto" half did not show. `results/halo-clockcap.md`.
+
+## 2026-10-25, 14:50 PT
+
+**Capped joules per correct answer** (Strix Halo, `experiments/halo_capped_quality.sh`: shader clock
+capped at 1,800 MHz through the OD table, verified under load; `quality.py` GSM8K-250, 8 slots, two
+passes, the second reversed; 7B Q4_0, 32B calibrated Q2_K, 32B Q4_0; compared with today's auto runs
+in note 22).
+- Accuracy is within 1 point of the auto run for every cell: the cap changes clocks, not arithmetic.
+- 7B Q4_0: gross J per correct answer falls 20 to 35% below auto (153.8), tokens per second fall 5 to
+  20%. Eight slots are more compute-bound than the batch-1 decode of the clock-cap sweep, so the speed
+  cost is larger than that sweep's 4%.
+- 32B calibrated Q2_K: J per correct falls 25 to 40% below auto (473.7), tokens per second fall under 10%.
+- 32B Q4_0: J per correct falls 25 to 40% below auto (563.6); calibrated Q2_K stays cheaper than Q4_0
+  under the cap, by 16% within 5 points.
+- The cap holds at 1,800 MHz for all six runs; the clock is back on auto afterwards.
