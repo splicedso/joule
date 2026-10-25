@@ -82,6 +82,16 @@ beside the harvest: Lattice v1, quantization-aware fine-tuning of the 1.5B to a 
 72B target, which starts only if the 7B retrain clears its bar. Every run has its prediction committed
 first. The Mac stays light: evaluation of small artefacts, writing, and the site.
 
+## Fabric: the cluster software
+
+`spliced/fabric` (local for now) is the control software for the designs and the simulator that costs
+them from our measurements: a scheduler that keeps decode modules batched and splits prefill from
+decode, a prefix cache with handoff accounting over a link, a clock policy, cells and rows with shared
+trunks and a sleep policy, and a report that prints joules per correct answer with the share of every
+joule that is derived rather than measured. The same scheduler is meant to drive llama-server on the
+two machines we own (`fabric/testbed.py`, not yet written), which is how the link and overhead numbers
+stop being literature and placeholders. Nothing Fabric prints is a result until that testbed runs.
+
 ## Order
 
 1. Quality harness: joules per correct answer.
