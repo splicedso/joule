@@ -10,7 +10,7 @@ Note 14 found that a 4096-token context barely dents the batching saving, and sa
 
 This card does not hard-fail when a run exceeds VRAM: the NVIDIA driver spills to shared system memory and the run crawls. So a spill shows as peak dedicated memory pegged near the 12 GB cap with throughput collapsing, not as an out-of-memory error. Fit and spill were judged by peak `nvidia-smi` memory and completion, not by a timeout, because a large batch at a long context has a slow prefill that is not itself a spill. `batching.py` was given a minimal optional passthrough so trailing flags reach llama-batched-bench (noted in the PR); nothing else in it changed.
 
-Per-cell spread (max over min of three passes) was under 2% at batch 4 and above, where the comparisons below are made. Batch 1 and 2 at these lengths, with few short decode windows, spread up to 14% and are the least precise cells.
+Per-cell spread (max over min of three passes) was under 2% at batch 4 and above, where the comparisons below are made. Batch 1 and 2 at these lengths, with few short decode windows, spread up to 15% and are the least precise cells.
 
 ## What fits
 
@@ -43,24 +43,26 @@ On this card the f16 cache fits only 8 sequences at 8192 or 16384 tokens; batch 
 
 Note 13 found an 8-bit cache costs more energy per token than f16 when the f16 cache already fits. The hope was that by halving the cache it could let a larger batch fit and so pay for itself. It does not, in either length tested.
 
-- At 16384 it cannot fit a larger batch than f16 does: q8 batch 16 spills just as f16 batch 16 does, because the weights and compute buffers, not the cache, are what fill the card. So the 8-bit cache buys no extra batch and is a pure loss, 689.6 against 420.1 mJ per token at batch 8, 1.64 times the energy, and slower (141 against 230 tok/s).
+- At 16384 it cannot fit a larger batch than f16 does: q8 batch 16 spills just as f16 batch 16 does, because sixteen sequences' 8-bit cache, about 7.5 GB, plus 4.4 GB of weights and the compute buffers still exceeds 12 GB. So the 8-bit cache buys no extra batch and is a pure loss, 689.6 against 420.1 mJ per token at batch 8, 1.64 times the energy, and slower (141 against 230 tok/s).
 - At 8192 it does let batch 16 fit, where f16 is stuck at 8. The extra batching recovers most of its own penalty: q8 at batch 16 costs 333.1 mJ per token against q8 at batch 8's 463.8, a 28% drop. But that still does not beat the f16 cache at its own largest batch: f16 batch 8 is 313.3 mJ per token, so q8 batch 16 costs 6% more, and runs slower (286.4 against 310.9 tok/s).
 
 So even in the one case where the 8-bit cache buys a bigger batch, the bigger batch only draws level with, and stays just behind, what the f16 cache already did at batch 8.
 
 ## 3. Why halving the cache was not enough
 
-The win needs the larger batch to save more than the roughly 1.5 times per-token penalty the 8-bit cache carries. Halving the cache from f16's limit bought exactly one batch doubling here, 8 to 16, and one doubling of batch saves less than the penalty costs. For the 8-bit cache to win, halving it would have to multiply the batch several times, which happens only when the cache dominates the card's memory. Here 4.4 GB of weights and the compute buffers dominate, and the cache is the smaller part, so halving it moves the batch limit by one step and no more.
+Halving the cache can at most double the batch that fits, and here it did less than that or exactly that: no extra step at 16384, one step from 8 to 16 at 8192. So the 8-bit cache wins only where one batch doubling saves more than its own per-token penalty, about 1.5 times here. At these batch sizes it does not. Going from batch 8 to 16 with the 8-bit cache saved 28%, a factor of 1.39, short of the 1.48 times the 8-bit cache costs at batch 8 and 8192 tokens.
+
+The doubling saves most when the batch is small: in this note, batch 1 to 2 saved 40 to 43% with the f16 cache. So the 8-bit cache has its best chance when the long context leaves room for only one or two sequences in f16, and halving the cache lets a second fit. That is the regime of a larger model or a smaller card, not tested here.
 
 ## What to take from this
 
 1. A long context's real cost on a memory-limited device is the batch it forbids. Memory caps the batch at 8 for a 7B model at 8192 to 16384 tokens on a 12 GB card, which caps how cheap a token can get.
 2. An 8-bit KV cache does not undo that here. At 16384 it fits no larger batch and costs 1.64 times the energy; at 8192 it fits one step larger and still lands 6% above the f16 cache's best.
-3. The 8-bit cache pays only where the cache, not the weights, fills memory, so that halving it multiplies the batch. A 7B model on a 12 GB card at these depths is not that regime.
+3. Halving the cache can at most double the batch, so the 8-bit cache pays only where one doubling saves more than its roughly 1.5 times penalty. That means very small batches, where memory leaves room for one or two sequences; at batch 8 to 16 it does not.
 
 ## Limits
 
-GPU (chip) energy only; no whole-system figure on AC. One model (7B Q4_0), two context lengths, one card. Spill was judged by peak VRAM and a throughput collapse, not a hard error, because the driver spills to shared memory. Each batch was measured in its own invocation, so these are single-stream batch runs, not a server scheduler packing mixed-length sequences. `batching.py` gained a minimal flag passthrough. Build 11851 (CUDA).
+GPU (chip) energy only; no whole-system figure on AC. One model (7B Q4_0), two context lengths, one card. Spill was judged by peak VRAM and a throughput collapse, not a hard error, because the driver spills to shared memory. Each batch was measured in its own invocation, so these are single-stream batch runs, not a server scheduler packing mixed-length sequences. The spilled runs were stopped and not saved, so the fit boundaries rest on the peak-memory readings in this note, not on committed result files. `batching.py` gained a minimal flag passthrough. Build 11851 (CUDA).
 
 ## Reproduce
 
