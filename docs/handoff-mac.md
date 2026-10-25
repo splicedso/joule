@@ -75,6 +75,13 @@ Preview: `.claude/launch.json` config `spliced-site`, port 8772. Images carry `?
 - Martin asked for everything centred. Page heads, section heads and model rows are centred;
   keep it that way in the Etched layout (centre the hero, two balanced columns below).
 
+- **Tray render (`render/tray.py`).** Martin: the cables look fake, "like an octopus". Give them a real
+  braided-sleeve texture (image texture or a proper woven normal map, not crossed waves), route
+  them in tight managed bundles into connectors instead of loose hanging loops, then use it full
+  width at the top of Models. Removed from the site until then.
+- **72-frame hero.** A 72-frame `--fall` render was started at 11:52 into `render/frames-fall/`.
+  When all 72 exist: convert into `assets/fall/` and set `const n = 72` in `src/site.js`.
+
 ## Next, in order
 
 1. Merge the Linux PR after checking it; finish note 22; publish it.

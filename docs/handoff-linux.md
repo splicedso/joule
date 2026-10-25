@@ -33,10 +33,12 @@ Package power: about 126 W warm, 100 W cold.
 
 ## Next, in order
 
-1. Finish the Lattice 32B pair (both passes), PR it.
-2. Trace: harvest the full 35k prompts from the Q4_0 7B
+1. Run the Lattice 32B pair (`experiments/lattice_32b.sh`, imatrix and Q2_K already built in `results/lattice/`), both passes, and the missing 7B pass 2. Record idle power right before each run; it drifted 17 to 23 W between the 7B runs.
+2. Trace: resume the teacher harvest (paused at 10,005 of 35,000) to the full 35k prompts from the Q4_0 7B
    (`experiments/drafter/teacher.py results/drafter/train-prompts.jsonl data/drafter/teacher.jsonl`),
    then `LR=3e-6 ALPHA=2 train_trace.py`. Pre-registered bar: 0.79 agreement (+3 points).
 3. Trace on-policy again, with the Q4_0 7B's own probabilities as teacher.
 4. Kinetic data prep, then the four-shape training runs (`docs/kinetic.md`).
 5. Clock cap, only with Martin at the keyboard.
+
+The previous runner's own handoff is `results/halo-handoff-2026-10-25.md`.
