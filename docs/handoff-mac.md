@@ -1,4 +1,4 @@
-# Handoff: the Mac lead (2026-10-25, 13:05 PT)
+# Handoff: the Mac lead (2026-10-25, 13:20 PT)
 
 You run Spliced from Martin's Mac (Apple M5 Pro, 48 GB). You lead the lab, own the site and the
 Foundry app, and direct the Linux session (AMD Strix Halo) by SendMessage. Martin does not relay.
@@ -115,6 +115,13 @@ Martin, in order: "do QA and make the website more like etched", "make it less l
   "live replay" gadget and the model cards are gone; `home.js` is no longer loaded.
 - Pages without a top render now start with their headline under the nav; that is fine and Etched-like.
 - If more renders are wanted later, they must be of hardware we measure, unbranded.
+- 13:10 to 13:20: Martin's "make it face the screen" (the flat wafer on Models) became `wafer.py --stand --face`
+  (square to the camera, softbox size 11 high and to the right, a little more roughness so the reflection's
+  edge is soft); it replaced the flat wafer on Models; Lab keeps the yawed one. His "the shadow's edge looks
+  bad" on Foundry was the radial CSS mask on that image: removed, and `finish.py ... 60 64` cuts the floor
+  haze instead. The first top-view re-render had crashed in Blender (NSException in the log) and the
+  labelled image had been re-finished by mistake; the rerun went through. Check the log's tail, not the
+  file's existence, before calling a render done.
 
 ## Martin's latest site asks (12:00; what is still open)
 
