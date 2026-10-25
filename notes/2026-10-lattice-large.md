@@ -44,8 +44,8 @@ over the afternoon; the chip totals do not depend on it. Each 32B run took 15 to
    token costs 10% less energy than the 4-bit one here (1992 against 2224 mJ). The prediction's
    direction held; its margin did not: 16.0% on the two-pass mean (17.9% and 14.0% per pass) is outside
    the "less than 15%" written down beforehand.
-2. **On the 7B, Q4_0 still wins on every axis:** 4.4 points more accurate, 27% less energy per correct
-   answer, 21% faster. The 7B half of the prediction held, as it did on the 1.5B (note 20).
+2. **On the 7B, Q4_0 still wins on every axis:** 4.4 points more accurate, 21% less energy per correct
+   answer (calibrated Q2_K costs 27% more), 21% faster. The 7B half of the prediction held, as it did on the 1.5B (note 20).
 3. The crossover is between 7B and 32B on this machine. At 7B a 2-bit token costs 18% more chip energy
    than a 4-bit one; at 32B, which reads four times the bytes per token, it costs 10% less. Fewer bits
    pay once memory traffic dominates the token, and not before.

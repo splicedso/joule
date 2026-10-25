@@ -46,7 +46,7 @@ the previous handoff.
 | Q2_K, GSM8K-calibrated | 2 | 83.6% (209/250) | 191.4 | 155.0 | 186.0 | 673 | 125.2 | 25.9 | 23.8 |
 
 Two-pass means: Q4_0 88.6%, **153.8 J/correct**, 225.9 tok/s, 589 mJ/token. Calibrated Q2_K 84.2%,
-**195.9 J/correct**, 187.3 tok/s, 695 mJ/token. Q4_0 is cheaper per correct answer by 27%.
+**195.9 J/correct**, 187.3 tok/s, 695 mJ/token. Q4_0 is cheaper per correct answer by 21% (Q2_K costs 27% more).
 
 **Flagged spreads:** Q4_0 gross J/correct **10.2%** and mJ/token **9.6%**; Q2_K gross J/correct **4.5%** and
 mJ/token **6.4%**. Both are power gaps at equal speed (tok/s within 1.3%): pass 1 of each 7B run drew
