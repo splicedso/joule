@@ -30,3 +30,11 @@ top-20 distribution, stock-miss weighting ALPHA=2, early stopping on held-out ag
 - The wide shape (6 x 1024) has the lowest decode energy per token on both machines.
 - The deep shape (24 x 512) has the best held-out loss, by less than 5%.
 - On joules per correct answer, wide beats base by at least 15% on both machines.
+
+## Results so far, 2026-10-25 08:45 PT (predictions above left unedited)
+
+- Trace v1, off-policy, 8k prompts, LR 1e-5: best agreement 0.7616 (stock); training never beat it.
+  Consistent with the prediction that 8k would not clear the bar.
+- Trace v1, off-policy, 9k prompts, LR 3e-6: 0.7685, +0.7 points. Below the bar, as predicted for the partial set.
+- Trace v1, on-policy (bf16 7B teacher, TVD, 300 steps): declined to 0.7574. Not predicted; likely the
+  bf16-teacher against Q4_0-target mismatch. Parked.
