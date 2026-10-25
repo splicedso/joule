@@ -21,6 +21,19 @@ A note that can't meet these waits.
 | Apple M5 Pro, macOS | 24 GB | light measurement, analysis, writing; jobs kept to a few GB |
 | RTX 5070 Ti laptop, Windows | 12 GB GPU | paused |
 
+## The laptop bar
+
+Every model we build is judged by one question: does it make Foundry, our local app, better on an
+ordinary laptop? A model ships in Foundry only when it beats Foundry's current default, measured by
+`experiments/quality.py` on the M5 Pro and the Strix Halo, on both:
+
+- **joules per correct answer**, at 1 and 8 requests at once, and
+- **accuracy**, within 1 point or better.
+
+Today's default, from our own measurements: Qwen2.5 1.5B and 7B Instruct at Q4_0 (note 20), with
+speculative decoding on machines where it saves energy (note 21). Trace, Lattice and Kinetic each
+have to beat that, not the stock model in isolation.
+
 ## Our models
 
 Each family has one job, one target number, and a page that says whether it hit it.
