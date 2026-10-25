@@ -1,0 +1,70 @@
+13:47:31 force levels: auto
+13:47:31 pp_dpm_sclk: 0: 600Mhz  1: 1501Mhz * 2: 2900Mhz  
+13:47:31 OD table: OD_SCLK: 0:        600Mhz 1:       2900Mhz OD_RANGE: SCLK:     600Mhz       2900Mhz 
+13:48:53 TRY force_low -> force=low active_max=719MHz
+13:49:12 TRY manual_sclk0 -> force=manual active_max=2900MHz
+13:49:33 TRY od_1200 -> force=manual active_max=1200MHz
+13:49:53 TRY od_1800 -> force=manual active_max=1800MHz
+13:49:53 === CAPPED MECHANISMS: force_low od_1200 od_1800 ===
+13:49:56 MEASURE auto pass1 force=auto sclk_now=728MHz
+13:51:28 MEASURE auto pass1 done, active_max_during=| model | phase | tok/s | SoC W | sys W | SoC mJ/tok | sys mJ/tok | SoC net mJ/tok | sys net mJ/tok |
+|---|---|---:|---:|---:|---:|---:|---:|---:|
+| 7b-Q4_0.gguf | prefill | 1542.2 | 141.2 | 0.0 | 91.5 | 0.0 | 83.4 | 0.0 |
+| 7b-Q4_0.gguf | decode | 50.5 | 110.0 | 0.0 | 2176.4 | 0.0 | 1928.7 | 0.0 |
+2900MHz
+13:51:31 MEASURE force_low pass1 force=low sclk_now=707MHz
+13:54:38 MEASURE force_low pass1 done, active_max_during=| model | phase | tok/s | SoC W | sys W | SoC mJ/tok | sys mJ/tok | SoC net mJ/tok | sys net mJ/tok |
+|---|---|---:|---:|---:|---:|---:|---:|---:|
+| 7b-Q4_0.gguf | prefill | 351.3 | 26.8 | 0.0 | 76.4 | 0.0 | 45.1 | 0.0 |
+| 7b-Q4_0.gguf | decode | 10.7 | 25.1 | 0.0 | 2344.2 | 0.0 | 1317.0 | 0.0 |
+706MHz
+13:54:41 MEASURE od_1200 pass1 force=manual sclk_now=605MHz
+13:56:16 MEASURE od_1200 pass1 done, active_max_during=| model | phase | tok/s | SoC W | sys W | SoC mJ/tok | sys mJ/tok | SoC net mJ/tok | sys net mJ/tok |
+|---|---|---:|---:|---:|---:|---:|---:|---:|
+| 7b-Q4_0.gguf | prefill | 723.8 | 44.2 | 0.0 | 61.1 | 0.0 | 45.6 | 0.0 |
+| 7b-Q4_0.gguf | decode | 46.3 | 59.0 | 0.0 | 1272.3 | 0.0 | 1030.5 | 0.0 |
+1200MHz
+13:56:19 MEASURE od_1800 pass1 force=manual sclk_now=637MHz
+13:57:53 MEASURE od_1800 pass1 done, active_max_during=| model | phase | tok/s | SoC W | sys W | SoC mJ/tok | sys mJ/tok | SoC net mJ/tok | sys net mJ/tok |
+|---|---|---:|---:|---:|---:|---:|---:|---:|
+| 7b-Q4_0.gguf | prefill | 1038.7 | 58.8 | 0.0 | 56.6 | 0.0 | 44.8 | 0.0 |
+| 7b-Q4_0.gguf | decode | 48.8 | 67.6 | 0.0 | 1385.7 | 0.0 | 1135.8 | 0.0 |
+1800MHz
+13:57:56 MEASURE od_1800 pass2 force=manual sclk_now=666MHz
+13:59:31 MEASURE od_1800 pass2 done, active_max_during=| model | phase | tok/s | SoC W | sys W | SoC mJ/tok | sys mJ/tok | SoC net mJ/tok | sys net mJ/tok |
+|---|---|---:|---:|---:|---:|---:|---:|---:|
+| 7b-Q4_0.gguf | prefill | 1043.0 | 58.7 | 0.0 | 56.3 | 0.0 | 44.4 | 0.0 |
+| 7b-Q4_0.gguf | decode | 48.8 | 67.8 | 0.0 | 1390.2 | 0.0 | 1135.3 | 0.0 |
+1800MHz
+13:59:34 MEASURE od_1200 pass2 force=manual sclk_now=652MHz
+14:01:09 MEASURE od_1200 pass2 done, active_max_during=| model | phase | tok/s | SoC W | sys W | SoC mJ/tok | sys mJ/tok | SoC net mJ/tok | sys net mJ/tok |
+|---|---|---:|---:|---:|---:|---:|---:|---:|
+| 7b-Q4_0.gguf | prefill | 723.7 | 44.5 | 0.0 | 61.4 | 0.0 | 45.1 | 0.0 |
+| 7b-Q4_0.gguf | decode | 46.4 | 59.8 | 0.0 | 1288.7 | 0.0 | 1034.2 | 0.0 |
+1200MHz
+14:01:12 MEASURE force_low pass2 force=low sclk_now=624MHz
+14:04:18 MEASURE force_low pass2 done, active_max_during=| model | phase | tok/s | SoC W | sys W | SoC mJ/tok | sys mJ/tok | SoC net mJ/tok | sys net mJ/tok |
+|---|---|---:|---:|---:|---:|---:|---:|---:|
+| 7b-Q4_0.gguf | prefill | 350.9 | 26.0 | 0.0 | 74.2 | 0.0 | 35.7 | 0.0 |
+| 7b-Q4_0.gguf | decode | 10.7 | 22.7 | 0.0 | 2112.2 | 0.0 | 855.8 | 0.0 |
+624MHz
+14:04:21 MEASURE auto pass2 force=auto sclk_now=615MHz
+14:05:53 MEASURE auto pass2 done, active_max_during=| model | phase | tok/s | SoC W | sys W | SoC mJ/tok | sys mJ/tok | SoC net mJ/tok | sys net mJ/tok |
+|---|---|---:|---:|---:|---:|---:|---:|---:|
+| 7b-Q4_0.gguf | prefill | 1549.7 | 140.1 | 0.0 | 90.4 | 0.0 | 83.2 | 0.0 |
+| 7b-Q4_0.gguf | decode | 50.7 | 114.6 | 0.0 | 2261.3 | 0.0 | 2041.3 | 0.0 |
+2900MHz
+14:05:54 === READBACK ===
+power_dpm_force_performance_level:
+auto
+pp_dpm_sclk:
+0: 600Mhz 
+1: 1280Mhz *
+2: 2900Mhz 
+pp_od_clk_voltage:
+OD_SCLK:
+0:        600Mhz
+1:       2900Mhz
+OD_RANGE:
+SCLK:     600Mhz       2900Mhz
+14:05:54 === CLOCKCAP V3 DONE ===
