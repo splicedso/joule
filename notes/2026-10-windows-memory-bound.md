@@ -54,6 +54,8 @@ Halving the cache can at most double the batch that fits, and here it did less t
 
 The doubling saves most when the batch is small: in this note, batch 1 to 2 saved 40 to 43% with the f16 cache. So the 8-bit cache has its best chance when the long context leaves room for only one or two sequences in f16, and halving the cache lets a second fit. That is the regime of a larger model or a smaller card, not tested here.
 
+Update: note 17 tested this at 65536 tokens, where f16 fits two sequences and the 8-bit cache three. It does not hold on this card: the context long enough to force the batch that low also shrinks the batching saving and raises the 8-bit penalty.
+
 ## What to take from this
 
 1. A long context's real cost on a memory-limited device is the batch it forbids. Memory caps the batch at 8 for a 7B model at 8192 to 16384 tokens on a 12 GB card, which caps how cheap a token can get.
