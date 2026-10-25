@@ -192,6 +192,12 @@ the GPU module; Data, the 8-GPU board; Phase, the accelerator card. Models stays
 had to be re-rendered once more: the 12:26 file still carried "SPL-G1". Rule: circuits, dies, boards,
 datacenter parts; never consumer machines.
 
+- 15:15, Martin on the Research wafer: "shadow fix" then "shadow too dark". Fixed at the source and in the
+  finish: a wide frontal softbox so the shadow pools at the foot instead of a hard wedge to the side, the key
+  softbox enlarged (size 16) so its edge blurs, a wider frame (2600 wide) so the pool is not clipped, and
+  `finish.py in out 140 40 0.4`: pad 140, haze cut 40, shadow opacity 0.4 (shadow pixels found by colour,
+  near-black on the catcher, so the wafer's own dark face is untouched).
+
 ## Next, in order
 
 1. Review the capped-quality PR (note 23) and the 7B re-run; update note 22's 7B rows on the site if the means move.
