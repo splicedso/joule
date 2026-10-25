@@ -61,6 +61,7 @@ Raw JSON is in `results/`.
 - [14. A long context does not spend the batching saving (Windows half)](notes/2026-10-windows-batch-context.md): batch 1 to 8 at 64 and 4096 tokens of context on the RTX 5070 Ti. Batch 8 keeps 72 to 76% of its energy saving at 4096 against 75 to 79% at 64; note 8's batching loss is a memory-fit effect, not a context effect, and did not appear where the cache still fit.
 - [15. Our first model: a distilled draft model](notes/2026-10-spliced-drafter.md): a 0.5B draft distilled from 1.14M tokens of Qwen2.5 7B output. Held-out loss 6% lower, acceptance about 3% higher, 2 to 3% faster; raising its threshold did not help.
 - [16. The memory-bound regime: when a long context caps the batch (Windows half)](notes/2026-10-windows-memory-bound.md): at 8192 and 16384 tokens the 7B's f16 cache fits only batch 8 on a 12 GB card, so memory caps the batching that makes a token cheap. An 8-bit cache does not win it back: at 16384 it fits no larger batch (1.64x the energy), and at 8192 it fits batch 16 but still costs 6% more than f16 at batch 8.
+- [17. The 8-bit cache does not win even when it fits an extra sequence (Windows half)](notes/2026-10-windows-longctx.md): at 65536 tokens, where the 7B f16 cache fits only 2 sequences, the 8-bit cache fits a third but costs 1.58x f16's best. Forcing f16 that low needs a context so long that batching stops paying and the cache penalty is largest, so note 16's predicted win does not occur.
 
 ## Known limits
 

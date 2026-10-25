@@ -1,0 +1,67 @@
+{
+  "cells": {
+    "f16fa-p32768-b1": {
+      "mj_per_tok": 1377.2,
+      "tok_s": 71.6,
+      "spread": 0.104
+    },
+    "f16fa-p32768-b2": {
+      "mj_per_tok": 964.7,
+      "tok_s": 101.6,
+      "spread": 0.16
+    },
+    "f16fa-p32768-b3": {
+      "mj_per_tok": 760.0,
+      "tok_s": 127.7,
+      "spread": 0.148
+    },
+    "f16fa-p32768-b4": {
+      "mj_per_tok": 710.3,
+      "tok_s": 135.7,
+      "spread": 0.116
+    },
+    "f16fa-p65536-b1": {
+      "mj_per_tok": 1933.6,
+      "tok_s": 49.4,
+      "spread": 0.019
+    },
+    "q8-p65536-b1": {
+      "mj_per_tok": 2872.0,
+      "tok_s": 34.0,
+      "spread": 0.004
+    },
+    "f16fa-p65536-b2": {
+      "mj_per_tok": 1440.3,
+      "tok_s": 66.8,
+      "spread": 0.008
+    },
+    "q8-p65536-b2": {
+      "mj_per_tok": 2432.2,
+      "tok_s": 39.8,
+      "spread": 0.004
+    },
+    "q8-p65536-b3": {
+      "mj_per_tok": 2281.7,
+      "tok_s": 42.4,
+      "spread": 0.005
+    }
+  },
+  "spills": [
+    {
+      "context": 65536,
+      "cache": "f16fa",
+      "batch": 3,
+      "peak_vram_mib": 11876,
+      "status": "spill",
+      "tok_s": null
+    },
+    {
+      "context": 65536,
+      "cache": "q8",
+      "batch": 4,
+      "peak_vram_mib": 11890,
+      "status": "spill",
+      "tok_s": null
+    }
+  ]
+}
