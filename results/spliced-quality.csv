@@ -11,3 +11,7 @@ machine,model,format,calibration,slots,questions,accuracy,chip_j_per_correct,net
 "Apple M5 Pro, 24 GB",Qwen2.5 1.5B,Q2_K,"imatrix, general text",8,250,0.372,28.39,26.21,43.1,835.8,2,20,lattice-v0-energy-1.5b-Q2_K-imatgeneral-run1.json lattice-v0-energy-1.5b-Q2_K-imatgeneral-run2.json
 "Apple M5 Pro, 24 GB",Qwen2.5 1.5B,Q2_K,"imatrix, GSM8K-train",8,250,0.424,23.79,21.74,44.2,817.8,2,20,lattice-v0-energy-1.5b-Q2_K-imat-run1.json lattice-v0-energy-1.5b-Q2_K-imat-run2.json
 "Apple M5 Pro, 24 GB",Qwen2.5 1.5B,Q4_0,none,8,250,0.658,14.84,14.13,39.1,851.4,2,20,lattice-v0-energy-1.5b-Q4_0-run1.json lattice-v0-energy-1.5b-Q4_0-run2.json
+"AMD Ryzen AI Max+ 395, 128 GB",Qwen2.5 7B,Q4_0,none,8,250,0.886,153.77,131.15,589.0,225.9,2,22,lattice-halo-7b-Q4_0-pass1.json lattice-halo-7b-Q4_0-pass2.json
+"AMD Ryzen AI Max+ 395, 128 GB",Qwen2.5 7B,Q2_K,"imatrix, GSM8K-train",8,250,0.842,195.88,160.67,694.9,187.3,2,22,lattice-halo-7b-Q2_K-imat-pass1.json lattice-halo-7b-Q2_K-imat-pass2.json
+"AMD Ryzen AI Max+ 395, 128 GB",Qwen2.5 32B,Q4_0,none,8,250,0.948,563.6,467.7,2223.7,56.3,2,22,lattice-halo-32b-Q4_0-pass1.json lattice-halo-32b-Q4_0-pass2.json
+"AMD Ryzen AI Max+ 395, 128 GB",Qwen2.5 32B,Q2_K,"imatrix, GSM8K-train",8,250,0.956,473.66,393.55,1992.1,61.2,2,22,lattice-halo-32b-Q2_K-imat-pass1.json lattice-halo-32b-Q2_K-imat-pass2.json
