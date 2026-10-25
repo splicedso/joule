@@ -16,7 +16,7 @@ from .power import Sampler, mean_power
 
 TRIM = 0.25
 MIN_STEADY_S = 4.0
-WARMUP_S = 8.0  # run the model this long before the timed window and discard it, so the GPU is at
+WARMUP_S = float(__import__("os").environ.get("PHASE_WARMUP_S", 8.0))  # 0 reproduces notes 1-20. Run the model this long before the timed window and discard it, so the GPU is at
 # its steady clock and power before measuring. A cold GPU read ~100 W on a 7B decode where a warm
 # one read ~126 W at the same tok/s, so the first measured phase was undercounting without this.
 

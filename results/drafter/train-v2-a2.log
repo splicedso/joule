@@ -1,0 +1,9 @@
+3420 train, 180 valid; stock agreement 0.7601
+Traceback (most recent call last):
+  File "/Users/martinmuskov/Docs/GitHub/spliced/phase/experiments/drafter/train_kd.py", line 158, in <module>
+    main()
+    ~~~~^^
+  File "/Users/martinmuskov/Docs/GitHub/spliced/phase/experiments/drafter/train_kd.py", line 114, in main
+    opt = optim.AdamW(learning_rate=optim.join_schedules([optim.linear_schedule(0, LR, WARMUP), optim.constant_schedule(LR)], [WARMUP]))
+                                                                                                ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'mlx.optimizers' has no attribute 'constant_schedule'

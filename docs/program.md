@@ -17,7 +17,7 @@ A note that can't meet these waits.
 
 | machine | memory | role |
 |---|---|---|
-| AMD Ryzen AI Max+ 395 (Strix Halo), Linux | 125 GB unified | heavy work: training, teacher data, 70B-class models |
+| AMD Ryzen AI Max+ 395 (Strix Halo), Linux | 128 GB unified, 113 GiB to the GPU | heavy work: training (PyTorch on ROCm 7.2, 32 TFLOPS bf16), teacher data, 32B to 70B models |
 | Apple M5 Pro, macOS | 24 GB | light measurement, analysis, writing; jobs kept to a few GB |
 | RTX 5070 Ti laptop, Windows | 12 GB GPU | paused |
 
@@ -31,19 +31,22 @@ Small models trained to predict one specific large model, for speculative decodi
 
 - **Trace-0.5B v0** (note 15): sequence-level distillation from Qwen2.5 7B. Held-out loss 6% lower than stock, acceptance about 3% higher. Too small a gain to ship.
 - A logit-distillation attempt on 3,400 prompts overfit: its top-1 agreement with the 7B was 75.4% held out, against 76.0% for the stock model.
+- **Trace v1, status (2026-10-25):** 35,000 prompts prepared, the 7B's top-20 distribution being recorded on the Strix Halo (about 2,500 prompts an hour); training starts at about 8,000. The PyTorch trainer reproduces the stock model's held-out agreement on both machines (0.7606 Mac, 0.7616 Halo).
 - **Trace v1, target:** top-1 agreement with the target at least 3 points above the stock draft on held-out prompts, and a measured speedup with lower energy per correct answer. Planned changes: 10 times more prompts (about 35,000), the teacher's distribution streamed from disk, and training on Linux. Then a Trace for a 72B target, where a draft's speedup matters most.
 
 ### Lattice: models that keep their answers at fewer bits
 
 Quantization-aware fine-tuning, so a model holds its accuracy in the low-bit formats our notes found cheapest.
 
-- **Lattice v1, target:** Qwen2.5 1.5B at 3 bits or below per weight, with GSM8K accuracy within 1 point of Q4_0, and lower joules per correct answer than Q4_0.
+- **Baseline (Mac, GSM8K-250, 2026-10-25):** Qwen2.5 1.5B scores 21% at Q2_K, 66% at Q3_K_M and Q4_0, and 70 to 72% from Q5_K_M to F16. Standard quantization holds at about 3.9 bits and collapses below it. The energy half of that run is not usable (passes disagreed by up to 24%, because the machine was in use), so it is to be rerun idle.
+- **Lattice v0 (note 20):** an importance matrix calibrated on GSM8K-train lifts Q2_K from 21% to 42% at the same size (37% with general-text calibration). Joules per correct answer fall 40%, but Q4_0 is still cheaper per answer on the M5 Pro, because a 2-bit token costs more energy there. Next: 7B and 32B on the Strix Halo, where memory dominates.
+- **Lattice v1, target:** a Qwen2.5 1.5B at Q2_K size (about 3.3 bits per weight) that scores at least 60% where stock Q2_K scores 21%, at lower joules per correct answer than Q4_0. Method: quantization-aware fine-tuning on the Linux machine.
 
 ### Kinetic: a small model shaped by energy
 
 A model trained from scratch, its width, depth and vocabulary chosen from our measurements of what each costs per token on real hardware.
 
-- Starts once the quality harness and Trace v1 are done. Target: beat a same-size Qwen on joules per correct answer for a narrow task.
+- Plan: `docs/kinetic.md`. Four shapes at about 50M parameters (24x512, 12x720, 6x1024, 4x1260, all 71.6 to 74.1M non-embedding), the same 1B tokens, trained on the Strix Halo, measured on both machines. Starts after Trace v1.
 
 ## Order
 

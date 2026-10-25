@@ -1,5 +1,10 @@
 # Changelog
 
+
+## Unreleased
+
+- **A warm-up before every timed window.** `phase` now runs each phase for about 8 seconds and discards it before measuring, so the GPU is at its steady clock and power. On the Strix Halo a cold first phase read about 100 W on 7B decode where a warm one read about 126 W at the same speed. Set `PHASE_WARMUP_S=0` to reproduce notes 1 to 20 exactly as they were measured.
+
 ## 0.3.0
 
 - Renamed from joule to Phase: the repository, the Python package and the `phase` command. Old GitHub links redirect. The tool's core idea is measuring each phase of inference, prefill and decode, apart.
