@@ -7,6 +7,7 @@ Every shape trains on the same file in the same order.
     python experiments/kinetic/prepare.py data/kinetic [TRAIN_TOKENS]
 """
 
+import os
 import sys
 from pathlib import Path
 
@@ -40,6 +41,11 @@ def main():
             break
     for f in files.values():
         f.close()
+    # The streaming dataset's download thread aborts the interpreter at exit
+    # (PyGILState_Release during finalizing: exit code 134, after every token is on disk).
+    # The files are closed, so leave without running finalizers.
+    sys.stdout.flush()
+    os._exit(0)
 
 
 if __name__ == "__main__":
