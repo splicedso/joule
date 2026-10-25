@@ -89,6 +89,9 @@ Preview: `.claude/launch.json` config `spliced-site`, port 8772. Images carry `?
   header, Copy on every answer. `src/dev-shim.js` fakes the Tauri bridge and llama-server so the UI can be
   checked in a browser: `.claude/launch.json` config `foundry-ui` (port 8773, from ~/Docs). Checked there;
   not yet run as the real app (`npm run tauri dev`).
+  CI (`.github/workflows/build.yml`, workflow_dispatch) ran for the first time at 15:05 and is green on
+  macOS arm64, Ubuntu 22.04 and Windows. A `v*` tag makes a draft release with unsigned bundles; signing
+  needs Martin's certificate.
 - **Linux (13:00; its clock runs about 85 min behind this Mac, it reports in its own):** Lattice 32B pair running GPU-exclusive from `experiments/lattice_halo_finish.sh`,
   then Q2_K-imat, then pass 2 reversed, then the 7B pass 2. PR from `linux-lattice-32b` expected
   13:15 to 13:30 PT with raw JSON for six runs and `results/lattice-halo-idle-pre.csv`. Idle before 32B
