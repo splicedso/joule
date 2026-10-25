@@ -182,7 +182,8 @@ Martin's sudo again. Linux is on the Trace harvest (10,005 of 35,180 done at 14:
 3. Kinetic (14:30): data complete and verified (1e9 uint32 tokens, all ids in vocabulary, shard reproduction
    byte-identical); the prepare.py crash is a PyGILState abort at interpreter exit after every token is
    written; a small fix PR is coming; train.py smoke-tested on ROCm (10 steps, wide shape, 72.4M params).
-   The four-shape runs queue after the retrain.
+   The four-shape runs queue after the retrain. PR 19 (the exit fix and `results/kinetic-data.md`) reviewed
+   and merged at 14:45; the fix is `os._exit(0)` after flushing and closing both files, documented in place.
 2. Check the home hero fall on a real scroll, at desktop and phone width.
 3. Trace: decide between the 35k run and Q4_0-teacher on-policy; queue it on Linux.
 4. Foundry: create its GitHub repo once Martin says yes, then a signed release.
