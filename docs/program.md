@@ -80,4 +80,12 @@ groundwork only (`docs/clusters-groundwork.md`): nothing is claimed until measur
 4. Lattice v1.
 5. Kinetic.
 
-Models are published on the GitHub releases of this repository until the lab has a Hugging Face account.
+## Open and for profit
+
+Spliced is a for-profit company. Phase, the notes and the raw data are public under Apache-2.0
+(this repository). The models we release are open: weights and the training recipe, under the same
+licence as the base model they come from. Foundry is a private repository for now. A closed-source
+model is a possibility the company has not started on and makes no claim about; nothing on the site
+says one exists.
+
+Models are published on the GitHub releases of this repository until the company has a Hugging Face account.

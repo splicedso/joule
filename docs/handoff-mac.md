@@ -250,6 +250,14 @@ Rendered by `site/render/decode.py` (module) and `--sled`; the site's Designs pa
 (`src/pages/designs.html`, footer link) shows both with the argument and a "what would have to be
 true" list. Nothing on it is claimed as built or measured.
 
+## 16:05: open and for profit
+
+Martin: "we are for profit but our models are open source; maybe we should also develop a closed source
+model but no work on that yet." Recorded in `docs/program.md` ("Open and for profit"). State of fact:
+phase is public Apache-2.0, foundry is private with no licence, no model has been released yet (the
+releases are Phase versions). The Lab page says code, data and model weights are open and the company is
+for profit. No closed-model work, no mention of one on the site.
+
 ## Next, in order
 
 1. Review the capped-quality PR (note 23) and the 7B re-run; update note 22's 7B rows on the site if the means move.
