@@ -21,7 +21,7 @@ Foundry app, and direct the Linux session (AMD Strix Halo) by SendMessage. Marti
 |---|---|---|
 | `phase` | the energy tool, experiments, notes, program | splicedso/phase |
 | `site` | splicedso.github.io; `python build.py` (needs `markdown`: `uv run --with markdown python build.py`) | splicedso/splicedso.github.io |
-| `foundry` | the desktop app (Tauri 2 + llama-server) | none yet, local only. Ask Martin before creating one |
+| `foundry` | the desktop app (Tauri 2 + llama-server) | splicedso/foundry (private, created 2026-10-25 14:05 with Martin's yes) |
 
 Preview: `.claude/launch.json` config `spliced-site`, port 8772. Images carry `?v=` so a reload shows new renders.
 
@@ -83,7 +83,7 @@ Preview: `.claude/launch.json` config `spliced-site`, port 8772. Images carry `?
   pastel disc; the second (dimmer, set off the ray, HDRI 0.18) gives a bright-to-dark gradient but the face still
   reads as tie-dye, not silicon. `render/log/wafer-test.png` is the latest. Next try: darker base (0.2), dies with
   internal block structure at this angle, HDRI 0.1, and a narrower softbox so most of the face stays dark.
-- **Foundry app** (local repo, no remote; ask Martin before creating one): Stop button and Esc abort a
+- **Foundry app** (now on splicedso/foundry, private): Stop button and Esc abort a
   generation and keep what came through, live tokens and tok/s while streaming, a session total in the
   header, Copy on every answer. `src/dev-shim.js` fakes the Tauri bridge and llama-server so the UI can be
   checked in a browser: `.claude/launch.json` config `foundry-ui` (port 8773, from ~/Docs). Checked there;
