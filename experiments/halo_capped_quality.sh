@@ -41,7 +41,8 @@ max_mhz_during() {
 
 # verify the cap under a decode load before measuring anything
 restore; sleep 1; apply_cap; sleep 2
-mx=$(max_mhz_during "$BENCH" -m models/quant/7b-Q4_0.gguf -p 0 -n 400 -r 2 -ngl 99 >/dev/null 2>&1)
+bench_quiet() { "$BENCH" -m models/quant/7b-Q4_0.gguf -p 0 -n 400 -r 2 -ngl 99 >/dev/null 2>&1; }
+mx=$(max_mhz_during bench_quiet)
 log "cap check: force=$(cat $DEV/power_dpm_force_performance_level) active_max=${mx}MHz"
 if [ -z "$mx" ] || [ "$mx" -gt $((CAP + 50)) ]; then log "cap did not hold, abort"; exit 1; fi
 
