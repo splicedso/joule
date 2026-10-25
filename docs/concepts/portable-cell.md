@@ -51,3 +51,12 @@ will not put a number here until a bill of materials exists.
 - The idle floor of a row at low load, at the wall, has to stay below the sum of its cells idling.
 
 None of those are measured.
+
+## What the simulator already says
+
+Fabric's demo (`spliced/fabric`, `python -m fabric.sim demo`) runs 64 requests through one capped
+module and through a row of four cells with one, two or four awake, using our measured per-token
+costs and placeholder trunk overheads (150 W of pumps, 120 W of switch, 3% conversion). The row
+costs 2.7 times one module per correct answer at that load, almost all of it overhead and idle. That
+is the design's real question: the trunks have to be cheap at low load, and the sleep policy has to
+be aggressive, or a cell alone beats a row. A prototype's first job is to replace those placeholders.
