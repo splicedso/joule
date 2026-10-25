@@ -64,6 +64,14 @@ A model trained from scratch, its width, depth and vocabulary chosen from our me
 - Data (2026-10-25): 1B tokens of FineWeb-Edu, complete and verified deterministic (`results/kinetic-data.md`); the trainer runs on ROCm. The four shapes queue after the Trace retrain.
 - Plan: `docs/kinetic.md`. Four shapes at about 50M parameters (24x512, 12x720, 6x1024, 4x1260, all 71.6 to 74.1M non-embedding), the same 1B tokens, trained on the Strix Halo, measured on both machines. Starts after Trace v1.
 
+## Systems
+
+The measurements add up to a recipe for running a model on one machine (`docs/local-systems.md`,
+the site's Systems page): Q4_0 below 32B, the largest model that leaves room to batch, as many
+requests at once as memory allows, the prefix cached, a draft with a 0.5 confidence threshold, the
+shader clock capped where the platform allows. Foundry is that recipe as an app. Clusters are
+groundwork only (`docs/clusters-groundwork.md`): nothing is claimed until measured.
+
 ## Order
 
 1. Quality harness: joules per correct answer.

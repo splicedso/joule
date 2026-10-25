@@ -217,6 +217,23 @@ datacenter parts; never consumer machines.
   Trace 35k retrain). A background research agent is writing `docs/clusters-reading.md`, a sourced reading
   note on inference cluster design (Martin: "I kinda want to get into cluster architectures, far from there").
 
+## 16:00: the company, and systems
+
+Martin: "we are an AI model company (right now local models) but also I want to design clusters and
+systems for AI; nothing yet, but start laying the groundwork." Done:
+- `docs/local-systems.md`: the local inference recipe, every decision tied to a note (format, size,
+  batch, prefix cache, draft with threshold, clock cap, warm, idle). Published as the site's Systems
+  page (`site/build.py` renders it like Methods); footer link; Models links to it as the bar.
+- `docs/clusters-groundwork.md`: what transfers from the single-chip notes, what we do not know, and a
+  five-step order to learn it without buying anything (roofline with an interconnect term, a two-node
+  llama.cpp RPC measurement on the machines we own, note 8 re-derived, disaggregation simulated, only then
+  a design document). Not on the site; nothing cluster-related goes on the site until measured.
+- `docs/clusters-reading.md` is being written by a background research agent (sourced reading note).
+- Home now leads with "Models that cost less per answer"; Lab's description says the company builds
+  efficient inference systems. Role name: Martin asked; I suggested "Founder and Systems Engineer" with
+  the tagline as the company line, and "Inference Systems Architect" once a cluster measurement exists.
+  He has not chosen.
+
 ## Next, in order
 
 1. Review the capped-quality PR (note 23) and the 7B re-run; update note 22's 7B rows on the site if the means move.
