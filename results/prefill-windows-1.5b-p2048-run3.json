@@ -1,0 +1,60 @@
+{
+  "machine": {
+    "chip": "Intel(R) Core(TM) Ultra 9 285H",
+    "ram_bytes": 33752977408,
+    "windows": "10.0.26300",
+    "gpus": [
+      "NVIDIA GeForce RTX 5070 Ti Laptop GPU"
+    ],
+    "on_ac": true
+  },
+  "idle_w": {
+    "soc": 22.715000000000003,
+    "sys": 0.0
+  },
+  "settings": {
+    "prefill": 2048,
+    "decode": 16,
+    "seconds": 15.0,
+    "bench_args": [
+      "-fa",
+      "on"
+    ]
+  },
+  "results": [
+    {
+      "model": "1.5b-Q4_0.gguf",
+      "model_type": "qwen2 1.5B Q4_0",
+      "phase": "prefill",
+      "tokens": 2048,
+      "tokens_per_s": 14075.16012,
+      "soc_w": 98.66821428571428,
+      "sys_w": 0.0,
+      "soc_j_per_tok": 0.007010095334227308,
+      "sys_j_per_tok": 0.0,
+      "soc_net_j_per_tok": 0.005396259341859216,
+      "sys_net_j_per_tok": 0.0,
+      "steady_s": 11.461416000005556,
+      "samples": 56,
+      "reps": 105,
+      "build": "edc353842 (11851)"
+    },
+    {
+      "model": "1.5b-Q4_0.gguf",
+      "model_type": "qwen2 1.5B Q4_0",
+      "phase": "decode",
+      "tokens": 16,
+      "tokens_per_s": 341.965486,
+      "soc_w": 100.56620000000001,
+      "sys_w": 0.0,
+      "soc_j_per_tok": 0.2940828946696685,
+      "sys_j_per_tok": 0.0,
+      "soc_net_j_per_tok": 0.22765806254494353,
+      "sys_net_j_per_tok": 0.0,
+      "steady_s": 10.14695565000875,
+      "samples": 50,
+      "reps": 288,
+      "build": "edc353842 (11851)"
+    }
+  ]
+}
