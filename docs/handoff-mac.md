@@ -290,6 +290,15 @@ refuses to print a price until a bill of materials exists. The Designs page sect
 (the build reads image sizes, so the page cannot reference a file that is not there yet).
 Render queue, one Blender at a time: realism re-renders, then the rack, then the cell test.
 
+## 16:30: two families
+
+Martin: "focus on two models, don't make a third one, or reconvert the third to be a frontier, Fable-level
+one." Kinetic is off the Models page (two boxes now) and demoted in the program to a shape study, a note
+not a release, last in Linux's queue after Lattice v1. A third family is named only when Trace and
+Lattice clear their bars. No one claims a frontier-level model; a two-person group with one Strix Halo
+cannot train one, and the site must not suggest otherwise. `build.py` now warns instead of crashing on
+a missing image, so the Models change could be built while the design renders are still in the queue.
+
 ## Next, in order
 
 1. Review the Trace 35k retrain PR when it lands (bar: 0.79 held-out agreement).

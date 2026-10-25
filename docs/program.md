@@ -57,11 +57,12 @@ Quantization-aware fine-tuning, so a model holds its accuracy in the low-bit for
 - **Lattice v0 (note 20):** an importance matrix calibrated on GSM8K-train lifts Q2_K from 21% to 42% at the same size (37% with general-text calibration). Joules per correct answer fall 40%, but Q4_0 is still cheaper per answer on the M5 Pro, because a 2-bit token costs more energy there. Next: 7B and 32B on the Strix Halo, where memory dominates.
 - **Lattice v1, target:** a Qwen2.5 1.5B at Q2_K size (about 3.3 bits per weight) that scores at least 60% where stock Q2_K scores 21%, at lower joules per correct answer than Q4_0. Method: quantization-aware fine-tuning on the Linux machine.
 
-### Kinetic: a small model shaped by energy
+### Shape study (was Kinetic; not a model family)
 
 A model trained from scratch, its width, depth and vocabulary chosen from our measurements of what each costs per token on real hardware.
 
-- Data (2026-10-25): 1B tokens of FineWeb-Edu, complete and verified deterministic (`results/kinetic-data.md`); the trainer runs on ROCm. The four shapes queue after the Trace retrain.
+- 2026-10-25, 16:30, Martin: two model families, not three. The four-shape runs stay as a research study of what width, depth and vocabulary cost per token (a note, not a release), last in the queue after Lattice v1. A third family is named only when Trace and Lattice clear their bars, and it would have to be something worth the name.
+- Data (2026-10-25): 1B tokens of FineWeb-Edu, complete and verified deterministic (`results/kinetic-data.md`); the trainer runs on ROCm.
 - Plan: `docs/kinetic.md`. Four shapes at about 50M parameters (24x512, 12x720, 6x1024, 4x1260, all 71.6 to 74.1M non-embedding), the same 1B tokens, trained on the Strix Halo, measured on both machines. Starts after Trace v1.
 
 ## Systems
@@ -75,7 +76,7 @@ groundwork only (`docs/clusters-groundwork.md`): nothing is claimed until measur
 ## Models roadmap (2026-10-25, 16:25)
 
 In flight on the Strix Halo: the Trace v1 harvest to 35,180 prompts (about 12 h), then the retrain and
-its eval against the 0.79 bar, then Kinetic's four shapes on the verified 1B tokens. Being prepared
+its eval against the 0.79 bar. Two families, Trace and Lattice; the shape study runs last. Being prepared
 beside the harvest: Lattice v1, quantization-aware fine-tuning of the 1.5B to a Q2_K-shaped grid, bar
 60% on GSM8K-250 at Q2_K size and cheaper per correct answer than Q4_0 on the M5 Pro; and a Trace for a
 72B target, which starts only if the 7B retrain clears its bar. Every run has its prediction committed
