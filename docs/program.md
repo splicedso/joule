@@ -72,6 +72,15 @@ requests at once as memory allows, the prefix cached, a draft with a 0.5 confide
 shader clock capped where the platform allows. Foundry is that recipe as an app. Clusters are
 groundwork only (`docs/clusters-groundwork.md`): nothing is claimed until measured.
 
+## Models roadmap (2026-10-25, 16:50)
+
+In flight on the Strix Halo: the Trace v1 harvest to 35,180 prompts (about 12 h), then the retrain and
+its eval against the 0.79 bar, then Kinetic's four shapes on the verified 1B tokens. Being prepared
+beside the harvest: Lattice v1, quantization-aware fine-tuning of the 1.5B to a Q2_K-shaped grid, bar
+60% on GSM8K-250 at Q2_K size and cheaper per correct answer than Q4_0 on the M5 Pro; and a Trace for a
+72B target, which starts only if the 7B retrain clears its bar. Every run has its prediction committed
+first. The Mac stays light: evaluation of small artefacts, writing, and the site.
+
 ## Order
 
 1. Quality harness: joules per correct answer.
