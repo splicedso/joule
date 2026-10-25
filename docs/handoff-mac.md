@@ -1,4 +1,4 @@
-# Handoff: the Mac lead (2026-10-25, 15:10 PT)
+# Handoff: the Mac lead (2026-10-25, 13:05 PT)
 
 You run Spliced from Martin's Mac (Apple M5 Pro, 48 GB). You lead the lab, own the site and the
 Foundry app, and direct the Linux session (AMD Strix Halo) by SendMessage. Martin does not relay.
@@ -21,7 +21,7 @@ Foundry app, and direct the Linux session (AMD Strix Halo) by SendMessage. Marti
 |---|---|---|
 | `phase` | the energy tool, experiments, notes, program | splicedso/phase |
 | `site` | splicedso.github.io; `python build.py` (needs `markdown`: `uv run --with markdown python build.py`) | splicedso/splicedso.github.io |
-| `foundry` | the desktop app (Tauri 2 + llama-server) | splicedso/foundry (private, created 2026-10-25 14:05 with Martin's yes) |
+| `foundry` | the desktop app (Tauri 2 + llama-server) | splicedso/foundry (private, created 2026-10-25 12:45 with Martin's yes) |
 
 Preview: `.claude/launch.json` config `spliced-site`, port 8772. Images carry `?v=` so a reload shows new renders.
 
@@ -53,7 +53,7 @@ Preview: `.claude/launch.json` config `spliced-site`, port 8772. Images carry `?
   Blender lives in Steam (`.../Blender.app/Contents/MacOS/Blender`). One Blender at a time:
   two at once runs the GPU out of memory.
 
-## Done 12:00 to 13:55 (Mac)
+## Done 12:00 to 13:05 (Mac)
 
 - **Home hero:** the chip now sits at the top of the page under the transparent navbar like every
   other page's render, sticky while it falls over 80vh of scroll, headline beneath (`.fall-stage`).
@@ -89,17 +89,17 @@ Preview: `.claude/launch.json` config `spliced-site`, port 8772. Images carry `?
   header, Copy on every answer. `src/dev-shim.js` fakes the Tauri bridge and llama-server so the UI can be
   checked in a browser: `.claude/launch.json` config `foundry-ui` (port 8773, from ~/Docs). Checked there;
   not yet run as the real app (`npm run tauri dev`).
-  CI (`.github/workflows/build.yml`, workflow_dispatch) ran for the first time at 15:05 and is green on
+  CI (`.github/workflows/build.yml`, workflow_dispatch) ran for the first time at 12:52 and is green on
   macOS arm64, Ubuntu 22.04 and Windows. A `v*` tag makes a draft release with unsigned bundles; signing
   needs Martin's certificate.
-- **Linux (13:00; its clock runs about 85 min behind this Mac, it reports in its own):** Lattice 32B pair running GPU-exclusive from `experiments/lattice_halo_finish.sh`,
+- **Linux (12:30; its clock and this Mac's agree within a few minutes; an earlier note here claiming an 85 minute skew was this session's arithmetic error):** Lattice 32B pair running GPU-exclusive from `experiments/lattice_halo_finish.sh`,
   then Q2_K-imat, then pass 2 reversed, then the 7B pass 2. PR from `linux-lattice-32b` expected
-  13:15 to 13:30 PT with raw JSON for six runs and `results/lattice-halo-idle-pre.csv`. Idle before 32B
+  about 13:30 PT with raw JSON for six runs (32B runs take 16 to 18 min each, not 10 to 14) and `results/lattice-halo-idle-pre.csv`. Idle before 32B
   Q4_0 pass 1: 16.63 W. Then the Trace harvest to 35k (the prompt set was in the previous runner's stash,
   recovered). Kinetic data is complete (1e9 tokens). Clock cap: Linux says Martin told it directly to run
   it in the gap before the harvest; I could not confirm that from here and said so.
 
-## Direction change, 14:45: "less larpy, only what we have"
+## Direction change, 12:55: "less larpy, only what we have"
 
 Martin, in order: "do QA and make the website more like etched", "make it less larpy yk, only what we have",
 "some of these render things are too much so maybe remove some". Applied:
