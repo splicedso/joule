@@ -1,6 +1,6 @@
 # Handoff: the Mac lead (2026-10-25, 14:20 PT)
 
-You run Spliced from Martin's Mac (Apple M5 Pro, 48 GB). You lead the lab, own the site and the
+You run Spliced from Martin's Mac (Apple M5 Pro, 24 GB (hw.memsize; an earlier handoff said 48)). You lead the lab, own the site and the
 Foundry app, and direct the Linux session (AMD Strix Halo) by SendMessage. Martin does not relay.
 
 ## Standing rules
@@ -173,12 +173,100 @@ decode direction held, size underestimated; prefill missed. Not yet measured und
 answer, 8 slots, 32B. That is the obvious next cheap win for Foundry on this class of machine; it needs
 Martin's sudo again. Linux is on the Trace harvest (10,005 of 35,180 done at 14:06), retrain follows.
 
+## 14:30 to 15:00
+
+- Site: primer 8, "When fewer bits pay, and when they do not" (`site/src/learn/8-when-fewer-bits-pay.md`),
+  from notes 5, 20 and 22; every percentage checked against the notes. `docs/program.md` brought up to
+  date (Lattice D, clock cap, Trace status, Kinetic data). The Mac has 24 GB, not 48.
+- Linux, on top of the capped run: a package-power logger every 10 s all day
+  (`experiments/power_log.sh`, `results/halo-power-log.csv`) to explain the idle drift; `experiments/wait_for.sh`
+  waits on a pid or done-file, never a command-line pattern (the bug that made PR 17 late); note 23 drafted
+  with the prediction; the 7B auto pass-1 cells re-run after the capped script and before the harvest resumes,
+  to close note 22's 10% session spread.
+
+## 15:00: "add more 3D models, not just the CPU", then "not laptops or desktops, EE-type stuff"
+
+A laptop and a mini PC were built and rendered, then dropped on Martin's second message (scripts deleted).
+What is on the site now, all unbranded: home fall and Lab, the package; Research, the facing wafer; Foundry,
+the GPU module; Data, the 8-GPU board; Phase, the accelerator card. Models stays three boxes. The GPU module
+had to be re-rendered once more: the 12:26 file still carried "SPL-G1". Rule: circuits, dies, boards,
+datacenter parts; never consumer machines.
+
+- 15:15, Martin on the Research wafer: "shadow fix" then "shadow too dark". Fixed at the source and in the
+  finish: a wide frontal softbox so the shadow pools at the foot instead of a hard wedge to the side, the key
+  softbox enlarged (size 16) so its edge blurs, a wider frame (2600 wide) so the pool is not clipped, and
+  `finish.py in out 140 40 0.4`: pad 140, haze cut 40, shadow opacity 0.4 (shadow pixels found by colour,
+  near-black on the catcher, so the wafer's own dark face is untouched).
+
+- 15:30, Martin: "reduce shadow on the actual wafer". The dark half of the face was the wafer mirroring a
+  black studio. Brightening the HDRI lifted it but cast a second shadow under the label; the fix that
+  worked is two shadowless area lights (`light.data.use_shadow = False`): one upper-left, one low in front
+  that the lower face mirrors. HDRI stays at 0.08. Blender crashed once in Metal shader compile
+  (NSException) mid-afternoon; the background render chain now writes `ok` or `crashed` to a done-file
+  from the log's "Blender quit" line, and nothing is finished unless it says ok.
+
+- 15:52, tagline, Martin's: "Efficient inference systems." (three words, a noun phrase, like Etched's "Frontier Inference
+  Clusters"); lede "What AI costs to run, and the models that cut it." Home writing is in Etched's register: a
+  claim per heading, the numbers under it. Martin mentioned wanting cluster architectures one day, "far from
+  there"; nothing on the site about it until measured.
+
+- 15:50 to 16:00: LinkedIn banners rebuilt from our own 8-GPU board render with the tagline
+  (`brand/banner_photo.py`; the Unsplash wafer photo is retired, CREDITS.md says so); the SVG trace
+  banners carry the tagline too (`brand/build.py`). Writing pass in Etched's register on Research, Data and
+  Learn; Research's open questions now name live work (Kinetic shapes, capped clocks per correct answer, the
+  Trace 35k retrain). A background research agent is writing `docs/clusters-reading.md`, a sourced reading
+  note on inference cluster design (Martin: "I kinda want to get into cluster architectures, far from there").
+
+## 16:00: the company, and systems
+
+Martin: "we are an AI model company (right now local models) but also I want to design clusters and
+systems for AI; nothing yet, but start laying the groundwork." Done:
+- `docs/local-systems.md`: the local inference recipe, every decision tied to a note (format, size,
+  batch, prefix cache, draft with threshold, clock cap, warm, idle). Published as the site's Systems
+  page (`site/build.py` renders it like Methods); footer link; Models links to it as the bar.
+- `docs/clusters-groundwork.md`: what transfers from the single-chip notes, what we do not know, and a
+  five-step order to learn it without buying anything (roofline with an interconnect term, a two-node
+  llama.cpp RPC measurement on the machines we own, note 8 re-derived, disaggregation simulated, only then
+  a design document). Not on the site; nothing cluster-related goes on the site until measured.
+- `docs/clusters-reading.md`: the sourced reading note, 3,500 words, 34 links, every figure tagged measured
+  or vendor claim. Worth knowing: nobody publishes joules per token for a production cluster; Google's
+  0.24 Wh per median prompt (58% accelerator, 25% host, 10% idle, 8% overhead) is the only full-boundary
+  number; the NVLink-to-NIC bandwidth cliff is 3 to 4x; speculative decoding's gain falls from 2.73x at
+  batch 1 to 1.31x at batch 32 and nobody reports its energy. Its section 8 ranks the first two
+  experiments we should run: decode energy against batch at the wall on all three chips, and our drafts
+  under batching in joules per accepted token. Two figures came from secondary sources and say so.
+- Home now leads with "Models that cost less per answer"; Lab's description says the company builds
+  efficient inference systems. Role name: Martin asked; I suggested "Founder and Systems Engineer" with
+  the tagline as the company line, and "Inference Systems Architect" once a cluster measurement exists.
+  He has not chosen.
+
+## 16:00: designs
+
+Martin: "design unique AI systems stuff, then make realistic renders and put them on our website."
+Done as concepts, labelled as designs, not products: `docs/concepts/decode-first.md` (a decode-first
+module: small die ringed by eight memory stacks, capped clock by design, flat cold plate; and a 1U sled
+of six behind one prefill module and a switch), argued from notes 1, 2, 10, 18, 19 and the clock cap.
+Rendered by `site/render/decode.py` (module) and `--sled`; the site's Designs page
+(`src/pages/designs.html`, footer link) shows both with the argument and a "what would have to be
+true" list. Nothing on it is claimed as built or measured.
+
+## 16:05: open and for profit
+
+Martin: "we are for profit but our models are open source; maybe we should also develop a closed source
+model but no work on that yet." Recorded in `docs/program.md` ("Open and for profit"). State of fact:
+phase is public Apache-2.0, foundry is private with no licence, no model has been released yet (the
+releases are Phase versions). The Lab page says code, data and model weights are open and the company is
+for profit. No closed-model work, no mention of one on the site.
+
 ## Next, in order
 
-1. Review the Trace 35k retrain PR when it lands (bar: 0.79 held-out agreement).
+1. Review the capped-quality PR (note 23) and the 7B re-run; update note 22's 7B rows on the site if the means move.
+2. Review the Trace 35k retrain PR when it lands (bar: 0.79 held-out agreement).
 2. The capped J-per-correct run (quality.py at OD 1800, 7B and 32B, 8 slots, two passes, about 1.5 h
    GPU-exclusive): Linux asked Martin directly at 14:30 whether to run it now (pausing the resumable
-   harvest) or after the retrain. Martin's answer decides; neither session starts it on the other's say-so.
+   harvest) or after the retrain. Martin answered at 14:50: run it now, pause the harvest, resume after.
+   Relayed to Linux verbatim with the run spec (7B Q4_0, 32B Q4_0 and 32B calibrated Q2_K at OD 1800,
+   8 slots, two passes, prediction pushed first, readback committed, harvest resumed after).
 3. Kinetic (14:30): data complete and verified (1e9 uint32 tokens, all ids in vocabulary, shard reproduction
    byte-identical); the prepare.py crash is a PyGILState abort at interpreter exit after every token is
    written; a small fix PR is coming; train.py smoke-tested on ROCm (10 steps, wide shape, 72.4M params).
