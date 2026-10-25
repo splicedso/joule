@@ -178,7 +178,9 @@ Martin's sudo again. Linux is on the Trace harvest (10,005 of 35,180 done at 14:
 1. Review the Trace 35k retrain PR when it lands (bar: 0.79 held-out agreement).
 2. The capped J-per-correct run (quality.py at OD 1800, 7B and 32B, 8 slots, two passes, about 1.5 h
    GPU-exclusive): Linux asked Martin directly at 14:30 whether to run it now (pausing the resumable
-   harvest) or after the retrain. Martin's answer decides; neither session starts it on the other's say-so.
+   harvest) or after the retrain. Martin answered at 14:50: run it now, pause the harvest, resume after.
+   Relayed to Linux verbatim with the run spec (7B Q4_0, 32B Q4_0 and 32B calibrated Q2_K at OD 1800,
+   8 slots, two passes, prediction pushed first, readback committed, harvest resumed after).
 3. Kinetic (14:30): data complete and verified (1e9 uint32 tokens, all ids in vocabulary, shard reproduction
    byte-identical); the prepare.py crash is a PyGILState abort at interpreter exit after every token is
    written; a small fix PR is coming; train.py smoke-tested on ROCm (10 steps, wide shape, 72.4M params).
