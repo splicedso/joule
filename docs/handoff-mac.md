@@ -336,9 +336,20 @@ was checked at desktop and phone width; the phone check reports lazy images at z
 decode, which is not a defect. Fabric has cells, rows, trunks and a sleep policy; six invariants pass;
 its demo says the row's placeholder overhead dominates at low load, which is now in the cell brief.
 
+## 17:25: Lattice v1 QAT started
+
+Linux's smoke test (50 steps, 1.5B, 196 linears on a 16-group 4-level grid): held-out loss 3.96 at step 0
+(the 2-bit shock) to 0.88 at step 50, peak 30.4 GiB, 5.8 s/step beside the harvest, one epoch about 90 min.
+Branch `linux-lattice-qat` has the trainer, the convert/quantize/measure pipeline and the prediction (its
+own number: 52% on GSM8K-250, bar of 60% missed, not cheaper than Q4_0). Full epoch running beside the
+harvest; quality and energy runs wait for a free GPU after the Trace eval. I asked for proof in the PR that
+fake quantization is on (distinct values per group at most 4, mean abs error master vs quantized) and that
+the measured GGUF is the Q2_K file, before any quality number is believed. 72B shards via curl, quantize
+queued, nothing served.
+
 ## Next, in order
 
-1. Review the Trace 35k retrain PR when it lands (bar: 0.79 held-out agreement).
+1. Review the Trace 35k retrain PR, then the Lattice v1 QAT PR when it lands (bar: 0.79 held-out agreement).
 2. The capped J-per-correct run (quality.py at OD 1800, 7B and 32B, 8 slots, two passes, about 1.5 h
    GPU-exclusive): Linux asked Martin directly at 14:30 whether to run it now (pausing the resumable
    harvest) or after the retrain. Martin answered at 14:50: run it now, pause the harvest, resume after.
