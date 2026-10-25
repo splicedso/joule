@@ -18,6 +18,8 @@ uv run phase model-a.gguf model-b.gguf --out results/run.json
 
 Arguments after `--` go to `llama-bench` (for example `-- -fa on -t 8`).
 
+The backend is chosen by platform: `macmon` on macOS, `nvidia-smi` plus WMI battery on Windows, and the amdgpu hwmon sysfs on Linux. All three read without sudo and sit behind the same `Sampler` interface. On Linux you need `llama-cpp` built yourself; the rest is `uv run phase`.
+
 ## Method
 
 For each model, prefill (512 prompt tokens) and decode (128 generated tokens) run as separate `llama-bench` tests. A three-repetition probe sizes the real run to about 20 timed seconds. The timed repetitions are the last thing `llama-bench` does, so the compute window is the final `sum(samples_ns)` before it exits. The first quarter of that window is dropped for clock ramp and sensor lag. Energy per token is mean power over the remaining window divided by `llama-bench`'s measured throughput.
@@ -68,7 +70,7 @@ Raw JSON is in `results/`.
 
 - **Repeatability.** Prefill and 1.5B decode repeat within 3%. 0.5B decode drifted 58 to 74 mJ/tok across three runs while throughput held, so power rose, probably heat or other load on a working laptop. Results are not yet taken on an idle, thermally settled machine, and the table shows ranges, not a single number.
 - **sys is not wall power.** It excludes the adapter's own loss. A wall meter is the next step.
-- **Two machines so far.** Apple Silicon (macmon) and Windows with an NVIDIA GPU (nvidia-smi plus battery discharge, unplugged only).
+- **Three machines so far.** Apple Silicon (macmon, soc and sys both read); Windows with an NVIDIA GPU (nvidia-smi plus battery discharge, unplugged only); and Linux on an AMD Strix Halo APU (amdgpu hwmon). On the APU soc is the whole package, read from `power1_average`, so it tracks the chip but includes the GPU. sys reads 0: this board runs on mains only and has no user-readable whole-system power, and RAPL is root-only, so it is left at 0 rather than estimated.
 
 ## License
 

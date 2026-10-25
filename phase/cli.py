@@ -13,6 +13,8 @@ from .power import Sampler, idle_baseline
 def machine() -> dict:
     if platform.system() == "Windows":
         return _machine_windows()
+    if platform.system() == "Linux":
+        return _machine_linux()
     def sysctl(key):
         return subprocess.run(["sysctl", "-n", key], capture_output=True, text=True).stdout.strip()
     on_ac = "AC Power" in subprocess.run(["pmset", "-g", "batt"], capture_output=True, text=True).stdout
@@ -54,6 +56,48 @@ def _machine_windows() -> dict:
     return {"chip": cpu_name(), "ram_bytes": int(mem.ullTotalPhys),
             "windows": platform.version(), "gpus": [g.strip() for g in gpus],
             "on_ac": pwr.ACLineStatus == 1}
+
+
+def _machine_linux() -> dict:
+    def cpu_name():
+        try:
+            with open("/proc/cpuinfo") as f:
+                for line in f:
+                    if line.startswith("model name"):
+                        return line.split(":", 1)[1].strip()
+        except OSError:
+            pass
+        return platform.processor()
+
+    def ram_bytes():
+        try:
+            with open("/proc/meminfo") as f:
+                for line in f:
+                    if line.startswith("MemTotal:"):
+                        return int(line.split()[1]) * 1024  # kB -> bytes
+        except (OSError, ValueError, IndexError):
+            pass
+        return 0
+
+    def gpus():
+        try:
+            out = subprocess.run(["lspci"], capture_output=True, text=True).stdout
+        except FileNotFoundError:
+            return []
+        return [ln.split(":", 2)[-1].strip() for ln in out.splitlines()
+                if any(k in ln for k in ("VGA", "Display", "3D"))]
+
+    def on_ac():
+        # A desktop or a plugged-in laptop: any Mains supply reporting online=1.
+        for online in subprocess.run(
+                ["sh", "-c", "cat /sys/class/power_supply/*/online 2>/dev/null"],
+                capture_output=True, text=True).stdout.split():
+            if online.strip() == "1":
+                return True
+        return False
+
+    return {"chip": cpu_name(), "ram_bytes": ram_bytes(),
+            "linux": platform.release(), "gpus": gpus(), "on_ac": on_ac()}
 
 
 def table(results: list[dict]) -> str:
