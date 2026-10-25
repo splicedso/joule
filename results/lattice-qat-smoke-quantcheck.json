@@ -1,0 +1,23 @@
+{
+ "model.layers.0.mlp.down_proj.weight": {
+  "max_distinct_per_group": 4,
+  "mean_distinct": 3.99,
+  "mae_vs_original_bf16": 0.006987,
+  "mean_abs_original": 0.021175,
+  "frac_changed": 0.8986
+ },
+ "model.layers.14.self_attn.q_proj.weight": {
+  "max_distinct_per_group": 4,
+  "mean_distinct": 3.99,
+  "mae_vs_original_bf16": 0.006702,
+  "mean_abs_original": 0.019629,
+  "frac_changed": 0.9015
+ },
+ "model.layers.27.mlp.up_proj.weight": {
+  "max_distinct_per_group": 4,
+  "mean_distinct": 3.99,
+  "mae_vs_original_bf16": 0.007398,
+  "mean_abs_original": 0.022384,
+  "frac_changed": 0.898
+ }
+}

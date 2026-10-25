@@ -160,6 +160,22 @@ def collate(examples, pad_id):
 
 
 @torch.no_grad()
+def quant_check(model, name="model.layers.0.mlp.down_proj"):
+    """Proof the fake quantization is on: distinct values per group of the quantized weight (at most
+    QMAX + 1) and the mean absolute error between the master weight and its quantized value."""
+    mod = dict(model.named_modules())[name]
+    w = mod.weight.detach().float()
+    q = mod.quantized_weight().detach().float()
+    out_f, in_f = w.shape
+    groups = q.view(-1, GROUP)
+    distinct = torch.tensor([len(torch.unique(g)) for g in groups[torch.randperm(groups.shape[0])[:4096]]])
+    return {"linear": name, "shape": [out_f, in_f], "groups_sampled": int(distinct.numel()),
+            "max_distinct_per_group": int(distinct.max()), "mean_distinct_per_group": round(float(distinct.float().mean()), 3),
+            "mae_master_vs_quantized": float((w - q).abs().mean()), "mean_abs_master": float(w.abs().mean()),
+            "frac_changed_by_quant": float(((w - q).abs() > 1e-7).float().mean())}
+
+
+@torch.no_grad()
 def validate(model, held, pad_id):
     model.eval(); tot = n = 0
     for i in range(0, len(held), BATCH):
@@ -193,6 +209,8 @@ def main():
     v0 = validate(model, held, pad)
     print(f"{DEVICE}: {n_q} linears fake-quantized (group {GROUP}, {QMAX + 1} levels); {len(train)} train, {len(held)} held out; "
           f"{total} steps, batch {BATCH}; held-out loss before training {v0:.4f}", flush=True)
+    qc0 = quant_check(model)
+    print("quant check at step 0:", json.dumps(qc0), flush=True)
     log = [{"step": 0, "valid_loss": v0}]
     order = list(range(len(train))); random.shuffle(order)
     t0, pos = time.monotonic(), 0
@@ -218,12 +236,14 @@ def main():
             v = validate(model, held, pad)
             log.append({"step": step, "train_loss": loss.item(), "valid_loss": v})
             print(f"step {step} held-out loss {v:.4f}", flush=True)
+    qc1 = quant_check(model)
+    print("quant check at the end:", json.dumps(qc1), flush=True)
     n_b = swap(model, False)
     model.config.use_cache = True
     model.to(torch.bfloat16).save_pretrained(out)
     tok.save_pretrained(out)
     (out / "train_log.json").write_text(json.dumps({"steps": total, "lr": LR, "batch": BATCH, "group": GROUP, "general_frac": GENERAL_FRAC,
-                                                    "baked_linears": n_b, "peak_gib": torch.cuda.max_memory_allocated() / 2**30 if DEVICE == "cuda" else None,
+                                                    "baked_linears": n_b, "quant_check_step0": qc0, "quant_check_end": qc1, "peak_gib": torch.cuda.max_memory_allocated() / 2**30 if DEVICE == "cuda" else None,
                                                     "minutes": (time.monotonic() - t0) / 60, "log": log}, indent=2) + "\n")
     print(f"saved {out} ({n_b} linears baked) after {(time.monotonic() - t0) / 60:.1f} min", flush=True)
 
