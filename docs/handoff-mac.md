@@ -53,6 +53,22 @@ Preview: `.claude/launch.json` config `spliced-site`, port 8772. Images carry `?
   Blender lives in Steam (`.../Blender.app/Contents/MacOS/Blender`). One Blender at a time:
   two at once runs the GPU out of memory.
 
+## Martin's latest site asks (12:00, not done)
+
+- **Etched layout.** Study etched.com: a huge render at the top with the headline under it, then
+  long sections split in two columns. The left column holds one large still render per section;
+  the right column holds the heading and several paragraphs of real writing. Thin vertical column
+  rules run down the page. Martin wants that: more writing, each block anchored by a render.
+- **Standing wafer.** `render/wafer.py --stand` exists (wafer on edge, yawed 28 degrees) but the
+  first renders are not shippable: banded shadow, one side blown out. Fix the lighting (dimmer
+  HDRI, a soft key from the front, more samples), then use it on a page that has no render yet
+  (Lab's writing section, or Learn).
+- **Hero fall sharpness.** The 36 frames are 1200x750 at 24 samples and look soft. `package.py`
+  now disables depth of field and denoises; re-render `--fall 36` at 1600x1000 and convert with
+  the snippet in the session (composite on #eee, JPEG q82 into `assets/fall/`).
+- Martin asked for everything centred. Page heads, section heads and model rows are centred;
+  keep it that way in the Etched layout (centre the hero, two balanced columns below).
+
 ## Next, in order
 
 1. Merge the Linux PR after checking it; finish note 22; publish it.
