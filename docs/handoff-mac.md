@@ -1,4 +1,4 @@
-# Handoff: the Mac lead (2026-10-25, 13:55 PT)
+# Handoff: the Mac lead (2026-10-25, 14:35 PT)
 
 You run Spliced from Martin's Mac (Apple M5 Pro, 48 GB). You lead the lab, own the site and the
 Foundry app, and direct the Linux session (AMD Strix Halo) by SendMessage. Martin does not relay.
@@ -79,16 +79,17 @@ Preview: `.claude/launch.json` config `spliced-site`, port 8772. Images carry `?
   Martin's calls on the tray, in order: cables must fold back into the machine (they now leave the upper
   unit's port cage, loop, and return into the lower unit), then "make the cables shorter" (done in
   tray.py). Both shipped; the short-loop version is live at the top of Models.
-- **Standing wafer: not shippable after two relights.** The first (big softbox on the mirror ray) washed it to a
-  pastel disc; the second (dimmer, set off the ray, HDRI 0.18) gives a bright-to-dark gradient but the face still
-  reads as tie-dye, not silicon. `render/log/wafer-test.png` is the latest. Next try: darker base (0.2), dies with
-  internal block structure at this angle, HDRI 0.1, and a narrower softbox so most of the face stays dark.
+- **Standing wafer: shipped on Lab's writing section (two-column Etched).** What made it read as silicon,
+  after four tries: darker base, HDRI 0.08, one narrow softbox set off the mirror ray so most of the face
+  stays dark with one window of light, and film thickness per die instead of a slow noise (the noise made
+  tie-dye blotches on edge). `finish.py ... 60 64` cuts the shadow catcher's floor haze, which showed as a
+  rectangle on the page.
 - **Foundry app** (now on splicedso/foundry, private): Stop button and Esc abort a
   generation and keep what came through, live tokens and tok/s while streaming, a session total in the
   header, Copy on every answer. `src/dev-shim.js` fakes the Tauri bridge and llama-server so the UI can be
   checked in a browser: `.claude/launch.json` config `foundry-ui` (port 8773, from ~/Docs). Checked there;
   not yet run as the real app (`npm run tauri dev`).
-- **Linux (13:00):** Lattice 32B pair running GPU-exclusive from `experiments/lattice_halo_finish.sh`,
+- **Linux (13:00; its clock runs about 85 min behind this Mac, it reports in its own):** Lattice 32B pair running GPU-exclusive from `experiments/lattice_halo_finish.sh`,
   then Q2_K-imat, then pass 2 reversed, then the 7B pass 2. PR from `linux-lattice-32b` expected
   13:15 to 13:30 PT with raw JSON for six runs and `results/lattice-halo-idle-pre.csv`. Idle before 32B
   Q4_0 pass 1: 16.63 W. Then the Trace harvest to 35k (the prompt set was in the previous runner's stash,
@@ -101,8 +102,7 @@ Preview: `.claude/launch.json` config `spliced-site`, port 8772. Images carry `?
   long sections split in two columns. The left column holds one large still render per section;
   the right column holds the heading and several paragraphs of real writing. Thin vertical column
   rules run down the page. Martin wants that: more writing, each block anchored by a render.
-- **Standing wafer.** `render/wafer.py --stand`: see the Done list above; still not shippable. When it is,
-  use it on a page that has no second render yet (Lab's writing section, or Learn).
+- **Standing wafer.** Done; on Lab (see above).
 - **Hero fall sharpness.** The 36 frames are 1200x750 at 24 samples and look soft. `package.py`
   now disables depth of field and denoises; re-render `--fall 36` at 1600x1000 and convert with
   the snippet in the session (composite on #eee, JPEG q82 into `assets/fall/`).
