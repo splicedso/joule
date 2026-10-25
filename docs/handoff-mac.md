@@ -198,6 +198,13 @@ datacenter parts; never consumer machines.
   `finish.py in out 140 40 0.4`: pad 140, haze cut 40, shadow opacity 0.4 (shadow pixels found by colour,
   near-black on the catcher, so the wafer's own dark face is untouched).
 
+- 15:30, Martin: "reduce shadow on the actual wafer". The dark half of the face was the wafer mirroring a
+  black studio. Brightening the HDRI lifted it but cast a second shadow under the label; the fix that
+  worked is two shadowless area lights (`light.data.use_shadow = False`): one upper-left, one low in front
+  that the lower face mirrors. HDRI stays at 0.08. Blender crashed once in Metal shader compile
+  (NSException) mid-afternoon; the background render chain now writes `ok` or `crashed` to a done-file
+  from the log's "Blender quit" line, and nothing is finished unless it says ok.
+
 ## Next, in order
 
 1. Review the capped-quality PR (note 23) and the 7B re-run; update note 22's 7B rows on the site if the means move.
