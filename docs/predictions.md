@@ -102,3 +102,21 @@ in note 22).
 - Lattice item D, 7B pass 1 re-run on auto in this session (not averaged in): Q4_0 reproduced the previous
   session's pass 1 within 1%, Q2_K within 3% on power, so the 10% pass-to-pass spread is run order (pass 2
   followed four 32B runs), not the session.
+
+## 2026-10-25, 16:40 PT
+
+**Lattice v1, quantization-aware fine-tuning** (Strix Halo, `experiments/lattice/qat.py`: Qwen2.5 1.5B
+Instruct, every linear in the blocks fake-quantized to a Q2_K-shaped grid, group 16, learned per-group scale
+and minimum, straight-through rounding, one epoch of GSM8K train in quality.py's chat format plus 30%
+FineWeb-Edu windows, LR 1e-5; then converted and quantized to Q2_K with the GSM8K imatrix;
+`experiments/lattice_qat.sh`; GSM8K-250 on auto, two passes, 8 and 1 slots). The bar from docs/program.md:
+at least 60% at Q2_K size, cheaper per correct answer than Q4_0.
+- Accuracy of the resulting Q2_K file on GSM8K-250: **52%**, between 45 and 60. Above calibrated Q2_K's 42%
+  and plain Q2_K's 21%, below the 60% bar and below Q4_0's 66%.
+- The real Q2_K requantization costs the fine-tuned model under 3 points against the same weights served at
+  F16, because the weights already sit on a 16-group, 4-level grid.
+- Joules per correct answer on the Strix Halo at 8 slots: between 85 and 110 against Q4_0's 65.2 (note 19),
+  so not cheaper per correct answer; the 2-bit 1.5B token costs more energy than the 4-bit one on both
+  machines (notes 20 and 22), and 52% against 66% accuracy widens the gap. The bar is missed on energy.
+- The 50-step smoke test's training loss falls from its first value by at least 20% and peak memory stays
+  under 30 GiB.
