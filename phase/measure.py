@@ -16,6 +16,9 @@ from .power import Sampler, mean_power
 
 TRIM = 0.25
 MIN_STEADY_S = 4.0
+WARMUP_S = 8.0  # run the model this long before the timed window and discard it, so the GPU is at
+# its steady clock and power before measuring. A cold GPU read ~100 W on a 7B decode where a warm
+# one read ~126 W at the same tok/s, so the first measured phase was undercounting without this.
 
 
 @dataclass(frozen=True)
@@ -51,7 +54,10 @@ def reps_for(target_s: float, per_rep_s: float) -> int:
 def measure(sampler: Sampler, idle: tuple[float, float], model: str, phase: str,
             tokens: int, target_s: float, extra: list[str]) -> Result:
     probe = llamacpp.run_phase(model, phase, tokens, 3, extra)
-    reps = reps_for(target_s, probe.compute_s / 3)
+    per_rep = probe.compute_s / 3
+    if WARMUP_S:
+        llamacpp.run_phase(model, phase, tokens, reps_for(WARMUP_S, per_rep), extra)  # discard: warm the GPU
+    reps = reps_for(target_s, per_rep)
     run = llamacpp.run_phase(model, phase, tokens, reps, extra)
     end = time.monotonic()
     start = end - run.compute_s * (1 - TRIM)
