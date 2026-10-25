@@ -42,6 +42,21 @@ top-20 distribution, stock-miss weighting ALPHA=2, early stopping on held-out ag
   and 3% more energy per token. The prediction that acceptance would rise by less than agreement suggests held;
   the gain does not pay for itself. Not predicted: speculation cuts chip energy per token by 34% on this machine (note 21).
 
+## 2026-10-25, 12:20 PT
+
+**Clock cap** (Strix Halo, Qwen2.5 7B Q4_0, Vulkan, `experiments/halo_clockcap.sh`: shader clock
+capped through amdgpu sysfs, each mechanism verified under load before it is measured, two passes,
+the second reversed).
+- At least one of `power_dpm_force_performance_level=low`, the manual DPM level or the OD table
+  pins the active shader clock below 2,800 MHz under a decode load; the `pp_dpm_sclk` mask alone
+  does not (v1).
+- Decode (memory-bound): at a cap between 1,200 and 1,800 MHz, package energy per token falls
+  10 to 25% below auto while tokens per second fall by less than 20%.
+- Prefill (compute-bound): tokens per second fall roughly in proportion to the clock, and energy per
+  token stays within 10% of auto.
+- `force=low` (600 MHz) is too low: decode tokens per second drop by more than half and energy per
+  token rises above auto, because the package's fixed power dominates.
+
 ## Results so far, 2026-10-25 13:50 PT (predictions above left unedited)
 
 - Lattice item D, 7B: Q4_0 153.8 against calibrated Q2_K 195.9 J per correct answer (two-pass means).

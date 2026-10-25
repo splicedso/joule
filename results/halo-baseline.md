@@ -50,3 +50,13 @@ has run here; this file is the raw energy-per-token baseline it builds on.
   correct answer yet; that is the quality note.
 - The 7B HIP run is a single pass, so it has no spread. Vulkan has three.
 - Idle is read on an otherwise quiet machine but not a thermally controlled one.
+
+## GPU memory setting
+
+**Shared GPU memory setting.** The results above ran under **shared 75%** (ROCm
+and torch reported 94.2 GiB available of the 125 GiB system RAM; dedicated
+512 MB). On 2026-10-25 Martin raised the shared limit to **90%**; it took effect
+after a reboot, and ROCm/torch now report **113.0 GiB**. Results from the reboot
+on are tagged **"shared 90%"**. Energy numbers are not compared across the two
+settings without a check run; the check cell (7B Q4_0 decode, phase --seconds 20)
+is in results/halo-checkcell-90pct.json.
