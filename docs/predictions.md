@@ -74,3 +74,22 @@ the second reversed).
   with the clock as predicted.
 - Clock cap, `force=low`: 10.7 tok/s (predicted: under half); energy per token flat against auto on the
   mean, spread 10% flagged. The "rises above auto" half did not show. `results/halo-clockcap.md`.
+
+## 2026-10-25, 14:30 PT
+
+**Teacher faithfulness** (Strix Halo, `experiments/drafter/teacher_check.py`: on the 180 held-out
+answers the Q4_0 7B wrote through llama.cpp, the share of positions where a transformers teacher's
+top-1 is that token).
+- The Q4_0 7B's weights dequantized into transformers match on at least 99% of positions; the bf16
+  7B on fewer, between 96 and 98.5%. The gap is the mismatch Trace v1's on-policy run trained against.
+
+**Trace v1 on-policy, second attempt** (TVD, LR 3e-6, 300 steps, GEN 128, teacher: the dequantized
+Q4_0 7B; two starts: the stock 0.5B and the 35k off-policy checkpoint).
+- Neither run declines: held-out agreement at step 300 is at least 0.5 points above its starting
+  checkpoint. From stock it stays below 0.79. From the 35k checkpoint it adds under 1 point to that
+  checkpoint's agreement.
+
+**Trace v1 at 35k, speculative decoding** (`evaluate.py`, 7B Q4_0 target, k=4 and k=8, p=0.5, two passes).
+- Acceptance rises over the stock draft by less than the agreement gain suggests (as at 9k), and the
+  35k draft is faster than plain decoding at k=4 by 1.3x to 1.6x with lower chip energy per token.
+  Against the stock draft, within 5% on tokens per second either way.
