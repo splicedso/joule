@@ -10,7 +10,12 @@ machine the honest equivalents a normal user can read, with no sudo, are:
           the GPU alone: it tracks `amd-smi`'s APU socket power (about 24 W idle)
           while the GPU-only graphics figure is far lower. So it is the nearest
           thing here to the Mac's chip reading, and it is a whole-SoC figure.
-          It updates faster than the 200 ms sampling interval.
+          It is a rolling average: measured against a 7B Q4_0 decode load it
+          rises from about 13.5 W idle to a steady 105 W and reaches 90% of that
+          step in about 3 s, so short windows undercount. Use runs of 15 s or
+          more (measure.py trims the first quarter of the window). power1_input
+          on this driver reads the identical value, sample for sample, so there
+          is no faster instantaneous sensor to prefer.
 - sys  -> 0.0. There is no whole-system DC power a normal user can read on this
           board: it runs on mains only (the ACAD power supply exposes just
           `online`, no wattage) and the RAPL `energy_uj` counters are root-only.
