@@ -173,9 +173,21 @@ decode direction held, size underestimated; prefill missed. Not yet measured und
 answer, 8 slots, 32B. That is the obvious next cheap win for Foundry on this class of machine; it needs
 Martin's sudo again. Linux is on the Trace harvest (10,005 of 35,180 done at 14:06), retrain follows.
 
+## 14:30 to 15:00
+
+- Site: primer 8, "When fewer bits pay, and when they do not" (`site/src/learn/8-when-fewer-bits-pay.md`),
+  from notes 5, 20 and 22; every percentage checked against the notes. `docs/program.md` brought up to
+  date (Lattice D, clock cap, Trace status, Kinetic data). The Mac has 24 GB, not 48.
+- Linux, on top of the capped run: a package-power logger every 10 s all day
+  (`experiments/power_log.sh`, `results/halo-power-log.csv`) to explain the idle drift; `experiments/wait_for.sh`
+  waits on a pid or done-file, never a command-line pattern (the bug that made PR 17 late); note 23 drafted
+  with the prediction; the 7B auto pass-1 cells re-run after the capped script and before the harvest resumes,
+  to close note 22's 10% session spread.
+
 ## Next, in order
 
-1. Review the Trace 35k retrain PR when it lands (bar: 0.79 held-out agreement).
+1. Review the capped-quality PR (note 23) and the 7B re-run; update note 22's 7B rows on the site if the means move.
+2. Review the Trace 35k retrain PR when it lands (bar: 0.79 held-out agreement).
 2. The capped J-per-correct run (quality.py at OD 1800, 7B and 32B, 8 slots, two passes, about 1.5 h
    GPU-exclusive): Linux asked Martin directly at 14:30 whether to run it now (pausing the resumable
    harvest) or after the retrain. Martin answered at 14:50: run it now, pause the harvest, resume after.
