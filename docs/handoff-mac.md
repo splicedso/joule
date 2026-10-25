@@ -205,7 +205,7 @@ datacenter parts; never consumer machines.
   (NSException) mid-afternoon; the background render chain now writes `ok` or `crashed` to a done-file
   from the log's "Blender quit" line, and nothing is finished unless it says ok.
 
-- 15:50, tagline: "Efficient inference models." (three words, a noun phrase, like Etched's "Frontier Inference
+- 15:52, tagline, Martin's: "Efficient inference systems." (three words, a noun phrase, like Etched's "Frontier Inference
   Clusters"); lede "What AI costs to run, and the models that cut it." Home writing is in Etched's register: a
   claim per heading, the numbers under it. Martin mentioned wanting cluster architectures one day, "far from
   there"; nothing on the site about it until measured.
