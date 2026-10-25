@@ -268,7 +268,7 @@ re-run reproduced the old pass 1 within 1% on Q4_0, so note 22's 10% spread is r
 `docs/local-systems.md` carries the two-pass numbers now. Linux: harvest at 186 tok/s, about 12 h,
 then retrain, eval, Kinetic, chained.
 
-## 16:30: realism pass and the rack
+## 16:15: realism pass and the rack
 
 Martin: "make all the 3D models realistic, and make actual cluster designs or other datacenter modules, so
 we lock in we are half AI lab, half engineering lab." Done: `studio.silkscreen` (component outlines, no
@@ -279,7 +279,7 @@ first attempt died silently from geometry count on a 24 GB Mac, so grilles are c
 page has a third section for it. Rule from today: one Blender at a time, and a render is finished only
 when its log says "Blender quit"; the chain scripts in `render/log/` write ok or crashed to a done-file.
 
-## 16:45: the portable cell
+## 16:20: the portable cell
 
 Martin: "make realistic portable datacenter modules that can be connected by hundreds to form a cohesive
 unit or be used individually; single cost per unit shouldn't be super high." Done as a concept:

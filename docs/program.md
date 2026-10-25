@@ -72,7 +72,7 @@ requests at once as memory allows, the prefix cached, a draft with a 0.5 confide
 shader clock capped where the platform allows. Foundry is that recipe as an app. Clusters are
 groundwork only (`docs/clusters-groundwork.md`): nothing is claimed until measured.
 
-## Models roadmap (2026-10-25, 16:50)
+## Models roadmap (2026-10-25, 16:25)
 
 In flight on the Strix Halo: the Trace v1 harvest to 35,180 prompts (about 12 h), then the retrain and
 its eval against the 0.79 bar, then Kinetic's four shapes on the verified 1B tokens. Being prepared
