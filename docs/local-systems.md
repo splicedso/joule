@@ -35,7 +35,7 @@ out. For a single user this means batching their own tool calls and sub-requests
 for another user.
 
 **Prompt handling: cache the prefix.** A prompt token costs about a fortieth of a generated one
-(note 12), so short prompts are nearly free. Long ones are not: at an 8,000-token prompt,
+(note 18), so short prompts are nearly free. Long ones are not: at an 8,000-token prompt,
 prefill is 40% of a request's energy (note 18). Caching a shared prefix (a system prompt, a
 document) removes exactly that cost. A long context also raises the cost of every decoded
 token, because the key-value cache is read every step; an 8-bit cache does not win that back
