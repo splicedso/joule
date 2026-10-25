@@ -1,4 +1,4 @@
-# Handoff: the Mac lead (2026-10-25, 14:35 PT)
+# Handoff: the Mac lead (2026-10-25, 15:10 PT)
 
 You run Spliced from Martin's Mac (Apple M5 Pro, 48 GB). You lead the lab, own the site and the
 Foundry app, and direct the Linux session (AMD Strix Halo) by SendMessage. Martin does not relay.
@@ -95,6 +95,23 @@ Preview: `.claude/launch.json` config `spliced-site`, port 8772. Images carry `?
   Q4_0 pass 1: 16.63 W. Then the Trace harvest to 35k (the prompt set was in the previous runner's stash,
   recovered). Kinetic data is complete (1e9 tokens). Clock cap: Linux says Martin told it directly to run
   it in the gap before the harvest; I could not confirm that from here and said so.
+
+## Direction change, 14:45: "less larpy, only what we have"
+
+Martin, in order: "do QA and make the website more like etched", "make it less larpy yk, only what we have",
+"some of these render things are too much so maybe remove some". Applied:
+
+- **Renders:** the datacenter hardware is gone from the site (tray with cables, 8-GPU board, GPU module,
+  accelerator card, rack server, rack photo). A group that measures laptops does not show a cable curtain.
+  Kept: the package (home fall, Phase, Foundry top view) and the wafers (Models, Lab). The scripts for the
+  removed renders stay in `render/` but carry no product labels any more ("SPLICED", "SPL-T1 2610 A0",
+  "SPL-G1", the tray nameplate are deleted). The package and the 72 hero frames were re-rendered without them.
+- **Copy:** no "frontier", no Kinetic anywhere (nothing exists yet), Foundry is "In development. Not released
+  yet", Lab's closer is "Found a mistake? Open an issue", home is hero, headline ("What a token costs."), real
+  prose about what the group does, the measured numbers, latest notes, one closer. The typed headline, the
+  "live replay" gadget and the model cards are gone; `home.js` is no longer loaded.
+- Pages without a top render now start with their headline under the nav; that is fine and Etched-like.
+- If more renders are wanted later, they must be of hardware we measure, unbranded.
 
 ## Martin's latest site asks (12:00; what is still open)
 
