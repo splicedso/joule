@@ -299,6 +299,16 @@ Lattice clear their bars. No one claims a frontier-level model; a two-person gro
 cannot train one, and the site must not suggest otherwise. `build.py` now warns instead of crashing on
 a missing image, so the Models change could be built while the design renders are still in the queue.
 
+## 16:45: where the renders stand
+
+Realism pass done and live (gpu, hgx, decode, sled, card, all with clean exits). The rack is live on
+Designs at 1500x1950 and 224 samples: the 2000x2600 render died silently twice on this 24 GB Mac, which
+is memory, not the scene; keep the big scenes at that size or lower. The portable cell and its eight-cell
+row are rendering now (`render/log/cellfull.sh`); when `render/log/cell.done` says ok, splice
+`render/log/designs-cell.part` into `src/pages/designs.html` before `</main>`, build, check, push.
+Linux: Kinetic auto-start stubbed out, 1.5B and the 72B fp16 shards downloading, `experiments/lattice/qat.py`
+being written; one line back after the 50-step smoke test.
+
 ## Next, in order
 
 1. Review the Trace 35k retrain PR when it lands (bar: 0.79 held-out agreement).
