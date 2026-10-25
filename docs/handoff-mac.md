@@ -268,6 +268,17 @@ re-run reproduced the old pass 1 within 1% on Q4_0, so note 22's 10% spread is r
 `docs/local-systems.md` carries the two-pass numbers now. Linux: harvest at 186 tok/s, about 12 h,
 then retrain, eval, Kinetic, chained.
 
+## 16:30: realism pass and the rack
+
+Martin: "make all the 3D models realistic, and make actual cluster designs or other datacenter modules, so
+we lock in we are half AI lab, half engineering lab." Done: `studio.silkscreen` (component outlines, no
+text) and `studio.scuffed` (streaky roughness on handled metal) applied to gpu, decode and card; every board
+scene re-rendered (`render/log/realism.sh`). `render/rack.py`: a liquid-cooled 42U rack of 24 decode sleds,
+a 4U coolant distribution unit, a top-of-rack switch, a rear busbar, couplers on every sled face; the
+first attempt died silently from geometry count on a 24 GB Mac, so grilles are coarser now. The Designs
+page has a third section for it. Rule from today: one Blender at a time, and a render is finished only
+when its log says "Blender quit"; the chain scripts in `render/log/` write ok or crashed to a done-file.
+
 ## Next, in order
 
 1. Review the Trace 35k retrain PR when it lands (bar: 0.79 held-out agreement).
