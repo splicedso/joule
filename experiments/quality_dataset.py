@@ -45,6 +45,11 @@ def main():
         files = sorted(glob.glob(str(R / f"lattice-v0-energy-1.5b-{name}-run*.json")))
         if files:
             rows.append(row(files, "mac", "Qwen2.5 1.5B", fmt, cal, 20))
+    for size in ("7b", "32b"):
+        for name, fmt, cal in (("Q4_0", "Q4_0", "none"), ("Q2_K-imat", "Q2_K", "imatrix, GSM8K-train")):
+            files = sorted(glob.glob(str(R / f"lattice-halo-{size}-{name}-pass*.json")))
+            if files:
+                rows.append(row(files, "halo", f"Qwen2.5 {size.upper()}", fmt, cal, 22))
     with open(OUT, "w", newline="") as f:
         w = csv.DictWriter(f, fieldnames=FIELDS); w.writeheader(); w.writerows(rows)
     print(f"{len(rows)} rows -> {OUT}")

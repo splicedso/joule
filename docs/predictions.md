@@ -41,3 +41,11 @@ top-20 distribution, stock-miss weighting ALPHA=2, early stopping on held-out ag
 - Trace v1 in speculative decoding (Strix Halo, k=4, p=0.5): acceptance 0.734 against stock 0.716, but 3% slower
   and 3% more energy per token. The prediction that acceptance would rise by less than agreement suggests held;
   the gain does not pay for itself. Not predicted: speculation cuts chip energy per token by 34% on this machine (note 21).
+
+## Results so far, 2026-10-25 13:50 PT (predictions above left unedited)
+
+- Lattice item D, 7B: Q4_0 153.8 against calibrated Q2_K 195.9 J per correct answer (two-pass means).
+  Held.
+- Lattice item D, 32B: calibrated Q2_K 473.7 against Q4_0 563.6 J per correct answer, 16.0% less
+  (17.9% in pass 1, 14.0% in pass 2), accuracy 95.6% against 94.8%, 2-bit tokens 10% cheaper. The
+  direction held; the margin was predicted under 15% and measured 16.0% on the mean. Note 22.
