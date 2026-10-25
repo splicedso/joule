@@ -1,0 +1,14 @@
+{
+  "stock": {
+    "loss": 0.9035478144414637,
+    "perplexity": 2.468344824413932,
+    "tokens": 56815,
+    "examples": 180
+  },
+  "spliced": {
+    "loss": 0.8475676820488617,
+    "perplexity": 2.3339630021558593,
+    "tokens": 56815,
+    "examples": 180
+  }
+}
