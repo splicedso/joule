@@ -1,4 +1,4 @@
-# Handoff: the Mac lead (2026-10-25, 13:40 PT)
+# Handoff: the Mac lead (2026-10-25, 13:55 PT)
 
 You run Spliced from Martin's Mac (Apple M5 Pro, 48 GB). You lead the lab, own the site and the
 Foundry app, and direct the Linux session (AMD Strix Halo) by SendMessage. Martin does not relay.
@@ -53,7 +53,7 @@ Preview: `.claude/launch.json` config `spliced-site`, port 8772. Images carry `?
   Blender lives in Steam (`.../Blender.app/Contents/MacOS/Blender`). One Blender at a time:
   two at once runs the GPU out of memory.
 
-## Done 12:00 to 13:40 (Mac)
+## Done 12:00 to 13:55 (Mac)
 
 - **Home hero:** the chip now sits at the top of the page under the transparent navbar like every
   other page's render, sticky while it falls over 80vh of scroll, headline beneath (`.fall-stage`).
@@ -78,7 +78,11 @@ Preview: `.claude/launch.json` config `spliced-site`, port 8772. Images carry `?
   hated):** tray (Models), gpu (Research), hgx (Data), card (Models), package (Phase), package-top (Foundry).
   Martin's calls on the tray, in order: cables must fold back into the machine (they now leave the upper
   unit's port cage, loop, and return into the lower unit), then "make the cables shorter" (done in
-  tray.py; the shorter re-render runs after the wafer, `render/log/after.sh`). Judge it before shipping.
+  tray.py). Both shipped; the short-loop version is live at the top of Models.
+- **Standing wafer: not shippable after two relights.** The first (big softbox on the mirror ray) washed it to a
+  pastel disc; the second (dimmer, set off the ray, HDRI 0.18) gives a bright-to-dark gradient but the face still
+  reads as tie-dye, not silicon. `render/log/wafer-test.png` is the latest. Next try: darker base (0.2), dies with
+  internal block structure at this angle, HDRI 0.1, and a narrower softbox so most of the face stays dark.
 - **Foundry app** (local repo, no remote; ask Martin before creating one): Stop button and Esc abort a
   generation and keep what came through, live tokens and tok/s while streaming, a session total in the
   header, Copy on every answer. `src/dev-shim.js` fakes the Tauri bridge and llama-server so the UI can be
@@ -97,10 +101,8 @@ Preview: `.claude/launch.json` config `spliced-site`, port 8772. Images carry `?
   long sections split in two columns. The left column holds one large still render per section;
   the right column holds the heading and several paragraphs of real writing. Thin vertical column
   rules run down the page. Martin wants that: more writing, each block anchored by a render.
-- **Standing wafer.** `render/wafer.py --stand` exists (wafer on edge, yawed 28 degrees) but the
-  first renders are not shippable: banded shadow, one side blown out. Fix the lighting (dimmer
-  HDRI, a soft key from the front, more samples), then use it on a page that has no render yet
-  (Lab's writing section, or Learn).
+- **Standing wafer.** `render/wafer.py --stand`: see the Done list above; still not shippable. When it is,
+  use it on a page that has no second render yet (Lab's writing section, or Learn).
 - **Hero fall sharpness.** The 36 frames are 1200x750 at 24 samples and look soft. `package.py`
   now disables depth of field and denoises; re-render `--fall 36` at 1600x1000 and convert with
   the snippet in the session (composite on #eee, JPEG q82 into `assets/fall/`).
@@ -113,12 +115,9 @@ Preview: `.claude/launch.json` config `spliced-site`, port 8772. Images carry `?
 - Martin asked for everything centred. Page heads, section heads and model rows are centred;
   keep it that way in the Etched layout (centre the hero, two balanced columns below).
 
-- **Tray render (`render/tray.py`).** Martin: the cables look fake, "like an octopus". Give them a real
-  braided-sleeve texture (image texture or a proper woven normal map, not crossed waves), route
-  them in tight managed bundles into connectors instead of loose hanging loops, then use it full
-  width at the top of Models. Removed from the site until then.
-- **72-frame hero.** A 72-frame `--fall` render was started at 11:52 into `render/frames-fall/`.
-  When all 72 exist: convert into `assets/fall/` and set `const n = 72` in `src/site.js`.
+- **Tray render.** Done and live at the top of Models (see above). No further ask from Martin on it after
+  "make the cables shorter".
+- **72-frame hero.** Done and live (see above).
 
 ## Next, in order
 
