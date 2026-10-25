@@ -1,4 +1,4 @@
-# Handoff: the Mac lead (2026-10-25, 13:30 PT)
+# Handoff: the Mac lead (2026-10-25, 14:00 PT)
 
 You run Spliced from Martin's Mac (Apple M5 Pro, 48 GB). You lead the lab, own the site and the
 Foundry app, and direct the Linux session (AMD Strix Halo) by SendMessage. Martin does not relay.
@@ -153,9 +153,19 @@ Martin, in order: "do QA and make the website more like etched", "make it less l
   "make the cables shorter".
 - **72-frame hero.** Done and live (see above).
 
+## Lattice item D is done (14:00)
+
+PR 17 reviewed against all eight raw JSON files (every summary field recomputed from soc_w, seconds,
+tokens, correct: all consistent; two-pass means matched the tables) and merged. One correction went in
+before the merge: the 7B gap is Q4_0 21% cheaper, and 27% is how much more Q2_K costs. Note 22 is
+published (`site/build.py` NOTES entry `lattice-large`); Models and home carry the 32B result: calibrated
+Q2_K beats Q4_0 per correct answer by 16.0% at equal accuracy, outside the pre-registered "under 15%".
+Linux was 25 minutes late with the PR because its own waiter matched its command line; it is on the clock
+cap (Martin's password, 10 minute cutoff) and then the Trace harvest to 35k.
+
 ## Next, in order
 
-1. Merge the Linux PR after checking it; finish note 22; publish it.
+1. Review the clock-cap PR and the Trace 35k retrain PR when they land (bar: 0.79 held-out agreement).
 2. Check the home hero fall on a real scroll, at desktop and phone width.
 3. Trace: decide between the 35k run and Q4_0-teacher on-policy; queue it on Linux.
 4. Foundry: create its GitHub repo once Martin says yes, then a signed release.
