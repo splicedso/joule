@@ -1,0 +1,25 @@
+{
+  "top_shader_mhz": 2900.0,
+  "model": "7b-Q4_0.gguf",
+  "backend": "vulkan",
+  "phases": {
+    "idle": {
+      "gpu_mhz": 784.7,
+      "pct_of_max": 27.1,
+      "soc_w": 13.6,
+      "samples": 21
+    },
+    "decode": {
+      "gpu_mhz": 2899.9,
+      "pct_of_max": 100.0,
+      "soc_w": 105.1,
+      "samples": 106
+    },
+    "prefill": {
+      "gpu_mhz": 2892.1,
+      "pct_of_max": 99.7,
+      "soc_w": 142.6,
+      "samples": 46
+    }
+  }
+}
