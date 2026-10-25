@@ -240,6 +240,16 @@ systems for AI; nothing yet, but start laying the groundwork." Done:
   the tagline as the company line, and "Inference Systems Architect" once a cluster measurement exists.
   He has not chosen.
 
+## 16:00: designs
+
+Martin: "design unique AI systems stuff, then make realistic renders and put them on our website."
+Done as concepts, labelled as designs, not products: `docs/concepts/decode-first.md` (a decode-first
+module: small die ringed by eight memory stacks, capped clock by design, flat cold plate; and a 1U sled
+of six behind one prefill module and a switch), argued from notes 1, 2, 10, 18, 19 and the clock cap.
+Rendered by `site/render/decode.py` (module) and `--sled`; the site's Designs page
+(`src/pages/designs.html`, footer link) shows both with the argument and a "what would have to be
+true" list. Nothing on it is claimed as built or measured.
+
 ## Next, in order
 
 1. Review the capped-quality PR (note 23) and the 7B re-run; update note 22's 7B rows on the site if the means move.
