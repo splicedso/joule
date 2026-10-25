@@ -12,14 +12,16 @@ For each model, an importance matrix from 1,500 GSM8K training problems with the
 
 ## Results
 
-7B, pass 1 (pass 2 confirming):
+7B, pass 1 only (pass 2 did not land before the stop):
 
 | format | correct | J per correct | net of idle | tok/s | mJ per token |
 |---|---:|---:|---:|---:|---:|
 | Q4_0 | 88.0% (220/250) | 161.6 | 141.8 | 226 | 617 |
 | Q2_K, calibrated | 84.8% (212/250) | 200.3 | 166.3 | 189 | 717 |
 
-32B: PENDING.
+32B: not run yet. The imatrix and calibrated Q2_K are built (`results/lattice/`); `experiments/lattice_32b.sh` runs the pair.
+
+Idle power was 17.1 W before the Q4_0 run and 22.9 W before the Q2_K run, so the net-of-idle column carries that gap. The chip totals do not depend on it.
 
 ## What to take from this
 
