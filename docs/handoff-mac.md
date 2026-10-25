@@ -228,7 +228,13 @@ systems for AI; nothing yet, but start laying the groundwork." Done:
   five-step order to learn it without buying anything (roofline with an interconnect term, a two-node
   llama.cpp RPC measurement on the machines we own, note 8 re-derived, disaggregation simulated, only then
   a design document). Not on the site; nothing cluster-related goes on the site until measured.
-- `docs/clusters-reading.md` is being written by a background research agent (sourced reading note).
+- `docs/clusters-reading.md`: the sourced reading note, 3,500 words, 34 links, every figure tagged measured
+  or vendor claim. Worth knowing: nobody publishes joules per token for a production cluster; Google's
+  0.24 Wh per median prompt (58% accelerator, 25% host, 10% idle, 8% overhead) is the only full-boundary
+  number; the NVLink-to-NIC bandwidth cliff is 3 to 4x; speculative decoding's gain falls from 2.73x at
+  batch 1 to 1.31x at batch 32 and nobody reports its energy. Its section 8 ranks the first two
+  experiments we should run: decode energy against batch at the wall on all three chips, and our drafts
+  under batching in joules per accepted token. Two figures came from secondary sources and say so.
 - Home now leads with "Models that cost less per answer"; Lab's description says the company builds
   efficient inference systems. Role name: Martin asked; I suggested "Founder and Systems Engineer" with
   the tagline as the company line, and "Inference Systems Architect" once a cluster measurement exists.

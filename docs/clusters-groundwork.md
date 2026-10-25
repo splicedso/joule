@@ -48,6 +48,13 @@ because a cluster is many of these chips plus the links between them.
 
 ## The order to learn it, without buying anything
 
+The reading note's section 8 lists five experiments two machines can run honestly, and ranks the
+first two: an energy roofline of decode against batch size on all three chips at the wall, and
+draft models under batching measured in joules per accepted token. Both extend what we already do
+and produce curves other people can compare against. They slot in as steps 1 and 2 below; the
+paper-only steps follow them.
+
+
 1. **Extend the roofline with an interconnect term** (docs, no hardware). Take note 2's model,
    add a per-step transfer of activations and cache across a link of given bandwidth and latency,
    and fit it to published tensor-parallel results. Output: a page that predicts step time and
