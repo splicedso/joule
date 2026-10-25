@@ -22,7 +22,8 @@ sys.path.insert(0, str(Path(__file__).parents[1]))
 import speculative_server as ss  # noqa: E402
 from phase.power import Sampler, idle_baseline  # noqa: E402
 
-DRAFTS = {"stock": "models/quant/drafter-stock-Q4_0.gguf", "spliced": "models/quant/drafter-spliced-Q4_0.gguf"}
+DRAFTS = {"stock": "models/quant/drafter-stock-Q4_0.gguf", "spliced": "models/quant/drafter-spliced-Q4_0.gguf",
+          "v2": "models/quant/drafter-v2-Q4_0.gguf"}
 N = 256
 CONDS = ["plain", "stock-4", "spliced-4", "stock-8", "spliced-8"]
 
