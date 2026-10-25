@@ -40,7 +40,7 @@ will not put a number here until a bill of materials exists.
 
 ## What would have to be true
 
-- The top block rejects a full rack's heat at the design ambient without a chiller, at a fan power
+- The top band rejects a full cell's heat at the design ambient without a chiller, at a fan power
   that keeps the cell's wall energy per correct answer below the single-chip figure in note 23.
 - The blind-mate couplers hold pressure through a hundred dockings; the coolant trunk's pressure
   drop over a hundred cells stays within the pumps.

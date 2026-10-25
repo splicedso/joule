@@ -327,6 +327,15 @@ demo: at 64 requests the split layout loses to one capped module because three d
 the prefix cache wins it back; which is why the simulator exists. `fabric/testbed.py` is the stub for the
 two-box experiment that turns the link number from literature into a measurement.
 
+## 17:20: the Designs page is complete
+
+Four concepts live, each rendered and labelled a design: the decode-first module, the sled, the rack,
+and the portable cell with its eight-cell row. The cell carries fastener rows, panel seams, a blank
+rating plate and a drain, which is the level of detail the renders should hold from now on. The page
+was checked at desktop and phone width; the phone check reports lazy images at zero width before they
+decode, which is not a defect. Fabric has cells, rows, trunks and a sleep policy; six invariants pass;
+its demo says the row's placeholder overhead dominates at low load, which is now in the cell brief.
+
 ## Next, in order
 
 1. Review the Trace 35k retrain PR when it lands (bar: 0.79 held-out agreement).
