@@ -46,7 +46,7 @@ Quantization-aware fine-tuning, so a model holds its accuracy in the low-bit for
 
 A model trained from scratch, its width, depth and vocabulary chosen from our measurements of what each costs per token on real hardware.
 
-- Plan: `docs/kinetic.md`. Four shapes at about 50M parameters (24x512, 12x768, 6x1024, 4x1280), the same 1B tokens, trained on the Strix Halo, measured on both machines. Starts after Trace v1.
+- Plan: `docs/kinetic.md`. Four shapes at about 50M parameters (24x512, 12x720, 6x1024, 4x1260, all 71.6 to 74.1M non-embedding), the same 1B tokens, trained on the Strix Halo, measured on both machines. Starts after Trace v1.
 
 ## Order
 
