@@ -38,3 +38,6 @@ top-20 distribution, stock-miss weighting ALPHA=2, early stopping on held-out ag
 - Trace v1, off-policy, 9k prompts, LR 3e-6: 0.7685, +0.7 points. Below the bar, as predicted for the partial set.
 - Trace v1, on-policy (bf16 7B teacher, TVD, 300 steps): declined to 0.7574. Not predicted; likely the
   bf16-teacher against Q4_0-target mismatch. Parked.
+- Trace v1 in speculative decoding (Strix Halo, k=4, p=0.5): acceptance 0.734 against stock 0.716, but 3% slower
+  and 3% more energy per token. The prediction that acceptance would rise by less than agreement suggests held;
+  the gain does not pay for itself. Not predicted: speculation cuts chip energy per token by 34% on this machine (note 21).
