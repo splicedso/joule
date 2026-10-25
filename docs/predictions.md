@@ -97,7 +97,7 @@ in note 22).
 - Capped quality, 32B calibrated Q2_K: 384.7 against 473.7 (-19%), tokens per second -24%. Energy held;
   the speed loss missed (predicted under 10%).
 - Capped quality, 32B Q4_0: 426.2 against 563.6 (-24%), tokens per second -11%. Held. Calibrated Q2_K's
-  lead over Q4_0 under the cap is 5 to 10%, not 16% within 5 points. Missed.
+  lead over Q4_0 under the cap is 9.7% on the mean (7.6% and 12.0% per pass), not 16% within 5 points. Missed.
 - Capped quality, the cap held for all six runs and auto was restored. Held. Note 23.
 - Lattice item D, 7B pass 1 re-run on auto in this session (not averaged in): Q4_0 reproduced the previous
   session's pass 1 within 1%, Q2_K within 3% on power, so the 10% pass-to-pass spread is run order (pass 2

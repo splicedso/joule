@@ -75,7 +75,7 @@ draws the higher figure. The flag stays on note 22's 7B cells.
    answer at 15% fewer tokens per second; the 32B Q4_0 from 563.6 to 426.2 at 11% fewer. The predicted direction
    and sizes held for both Q4_0 cells.
 2. **The 2-bit model pays for the cap in speed.** Calibrated Q2_K at 32B slows 24% under the cap where Q4_0
-   slows 11%, and its energy lead over Q4_0 shrinks from 16% to 5 to 10%. Fewer bits mean more unpacking work
+   slows 11%, and its energy lead over Q4_0 shrinks from 16% to 9.7% (7.6% and 12.0% per pass). Fewer bits mean more unpacking work
    per weight, and a lower shader clock makes that work the slow part. Not predicted; the prediction said the
    16% lead would hold within 5 points.
 3. **Serving at 8 slots costs more speed than batch-1 decode did.** The clock-cap sweep lost 4% of batch-1 decode

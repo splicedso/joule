@@ -3,7 +3,7 @@
 **Verdict on the pre-registered prediction (`docs/predictions.md`, 14:50 PT entry, pushed 14:16 before the
 first measurement):** the headline held: every cell costs 15 to 28% fewer joules per correct answer than on
 auto, at accuracy within a point. Two misses: the 32B calibrated Q2_K slows by 22 to 24% under the cap, not
-under 10%; and its lead over Q4_0 shrinks from 16% on auto to 5 to 10% under the cap, outside the predicted
+under 10%; and its lead over Q4_0 shrinks from 16% on auto to 9.7% under the cap (7.6% and 12.0% per pass), outside the predicted
 11 to 21%. The 7B Q4_0 numbers (28% fewer joules, 15% slower) and the 32B Q4_0 numbers (24% fewer joules,
 11% slower) are inside their predicted bands.
 
