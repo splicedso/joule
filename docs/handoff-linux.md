@@ -42,3 +42,33 @@ Package power: about 126 W warm, 100 W cold.
 5. Clock cap, only with Martin at the keyboard.
 
 The previous runner's own handoff is `results/halo-handoff-2026-10-25.md`.
+
+## Environment (from the runner, 12:00)
+
+- gfx1151, 125 GB unified, shared GPU memory 90% (113 GiB, survives reboot). Tag energy results "shared 90%".
+- llama.cpp at pin 620d2225c in `vendor/` (gitignored), two builds: `build-vulkan` (RADV, Mesa 25.0.7) and
+  `build-hip` (ROCm). Targets: llama-bench, llama-quantize, llama-server, llama-imatrix.
+- Python: `.venv` via uv for phase. Torch lives in a separate `.venv-torch`: torch 2.10.0+rocm7.2.0 and triton
+  from repo.radeon.com rocm-rel-7.2 cp313 wheels (plain pip pulls CUDA; pin `+rocm`), transformers, safetensors,
+  accelerate, datasets. HF models `models/hf-0.5b`, `models/hf-7b`; quants `models/quant/{7b,32b}-{Q4_0,Q2_K-imat}.gguf`.
+
+## Exact commands
+
+- Lattice 32B: `sh experiments/lattice_32b.sh` (Q4_0 then Q2_K-imat, N=250, 8 slots, 10 to 14 min each).
+  7B pass 2: `sh experiments/lattice_quality2.sh`. Use gross J/correct; net is soft (idle drifted 17 to 23 W).
+- Trace harvest (resumable, skips done; needs `build-vulkan/bin` on PATH):
+  `uv run python experiments/drafter/teacher.py results/drafter/train-prompts.jsonl data/drafter/teacher.jsonl`
+  then `ALPHA=2 EPOCHS=1 LR=3e-6 .venv-torch/bin/python experiments/drafter/train_trace.py data/drafter/teacher.jsonl models/trace-0.5b-v1-35k`.
+  For on-policy, take teacher logits from the Q4_0 7B through llama.cpp, not bf16 transformers.
+- Kinetic F (crashed at about 447M of 1B tokens, likely the streaming tokenizer; FineWeb-Edu approved by Martin):
+  `nice -19 .venv-torch/bin/python experiments/kinetic/prepare.py data/kinetic 1e9`.
+- Clock cap: `experiments/halo_clockcap.sh` (tries force=low, DPM mask, OD table and checks which really lowers
+  the clock; the pp_dpm_sclk mask alone does not pin gfx1151). GPU idle, Martin types sudo live.
+
+## Gotchas
+
+- Energy runs must be GPU-exclusive and machine-quiet: pause any CPU job (`kill -STOP` / `-CONT`) while measuring.
+- quality.py and phase write JSON only at the end; an interrupted run leaves no partial file.
+- sudo asks again about every 15 minutes: put all sudo steps in one script run from a terminal.
+- `nohup sh file.sh` survives; `nohup bash -c '...'` got killed. Put scripts in files.
+- The dedicated cold-versus-warm rerun never ran (warm 7B decode ~126 W, cold ~100 W).
