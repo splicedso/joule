@@ -1,0 +1,2 @@
+{"context": 65536, "cache": "f16fa", "batch": 3, "peak_vram_mib": 11876, "status": "spill", "tok_s": null}
+{"context": 65536, "cache": "q8", "batch": 4, "peak_vram_mib": 11890, "status": "spill", "tok_s": null}
