@@ -184,6 +184,14 @@ Martin's sudo again. Linux is on the Trace harvest (10,005 of 35,180 done at 14:
   with the prediction; the 7B auto pass-1 cells re-run after the capped script and before the harvest resumes,
   to close note 22's 10% session spread.
 
+## 15:00: "add more 3D models, not just the CPU", then "not laptops or desktops, EE-type stuff"
+
+A laptop and a mini PC were built and rendered, then dropped on Martin's second message (scripts deleted).
+What is on the site now, all unbranded: home fall and Lab, the package; Research, the facing wafer; Foundry,
+the GPU module; Data, the 8-GPU board; Phase, the accelerator card. Models stays three boxes. The GPU module
+had to be re-rendered once more: the 12:26 file still carried "SPL-G1". Rule: circuits, dies, boards,
+datacenter parts; never consumer machines.
+
 ## Next, in order
 
 1. Review the capped-quality PR (note 23) and the 7B re-run; update note 22's 7B rows on the site if the means move.
