@@ -37,7 +37,8 @@ Small models trained to predict one specific large model, for speculative decodi
 
 Quantization-aware fine-tuning, so a model holds its accuracy in the low-bit formats our notes found cheapest.
 
-- **Lattice v1, target:** Qwen2.5 1.5B at 3 bits or below per weight, with GSM8K accuracy within 1 point of Q4_0, and lower joules per correct answer than Q4_0.
+- **Baseline (Mac, GSM8K-250, 2026-10-25):** Qwen2.5 1.5B scores 21% at Q2_K, 66% at Q3_K_M and Q4_0, and 70 to 72% from Q5_K_M to F16. Standard quantization holds at about 3.9 bits and collapses below it. The energy half of that run is not usable (passes disagreed by up to 24%, because the machine was in use), so it is to be rerun idle.
+- **Lattice v1, target:** a Qwen2.5 1.5B at Q2_K size (about 3.3 bits per weight) that scores at least 60% where stock Q2_K scores 21%, at lower joules per correct answer than Q4_0. Method: quantization-aware fine-tuning on the Linux machine.
 
 ### Kinetic: a small model shaped by energy
 
