@@ -67,6 +67,7 @@ Raw JSON is in `results/`.
 - [18. Reading the prompt: what prefill costs (Windows half)](notes/2026-10-windows-prefill.md): prefill energy per prompt token on the RTX 5070 Ti. A prompt token costs about 40x less than a generated one, but with a 300-token answer prefill is about 4% of a 500-token request, 13% at 2000 and 40% at 8000; a cached prefix removes that share.
 - [19. Per correct answer, serving matters as much as size](notes/2026-10-joules-per-correct-answer.md): joules per correct GSM8K answer on an M5 Pro and a Strix Halo. The 7B batched at 8 costs less per correct answer than the 1.5B alone, on both machines; the Halo spends 4.5 to 6 times the chip energy, with its GPU clock at maximum through memory-bound decode.
 - [20. Calibration doubles 2-bit accuracy](notes/2026-10-lattice-v0-calibration.md): an importance matrix lifts Qwen2.5 1.5B Q2_K from 21% to 42% on GSM8K at the same size (37% from general-text calibration). It cuts joules per correct answer 40%, but Q4_0 is still cheaper per answer on an M5 Pro, because a 2-bit token costs more energy than a 4-bit one.
+- [21. Trace v1](notes/2026-10-trace-v1.md): a 0.5B draft trained on Qwen2.5 7B's probabilities on the Strix Halo. +0.7 points of agreement, no faster than the stock draft; on-policy distillation drifted. On the Halo, speculative decoding itself cuts chip energy per token by 34%.
 
 ## Known limits
 
