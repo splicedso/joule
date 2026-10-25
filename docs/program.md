@@ -44,7 +44,7 @@ Small models trained to predict one specific large model, for speculative decodi
 
 - **Trace-0.5B v0** (note 15): sequence-level distillation from Qwen2.5 7B. Held-out loss 6% lower than stock, acceptance about 3% higher. Too small a gain to ship.
 - A logit-distillation attempt on 3,400 prompts overfit: its top-1 agreement with the 7B was 75.4% held out, against 76.0% for the stock model.
-- **Trace v1, status (2026-10-25):** 35,000 prompts prepared, the 7B's top-20 distribution being recorded on the Strix Halo (about 2,500 prompts an hour); training starts at about 8,000. The PyTorch trainer reproduces the stock model's held-out agreement on both machines (0.7606 Mac, 0.7616 Halo).
+- **Trace v1, status (2026-10-25, 14:30):** off-policy on 9,000 prompts gave +0.7 points of agreement (0.7685) and no speedup (note 21); on-policy with a bf16 teacher declined. The harvest of the Q4_0 7B's top-20 distribution is at 10,000 of 35,180 prompts on the Strix Halo (paused for the capped run, resumable); the retrain at LR 3e-6, ALPHA=2 follows it, against the 0.79 bar. The PyTorch trainer reproduces the stock model's held-out agreement on both machines (0.7606 Mac, 0.7616 Halo).
 - **Trace v1, target:** top-1 agreement with the target at least 3 points above the stock draft on held-out prompts, and a measured speedup with lower energy per correct answer. Planned changes: 10 times more prompts (about 35,000), the teacher's distribution streamed from disk, and training on Linux. Then a Trace for a 72B target, where a draft's speedup matters most.
 
 ### Lattice: models that keep their answers at fewer bits
@@ -52,6 +52,8 @@ Small models trained to predict one specific large model, for speculative decodi
 Quantization-aware fine-tuning, so a model holds its accuracy in the low-bit formats our notes found cheapest.
 
 - **Baseline (Mac, GSM8K-250, 2026-10-25):** Qwen2.5 1.5B scores 21% at Q2_K, 66% at Q3_K_M and Q4_0, and 70 to 72% from Q5_K_M to F16. Standard quantization holds at about 3.9 bits and collapses below it. The energy half of that run is not usable (passes disagreed by up to 24%, because the machine was in use), so it is to be rerun idle.
+- **Lattice item D (note 22, 2026-10-25):** on the Strix Halo, at 32B the GSM8K-calibrated Q2_K costs 473.7 J per correct answer at 95.6% against Q4_0's 563.6 at 94.8%: 16% less, with 2-bit tokens 10% cheaper and 9% faster. At 7B Q4_0 is still 21% cheaper. The crossover is between 7B and 32B on that machine: fewer bits pay once memory traffic dominates the token. The pre-registered margin ("under 15%") was missed.
+- **Clock cap (results/halo-clockcap.md, 2026-10-25):** capping the Strix Halo's shader clock at 1,800 MHz through the OD table cuts 7B Q4_0 decode energy per token 37% at 4% less speed (42% at 1,200 MHz, 8% slower); prefill loses a third of its speed. Per correct answer under the cap is being measured now (7B Q4_0, 32B Q4_0, 32B calibrated Q2_K, 8 slots).
 - **Lattice v0 (note 20):** an importance matrix calibrated on GSM8K-train lifts Q2_K from 21% to 42% at the same size (37% with general-text calibration). Joules per correct answer fall 40%, but Q4_0 is still cheaper per answer on the M5 Pro, because a 2-bit token costs more energy there. Next: 7B and 32B on the Strix Halo, where memory dominates.
 - **Lattice v1, target:** a Qwen2.5 1.5B at Q2_K size (about 3.3 bits per weight) that scores at least 60% where stock Q2_K scores 21%, at lower joules per correct answer than Q4_0. Method: quantization-aware fine-tuning on the Linux machine.
 
@@ -59,6 +61,7 @@ Quantization-aware fine-tuning, so a model holds its accuracy in the low-bit for
 
 A model trained from scratch, its width, depth and vocabulary chosen from our measurements of what each costs per token on real hardware.
 
+- Data (2026-10-25): 1B tokens of FineWeb-Edu, complete and verified deterministic (`results/kinetic-data.md`); the trainer runs on ROCm. The four shapes queue after the Trace retrain.
 - Plan: `docs/kinetic.md`. Four shapes at about 50M parameters (24x512, 12x720, 6x1024, 4x1260, all 71.6 to 74.1M non-embedding), the same 1B tokens, trained on the Strix Halo, measured on both machines. Starts after Trace v1.
 
 ## Order

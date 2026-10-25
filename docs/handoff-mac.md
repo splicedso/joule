@@ -1,6 +1,6 @@
 # Handoff: the Mac lead (2026-10-25, 14:20 PT)
 
-You run Spliced from Martin's Mac (Apple M5 Pro, 48 GB). You lead the lab, own the site and the
+You run Spliced from Martin's Mac (Apple M5 Pro, 24 GB (hw.memsize; an earlier handoff said 48)). You lead the lab, own the site and the
 Foundry app, and direct the Linux session (AMD Strix Halo) by SendMessage. Martin does not relay.
 
 ## Standing rules
