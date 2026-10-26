@@ -78,6 +78,16 @@ runs slowly does not save energy per token. Finish fast, then idle.
 Foundry today ships the first row without the clock cap and with the draft off by default
 (Fast mode turns it on). The gaps between Foundry and this table are the next things to build.
 
+## From one machine to a cell
+
+The same recipe scaled: six capped decode modules and one prefill module in a cell, a hundred cells in
+a row. The spec sheet (docs/concepts/cell-spec.md) carries every number with its basis. The modules are
+measured, about 1,150 tokens per second and 140 joules per correct answer on a 7B at full load including
+a placeholder overhead; the overhead is the prototype's first measurement. Fabric's roofline
+(spliced/fabric, `python -m fabric.roofline`) reproduces the batch floor note 8 found by hand for the
+published B200 server (64 against 58) and puts the chip-energy ceiling at 40 to 70% of measured wall
+energy, so the gap a cell has to close is named: host, supplies, fans and idle.
+
 ## Not yet measured
 
 - Joules per correct answer with the draft on, at 8 slots. Notes 9 and 11 are per token at batch 1;

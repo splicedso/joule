@@ -359,6 +359,17 @@ and `docs/concepts/spliced-linux.md` (an appliance image, not a distribution: up
 root, signed two-slot updates, one workload; first deliverable is a recipe that boots the Strix Halo and
 reproduces note 23 within 3%). Both summarised on the Designs page.
 
+## 17:55: lockin: engineering, clusters, models
+
+Martin: "start actually designing our systems; lock in inference engineering, clusters, models frontier
+and open source." Three artefacts: `fabric/roofline.py`, a decode roofline with an interconnect term,
+checked against note 8 (B200 70B batch floor 64 vs 58 by hand; chip ceiling at 40 to 70% of wall; a slow
+link flips the 405B to link-bound; three tests). `docs/concepts/cell-spec.md`, the cell and row sheet
+with every number's basis (modules measured, overhead a 450 W placeholder that is most of the idle; the
+cell is a product only if idle comes down to about 200 W). `docs/program.md` "Frontier, open source,
+and what two people can do": no frontier claim until a model can be measured against one; weights open
+while small; a closed model is a business decision with no work and no mention. Systems page updated.
+
 ## Next, in order
 
 1. Review the Trace 35k retrain PR, then the Lattice v1 QAT PR when it lands (bar: 0.79 held-out agreement).
