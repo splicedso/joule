@@ -206,7 +206,7 @@ judged on this machine. Written before the QAT run has finished; nothing about i
   and cost less per correct answer than the QAT 2-bit file. If that holds, a 2-bit win over stock Q4_0 is a
   win for fine-tuning, and the note says so.
 
-## 2026-10-26, 00:05 PT
+## 2026-10-25, 23:48 PT
 
 **Lattice v1, the Q4_0 control** (Strix Halo; added to `experiments/lattice_qat.sh` before any QAT file
 exists: the fine-tuned weights also quantized to plain Q4_0 with no imatrix, and stock Q4_0 re-run in the
