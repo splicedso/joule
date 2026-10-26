@@ -9,7 +9,9 @@ over each set (idle measured first, as in quality.py):
   ten options, answer read from the last "answer is (X)" or the last lone capital letter A to J.
 - humaneval: the 164 HumanEval problems (MIT). The model completes the function; the completion is run against
   the task's tests in a separate Python process with a 10 s limit. This EXECUTES MODEL-WRITTEN CODE, so it only
-  runs when EXEC_OK=1 is set, and should run on a machine that holds nothing else.
+  runs when EXEC_OK=1 is set. On Linux the process runs inside bubblewrap (no network, home and /run hidden, the
+  filesystem read-only except its own temporary directory; see sandboxed()); SANDBOX=0 drops that, only for a
+  machine that holds nothing else. On macOS it runs unwrapped, as before.
 
     uv run --with pyarrow python experiments/general_eval.py MODEL.gguf results/general-X.json [TASKS] [SLOTS]
 
@@ -71,6 +73,24 @@ def task_mmlu_pro():
     return items, score
 
 
+def sandboxed(cmd, workdir):
+    """Wrap model-written code in bubblewrap on Linux: no network, the home directory and /run hidden behind empty
+    tmpfs mounts (credentials, keyrings, SSH keys, the repo), the rest of the filesystem read-only, a private /tmp,
+    and only the task's own temporary directory writable. The code runs under the system Python (stdlib only, which
+    is all HumanEval's tests use). SANDBOX=0 runs unwrapped, for a machine that holds nothing else; on macOS there is
+    no bubblewrap and the code runs unwrapped as before."""
+    import shutil
+    if os.environ.get("SANDBOX", "1") == "0" or sys.platform == "darwin":
+        return [sys.executable if cmd[0] == "/usr/bin/python3" else cmd[0], *cmd[1:]]
+    bwrap = shutil.which("bwrap")
+    if not bwrap:
+        sys.exit("humaneval: bubblewrap (bwrap) not found; install it, or set SANDBOX=0 on a machine that holds nothing else")
+    home = os.path.expanduser("~")
+    return [bwrap, "--unshare-all", "--die-with-parent", "--new-session", "--ro-bind", "/", "/", "--dev", "/dev",
+            "--proc", "/proc", "--tmpfs", "/tmp", "--tmpfs", "/run", "--tmpfs", home, "--bind", workdir, workdir,
+            "--chdir", workdir, "--setenv", "HOME", workdir, *cmd]
+
+
 def task_humaneval():
     if os.environ.get("EXEC_OK") != "1":
         sys.exit("humaneval executes model-written code; set EXEC_OK=1 to run it, on a machine that holds nothing else")
@@ -87,7 +107,7 @@ def task_humaneval():
         with tempfile.TemporaryDirectory() as d:
             f = Path(d) / "t.py"; f.write_text(program)
             try:
-                return subprocess.run([sys.executable, "-I", str(f)], cwd=d, capture_output=True, timeout=10).returncode == 0
+                return subprocess.run(sandboxed(["/usr/bin/python3", "-I", str(f)], d), cwd=d, capture_output=True, timeout=10).returncode == 0
             except subprocess.TimeoutExpired:
                 return False
     return items, score
