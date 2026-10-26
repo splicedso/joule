@@ -324,3 +324,12 @@ break-even. Last night's speculation-against-batch runs measured the draft at it
 - Batch 4: within 10% of plain on energy; the speed-up mostly gone.
 - Batch 8 and 16: the draft costs 15 to 60% more energy per token and lowers total throughput, as on the
   weather prompt: once the batch fills the chip, a better guess does not pay for checking it.
+
+### 02:06 entry, first run (02:07:00 to 02:09:35): speed judged, energy not
+
+Speed, draft against the mean of the two plain runs: batch 1 1.32x, 2 1.29x, 4 0.90x, 8 0.77x, 16 0.94x
+(acceptance 78 to 82%). Batch 1 held (1.25 to 1.45x). Energy is not judged from this run: the draft's two
+passes differ by 20 to 40% at batches 1 to 8 and plain drifted 15% at batch 2; the first pass of each series
+draws up to 50 W where the reversed pass draws 39 W, over 1.6 to 2.7 s windows with 7 to 12 samples, while
+Spotlight was indexing (load average 3 to 4). Declared at 02:10, before running it: the same three runs with
+ANSWER=512 (four times every window) judge the energy half of the 02:06 prediction.
