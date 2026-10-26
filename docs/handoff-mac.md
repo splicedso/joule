@@ -383,6 +383,16 @@ Render chain `render/log/system.sh` (six scenes) is running; the Designs page is
 lineup and waits for the chain to build. Carrier, desk and cell geometry are duplicated across
 `cell.py`, `desk.py` and `lineup.py` on purpose for now; a shared `parts.py` is the right next cleanup.
 
+## 18:50: badges, and the lineup crash
+
+Martin: "fix the designs and all systems and put some better logos on the 3D models, really build out
+better." `studio.badge`: a slim raised plate with the mark and the word "Spliced" in cut letters, sized
+to the model; on the desk unit's face, the cell door, every carrier handle, the rack's CDU nameplate and
+the sled's cold plate. The lineup at 3200 wide died in Blender's Metal shader compile (NSException), the
+same memory failure as every large frame on this 24 GB Mac; it renders at 2400 wide at 192 samples. The
+nine-scene chain (`render/log/system.sh`) is running; Designs is rewritten around the lineup and builds
+when it lands. Rule: keep any frame at or under about 2800x1700, and the lineup at 2400.
+
 ## Next, in order
 
 1. Review the Trace 35k retrain PR, then the Lattice v1 QAT PR when it lands (bar: 0.79 held-out agreement).
