@@ -36,7 +36,7 @@ Preview: `.claude/launch.json` config `spliced-site`, port 8772. Images carry `?
    tokens per answer for every model, and the 16:40 prediction text byte-identical to 39ef9bc (Linux moved
    the entry back into time order after a merge). Then run `sh experiments/lattice_mac_eval.sh` here (it
    fetches the draft release lattice-v1-qat and checks 1.5b-qat-SHA256SUMS); predictions at 23:45 (mine) and
-   00:05 (Linux's control entry).
+   Linux's control entry (committed 23:48:53 in b40930f, labelled 00:05 on the 26th by mistake; Linux corrects the label before the run).
 2. **Review Linux's Strix decode-batch PR** (first free-GPU window after the eval, auto clocks, 7B Q4_0):
    if the knee differs from the Mac's 16, replace the transferred curve in `fabric/costs/strix-halo.json`
    with the measured one and add the Strix half to note 24 with its own verdict.
@@ -554,7 +554,7 @@ unflagged on purpose: an OD write that fails right after the manual level is set
 still manual; an edge, note it when the script next changes. Nothing else queued for Linux before the
 batch run; the Trace retrain PR is the next review (morning).
 
-## 23:55 PT, AI first
+## 23:51 PT, AI first
 
 Martin: "continue company wide, focus more on AI, cluster stuff is just in research rn". Site nav is now
 Research, Models, Systems, Foundry, About; Designs is a "Research thread" section at the end of Research
