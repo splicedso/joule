@@ -52,8 +52,8 @@ agreement by 0.7 points and bought nothing; the stock 0.5B draft is the one to s
 Trace clears the 3-point bar. Drafts of up to 4 tokens are enough: at the 0.5 threshold they match
 drafts of 8 on prose and edits and beat them on code (1.72 against 1.51 times plain's speed, 2026-10-26
 re-run of note 11's set). In llama-server the draft also needs `--spec-type draft-simple`; with `-md`
-alone it loads and never drafts. And only at one or two requests at once: from four on, on the M5 Pro,
-the draft costs more energy per token than it saves (measured 26 October, being written up).
+alone it loads and never drafts. And only at one or two requests at once: at two it cuts energy per
+token 29%, and from four on, on the M5 Pro, it costs 12 to 50% more than it saves (note 25).
 
 **Clock: cap the shader clock where the platform allows it.** On the Strix Halo, an 1,800 MHz cap
 through the OD table cuts 7B decode energy per token 37% at 4% less speed, and 42% at 8% less
@@ -96,8 +96,6 @@ energy, so the gap a cell has to close is named: host, supplies, fans and idle.
 
 ## Not yet measured
 
-- Joules per correct answer with the draft on, at 8 slots. Notes 9 and 11 are per token at batch 1;
-  batching may make the draft useless (the draft steals the bandwidth the batch would use).
 - The clock cap on Apple silicon and on the RTX laptop. No control is known for the first; the second
   has one and has not been tried.
 - Whether an 8-slot 7B beats a 1-slot 32B per correct answer on the Strix Halo. Both are measured

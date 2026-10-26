@@ -71,6 +71,7 @@ Raw JSON is in `results/`.
 - [22. Does 2-bit pay on large models?](notes/2026-10-lattice-large.md): calibrated 2-bit against Q4_0 at 7B and 32B on the Strix Halo. At 32B the 2-bit model costs 16% less per correct answer at equal accuracy; at 7B Q4_0 still wins by 21%.
 - [23. Does a clock cap pay per correct answer?](notes/2026-10-capped-quality.md): capping the Strix Halo's shader clock at 1,800 MHz cuts joules per correct answer 19 to 28% at eight requests at once, accuracy within a point, for 11 to 24% less speed.
 - [24. Where batching stops paying](notes/2026-10-decode-batch.md): decode energy per token at batch 1 to 32 on the M5 Pro, 7B and 1.5B. 74% less by batch 8, 79% by 16, then 15% more at 32: the knee is an optimum, not a plateau, and it sits at 16 for both sizes.
+- [25. A draft and a batch fill the same gap](notes/2026-10-draft-and-batch.md): a draft model at 1 to 16 requests at once on the M5 Pro. 1.26x speed at one request, 29% less energy at two, then 12 to 50% more energy from four on. Which text it guesses matters more than anything else; and `-md` without `--spec-type` loads a draft that never drafts.
 
 ## Known limits
 
