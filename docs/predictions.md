@@ -102,3 +102,16 @@ in note 22).
 - Lattice item D, 7B pass 1 re-run on auto in this session (not averaged in): Q4_0 reproduced the previous
   session's pass 1 within 1%, Q2_K within 3% on power, so the 10% pass-to-pass spread is run order (pass 2
   followed four 32B runs), not the session.
+
+## 2026-10-25, 22:40 PT
+
+**Decode energy against batch size** (M5 Pro first, Strix Halo when its GPU is free; Qwen2.5 7B Q4_0;
+`experiments/decode_batch_energy.py`: llama-server at --parallel N, N simultaneous 128-token answers,
+chip power sampled over the window, two passes with the second reversed; batches 1 to 32).
+- Energy per token falls steeply from batch 1 to 8 (note 1 measured 72% less at 8 on the 1.5B) and
+  keeps falling to 16, by a further 15 to 30%.
+- Between 16 and 32 it flattens: less than 10% more saving on the M5 Pro, because the 7B at batch 32
+  is compute bound there; on the Strix Halo the knee comes earlier, at 8 to 16, for the same reason
+  (its capped runs are already compute bound at 8, Fabric's roofline).
+- Tokens per second per request fall below half of batch 1 by batch 16 on both machines.
+- The two passes agree within 5% at every batch, because each run is short and warmed.
