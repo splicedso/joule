@@ -636,3 +636,9 @@ note 24 section 6 extended. Decision sent to Linux: no 1.5B Lattice v2 (2-bit co
 than 4-bit at equal answers there, so the energy bar is unreachable at any accuracy); instead a 32B post-training
 format search (Q2_K, IQ2_M, IQ2_XS, IQ3_XXS, Q3_K_M with the GSM8K imatrix, against Q4_0), prediction first; then
 the GPU waits for a job. The site check for notes 24 and 27 waits for the Mac waiter to finish (no browser during it).
+
+## 11:31 PT, note 28
+
+Granite 3.3 2B re-run clean (idle 0.4 to 0.5 W, Qwen 3B reference within 0.9% of note 6). Format findings hold on a second
+family: Granite within 1.3 to 7.1% of Qwen 3B per weight, same order, Q4_0 cheapest; per correct answer Q4_0 leads by
+2 to 3%. Published as note 28; Systems open list now says batching and speculation are Qwen-only. Site checked at both widths.
