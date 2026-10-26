@@ -147,6 +147,17 @@ chip power sampled over the window, two passes with the second reversed; batches
   narrowly; the batch-1 window is 2.3 seconds, 10 power samples.
 - Strix Halo half: not run yet (GPU busy with the Trace harvest). Note 24 for the Mac half.
 
+### Result (2026-10-26, 08:00 PT, Strix Halo; run 07:53 to 07:58, auto clocks, shared 90%, package power)
+
+- Batch 1 to 8: 1,737 to 463 mJ per token, 73% less. Held.
+- 8 to 16: a further 31%. Missed narrowly (predicted 15 to 30%).
+- Knee at 8 to 16 on the Strix Halo: missed. Energy per token keeps falling to 32 (a further 43%, 181 mJ), and
+  throughput nearly doubles from 16 to 32. Batch 16 is a slow spot here (throughput +11% over 8 while package
+  power drops 126 to 96 W), likely a llama.cpp Vulkan kernel path; not diagnosed.
+- Tokens per second per request at 16: 18.8 against 48.6, 39%. Held.
+- Passes within 5% at every batch: missed (21%, 16% and 10% at batches 1, 2 and 4, in 2.6 to 3.0 s windows; a
+  512-token rerun narrows them to 7%, 8% and 0.3%). results/decode-batch-halo.md.
+
 ## 2026-10-25, 22:40 PT
 
 **Decode energy against batch size, 1.5B** (M5 Pro; Qwen2.5 1.5B Q4_0, the format note 1 used;
