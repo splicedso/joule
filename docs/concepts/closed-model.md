@@ -29,15 +29,15 @@ you can own, and better at the tasks we tuned it for". "Fable level" is the ceil
 
 ## Bases, and the nodes they need
 
-Weights only, at three bits per weight; a Strix Halo node holds about 113 GB for the GPU. Leave 10 to 20% for the
-cache.
+Weights only, at three bits per weight; a Strix Halo node holds about 113 GB for the GPU, and 15% is kept for the
+cache (node counts from `fabric/moe.py`, which corrected two of this table's first entries).
 
 | base | licence | total | 2.6 bits | 4.5 bits | 8.5 bits | role |
 |---|---|---:|---:|---:|---:|---|
 | Qwen3.6 35B-A3B (3B active) | Apache-2.0 | 36B | 12 GB, 1 node | 20 GB, 1 | 38 GB, 1 | first base: fast, trainable on one node |
 | Qwen3.8 27B (dense) | Apache-2.0 | 28B | 9 GB, 1 | 16 GB, 1 | 30 GB, 1 | dense control for the same size |
-| DeepSeek V4 Flash (roughly 10 to 13B active, from its config) | MIT | 304B | 99 GB, 1 | 171 GB, 2 | 323 GB, 3 | the strongest base one node can hold |
-| GLM-5.2 | MIT | 753B | 245 GB, 3 | 424 GB, 4 | 800 GB, 8 | multi-node |
+| DeepSeek V4 Flash (about 12 to 13B active, from its config) | MIT | 304B | 99 GB, 1 (too tight; 2.4 bits fits) | 171 GB, 2 | 323 GB, 3 | the strongest base one node can hold |
+| GLM-5.2 (about 39B active) | MIT | 753B | 245 GB, 3 | 424 GB, 5 | 800 GB, 8 | multi-node |
 | DeepSeek V4 Pro | MIT | 1,650B | 536 GB, 5 | 928 GB, 9 | 1,753 GB, 16 | the pod's flagship |
 
 GLM-5.3 and Qwen3.8 Flash Next ship under custom licences; read them before using either. Our llama.cpp pin
@@ -51,8 +51,11 @@ DeepSeek's own draft heads (`--spec-type draft-mtp`, `draft-dspark`).
   with chip energy per task. "More general purpose" is measured here, not asserted.
 - Baselines on the Strix Halo: Qwen2.5 7B (today's model) against Qwen3.6 35B-A3B at Q4_0 and Q8_0, thinking on and
   off. Thinking is likely the largest energy lever these models have: it multiplies tokens per answer.
-- Then DeepSeek V4 Flash at the largest format one node holds (about 2.6 bits, with an imatrix): is the strongest
-  open base usable on one node, at what accuracy and joules per correct answer?
+- Then DeepSeek V4 Flash at the largest format one node holds (about 2.4 bits, with an imatrix): is the strongest
+  open base usable on one node, at what accuracy and joules per correct answer? Fabric's plan (`python -m fabric.moe`,
+  modelled, not measured) puts it at about 1.8 J per token on one node against about 4 J on two nodes at 4.5 bits, so
+  if 2.4 bits keeps its accuracy, one node beats two by more than double. For a pipeline split the network is under 1%
+  of the time even on 10GbE.
 - Bar: a model on one node that beats Qwen2.5 7B on every task at a lower cost per correct answer.
 
 **Phase 1: two to four nodes (needs Martin to buy nodes; nothing is bought without him).**
