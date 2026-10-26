@@ -1,6 +1,6 @@
 # Handoff: the Mac lead (2026-10-25, 14:20 PT)
 
-You run Spliced from Martin's Mac (Apple M5 Pro, 48 GB). You lead the lab, own the site and the
+You run Spliced from Martin's Mac (Apple M5 Pro, 24 GB (hw.memsize; an earlier handoff said 48)). You lead the lab, own the site and the
 Foundry app, and direct the Linux session (AMD Strix Halo) by SendMessage. Martin does not relay.
 
 ## Standing rules
@@ -24,6 +24,20 @@ Foundry app, and direct the Linux session (AMD Strix Halo) by SendMessage. Marti
 | `foundry` | the desktop app (Tauri 2 + llama-server) | splicedso/foundry (private, created 2026-10-25 12:45 with Martin's yes) |
 
 Preview: `.claude/launch.json` config `spliced-site`, port 8772. Images carry `?v=` so a reload shows new renders.
+
+## Next, in order (kept current; items leave the list when done)
+
+1. **Morning, review the Trace 35k retrain PR** (Linux, after the harvest at about 03:55 PDT): held-out
+   agreement against the 0.79 bar, read from the raw eval JSON. Then the **Lattice v1 QAT PR**, with the
+   step-0 and final quantization checks (at most 4 distinct values per group, MAE about a third of magnitude).
+2. **Review Linux's Strix decode-batch PR** (first free-GPU window after the eval, auto clocks, 7B Q4_0):
+   if the knee differs from the Mac's 16, replace the transferred curve in `fabric/costs/strix-halo.json`
+   with the measured one and add the Strix half to note 24 with its own verdict.
+3. **With Martin at the keyboard (his sudo):** the warm-case capped run with temperatures logged (20 min);
+   the capped decode-batch variant; node wall power under the cap if a plug-in meter is at hand (do not buy one).
+4. **Martin's open calls:** a GitHub remote for Fabric (private, or keep local); a role title.
+5. **After the retrain:** the shape study (ex-Kinetic) four-shape runs on Linux; then Spliced Linux on the box
+   needs a llama.cpp build against the image's Mesa before the clock policy can verify on a node.
 
 ## State at handoff
 
@@ -173,17 +187,362 @@ decode direction held, size underestimated; prefill missed. Not yet measured und
 answer, 8 slots, 32B. That is the obvious next cheap win for Foundry on this class of machine; it needs
 Martin's sudo again. Linux is on the Trace harvest (10,005 of 35,180 done at 14:06), retrain follows.
 
+## 14:30 to 15:00
+
+- Site: primer 8, "When fewer bits pay, and when they do not" (`site/src/learn/8-when-fewer-bits-pay.md`),
+  from notes 5, 20 and 22; every percentage checked against the notes. `docs/program.md` brought up to
+  date (Lattice D, clock cap, Trace status, Kinetic data). The Mac has 24 GB, not 48.
+- Linux, on top of the capped run: a package-power logger every 10 s all day
+  (`experiments/power_log.sh`, `results/halo-power-log.csv`) to explain the idle drift; `experiments/wait_for.sh`
+  waits on a pid or done-file, never a command-line pattern (the bug that made PR 17 late); note 23 drafted
+  with the prediction; the 7B auto pass-1 cells re-run after the capped script and before the harvest resumes,
+  to close note 22's 10% session spread.
+
+## 15:00: "add more 3D models, not just the CPU", then "not laptops or desktops, EE-type stuff"
+
+A laptop and a mini PC were built and rendered, then dropped on Martin's second message (scripts deleted).
+What is on the site now, all unbranded: home fall and Lab, the package; Research, the facing wafer; Foundry,
+the GPU module; Data, the 8-GPU board; Phase, the accelerator card. Models stays three boxes. The GPU module
+had to be re-rendered once more: the 12:26 file still carried "SPL-G1". Rule: circuits, dies, boards,
+datacenter parts; never consumer machines.
+
+- 15:15, Martin on the Research wafer: "shadow fix" then "shadow too dark". Fixed at the source and in the
+  finish: a wide frontal softbox so the shadow pools at the foot instead of a hard wedge to the side, the key
+  softbox enlarged (size 16) so its edge blurs, a wider frame (2600 wide) so the pool is not clipped, and
+  `finish.py in out 140 40 0.4`: pad 140, haze cut 40, shadow opacity 0.4 (shadow pixels found by colour,
+  near-black on the catcher, so the wafer's own dark face is untouched).
+
+- 15:30, Martin: "reduce shadow on the actual wafer". The dark half of the face was the wafer mirroring a
+  black studio. Brightening the HDRI lifted it but cast a second shadow under the label; the fix that
+  worked is two shadowless area lights (`light.data.use_shadow = False`): one upper-left, one low in front
+  that the lower face mirrors. HDRI stays at 0.08. Blender crashed once in Metal shader compile
+  (NSException) mid-afternoon; the background render chain now writes `ok` or `crashed` to a done-file
+  from the log's "Blender quit" line, and nothing is finished unless it says ok.
+
+- 15:52, tagline, Martin's: "Efficient inference systems." (three words, a noun phrase, like Etched's "Frontier Inference
+  Clusters"); lede "What AI costs to run, and the models that cut it." Home writing is in Etched's register: a
+  claim per heading, the numbers under it. Martin mentioned wanting cluster architectures one day, "far from
+  there"; nothing on the site about it until measured.
+
+- 15:50 to 16:00: LinkedIn banners rebuilt from our own 8-GPU board render with the tagline
+  (`brand/banner_photo.py`; the Unsplash wafer photo is retired, CREDITS.md says so); the SVG trace
+  banners carry the tagline too (`brand/build.py`). Writing pass in Etched's register on Research, Data and
+  Learn; Research's open questions now name live work (Kinetic shapes, capped clocks per correct answer, the
+  Trace 35k retrain). A background research agent is writing `docs/clusters-reading.md`, a sourced reading
+  note on inference cluster design (Martin: "I kinda want to get into cluster architectures, far from there").
+
+## 16:00: the company, and systems
+
+Martin: "we are an AI model company (right now local models) but also I want to design clusters and
+systems for AI; nothing yet, but start laying the groundwork." Done:
+- `docs/local-systems.md`: the local inference recipe, every decision tied to a note (format, size,
+  batch, prefix cache, draft with threshold, clock cap, warm, idle). Published as the site's Systems
+  page (`site/build.py` renders it like Methods); footer link; Models links to it as the bar.
+- `docs/clusters-groundwork.md`: what transfers from the single-chip notes, what we do not know, and a
+  five-step order to learn it without buying anything (roofline with an interconnect term, a two-node
+  llama.cpp RPC measurement on the machines we own, note 8 re-derived, disaggregation simulated, only then
+  a design document). Not on the site; nothing cluster-related goes on the site until measured.
+- `docs/clusters-reading.md`: the sourced reading note, 3,500 words, 34 links, every figure tagged measured
+  or vendor claim. Worth knowing: nobody publishes joules per token for a production cluster; Google's
+  0.24 Wh per median prompt (58% accelerator, 25% host, 10% idle, 8% overhead) is the only full-boundary
+  number; the NVLink-to-NIC bandwidth cliff is 3 to 4x; speculative decoding's gain falls from 2.73x at
+  batch 1 to 1.31x at batch 32 and nobody reports its energy. Its section 8 ranks the first two
+  experiments we should run: decode energy against batch at the wall on all three chips, and our drafts
+  under batching in joules per accepted token. Two figures came from secondary sources and say so.
+- Home now leads with "Models that cost less per answer"; Lab's description says the company builds
+  efficient inference systems. Role name: Martin asked; I suggested "Founder and Systems Engineer" with
+  the tagline as the company line, and "Inference Systems Architect" once a cluster measurement exists.
+  He has not chosen.
+
+## 16:00: designs
+
+Martin: "design unique AI systems stuff, then make realistic renders and put them on our website."
+Done as concepts, labelled as designs, not products: `docs/concepts/decode-first.md` (a decode-first
+module: small die ringed by eight memory stacks, capped clock by design, flat cold plate; and a 1U sled
+of six behind one prefill module and a switch), argued from notes 1, 2, 10, 18, 19 and the clock cap.
+Rendered by `site/render/decode.py` (module) and `--sled`; the site's Designs page
+(`src/pages/designs.html`, footer link) shows both with the argument and a "what would have to be
+true" list. Nothing on it is claimed as built or measured.
+
+## 16:05: open and for profit
+
+Martin: "we are for profit but our models are open source; maybe we should also develop a closed source
+model but no work on that yet." Recorded in `docs/program.md` ("Open and for profit"). State of fact:
+phase is public Apache-2.0, foundry is private with no licence, no model has been released yet (the
+releases are Phase versions). The Lab page says code, data and model weights are open and the company is
+for profit. No closed-model work, no mention of one on the site.
+
+## 16:20: note 23 merged
+
+PR 20 audited (all eight raw files consistent, means match, auto restored in the readback) and merged
+after merging main into the branch; one fix, the capped Q2_K lead is 9.7% on the mean (7.6% and 12.0%
+per pass), not "5 to 10%". Headline: an 1,800 MHz cap cuts J per correct answer 28% (7B Q4_0), 24% (32B
+Q4_0), 19% (32B calibrated Q2_K) at accuracy within a point, for 15%, 11% and 24% less speed. The 7B
+re-run reproduced the old pass 1 within 1% on Q4_0, so note 22's 10% spread is run order; flag stays.
+`docs/local-systems.md` carries the two-pass numbers now. Linux: harvest at 186 tok/s, about 12 h,
+then retrain, eval, Kinetic, chained.
+
+## 16:15: realism pass and the rack
+
+Martin: "make all the 3D models realistic, and make actual cluster designs or other datacenter modules, so
+we lock in we are half AI lab, half engineering lab." Done: `studio.silkscreen` (component outlines, no
+text) and `studio.scuffed` (streaky roughness on handled metal) applied to gpu, decode and card; every board
+scene re-rendered (`render/log/realism.sh`). `render/rack.py`: a liquid-cooled 42U rack of 24 decode sleds,
+a 4U coolant distribution unit, a top-of-rack switch, a rear busbar, couplers on every sled face; the
+first attempt died silently from geometry count on a 24 GB Mac, so grilles are coarser now. The Designs
+page has a third section for it. Rule from today: one Blender at a time, and a render is finished only
+when its log says "Blender quit"; the chain scripts in `render/log/` write ok or crashed to a done-file.
+
+## 16:20: the portable cell
+
+Martin: "make realistic portable datacenter modules that can be connected by hundreds to form a cohesive
+unit or be used individually; single cost per unit shouldn't be super high." Done as a concept:
+`docs/concepts/portable-cell.md` and `site/render/cell.py` (one cell, and `--row` for eight docked). The
+brief says why the unit cost stays low (commodity memory, no per-cell power supply, no building) and
+refuses to print a price until a bill of materials exists. The Designs page section is drafted in
+`site/render/log/designs-cell.part` and goes in once `assets/img/cell.webp` and `cell-row.webp` exist
+(the build reads image sizes, so the page cannot reference a file that is not there yet).
+Render queue, one Blender at a time: realism re-renders, then the rack, then the cell test.
+
+## 16:30: two families
+
+Martin: "focus on two models, don't make a third one, or reconvert the third to be a frontier, Fable-level
+one." Kinetic is off the Models page (two boxes now) and demoted in the program to a shape study, a note
+not a release, last in Linux's queue after Lattice v1. A third family is named only when Trace and
+Lattice clear their bars. No one claims a frontier-level model; a two-person group with one Strix Halo
+cannot train one, and the site must not suggest otherwise. `build.py` now warns instead of crashing on
+a missing image, so the Models change could be built while the design renders are still in the queue.
+
+## 16:45: where the renders stand
+
+Realism pass done and live (gpu, hgx, decode, sled, card, all with clean exits). The rack is live on
+Designs at 1500x1950 and 224 samples: the 2000x2600 render died silently twice on this 24 GB Mac, which
+is memory, not the scene; keep the big scenes at that size or lower. The portable cell and its eight-cell
+row are rendering now (`render/log/cellfull.sh`); when `render/log/cell.done` says ok, splice
+`render/log/designs-cell.part` into `src/pages/designs.html` before `</main>`, build, check, push.
+Linux: Kinetic auto-start stubbed out, 1.5B and the 72B fp16 shards downloading, `experiments/lattice/qat.py`
+being written; one line back after the 50-step smoke test.
+
+## 17:00: the cell's shape, prototypes, and Fabric
+
+Martin on the cell, in order: "a cube, vertically elongated, think of the shape of a GPU", then "no, not
+tall: a long rectangle, long in depth, not in width or height." So: 0.6 wide, 1.2 tall, 3.0 deep, a card
+lying flat and stretched back; sleds load from the narrow front; a louvred heat band runs the length of the
+top; docks on the long sides; cells sit side by side. `render/cell.py` and the brief say so. He also said:
+"make them realistic, we need to build prototypes," "build out the software for these clusters and how they
+work together," and "we need to be the next Etched and Anthropic."
+
+Fabric (`~/Docs/GitHub/spliced/fabric`, local, no remote yet; ask Martin before creating one): the control
+software. A cost model loaded from `costs/strix-halo.json` (every row cites its note), a continuous-batching
+scheduler with a prefill/decode split, a prefix cache with handoff accounting over a link, a clock policy
+(decode capped, prefill auto), a time-stepped simulator that reports joules per correct answer with the
+derived share of every joule printed beside it, five invariants passing. First honest result from the
+demo: at 64 requests the split layout loses to one capped module because three decode modules idle, and
+the prefix cache wins it back; which is why the simulator exists. `fabric/testbed.py` is the stub for the
+two-box experiment that turns the link number from literature into a measurement.
+
+## 17:20: the Designs page is complete
+
+Four concepts live, each rendered and labelled a design: the decode-first module, the sled, the rack,
+and the portable cell with its eight-cell row. The cell carries fastener rows, panel seams, a blank
+rating plate and a drain, which is the level of detail the renders should hold from now on. The page
+was checked at desktop and phone width; the phone check reports lazy images at zero width before they
+decode, which is not a defect. Fabric has cells, rows, trunks and a sleep policy; six invariants pass;
+its demo says the row's placeholder overhead dominates at low load, which is now in the cell brief.
+
+## 17:25: Lattice v1 QAT started
+
+Linux's smoke test (50 steps, 1.5B, 196 linears on a 16-group 4-level grid): held-out loss 3.96 at step 0
+(the 2-bit shock) to 0.88 at step 50, peak 30.4 GiB, 5.8 s/step beside the harvest, one epoch about 90 min.
+Branch `linux-lattice-qat` has the trainer, the convert/quantize/measure pipeline and the prediction (its
+own number: 52% on GSM8K-250, bar of 60% missed, not cheaper than Q4_0). Full epoch running beside the
+harvest; quality and energy runs wait for a free GPU after the Trace eval. I asked for proof in the PR that
+fake quantization is on (distinct values per group at most 4, mean abs error master vs quantized) and that
+the measured GGUF is the Q2_K file, before any quality number is believed. 72B shards via curl, quantize
+queued, nothing served.
+
+## 17:35: the mark on the designs; what is inside; Spliced Linux
+
+Martin: "put our logo on them, and let's figure out what they are actually going to have inside, running
+our own Linux distro, but our own-made CPUs or existing stuff." The no-logo rule was about real-looking
+boards; the concepts are ours, so the mark goes on them: etched into the decode cold plate and silk in the
+module board's corner, a nameplate on the rack's CDU, an inset plate on the cell door. Re-rendered and live
+(`render/log/marks.sh`, five scenes, all clean exits). Two decision documents: `docs/concepts/inside-the-cell.md` (buy the silicon, own
+everything above it; the own-chip question settled by a measured split of a token's joules, not by taste)
+and `docs/concepts/spliced-linux.md` (an appliance image, not a distribution: upstream kernel, read-only
+root, signed two-slot updates, one workload; first deliverable is a recipe that boots the Strix Halo and
+reproduces note 23 within 3%). Both summarised on the Designs page.
+
+## 17:55: lockin: engineering, clusters, models
+
+Martin: "start actually designing our systems; lock in inference engineering, clusters, models frontier
+and open source." Three artefacts: `fabric/roofline.py`, a decode roofline with an interconnect term,
+checked against note 8 (B200 70B batch floor 64 vs 58 by hand; chip ceiling at 40 to 70% of wall; a slow
+link flips the 405B to link-bound; three tests). `docs/concepts/cell-spec.md`, the cell and row sheet
+with every number's basis (modules measured, overhead a 450 W placeholder that is most of the idle; the
+cell is a product only if idle comes down to about 200 W). `docs/program.md` "Frontier, open source,
+and what two people can do": no frontier claim until a model can be measured against one; weights open
+while small; a closed model is a business decision with no work and no mention. Systems page updated.
+
+## 18:30: the system, air cooled, on paper, printable, and a desk unit
+
+Martin, in order: "fix logos, renders; make an actual schematic design if I gotta 3D print; design the
+system inside; make it able to air cool, that looks like a box"; "make it more like a system" (with
+Etched's chip-board-sled-rack lineup picture); "for people doing local hosting also, not just big data
+centers". Done: cell v2 with a real air path and twelve pull-out carriers in two tiers, every part a
+named collection; STL export at 1:10 (25 parts); SVG drawings (plan, side, front, parts list) generated
+from the same numbers; a desk unit (one carrier, small enclosure) for local hosting; a lineup render of
+package, carrier, desk unit and cell at true relative scale, which is the Designs page's top render.
+Render chain `render/log/system.sh` (six scenes) is running; the Designs page is rewritten around the
+lineup and waits for the chain to build. Carrier, desk and cell geometry are duplicated across
+`cell.py`, `desk.py` and `lineup.py` on purpose for now; a shared `parts.py` is the right next cleanup.
+
+## 18:50: badges, and the lineup crash
+
+Martin: "fix the designs and all systems and put some better logos on the 3D models, really build out
+better." `studio.badge`: a slim raised plate with the mark and the word "Spliced" in cut letters, sized
+to the model; on the desk unit's face, the cell door, every carrier handle, the rack's CDU nameplate and
+the sled's cold plate. The lineup at 3200 wide died in Blender's Metal shader compile (NSException), the
+same memory failure as every large frame on this 24 GB Mac; it renders at 2400 wide at 192 samples. The
+nine-scene chain (`render/log/system.sh`) is running; Designs is rewritten around the lineup and builds
+when it lands. Rule: keep any frame at or under about 2800x1700, and the lineup at 2400.
+
+## 19:10: V1, the cluster someone could build
+
+Martin: "make them breathable, take in actual cluster design, design something that could be a real v1
+cluster modular system", "and do everything else we do too". `docs/concepts/v1-cluster.md`: the sealed
+cell is dropped for V1; a 2U 19-inch sled with two carriers and a 4 x 80 mm fan cage, front-to-back air;
+a 42U pod of 16 sleds, one prefill sled, a switch, a power shelf; a row in hot-aisle containment; every
+number with its basis; a four-step "what would have to be true" where the first two cost one sled.
+`fabric/v1.py` is the budget: airflow, feed and idle checks pass on paper, and it says overhead doubles
+joules per correct answer at full load (216 vs 111), which is now in the doc. `site/render/v1.py` has
+the sled, sled-open, pod and row scenes, queued after the nine-scene badge chain. Desk unit and cell
+stay on Designs as concepts; V1 becomes the page's second half when its renders land.
+
+## 19:20: Linux status, and the temperature the sled has to beat
+
+Harvest at 162 tok/s, ETA 05:30 PDT; the retrain PR is a morning event. QAT epoch parked by the watchdog
+at step 150 of 910 (GSM8K losses 0.51 to 0.56) until the eval chain exits, so it cannot touch an energy
+run. 72B at 16 of 42 shards. The logger now records GPU edge, CPU Tctl, four ACPI zones, NVMe, NIC and
+Wi-Fi temperatures every 10 s beside power and clocks; no ambient sensor exists on the box. Under the
+harvest alone: GPU edge 94 C, Tctl 93.5 C, zones 73 to 93 C. Every 1,800 MHz run this afternoon held
+its clock at those temperatures. That is in `v1-cluster.md` now: the clock holds warm, at the top of the
+die's range, so the sled's fin stack is sized to bring it down, not to the nominal power.
+
+## 19:50: Designs live with the lineup; V1 renders in progress
+
+The Designs page is live: the family lineup at the top (package, carrier, desk unit, cell at true
+relative scale), "One part, four sizes.", the module, the carrier and desk unit, the air-cooled cell,
+the row, the drawings and parts list, the inside and the OS, every model badged. The V1 half
+(`render/log/designs-v1.part`) goes in when its four renders land: the sled-open scene died silently at
+2800x1600 and runs at 2200x1300 now; the sled's camera is pulled back. `fabric/roofline.py v1_pod`:
+the capped module measures 192 tok/s against a memory bound of 526 at eight slots, so it is compute
+bound under the cap; that is in `v1-cluster.md` with the conclusion that the cap should be a scheduler
+setting, not a fixed number.
+
+## 20:20: the node
+
+Martin: "make them really small, tiny computers, like the AMD Halo." So V1's unit is the box on the
+bench. Linux identified it: AMD Ryzen AI Halo developer platform RAH-001 (Compal board), 150 x 150 x 45 mm,
+1.2 kg, two blowers, air in top and sides, out the rear, 120 W TDP, 240 W USB-C brick, rear ports USB-C
+power, three USB-C, HDMI, 10GbE, lock slot (AMD user guide and reviews, not a ruler). `render/node.py`
+matches that shape with a badge; `--open`, `--tray`, `--rack`, `--row`. The top-and-side intake sets
+the tray at two nodes across in 2U with clear air above, 36 per rack; a Spliced front-intake shell
+(the carrier) is what would allow three or four, and is the first hardware worth making.
+`v1-cluster.md` is revised around the node; the sled-with-carriers revision stays below it for the
+record. The V1 Designs section (`render/log/designs-v1.part`) is rewritten around the node and goes in
+when the five node renders land. Morning list for Martin's sudo and a plug-in meter: node wall power
+under the cap, idle and busy; the warm-case capped run with temperatures logged.
+
+## 20:50: the node's shape is ours
+
+Martin: "not necessarily that shape; can be longer, slimmer in width, and taller." So the node is the
+bought board in a Spliced shell, 60 x 240 x 120 mm, board on edge, fins front to back, full-front grille,
+two rear fans, ports at the rear, a mark on the front. It breathes front to back and stands six across in
+a 3U tray; 14 trays, 84 nodes per rack. `render/nodeparts.py` now holds the node, tray and rack geometry
+and both `node.py` and `lineup.py` import it (the duplication the earlier handoff flagged is gone for this
+family). The lineup is package, node, tray, rack. `v1-cluster.md` and `designs-v1.part` are revised.
+
+## 21:10: the shape by efficiency, and docks for grids
+
+Martin: "whatever is most efficient", "allow for connections like a 2x2 grid, make it airflow efficient".
+The shape stays narrow, deep, tall because a straight front-to-back path is the least fan power per watt
+and packs edge to edge; the reasoning is in `v1-cluster.md` ("Why that shape"). Docks: a recessed
+blind-mate connector with two alignment pins on each side and on the top and bottom (power through, a
+10GbE link), never on the front or rear, so grids form without touching the air path. `nodeparts.grid`
+and `node.py --grid` render a 2x2. The lineup (package, node, tray, rack) is being test-rendered; the
+rack of 84 is slow at any size, so the family chain will take well over an hour.
+
+## 22:20: the row render hung; far views use cheap nodes
+
+The row of six racks (504 full nodes, each with a text badge and docks) wrote nothing to its log for
+nearly three hours: Blender hung, not crashed. Killed. `nodeparts.node_simple` and `tray_simple` are
+far-view versions (shell, grille, light, no text), `rack(simple=True)` uses them, and the row and the
+lineup use that. The rack's own render needed a wider camera (top was cut). Chain restarted for rack,
+row, lineup; node, open, grid and tray were already rendered and are good. Rule: no text objects in a
+scene with more than about a hundred instances.
+
+## 22:50: company-wide, while Blender renders
+
+Martin: "continue company-wide research and improvements." Three things that need neither Blender
+nor the GPU: `fabric/testbed.py` is real now (the scheduler drives llama-server instances over HTTP,
+records every timing, and measures the second prefill as the handoff cost a real transfer must beat;
+twelve tests pass, one against two fake servers). `tools/spliced-linux/` in phase is a mkosi recipe for
+the appliance image (clock policy service that caps and verifies, power log service, Fabric service),
+untested; Linux is asked to build it on the CPU beside the harvest and smoke-boot it in qemu, not install
+it. `experiments/decode_batch_energy.py` with its prediction is the reading note's first experiment,
+decode energy per token against batch 1 to 32; it runs on this Mac after the renders (never beside
+Blender) and on Linux in the free-GPU window. `spliced/linux` also exists as its own local repo, same
+files; the phase copy is the one Linux pulls.
+
+## 23:30: Designs is complete and live
+
+The whole family is on the page: the lineup (package, node, tray, pod at true scale) at the top, "One
+part, four sizes.", the module, the carrier and desk unit, the air-cooled cell (concepts), the drawings
+and parts, the inside and the OS, then V1: the node, why its shape and the docks for grids, the tray of
+six, the pod of 84 with the budget's verdict, the row. Every model badged; every claim with its "what
+would have to be true"; checked at desktop and phone width; 44 pages, no broken links. Render lessons
+of the evening, now in memory: frames at or under about 2400x1400 on this Mac, no text objects in
+scenes with hundreds of instances, and a render counts only when its log says "Blender quit".
+
 ## Next, in order
 
-1. Review the Trace 35k retrain PR when it lands (bar: 0.79 held-out agreement).
-2. The capped J-per-correct run (quality.py at OD 1800, 7B and 32B, 8 slots, two passes, about 1.5 h
-   GPU-exclusive): Linux asked Martin directly at 14:30 whether to run it now (pausing the resumable
-   harvest) or after the retrain. Martin's answer decides; neither session starts it on the other's say-so.
-3. Kinetic (14:30): data complete and verified (1e9 uint32 tokens, all ids in vocabulary, shard reproduction
-   byte-identical); the prepare.py crash is a PyGILState abort at interpreter exit after every token is
-   written; a small fix PR is coming; train.py smoke-tested on ROCm (10 steps, wide shape, 72.4M params).
-   The four-shape runs queue after the retrain. PR 19 (the exit fix and `results/kinetic-data.md`) reviewed
-   and merged at 14:45; the fix is `os._exit(0)` after flushing and closing both files, documented in place.
-2. Check the home hero fall on a real scroll, at desktop and phone width.
-3. Trace: decide between the 35k run and Q4_0-teacher on-policy; queue it on Linux.
-4. Foundry: create its GitHub repo once Martin says yes, then a signed release.
+Moved to the top of this file (23:40 PT) and kept current there; the old list here had gone stale.
+
+## 22:36 PT, note 24 published
+
+Decode energy against batch, Mac half: `results/decode-batch-mac-7b-q4km.json`, note 24, verdict in
+`docs/predictions.md`. Knee at batch 16 (111 mJ per token), 32 is 15% worse and slower in total.
+Fabric `costs/strix-halo.json` carries the curve (knee 16) in place of note 1's 1.5B curve; 12 tests pass.
+The Linux half is queued behind the Trace harvest; same script, hwmon package power, 7B Q4_0.
+Site: note 24 registered in `build.py`, 29 pages, 0 broken links. README lists notes 22 to 24 (22 and 23
+were missing from it).
+
+## 22:40 PT, nav and About
+
+Site nav is now Research, Models, Systems, Designs, Foundry, About; the Lab page is `/about/` (About
+label, same copy) with `/lab/` redirecting. Phone nav holds the six on one row at 375 px (About hides
+below 520 px, it is in the footer). Systems page: concurrency rule now says "as many as the chip
+rewards" and cites note 24. Next on the Mac: the 1.5B half of the batch question (prediction at 22:40).
+
+## 22:45 PT, the 1.5B half, and a timestamp correction
+
+The 1.5B Q4_0 run (37 s wall, `results/decode-batch-mac-1.5b-q4_0.json`) puts the knee at 16 again:
+26 mJ per token, 12% more at 32, batch 1 to 8 within 8% of note 1's llama-batched-bench rows. Folded
+into note 24 as section 4 with its own verdict in predictions.md. Timestamps: the two entries I labelled
+22:50 and 23:05 were written at 22:36 and 22:40 (git has the true times: b43c79f 22:36, 8f34931 22:40);
+labels corrected, the prediction commit precedes the 22:41:00 run start.
+
+## 22:58 PT, PR 21 merged
+
+The appliance image PR (Linux, `results/spliced-linux-build.md`) is merged: trixie, loud failures from
+both services, Fabric shipped disabled, smoke profile. Two stale comments fixed on main (3f42830); `bc`
+still in the package list, Linux removes it next. Follow-up sent to Linux: restore auto when cap verification
+fails (exit 3/4/5), VM pass after the batch run. Mirror `spliced/linux` synced (local, no remote).
+
+## 23:02 PT, PR 22 merged
+
+Clock script restores auto before exit 3/4/5; bc gone; smoke boot re-run unchanged. Mirror synced. Left
+unflagged on purpose: an OD write that fails right after the manual level is set exits 1 with the level
+still manual; an edge, note it when the script next changes. Nothing else queued for Linux before the
+batch run; the Trace retrain PR is the next review (morning).

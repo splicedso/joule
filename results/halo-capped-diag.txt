@@ -1,0 +1,35 @@
+14:21:48 start; sysfs: auto / 0: 600Mhz  1: 1532Mhz * 2: 2900Mhz  
+14:22:08 cap check: force=manual active_max=1800MHz
+14:22:23 idle before 7b Q4_0 pass1: 18.19 W (clock 947MHz)
+14:22:23 === quality cap1800 7b Q4_0 pass1 ===
+14:27:33 === done 7b Q4_0 pass1, active_max_during=1799MHz ===
+14:27:48 idle before 32b Q2_K-imat pass1: 10.56 W (clock 609MHz)
+14:27:48 === quality cap1800 32b Q2_K-imat pass1 ===
+14:47:55 === done 32b Q2_K-imat pass1, active_max_during=1800MHz ===
+14:48:10 idle before 32b Q4_0 pass1: 17.51 W (clock 1042MHz)
+14:48:10 === quality cap1800 32b Q4_0 pass1 ===
+15:08:29 === done 32b Q4_0 pass1, active_max_during=1800MHz ===
+15:08:45 idle before 32b Q4_0 pass2: 16.03 W (clock 930MHz)
+15:08:45 === quality cap1800 32b Q4_0 pass2 ===
+15:29:02 === done 32b Q4_0 pass2, active_max_during=1800MHz ===
+15:29:17 idle before 32b Q2_K-imat pass2: 6.31 W (clock 607MHz)
+15:29:17 === quality cap1800 32b Q2_K-imat pass2 ===
+15:50:32 === done 32b Q2_K-imat pass2, active_max_during=1800MHz ===
+15:50:47 idle before 7b Q4_0 pass2: 19.17 W (clock 1101MHz)
+15:50:47 === quality cap1800 7b Q4_0 pass2 ===
+15:55:59 === done 7b Q4_0 pass2, active_max_during=1799MHz ===
+15:56:00 === READBACK ===
+power_dpm_force_performance_level:
+auto
+pp_dpm_sclk:
+0: 600Mhz 
+1: 1520Mhz *
+2: 2900Mhz 
+pp_od_clk_voltage:
+OD_SCLK:
+0:        600Mhz
+1:       2900Mhz
+OD_RANGE:
+SCLK:     600Mhz       2900Mhz
+15:56:00 === CAPPED QUALITY DONE ===
+15:56:00 harvest resumed, pid 275161

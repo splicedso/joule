@@ -1,0 +1,11 @@
+[Unit]
+Description=Spliced smoke test: print service states to the console and power off (only with spliced.smoke on the kernel command line)
+ConditionKernelCommandLine=spliced.smoke
+After=spliced-clock.service spliced-power-log.service spliced-fabric.service
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c 'sleep 20; { echo "=== SMOKE: failed units"; systemctl list-units --failed --no-pager --plain; echo "=== SMOKE: spliced units"; systemctl status --no-pager --lines=8 spliced-clock spliced-power-log spliced-fabric; echo "=== SMOKE: power log head"; head -3 /var/lib/spliced/power.csv; echo "=== SMOKE: mounts"; findmnt -no SOURCE,TARGET,OPTIONS / /var/lib/spliced; echo "=== SMOKE DONE"; } > /dev/console 2>&1; systemctl poweroff'
+
+[Install]
+WantedBy=multi-user.target

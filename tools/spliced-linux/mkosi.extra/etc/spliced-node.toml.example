@@ -1,0 +1,7 @@
+# /etc/spliced/node.toml
+model = "qwen2.5-7b-instruct-q4_0.gguf"
+slots = 8
+clock = "cap1800"
+llama_server = "/opt/llama.cpp/build/bin/llama-server"   # pinned commit 620d2225c, the one the notes measure with
+port = 18431
+metrics_port = 9100
