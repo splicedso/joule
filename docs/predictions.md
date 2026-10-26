@@ -551,3 +551,22 @@ per task). Qwen2.5 7B Q4_0 (MAX_TOKENS 2048), and Qwen3.6-35B-A3B converted here
   at the same format (it reads fewer weights per token, but eight requests touch more distinct experts than one). With
   thinking off its joules per correct GSM8K answer is within 30% of the 7B's either way; with thinking on it is **3 to 8 times**
   higher than with thinking off.
+
+## 2026-10-26, 12:03 PT
+
+**Stock Qwen2.5 1.5B Q4_0 on the general eval** (`experiments/general_baselines.sh`, same harness and settings as the 7B
+entry above, MAX_TOKENS 2048). GSM8K 63 to 69% (quality.py gives 66%), MMLU-Pro 25 to 35%, HumanEval 50 to 65%.
+
+**Phase 2 pilot: rejection-sampling fine-tuning of the 1.5B** (`experiments/rft_pilot.sh`: four answers per problem at
+temperature 0.8 from the stock Q4_0 file on GSM8K train (7,273) and MBPP train (374), correct ones kept, at most two per
+problem; one epoch of full fine-tuning, `qat.py` QUANT=0, LR 1e-5, 10% FineWeb-Edu batches added on top (chosen low because
+the data is the model's own output, so there is little to forget; the batches guard knowledge for MMLU-Pro); exported F16 and
+Q4_0; general_eval at 8 slots, two passes, stock Q4_0 re-run in the same window). Bar: GSM8K at least 3 points over stock at
+Q4_0, HumanEval and MMLU-Pro no more than 1 point below stock, tokens per answer within 20% of stock.
+- Sampling: 55 to 65% of GSM8K answers correct, 80 to 90% of problems with at least one; MBPP 35 to 50% of answers, 55 to 70%
+  of problems. It finishes in 2 to 4 hours at four samples (no cut).
+- **GSM8K at Q4_0: +2 to +6 points over stock; the +3 bar is met** (central guess +4).
+- HumanEval within 3 points of stock either way (MBPP's 374 problems are a small signal); MMLU-Pro within 2 points either way.
+  Both "no more than 1 point below" clauses are close enough that either can miss on noise alone.
+- Tokens per GSM8K answer within 15% of stock: the model is trained on its own answers, so their length does not move.
+- The RFT F16 and Q4_0 files score within 2 points of each other on every task.
