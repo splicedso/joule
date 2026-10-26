@@ -1,0 +1,128 @@
+{
+ "model": "qwen2.5-1.5b-instruct-q4_0.gguf",
+ "machine": "darwin",
+ "answer_tokens": 128,
+ "power": "chip (macmon) on darwin, package hwmon on linux; not wall",
+ "rows": [
+  {
+   "batch": 1,
+   "tokens": 128,
+   "seconds": 0.6744818687438965,
+   "tok_s": 189.775301504216,
+   "watts": 18.844956398010254,
+   "mj_per_token": 99.30141724786878,
+   "samples": 2,
+   "pass": 1
+  },
+  {
+   "batch": 2,
+   "tokens": 256,
+   "seconds": 0.787841796875,
+   "tok_s": 324.9383328168578,
+   "watts": 32.378517150878906,
+   "mj_per_token": 99.64511379803298,
+   "samples": 3,
+   "pass": 1
+  },
+  {
+   "batch": 4,
+   "tokens": 512,
+   "seconds": 0.8395969867706299,
+   "tok_s": 609.8163857987662,
+   "watts": 32.32789611816406,
+   "mj_per_token": 53.01250814344627,
+   "samples": 3,
+   "pass": 1
+  },
+  {
+   "batch": 8,
+   "tokens": 1024,
+   "seconds": 1.0210449695587158,
+   "tok_s": 1002.8941236961986,
+   "watts": 29.950374126434326,
+   "mj_per_token": 29.86394417792704,
+   "samples": 4,
+   "pass": 1
+  },
+  {
+   "batch": 16,
+   "tokens": 2048,
+   "seconds": 1.7756328582763672,
+   "tok_s": 1153.3915868103632,
+   "watts": 30.153492518833705,
+   "mj_per_token": 26.143326224722532,
+   "samples": 7,
+   "pass": 1
+  },
+  {
+   "batch": 32,
+   "tokens": 4096,
+   "seconds": 4.260038137435913,
+   "tok_s": 961.4937396934557,
+   "watts": 27.372793799952458,
+   "mj_per_token": 28.469029666984074,
+   "samples": 19,
+   "pass": 1
+  },
+  {
+   "batch": 32,
+   "tokens": 4096,
+   "seconds": 4.246577024459839,
+   "tok_s": 964.5415534458622,
+   "watts": 27.8237015573602,
+   "mj_per_token": 28.846555607644838,
+   "samples": 19,
+   "pass": 2
+  },
+  {
+   "batch": 16,
+   "tokens": 2048,
+   "seconds": 1.7226917743682861,
+   "tok_s": 1188.8371619763523,
+   "watts": 29.971204212733678,
+   "mj_per_token": 25.210520979095914,
+   "samples": 7,
+   "pass": 2
+  },
+  {
+   "batch": 8,
+   "tokens": 1024,
+   "seconds": 0.9770779609680176,
+   "tok_s": 1048.0228199861303,
+   "watts": 30.73522424697876,
+   "mj_per_token": 29.32686546594998,
+   "samples": 4,
+   "pass": 2
+  },
+  {
+   "batch": 4,
+   "tokens": 512,
+   "seconds": 0.8349521160125732,
+   "tok_s": 613.2088178243386,
+   "watts": 32.48627154032389,
+   "mj_per_token": 52.97750227334467,
+   "samples": 3,
+   "pass": 2
+  },
+  {
+   "batch": 2,
+   "tokens": 256,
+   "seconds": 0.7801499366760254,
+   "tok_s": 328.1420506047028,
+   "watts": 32.99747784932455,
+   "mj_per_token": 100.55851661960584,
+   "samples": 3,
+   "pass": 2
+  },
+  {
+   "batch": 1,
+   "tokens": 128,
+   "seconds": 0.6656289100646973,
+   "tok_s": 192.2993398642477,
+   "watts": 18.207770347595215,
+   "mj_per_token": 94.68451821232904,
+   "samples": 2,
+   "pass": 2
+  }
+ ]
+}

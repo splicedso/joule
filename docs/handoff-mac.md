@@ -510,7 +510,7 @@ scenes with hundreds of instances, and a render counts only when its log says "B
 3. Trace: decide between the 35k run and Q4_0-teacher on-policy; queue it on Linux.
 4. Foundry: create its GitHub repo once Martin says yes, then a signed release.
 
-## 22:50 PT, note 24 published
+## 22:36 PT, note 24 published
 
 Decode energy against batch, Mac half: `results/decode-batch-mac-7b-q4km.json`, note 24, verdict in
 `docs/predictions.md`. Knee at batch 16 (111 mJ per token), 32 is 15% worse and slower in total.
@@ -519,9 +519,17 @@ The Linux half is queued behind the Trace harvest; same script, hwmon package po
 Site: note 24 registered in `build.py`, 29 pages, 0 broken links. README lists notes 22 to 24 (22 and 23
 were missing from it).
 
-## 23:05 PT, nav and About
+## 22:40 PT, nav and About
 
 Site nav is now Research, Models, Systems, Designs, Foundry, About; the Lab page is `/about/` (About
 label, same copy) with `/lab/` redirecting. Phone nav holds the six on one row at 375 px (About hides
 below 520 px, it is in the footer). Systems page: concurrency rule now says "as many as the chip
-rewards" and cites note 24. Next on the Mac: the 1.5B half of the batch question (prediction at 23:05).
+rewards" and cites note 24. Next on the Mac: the 1.5B half of the batch question (prediction at 22:40).
+
+## 22:45 PT, the 1.5B half, and a timestamp correction
+
+The 1.5B Q4_0 run (37 s wall, `results/decode-batch-mac-1.5b-q4_0.json`) puts the knee at 16 again:
+26 mJ per token, 12% more at 32, batch 1 to 8 within 8% of note 1's llama-batched-bench rows. Folded
+into note 24 as section 4 with its own verdict in predictions.md. Timestamps: the two entries I labelled
+22:50 and 23:05 were written at 22:36 and 22:40 (git has the true times: b43c79f 22:36, 8f34931 22:40);
+labels corrected, the prediction commit precedes the 22:41:00 run start.

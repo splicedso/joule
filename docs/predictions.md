@@ -128,7 +128,7 @@ chip power sampled over the window, two passes with the second reversed; batches
   narrowly; the batch-1 window is 2.3 seconds, 10 power samples.
 - Strix Halo half: not run yet (GPU busy with the Trace harvest). Note 24 for the Mac half.
 
-## 2026-10-25, 23:05 PT
+## 2026-10-25, 22:40 PT
 
 **Decode energy against batch size, 1.5B** (M5 Pro; Qwen2.5 1.5B Q4_0, the format note 1 used;
 same script and batches as note 24, run right after it on the same idle machine). The question is
@@ -141,3 +141,14 @@ whether the knee moves with model size.
 - Batch 8 saves 65 to 75% against batch 1 (note 1 measured 72% with llama-batched-bench).
 - Tokens per second per request at batch 16 is under half of batch 1.
 - Passes agree within 6% at every batch.
+
+### Result (2026-10-25, 22:41 PT; run started 22:41:00, prediction commit 8f34931 at 22:40)
+
+- Throughput plateaus by 16 (1,025 at 8, 1,171 at 16, 963 at 32). Held on the batch; the ceiling
+  figure missed: 1,171 tok/s, not about 1,800.
+- Lowest energy per token at 16 (26 mJ), not 8. Held. Batch 32 is 12% above the minimum, not
+  within 10%. Missed narrowly.
+- Batch 8 saves 69% against batch 1. Held (note 1: 72%; its four rows reproduce within 8% here).
+- Tokens per second per request at 16: 73.2 against 191.0, 38%. Held.
+- Passes within 4.8% at every batch. Held. Batch-1 and batch-2 windows are under 0.8 s with 2 to 3
+  power samples; those rows stand on their agreement with note 1. Folded into note 24, section 4.
