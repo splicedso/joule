@@ -279,3 +279,11 @@ note 11. So the decode-batch script's missing batch-1 speed-up (1.00 to 1.04x at
 to its workload: a 128-token weather paragraph without ignore_eos, one server slot, 1,024 context per slot,
 wall-clock timing including prompt processing. Not yet isolated. The speculation-against-batch results above
 stay unpublished until it is: a note cannot rest on a batch-1 baseline that contradicts a reproduced note.
+
+## 2026-10-26, 01:50 PT
+
+**Foundry's draft length: 4 against 8 at p 0.5** (`experiments/speculative_server.py` plain,draft-4-p0.5,draft-8-p0.5;
+note 11's pair, prompts and 384 tokens; M5 Pro). Foundry drafts up to 4; note 11 measured 8.
+- Draft-4 within 0.1x of draft-8's speed on prose and code, and within 0.05x on chip energy: at a 0.5 threshold
+  most drafts stop before 4 tokens anyway.
+- On edits, where nearly every token is accepted, draft-8 is faster than draft-4 by 0.2x or more.
