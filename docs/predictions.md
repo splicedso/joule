@@ -427,3 +427,15 @@ Granite 2B and Qwen2.5 3B share a hidden width of 2,048, so note 6's per-weight 
 - Q5_K_M and Q6_K land within 5% of each other (they did at 3B in note 6), order not predicted.
 - The same-session Qwen2.5 3B reproduces note 6's board figures within 7% for every format.
 - GSM8K-250: Granite Q4_0 within 3 points of its Q8_0, and Q4_0 the cheapest per correct answer of the three.
+
+## Results so far, 2026-10-26, 10:06 PT (predictions above left unedited)
+
+- Trace v1 on-policy, second attempt (14:30 entry, committed 14:17 in d825a8f): "neither run declines, step 300 at
+  least 0.5 points above its start": missed for both (from stock 0.7616 to 0.7597; from 35k 0.7758 to 0.7690).
+  "From stock below 0.79": held. "From 35k under +1 point": held, by declining. Agreed decision rule (one point of
+  acceptance over the best off-policy draft at p 0.5): missed, 67.3% against 75.3%. Trace pauses.
+- Trace thresholds (06:39 entry): lower thresholds raise proposals and lower acceptance for every draft: held. The
+  35k draft's proposals rise more than stock's: held (8,052 to 11,643, +45%; stock 8,591 to 11,880, +38%). Stock
+  fastest at p 0.4 or 0.5 (p 0.5) and 35k at p 0.3 or 0.4 (p 0.4): held. At the best thresholds 35k is 0 to 4%
+  faster (+0.3%): held; within 3% on energy: missed on the letter (-5.1%), but stock's p 0.5 cell is flagged
+  (5.6% pass gap); at p 0.4, both unflagged, -0.5%. results/drafter/trace-onpolicy-pilot.md.
