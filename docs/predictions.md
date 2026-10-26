@@ -172,7 +172,7 @@ Note 24's 1.5B rows at batch 1 to 8 had 2 to 4 samples each. This rerun checks t
   rows. Pass 2 runs in reverse, straight after the two longest windows (batch 32, about 16 s each), so it
   meets a warmer chip; that is run order, not noise. Every window had 11 to 75 power samples.
 
-## 2026-10-26, 00:05 PT
+## 2026-10-25, 23:45 PT
 
 **Lattice v1 on the M5 Pro** (`experiments/lattice_mac_eval.sh`: the QAT 2-bit file Linux produces, stock
 Q4_0, and the QAT weights at Q4_0 as a control, mirrored order, GSM8K-250 at 8 slots, note 20's settings).
