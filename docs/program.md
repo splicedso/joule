@@ -85,6 +85,13 @@ beside the harvest: Lattice v1, quantization-aware fine-tuning of the 1.5B to a 
 72B target, which starts only if the 7B retrain clears its bar. Every run has its prediction committed
 first. The Mac stays light: evaluation of small artefacts, writing, and the site.
 
+## The plan for now (26 October): the Spliced AI computer
+
+A compact, self-contained AI computer that runs open-weight models without the internet or a cloud API, with our own
+lightweight open models as its defaults (`docs/concepts/ai-computer.md`). Every other thread serves it: the notes
+choose its settings, the models run on it, Spliced Linux is its operating system, Foundry is its interface, and the
+chassis, power and cooling are Martin's engineering.
+
 ## Frontier, open source, and what two people can do
 
 Martin's aim (25 October): the next Etched and Anthropic, a hardware company and a model company,

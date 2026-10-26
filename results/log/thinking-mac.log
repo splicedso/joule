@@ -2,3 +2,10 @@
 13:21 idle chip 7.54 W
 13:26 idle chip 9.11 W
 13:31 idle chip 0.68 W
+13:37 idle chip 1.42 W
+13:37 quiet; running experiments/thinking_mac.sh
+gsm8k {"n": 50, "correct": 49, "accuracy": 0.98, "seconds": 71.5645, "tokens": 18351, "tokens_per_answer": 367.02, "tok_s": 256.4262, "soc_w": 31.4138, "chip_j": 2248.1143, "chip_j_per_correct": 45.8799}
+mmlu_pro {"n": 56, "correct": 36, "accuracy": 0.6429, "seconds": 347.9281, "tokens": 48752, "tokens_per_answer": 870.5714, "tok_s": 140.1209, "soc_w": 28.3077, "chip_j": 9849.0269, "chip_j_per_correct": 273.5841}
+humaneval {"n": 40, "correct": 34, "accuracy": 0.85, "seconds": 54.1554, "tokens": 7279, "tokens_per_answer": 181.975, "tok_s": 134.4095, "soc_w": 25.9016, "chip_j": 1402.71, "chip_j_per_correct": 41.2562}
+overall {"model": "qwen35-4b-Q4_0.gguf", "slots": 8, "think": "0", "max_tokens": 16384, "server_args": "", "idle_soc_w": 1.7692, "mean_accuracy": 0.8243, "chip_j_per_correct_all": 113.4441}
+gsm8k {"n": 50, "correct": 46, "accuracy": 0.92, "seconds": 684.1038, "tokens": 161418, "tokens_per_answer": 3228.36, "tok_s": 235.9554, "soc_w": 31.7885, "chip_j": 21746.6407, "chip_j_per_correct": 472.7531}
