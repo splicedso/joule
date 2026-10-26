@@ -105,3 +105,12 @@ right noise), `spliced-fabric` is disabled and not started, the smoke unit repor
 - `RemoveFiles=/usr/share/locale` is kept; `lm-sensors` is still installed and unused.
 
 Logs: `logs/mkosi_build{,2,6,7}.log`, `logs/mkosi_vm{,2,4,5}.log` on the box (not committed).
+
+## Follow-up (22:57): a failed verification restores auto
+
+`spliced-clock` exits 3, 4 and 5 only after the cap has been written, so a node whose verification failed
+would have kept running under an unverified cap. It now restores auto (the OD-table reset and the auto level,
+the same three writes as `spliced-clock auto`) before exiting on any of those, and says so. The VM path
+(exit 2, before any write) is unchanged: the smoke boot after the change shows the same messages, login on
+both consoles, Fabric not started, power-off at 25 s. `bc` removed from the package list (the findings above
+said it was dropped; it was not).
