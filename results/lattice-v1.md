@@ -74,8 +74,8 @@ much as with bits:
 
 - 16:40 entry (Lattice v1): QAT Q2_K **52%** (45 to 60): missed, 23.8%. Requantization costs the fine-tuned model under 3
   points against the same weights served unquantized: not measurable as stated (the QAT weights were never served
-  unquantized); against the same weights at Q4_0 it costs 1.6. J per correct 85 to 110 at 8 slots: held (82.4 is just
-  under; missed narrowly). 50-step smoke test loss falls by 20%, memory under 30 GiB: loss held, memory missed (30.4).
+  unquantized); against the same weights at Q4_0 it costs 1.6. J per correct 85 to 110 at 8 slots: missed narrowly
+  (82.4); its point, not cheaper than Q4_0's 65.2, held. 50-step smoke test loss falls by 20%, memory under 30 GiB: loss held, memory missed (30.4).
 - 23:48 entry (the Q4_0 control): QAT answers 90 to 140 tokens: missed narrowly (85 and 86). QAT Q4_0 within 2 points
   of QAT Q2_K: held (1.6). QAT Q4_0 10 to 25% cheaper than QAT Q2_K: held (13.5%). QAT Q2_K 25 to 50% cheaper than stock:
   missed (23% more expensive), because accuracy collapsed further than the length shrank.
