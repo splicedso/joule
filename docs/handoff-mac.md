@@ -36,7 +36,7 @@ Preview: `.claude/launch.json` config `spliced-site`, port 8772. Images carry `?
    tokens per answer for every model, and the 16:40 prediction text byte-identical to 39ef9bc (Linux moved
    the entry back into time order after a merge). Then run `sh experiments/lattice_mac_eval.sh` here (it
    fetches the draft release lattice-v1-qat and checks 1.5b-qat-SHA256SUMS); predictions at 23:45 (mine) and
-   Linux's control entry (committed 23:48:53 in b40930f, labelled 00:05 on the 26th by mistake; Linux corrects the label before the run).
+   Linux's control entry, 23:48 (b40930f; label corrected from a mistaken 00:05 in 0f96aa3 at 23:52, before any QAT file existed; verified one line). The 16:40 entry is byte-identical to 39ef9bc (verified, 1,386 bytes), so that check is done.
 2. **Review Linux's Strix decode-batch PR** (first free-GPU window after the eval, auto clocks, 7B Q4_0):
    if the knee differs from the Mac's 16, replace the transferred curve in `fabric/costs/strix-halo.json`
    with the measured one and add the Strix half to note 24 with its own verdict.
