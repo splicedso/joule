@@ -415,6 +415,17 @@ harvest alone: GPU edge 94 C, Tctl 93.5 C, zones 73 to 93 C. Every 1,800 MHz run
 its clock at those temperatures. That is in `v1-cluster.md` now: the clock holds warm, at the top of the
 die's range, so the sled's fin stack is sized to bring it down, not to the nominal power.
 
+## 19:50: Designs live with the lineup; V1 renders in progress
+
+The Designs page is live: the family lineup at the top (package, carrier, desk unit, cell at true
+relative scale), "One part, four sizes.", the module, the carrier and desk unit, the air-cooled cell,
+the row, the drawings and parts list, the inside and the OS, every model badged. The V1 half
+(`render/log/designs-v1.part`) goes in when its four renders land: the sled-open scene died silently at
+2800x1600 and runs at 2200x1300 now; the sled's camera is pulled back. `fabric/roofline.py v1_pod`:
+the capped module measures 192 tok/s against a memory bound of 526 at eight slots, so it is compute
+bound under the cap; that is in `v1-cluster.md` with the conclusion that the cap should be a scheduler
+setting, not a fixed number.
+
 ## Next, in order
 
 1. Review the Trace 35k retrain PR (morning), then the Lattice v1 QAT PR
