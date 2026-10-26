@@ -27,9 +27,16 @@ Preview: `.claude/launch.json` config `spliced-site`, port 8772. Images carry `?
 
 ## Next, in order (kept current; items leave the list when done)
 
+0. **Direction (Martin, 23:45 PT): "continue company wide, focus more on AI, cluster stuff is just in research rn".**
+   Models first. Designs is a research thread linked from Research, not a nav item; no new cluster work
+   unless he asks.
 1. **Morning, review the Trace 35k retrain PR** (Linux, after the harvest at about 03:55 PDT): held-out
    agreement against the 0.79 bar, read from the raw eval JSON. Then the **Lattice v1 QAT PR**, with the
-   step-0 and final quantization checks (at most 4 distinct values per group, MAE about a third of magnitude).
+   step-0 and final quantization checks (at most 4 distinct values per group, MAE about a third of magnitude),
+   tokens per answer for every model, and the 16:40 prediction text byte-identical to 39ef9bc (Linux moved
+   the entry back into time order after a merge). Then run `sh experiments/lattice_mac_eval.sh` here (it
+   fetches the draft release lattice-v1-qat and checks 1.5b-qat-SHA256SUMS); predictions at 23:45 (mine) and
+   00:05 (Linux's control entry).
 2. **Review Linux's Strix decode-batch PR** (first free-GPU window after the eval, auto clocks, 7B Q4_0):
    if the knee differs from the Mac's 16, replace the transferred curve in `fabric/costs/strix-halo.json`
    with the measured one and add the Strix half to note 24 with its own verdict.
@@ -546,3 +553,16 @@ Clock script restores auto before exit 3/4/5; bc gone; smoke boot re-run unchang
 unflagged on purpose: an OD write that fails right after the manual level is set exits 1 with the level
 still manual; an edge, note it when the script next changes. Nothing else queued for Linux before the
 batch run; the Trace retrain PR is the next review (morning).
+
+## 23:55 PT, AI first
+
+Martin: "continue company wide, focus more on AI, cluster stuff is just in research rn". Site nav is now
+Research, Models, Systems, Foundry, About; Designs is a "Research thread" section at the end of Research
+(and stays in the footer). Every nav page now marks itself (only Research did). Models page: Lattice v1
+status current. Dead `.announce` CSS removed. Checked with headless Chrome (the pane was hidden and runs no
+animation frames): every nav page at 1440 and 390 px, no overflow, no console errors; the home fall
+advances frame by frame on scroll at both sizes and lands on the last frame before scrolling away. The nav
+scrolling away with the page is by design (transparent over the top render), not a bug.
+Note 24: the 1.5B small-batch rows re-run with 512-token answers, within 8%, knee at 16; the reversed pass
+reads 4 to 10% higher (warm chip). Lattice v1 Mac half: `experiments/lattice_mac_eval.sh`, mirrored order
+with a QAT-at-Q4_0 control, because fine-tuning shortens answers and J per correct scales with length.
