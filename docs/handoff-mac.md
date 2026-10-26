@@ -618,3 +618,13 @@ token at one, 181 at 32 (90% less), throughput nearly doubling from 16 to 32. Ba
 Systems updated; Fabric `costs/strix-halo.json` now carries the measured Strix curve (demo J per correct 4 to 12%
 lower than with the Mac curve). Site QA: one intermittent console error on `/lab/` at desktop, not reproducible in
 isolation or on the next full pass; most likely a request aborted by the meta refresh.
+
+## 10:25 PT, Trace paused; Granite void; a waiter is running
+
+Trace paused (PR 27, note 26 section 4): at each draft's best threshold every draft serves within 1.1%.
+Lattice v1: 24%; the plain fine-tune control is training on Linux.
+The Granite 3.3 2B sweep (second model family) is void: another project's Docker container (node:22-bookworm,
+restarted in a loop, ~180% CPU) held the chip at 10 to 17 W idle against 0.6 W in note 6's session. `phase` and
+`decode_batch_energy.py` now refuse on macOS above 3 W idle. `experiments/when_quiet.sh` is waiting (up to 8 h)
+for two quiet readings in a row, then runs `width_granite.sh` (sweep plus GSM8K). **While it waits, open no
+browser and no Blender on this Mac.** Log: `results/log/granite-width-retry.log`.
