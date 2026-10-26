@@ -43,11 +43,8 @@ Preview: `.claude/launch.json` config `spliced-site`, port 8772. Images carry `?
 3. **With Martin at the keyboard (his sudo):** the warm-case capped run with temperatures logged (20 min);
    the capped decode-batch variant; node wall power under the cap if a plug-in meter is at hand (do not buy one).
 4. **Martin's open calls:** a GitHub remote for Fabric (private, or keep local); a role title.
-4b. **Speculation against batch (Mac, unpublished):** the decode-batch script shows no batch-1 speed-up from the
-   draft (1.00 to 1.04x) while note 11's own script reproduces 1.25 to 2.24x the same night. Isolate which
-   difference does it (answer length and ignore_eos, one slot, context per slot, wall-clock timing), then
-   publish the batch result: drafts cost 5 to 72% more energy per token from batch 4 on, both pairs.
-   Raw files `results/spec-batch-mac-7b-*`; verdicts in predictions.md 01:36 to 01:45.
+4b. Done 02:20: speculation against batch is note 25 (the discrepancy was the prompt; `spec_diag.py`).
+   For Linux, after its decode-batch run and only if GPU time is free: the same draft-vs-batch on the Strix.
 5. **After the retrain:** the shape study (ex-Kinetic) four-shape runs on Linux; then Spliced Linux on the box
    needs a llama.cpp build against the image's Mesa before the clock policy can verify on a node.
 
@@ -578,3 +575,11 @@ with a QAT-at-Q4_0 control, because fine-tuning shortens answers and J per corre
 Fast mode had that defect since it was written; fixed (d1704c7) and the app now says so if a Fast-mode answer
 drafts nothing. A void run kept in `results/void/`. Note 11 re-run: reproduced within 0.02x. Note 24 corrected:
 the Q4_0 7B was on the machine all along (`models/quant/`); its run is section 5, same knee at 16.
+
+## 02:20 PT, note 25
+
+The draft's missing speed-up was the prompt: a weather paragraph is accepted about 60% of the time, break-even
+for a 4-token draft; note 11's power-supply prompt 80% and 1.41x. On that prompt with 512-token windows: draft
+1.26x speed at one request, 29% less energy at two, 12 to 50% more from four on. Note 25, Systems updated.
+The 128-token windows were too noisy for energy (first pass of a series up to 50 W against 39 W reversed,
+Spotlight indexing); 512 tokens gave plain runs within 1%. Foundry's fix built green on all three platforms.
