@@ -26,12 +26,14 @@ requests beats a 1.5B serving one, on both machines (note 19). Accuracy buys mor
 loses. A 1.5B is the right choice only when memory forbids the 7B or when one request at a time
 is all there is.
 
-**Concurrency: as many requests at once as memory allows.** Eight requests at once cut energy
+**Concurrency: as many requests at once as the chip rewards.** Eight requests at once cut energy
 per token by 72% on the M5 Pro (note 1) and the second request alone saves 43% on a GPU that is
 already at its ceiling at batch 1 (note 10). Decode is bound by reading the weights once per
 step; every extra sequence in the step rides that read for free until memory or compute runs
-out. For a single user this means batching their own tool calls and sub-requests, not waiting
-for another user.
+out. It does run out: on the M5 Pro a 7B is cheapest per token at 16 requests (79% less than
+one) and costs 15% more again at 32, with total throughput falling (note 24). The right number
+of slots is a measured optimum per machine, not "as many as fit". For a single user this means
+batching their own tool calls and sub-requests, not waiting for another user.
 
 **Prompt handling: cache the prefix.** A prompt token costs about a fortieth of a generated one
 (note 18), so short prompts are nearly free. Long ones are not: at an 8,000-token prompt,
