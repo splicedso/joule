@@ -58,3 +58,39 @@ machine and build, serve at 8 or at 32, not at 16. Batch 16's low energy per tok
 low power at low throughput.
 
 Raw: `results/decode-batch-halo-7b.json` (128), `results/decode-batch-halo-7b-a512.json` (512).
+
+## Follow-ups (10:56 to 10:58 PDT): batches 12, 16, 20 and 32, 48, 64
+
+Same script and settings (128-token answers, auto clocks, two passes), run on an idle GPU after the Lattice plain
+control. Pre-registered in PR #26.
+
+| batch | tok/s | tok/s per request | W | mJ/token pass 1 | pass 2 | mean | spread |
+|---:|---:|---:|---:|---:|---:|---:|---:|
+| 12 | 252.9 | 21.1 | 107.2 | 404 | 444 | 424 | **9.3%** |
+| 16 | 327.4 | 20.5 | 110.5 | 335 | 340 | 337 | 1.3% |
+| 20 | 392.1 | 19.6 | 110.9 | 283 | 283 | 283 | 0.0% |
+| 32 | 601.7 | 18.8 | 123.5 | 203 | 207 | 205 | 2.1% |
+| 48 | 547.8 | 11.4 | 118.2 | 211 | 221 | 216 | 4.6% |
+| 64 | 719.9 | 11.2 | 122.9 | 168 | 173 | 171 | 3.1% |
+
+**There is no slow spot at 16; there are tiers.** Per-request speed does not fall smoothly with batch size. It sits
+near 48 tok/s at batch 1, 34 at 8, then **19 to 21 from 12 to 32**, then **11 at 48 and 64**. Within a tier a decode
+step takes about the same time whatever the batch: about 50 ms from 12 to 32, about 88 ms at 48 and 64. That is the
+signature of the GPU's matrix code working on blocks of 32 and then 64 rows (likely llama.cpp Vulkan's matmul
+tiles; not diagnosed): a batch of 12, 16 or 20 pays for 32 rows, a batch of 48 pays for 64. Energy per token is lowest
+at the top of each tier, so on this machine and build the efficient serving points are **8, 32 and 64**; 48 costs
+more per token than 32. The earlier run's "slow spot at 16" was one point in the 12-to-32 tier seen against 8, the top
+of the tier below.
+
+**Across sessions:** batch 16 ran at 301 tok/s and 96 W in the morning run, at 327 tok/s and 110 W here; batch 32 at 565
+tok/s and 102 W (181 mJ/token) there, 602 tok/s and 124 W (205 mJ/token) here. The two sessions differ by 9 to 13% at
+the same batch, the same run-order and platform-state effect seen in notes 22 and 23. Each table's shape is internally
+consistent; the absolute values carry that spread.
+
+Against the predictions (PR #26 entry):
+- Slow spot exactly at 16, 12 and 20 above 330 and 400 tok/s with power over 110 W, 16 near 300 tok/s under 100 W:
+  **missed.** 12 ran at 253 tok/s, 20 at 392; 16 did not reproduce as slow (327 tok/s, 110 W). It is a tier, not a row.
+- Knee past 32, 32 to 48 a further 15 to 30% less energy per token: **missed**, 48 costs 5% *more* than 32. 48 to 64 under
+  10%: **missed**, 64 is 21% below 48. Throughput at 64 of 750 to 1,000 tok/s: **missed narrowly**, 720.
+
+Raw: `results/decode-batch-halo-7b-b12-20.json`, `results/decode-batch-halo-7b-b32-64.json`.
