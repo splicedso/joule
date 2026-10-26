@@ -211,3 +211,16 @@ of up to 8 with the 0.5 threshold, note 11's best prose setting, against the 4 F
 - Draft-8 at batch 1: 1.15 to 1.3 times plain's speed, 0.95 to 1.1 times its energy (note 11: 1.25x, 1.04x).
 - Acceptance lower than draft-4's 60%, 45 to 60%, because later tokens in a draft are less likely.
 - At batch 2, draft-8 saves energy against plain as draft-4 did (draft-4: 23% less), within 10 points of it.
+
+## 2026-10-26, 01:42 PT
+
+**The Q4_0 pair: does the format explain the missing speed-up?** (M5 Pro; target `models/quant/7b-Q4_0.gguf`,
+draft `models/quant/0.5b-Q4_0.gguf`, note 11's pair and Foundry's; same script and prompt.) Written after
+the Q4_K_M pair gave 1.02 to 1.04 times plain's speed at batch 1 with drafts of 4 and 8. Hypothesis: verifying a
+draft is a small batch, and llama.cpp's Metal small-batch kernel covers fewer batch sizes for K-quants (note 1).
+- Plain Q4_0 7B, batches 1 to 32: this is also the run note 24's 22:40 prediction named. Same shape as the
+  Q4_K_M curve: knee at 16, batch 32 above it; batch 1 cheaper per token than Q4_K_M's (note 5).
+- Draft-4 at batch 1: 1.15 to 1.35 times plain's speed, 0.9 to 1.05 times its energy. If it comes out near
+  1.0x speed like the K-quant pair, the format hypothesis is wrong and the note says so.
+- Draft-8 at batch 1: within 0.1x of draft-4's speed.
+- Draft-4 at 8 and 16: costs more energy than plain, as with the K-quant pair.

@@ -1,0 +1,7 @@
+start 01:41:45
+{'batch': 1, 'tokens': 128, 'seconds': 2.219985008239746, 'tok_s': 57.65804702505302, 'watts': 32.12840614318848, 'mj_per_token': 557.2232810665326, 'samples': 10, 'draft_n': 120, 'draft_accepted': 64, 'pass': 1}
+{'batch': 2, 'tokens': 256, 'seconds': 2.766252040863037, 'tok_s': 92.54398956363033, 'watts': 35.749229749043785, 'mj_per_token': 386.29445215849205, 'samples': 12, 'draft_n': 240, 'draft_accepted': 128, 'pass': 1}
+{'batch': 2, 'tokens': 256, 'seconds': 2.7674098014831543, 'tok_s': 92.50527329302672, 'watts': 35.842830657958984, 'mj_per_token': 387.46797217084605, 'samples': 12, 'draft_n': 240, 'draft_accepted': 128, 'pass': 2}
+{'batch': 1, 'tokens': 128, 'seconds': 2.2268521785736084, 'tok_s': 57.480241046798774, 'watts': 32.884176063537595, 'mj_per_token': 572.0953055288031, 'samples': 10, 'draft_n': 120, 'draft_accepted': 64, 'pass': 2}
+wrote results/spec-batch-mac-7b-draft8.json
+exit 0 01:42:02
