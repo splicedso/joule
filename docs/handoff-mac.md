@@ -533,3 +533,10 @@ The 1.5B Q4_0 run (37 s wall, `results/decode-batch-mac-1.5b-q4_0.json`) puts th
 into note 24 as section 4 with its own verdict in predictions.md. Timestamps: the two entries I labelled
 22:50 and 23:05 were written at 22:36 and 22:40 (git has the true times: b43c79f 22:36, 8f34931 22:40);
 labels corrected, the prediction commit precedes the 22:41:00 run start.
+
+## 22:58 PT, PR 21 merged
+
+The appliance image PR (Linux, `results/spliced-linux-build.md`) is merged: trixie, loud failures from
+both services, Fabric shipped disabled, smoke profile. Two stale comments fixed on main (3f42830); `bc`
+still in the package list, Linux removes it next. Follow-up sent to Linux: restore auto when cap verification
+fails (exit 3/4/5), VM pass after the batch run. Mirror `spliced/linux` synced (local, no remote).
