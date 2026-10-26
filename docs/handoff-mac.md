@@ -440,6 +440,15 @@ record. The V1 Designs section (`render/log/designs-v1.part`) is rewritten aroun
 when the five node renders land. Morning list for Martin's sudo and a plug-in meter: node wall power
 under the cap, idle and busy; the warm-case capped run with temperatures logged.
 
+## 20:50: the node's shape is ours
+
+Martin: "not necessarily that shape; can be longer, slimmer in width, and taller." So the node is the
+bought board in a Spliced shell, 60 x 240 x 120 mm, board on edge, fins front to back, full-front grille,
+two rear fans, ports at the rear, a mark on the front. It breathes front to back and stands six across in
+a 3U tray; 14 trays, 84 nodes per rack. `render/nodeparts.py` now holds the node, tray and rack geometry
+and both `node.py` and `lineup.py` import it (the duplication the earlier handoff flagged is gone for this
+family). The lineup is package, node, tray, rack. `v1-cluster.md` and `designs-v1.part` are revised.
+
 ## Next, in order
 
 1. Review the Trace 35k retrain PR (morning), then the Lattice v1 QAT PR
