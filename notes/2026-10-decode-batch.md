@@ -88,9 +88,17 @@ The prediction's Strix Halo half, run on 26 October (AMD Ryzen AI Max+ 395, Rade
 | 16 | 300.7 | 18.8 | 95.7 | 318 | 82% less | 0.5% |
 | 32 | 565.4 | 17.7 | 102.4 | 181 | 90% less | 4.8% |
 
-Energy per token keeps falling all the way to 32, where it is 90% below batch 1, and total throughput nearly doubles from 16 to 32. The M5 Pro was cheapest at 16 and worse at 32. The Strix Halo's GPU has far more arithmetic for the same memory, so the batch fills it later. Its knee, if it has one, lies beyond 32.
+Energy per token keeps falling all the way to 32, where it is 90% below batch 1, and total throughput nearly doubles from 16 to 32. The M5 Pro was cheapest at 16 and worse at 32. The Strix Halo's GPU has far more arithmetic for the same memory, so the batch fills it later. The follow-up below found it still falling at 64.
 
-Batch 16 is a slow spot in both of its runs: only 11% more throughput than batch 8 while power falls from 126 to 96 W, then nearly double at 32. That looks like a llama.cpp Vulkan code path at 16 rows, not a property of the chip; it is not diagnosed. The short windows at batches 1 to 4 spread up to 21% between passes; a rerun with 512-token answers narrowed them to 0.3 to 8% and gave the same shape (`results/decode-batch-halo-7b-a512.json`), though some of its answers stop early and lower the concurrency late in the window. Prediction verdict for this half: held on the fall to 8 (73%) and on speed per request (39% of batch 1 at 16); missed on the knee at 8 to 16, and on pass agreement.
+Batch 16 looked like a slow spot in both of these runs: only 11% more throughput than batch 8 while power fell from 126 to 96 W. It did not reproduce. A follow-up session later the same day, each part pre-registered, measured batches 12, 16 and 20, then 32, 48 and 64:
+
+| batch | 12 | 16 | 20 | 32 | 48 | 64 |
+|---|---:|---:|---:|---:|---:|---:|
+| tok/s | 252.9 | 327.4 | 392.1 | 601.7 | 547.8 | 719.9 |
+| tok/s per request | 21.1 | 20.5 | 19.6 | 18.8 | 11.4 | 11.2 |
+| mJ per token | 424 | 337 | 283 | 205 | 216 | 171 |
+
+There batch 16 ran at 327 tok/s and 110 W, in line with its neighbours. Speed per request falls in steps rather than smoothly: about 20 tok/s from 12 to 32 requests, then about 11 at 48 and 64. The cheapest point measured is 64, 17% below 32; 48 costs 5% more than 32. So on this machine the sensible sizes are 8, 32 or 64 requests. The same batch read 9 to 13% differently across the two sessions, so differences smaller than that between sessions mean nothing. The short windows at batches 1 to 4 spread up to 21% between passes; a rerun with 512-token answers narrowed them to 0.3 to 8% and gave the same shape (`results/decode-batch-halo-7b-a512.json`), though some of its answers stop early and lower the concurrency late in the window. Prediction verdict for this half: held on the fall to 8 (73%) and on speed per request (39% of batch 1 at 16); missed on the knee at 8 to 16, and on pass agreement.
 
 ## What this changes
 
@@ -121,4 +129,4 @@ uv run python experiments/decode_batch_energy.py models/quant/7b-Q4_0.gguf resul
 ANSWER=512 uv run python experiments/decode_batch_energy.py models/quant/7b-Q4_0.gguf results/decode-batch-halo-7b-a512.json
 ```
 
-Nothing else running: no browser, no Blender. Raw results: `results/decode-batch-mac-7b-q4km.json`, `results/decode-batch-mac-1.5b-q4_0.json`, `results/decode-batch-mac-1.5b-q4_0-a512.json`, `results/decode-batch-mac-7b-q4_0.json`; Strix Halo `results/decode-batch-halo-7b.json`, `results/decode-batch-halo-7b-a512.json`, `results/decode-batch-halo.md`.
+Nothing else running: no browser, no Blender. Raw results: `results/decode-batch-mac-7b-q4km.json`, `results/decode-batch-mac-1.5b-q4_0.json`, `results/decode-batch-mac-1.5b-q4_0-a512.json`, `results/decode-batch-mac-7b-q4_0.json`; Strix Halo `results/decode-batch-halo-7b.json`, `results/decode-batch-halo-7b-a512.json`, `results/decode-batch-halo-7b-b12-20.json`, `results/decode-batch-halo-7b-b32-64.json`, `results/decode-batch-halo.md`.

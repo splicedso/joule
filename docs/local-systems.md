@@ -32,7 +32,7 @@ already at its ceiling at batch 1 (note 10). Decode is bound by reading the weig
 step; every extra sequence in the step rides that read for free until memory or compute runs
 out. Where it runs out depends on the machine: on the M5 Pro a 7B is cheapest per token at 16
 requests (79% less than one) and costs 15% more again at 32; on the Strix Halo energy per token
-keeps falling to 32, 90% below one, with no knee yet (note 24). The right number of slots is a
+keeps falling to 64, and speed per request falls in steps, so 8, 32 or 64 at once (note 24). The right number of slots is a
 measured optimum per machine, not "as many as fit". For a single user this means
 batching their own tool calls and sub-requests, not waiting for another user.
 
