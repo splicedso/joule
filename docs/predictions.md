@@ -391,6 +391,18 @@ with 84 tokens per answer. The Mac half could not change the verdict, so it was 
 transferred. One prediction of this entry is answerable from the Strix data: answers did get shorter, but to 84
 to 86 tokens, not 150 to 200. Missed.
 
+## 2026-10-26, 06:39 PT
+
+**Trace drafts at lower confidence thresholds** (Strix Halo, added to the on-policy pilot's eval before it runs:
+`evaluate.py`, Q4_0 7B target, one request, k=4, two passes; the stock draft, the 35k off-policy draft and both
+on-policy pilot drafts at p 0.3 and p 0.4 beside their p 0.5 rows). The 35k draft accepted 75.3% against stock's
+71.7% at p 0.5 but proposed 6% fewer tokens, so its probability is spread and fewer guesses clear 0.5.
+- Lowering the threshold raises tokens proposed and lowers acceptance for every draft; the 35k draft's proposals
+  rise more than the stock draft's (it has more guesses sitting between 0.3 and 0.5).
+- The stock draft is fastest at p 0.4 or 0.5; the 35k draft at p 0.3 or 0.4.
+- At each draft's best threshold, the 35k draft is **0 to 4% faster** than the stock draft and within 3% on chip
+  energy per token: the extra data was not wasted, but it is still far short of a draft worth shipping.
+
 ## 2026-10-26, 08:03 PT
 
 **Decode energy against batch size, Strix Halo follow-ups** (7B Q4_0, `experiments/decode_batch_energy.py` with a
@@ -415,3 +427,15 @@ Granite 2B and Qwen2.5 3B share a hidden width of 2,048, so note 6's per-weight 
 - Q5_K_M and Q6_K land within 5% of each other (they did at 3B in note 6), order not predicted.
 - The same-session Qwen2.5 3B reproduces note 6's board figures within 7% for every format.
 - GSM8K-250: Granite Q4_0 within 3 points of its Q8_0, and Q4_0 the cheapest per correct answer of the three.
+
+## Results so far, 2026-10-26, 10:06 PT (predictions above left unedited)
+
+- Trace v1 on-policy, second attempt (14:30 entry, committed 14:17 in d825a8f): "neither run declines, step 300 at
+  least 0.5 points above its start": missed for both (from stock 0.7616 to 0.7597; from 35k 0.7758 to 0.7690).
+  "From stock below 0.79": held. "From 35k under +1 point": held, by declining. Agreed decision rule (one point of
+  acceptance over the best off-policy draft at p 0.5): missed, 67.3% against 75.3%. Trace pauses.
+- Trace thresholds (06:39 entry): lower thresholds raise proposals and lower acceptance for every draft: held. The
+  35k draft's proposals rise more than stock's: held (8,052 to 11,643, +45%; stock 8,591 to 11,880, +38%). Stock
+  fastest at p 0.4 or 0.5 (p 0.5) and 35k at p 0.3 or 0.4 (p 0.4): held. At the best thresholds 35k is 0 to 4%
+  faster (+0.3%): held; within 3% on energy: missed on the letter (-5.1%), but stock's p 0.5 cell is flagged
+  (5.6% pass gap); at p 0.4, both unflagged, -0.5%. results/drafter/trace-onpolicy-pilot.md.

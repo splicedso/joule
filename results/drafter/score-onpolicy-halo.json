@@ -1,0 +1,27 @@
+{
+  "held_out_records": 180,
+  "positions": 56600,
+  "reference": "top-1 of the Q4_0 7B through llama.cpp (teacher.py)",
+  "drafts": {
+    "stock": {
+      "path": "models/hf-0.5b",
+      "agreement": 0.7618551236749117
+    },
+    "v1-9k": {
+      "path": "models/trace-0.5b-v1-lr3e6",
+      "agreement": 0.7685335689045937
+    },
+    "v1-35k": {
+      "path": "models/trace-0.5b-v1-35k",
+      "agreement": 0.7757950530035336
+    },
+    "onq4-stock": {
+      "path": "models/trace-0.5b-onq4-stock",
+      "agreement": 0.7626855123674912
+    },
+    "onq4-35k": {
+      "path": "models/trace-0.5b-onq4-35k",
+      "agreement": 0.7691519434628975
+    }
+  }
+}
