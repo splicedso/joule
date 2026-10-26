@@ -540,3 +540,10 @@ The appliance image PR (Linux, `results/spliced-linux-build.md`) is merged: trix
 both services, Fabric shipped disabled, smoke profile. Two stale comments fixed on main (3f42830); `bc`
 still in the package list, Linux removes it next. Follow-up sent to Linux: restore auto when cap verification
 fails (exit 3/4/5), VM pass after the batch run. Mirror `spliced/linux` synced (local, no remote).
+
+## 23:02 PT, PR 22 merged
+
+Clock script restores auto before exit 3/4/5; bc gone; smoke boot re-run unchanged. Mirror synced. Left
+unflagged on purpose: an OD write that fails right after the manual level is set exits 1 with the level
+still manual; an edge, note it when the script next changes. Nothing else queued for Linux before the
+batch run; the Trace retrain PR is the next review (morning).
