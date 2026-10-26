@@ -405,9 +405,19 @@ joules per correct answer at full load (216 vs 111), which is now in the doc. `s
 the sled, sled-open, pod and row scenes, queued after the nine-scene badge chain. Desk unit and cell
 stay on Designs as concepts; V1 becomes the page's second half when its renders land.
 
+## 19:20: Linux status, and the temperature the sled has to beat
+
+Harvest at 162 tok/s, ETA 05:30 PDT; the retrain PR is a morning event. QAT epoch parked by the watchdog
+at step 150 of 910 (GSM8K losses 0.51 to 0.56) until the eval chain exits, so it cannot touch an energy
+run. 72B at 16 of 42 shards. The logger now records GPU edge, CPU Tctl, four ACPI zones, NVMe, NIC and
+Wi-Fi temperatures every 10 s beside power and clocks; no ambient sensor exists on the box. Under the
+harvest alone: GPU edge 94 C, Tctl 93.5 C, zones 73 to 93 C. Every 1,800 MHz run this afternoon held
+its clock at those temperatures. That is in `v1-cluster.md` now: the clock holds warm, at the top of the
+die's range, so the sled's fin stack is sized to bring it down, not to the nominal power.
+
 ## Next, in order
 
-1. Review the Trace 35k retrain PR, then the Lattice v1 QAT PR when it lands (bar: 0.79 held-out agreement).
+1. Review the Trace 35k retrain PR (morning), then the Lattice v1 QAT PR when it lands (bar: 0.79 held-out agreement).
 2. The capped J-per-correct run (quality.py at OD 1800, 7B and 32B, 8 slots, two passes, about 1.5 h
    GPU-exclusive): Linux asked Martin directly at 14:30 whether to run it now (pausing the resumable
    harvest) or after the retrain. Martin answered at 14:50: run it now, pause the harvest, resume after.
