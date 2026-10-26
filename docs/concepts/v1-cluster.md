@@ -14,7 +14,34 @@ aisle, out the back into the hot aisle. The containment is the row, not the box.
 arrangement every air-cooled datacenter uses, and the one a single unit in an office also works in:
 a sled on a desk breathes the same way.
 
-## The sizes
+## Revision: the unit is a node, a tiny complete computer
+
+Martin (evening): "make them really small, tiny computers, like the AMD Halo." That is the shape of
+the part we already measure, a mini-PC around 200 by 200 by 50 mm with the whole machine inside:
+the Strix Halo part, 128 GB of memory, storage, the network ports, its own fan. So the unit of V1
+is not a carrier that needs a host; it is a node that is a computer. Everything about the sizes
+changes with that:
+
+- **Node.** One box, 0.2 by 0.2 by 0.05 m, air in through slots on both sides, a blower over a fin
+  stack, air out the back. Power barrel, two network ports, one USB-C for setup, a badge. It runs
+  Spliced Linux and Fabric alone; it is the desk unit, the local-hosting product, and the thing we
+  already have on the bench (minus the badge and our image).
+- **Tray.** A 2U, 19-inch, 0.5 m deep tray holds eight nodes flat in two rows of four, with a fan
+  bar at the rear that pulls through both rows; the rear row is reached by sliding the tray out.
+  No host board: every node is its own host. The tray carries only power distribution and a
+  front lip.
+- **Pod.** Eighteen trays in a 42U rack is 144 nodes, a power shelf at the bottom and a 32-port
+  switch at the top; the tray's own ports uplink through a small switch per tray or a breakout.
+- **Row.** Pods in hot-aisle containment, as before.
+
+The numbers per node are the measured module numbers, because the node is the module we measure:
+81 to 87 W capped at eight slots, 17 to 26 W idle, 192 tokens per second on a 7B. The overhead
+question becomes the node's own fan and power stage plus the tray's fan bar, which the box we own
+already answers for the first part: the whole machine, not the package, is what the power log reads.
+
+The sled-with-carriers design below is kept as the record of the previous revision.
+
+## The sizes (previous revision)
 
 **Carrier** (unchanged). Tray, module board, vapour chamber, a fin stack in its own duct, a handle.
 One decode module per carrier, 0.25 m wide, 0.5 m deep, 0.17 m tall. Fins run front to back.
