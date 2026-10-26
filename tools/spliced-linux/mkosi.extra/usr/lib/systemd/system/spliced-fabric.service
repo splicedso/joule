@@ -1,0 +1,12 @@
+[Unit]
+Description=Spliced Fabric: the scheduler, which starts the inference server
+After=spliced-clock.service network-online.target
+Wants=network-online.target
+
+[Service]
+ExecStart=/opt/fabric/.venv/bin/python -m fabric.node --models /var/lib/spliced/models --config /etc/spliced/node.toml
+Restart=always
+WorkingDirectory=/opt/fabric
+
+[Install]
+WantedBy=multi-user.target
