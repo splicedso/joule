@@ -205,3 +205,20 @@ judged on this machine. Written before the QAT run has finished; nothing about i
 - The control decides what any win means: the QAT weights at Q4_0 answer as briefly, are more accurate,
   and cost less per correct answer than the QAT 2-bit file. If that holds, a 2-bit win over stock Q4_0 is a
   win for fine-tuning, and the note says so.
+
+## 2026-10-26, 00:05 PT
+
+**Lattice v1, the Q4_0 control** (Strix Halo; added to `experiments/lattice_qat.sh` before any QAT file
+exists: the fine-tuned weights also quantized to plain Q4_0 with no imatrix, and stock Q4_0 re-run in the
+same window; 8 slots, QAT Q2_K / stock Q4_0 / QAT Q4_0 then reversed; 1 slot for QAT Q2_K and stock Q4_0).
+The 16:40 entry above is left as written; this one adds what that entry did not consider: answer length.
+Stock 1.5B answers on GSM8K-250 run 247 to 250 tokens on both machines; the GSM8K-train worked answers the QAT
+model learns from average 93 tokens (median 85, 90th percentile 150).
+- Both QAT files answer in **90 to 140 tokens** on average, against stock Q4_0's 248.
+- QAT Q4_0 scores within 2 points of QAT Q2_K: the weights already sit on the 2-bit grid, so a 4-bit file
+  of them holds the same values to within Q4_0's rounding.
+- At equal length, the bits do not pay on the 1.5B: QAT Q4_0 is **10 to 25% cheaper** per correct answer than
+  QAT Q2_K at 8 slots (the 2-bit token costs more on this machine, notes 20 and 22).
+- Against stock Q4_0, QAT Q2_K is **25 to 50% cheaper** per correct answer at 8 slots, almost all of it from
+  shorter answers. If that happens, the bar's energy half is met for the wrong reason, and the note says so:
+  the win belongs to the fine-tuning, which a Q4_0 file of the same model keeps and improves on.
