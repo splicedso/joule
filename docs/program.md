@@ -97,9 +97,9 @@ open-source models now, a closed frontier-class model as a possibility. What tha
   the lowest cost per correct answer; then, with revenue and cells, train larger models on our own
   cells, where the training cost per token is the number we already know how to measure. Each step is
   a measurement before it is a claim.
-- **Open or closed:** everything measured is open. Model weights are open while the models are small
-  and the point is credibility. A closed model is a business decision for when there is a model worth
-  closing; there is no work on one and the site says nothing about one.
+- **Open or closed:** everything measured is open. Trace and Lattice weights are open. Since 26 October
+  there is a third family, a closed general-purpose flagship built by post-training the strongest permissive
+  open base (`docs/concepts/closed-model.md`); the site says nothing about it until it can be measured.
 - **Frontier-class on the site:** never, until a model exists that can be measured against one.
 
 ## Fabric: the cluster software
