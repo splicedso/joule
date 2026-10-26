@@ -10,7 +10,7 @@ machine's power sampler for watts over the same window. Two passes, the second r
 Mac: power from macmon (chip only). Linux: from the amdgpu hwmon (package). Wall power is not measured
 here; the note says so. Never run with a browser or Blender open. ANSWER=512 in the environment lengthens
 every window four times (keep 128 for a row meant to compare with note 24). BATCHES=1,2,4 picks batches;
-SERVER_ARGS adds llama-server flags (a draft model: "-md draft.gguf --spec-draft-n-max 4 --spec-draft-p-min 0.5 -ngld 99").
+SERVER_ARGS adds llama-server flags (a draft model, which needs --spec-type: "-md draft.gguf --spec-type draft-simple --spec-draft-n-max 4 --spec-draft-p-min 0.5 -ngld 99").
 """
 import json, os, shutil, subprocess, sys, threading, time, urllib.request
 
