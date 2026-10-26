@@ -120,3 +120,88 @@ at least 60% at Q2_K size, cheaper per correct answer than Q4_0.
   machines (notes 20 and 22), and 52% against 66% accuracy widens the gap. The bar is missed on energy.
 - The 50-step smoke test's training loss falls from its first value by at least 20% and peak memory stays
   under 30 GiB.
+
+## 2026-10-25, 22:40 PT
+
+**Decode energy against batch size** (M5 Pro first, Strix Halo when its GPU is free; Qwen2.5 7B Q4_0;
+`experiments/decode_batch_energy.py`: llama-server at --parallel N, N simultaneous 128-token answers,
+chip power sampled over the window, two passes with the second reversed; batches 1 to 32).
+- Energy per token falls steeply from batch 1 to 8 (note 1 measured 72% less at 8 on the 1.5B) and
+  keeps falling to 16, by a further 15 to 30%.
+- Between 16 and 32 it flattens: less than 10% more saving on the M5 Pro, because the 7B at batch 32
+  is compute bound there; on the Strix Halo the knee comes earlier, at 8 to 16, for the same reason
+  (its capped runs are already compute bound at 8, Fabric's roofline).
+- Tokens per second per request fall below half of batch 1 by batch 16 on both machines.
+- The two passes agree within 5% at every batch, because each run is short and warmed.
+
+### Result (2026-10-25, 22:35 PT, M5 Pro; ran on Qwen2.5 7B Q4_K_M because the Q4_0 7B is not on this Mac)
+
+- Batch 1 to 8: 534 to 137 mJ per token at the chip, 74% less. Held (note 1's 1.5B gave 72%).
+- 8 to 16: 137 to 111, a further 19%. Held (predicted 15 to 30%).
+- 16 to 32: 111 to 128, 15% more energy per token, and total throughput fell (338.8 to 322.7 tok/s).
+  Missed: predicted a flattening with under 10% more saving, not a rise. The knee on this machine is
+  at 16, and 32 is worse, not merely no better.
+- Tokens per second per request at batch 16: 21.2 against 55.6, 38% of batch 1. Held.
+- Pass agreement: 1.3 to 5.7% across the six batches; two batches (1 and 4) spread over 5%. Missed
+  narrowly; the batch-1 window is 2.3 seconds, 10 power samples.
+- Strix Halo half: not run yet (GPU busy with the Trace harvest). Note 24 for the Mac half.
+
+## 2026-10-25, 22:40 PT
+
+**Decode energy against batch size, 1.5B** (M5 Pro; Qwen2.5 1.5B Q4_0, the format note 1 used;
+same script and batches as note 24, run right after it on the same idle machine). The question is
+whether the knee moves with model size.
+- Total throughput stops rising by batch 8 to 16 (the 1.5B reaches the 7B's compute ceiling, about
+  1,800 tok/s, at a smaller batch than its 9x memory headroom suggests, because it is compute bound
+  sooner per token: note 6 found small models cost more per weight).
+- Energy per token is lowest at 16 or 32, not 8, and batch 32 is within 10% of the minimum: the
+  minimum sits at about twice the batch where throughput plateaus, as it did on the 7B.
+- Batch 8 saves 65 to 75% against batch 1 (note 1 measured 72% with llama-batched-bench).
+- Tokens per second per request at batch 16 is under half of batch 1.
+- Passes agree within 6% at every batch.
+
+### Result (2026-10-25, 22:41 PT; run started 22:41:00, prediction commit 8f34931 at 22:40)
+
+- Throughput plateaus by 16 (1,025 at 8, 1,171 at 16, 963 at 32). Held on the batch; the ceiling
+  figure missed: 1,171 tok/s, not about 1,800.
+- Lowest energy per token at 16 (26 mJ), not 8. Held. Batch 32 is 12% above the minimum, not
+  within 10%. Missed narrowly.
+- Batch 8 saves 69% against batch 1. Held (note 1: 72%; its four rows reproduce within 8% here).
+- Tokens per second per request at 16: 73.2 against 191.0, 38%. Held.
+- Passes within 4.8% at every batch. Held. Batch-1 and batch-2 windows are under 0.8 s with 2 to 3
+  power samples; those rows stand on their agreement with note 1. Folded into note 24, section 4.
+
+## 2026-10-25, 23:40 PT
+
+**Decode against batch, 1.5B, longer windows** (M5 Pro; Qwen2.5 1.5B Q4_0; the same script with
+ANSWER=512, so every window is four times longer: batch 1 about 2.7 s and about 13 power samples).
+Note 24's 1.5B rows at batch 1 to 8 had 2 to 4 samples each. This rerun checks them.
+- Batch 1 to 8 mJ per token within 10% of the 128-token run (97, 100, 53, 30), slightly higher, because
+  attention reads a longer KV cache on average (up to about 540 tokens against about 150).
+- The knee stays at 16; batch 32 still costs more per token than 16.
+- Passes within 5% at every batch, now that no window has fewer than 8 samples.
+
+### Result (2026-10-25, 23:41 PT; run started 23:40:50, prediction commit 3b014a5 at 23:40:34, label fixed in 36418f3 before the start)
+
+- Batch 1 to 8 within 10% of the 128-token run: 105, 103, 54, 30 against 97, 100, 53, 30 (+8, +3, +2, 0%),
+  higher where it moved. Held.
+- Knee at 16 (26 mJ), batch 32 higher (29). Held.
+- Passes within 5% at every batch: missed. Spread 3.8 to 10.4%, and pass 2 is higher than pass 1 in all six
+  rows. Pass 2 runs in reverse, straight after the two longest windows (batch 32, about 16 s each), so it
+  meets a warmer chip; that is run order, not noise. Every window had 11 to 75 power samples.
+
+## 2026-10-25, 23:45 PT
+
+**Lattice v1 on the M5 Pro** (`experiments/lattice_mac_eval.sh`: the QAT 2-bit file Linux produces, stock
+Q4_0, and the QAT weights at Q4_0 as a control, mirrored order, GSM8K-250 at 8 slots, note 20's settings).
+Linux's 16:40 prediction covers accuracy and the Strix Halo; this one covers the half of the bar that is
+judged on this machine. Written before the QAT run has finished; nothing about its outputs is known.
+- Accuracy is the same file's as on the Strix Halo to within 1 point (greedy decoding, same GGUF).
+- Answers get shorter after fine-tuning on GSM8K's worked answers: 150 to 200 tokens per answer against
+  228 (calibrated Q2_K) and 250 (stock Q4_0) in note 20.
+- Chip mJ per token stays within 5% of calibrated Q2_K's 44.2: the grid changed, the format did not.
+- Joules per correct answer: 13 to 19 against a same-session stock Q4_0 of about 15. So the energy half of
+  the bar is a coin toss on this machine, decided by answer length, not by bits.
+- The control decides what any win means: the QAT weights at Q4_0 answer as briefly, are more accurate,
+  and cost less per correct answer than the QAT 2-bit file. If that holds, a 2-bit win over stock Q4_0 is a
+  win for fine-tuning, and the note says so.

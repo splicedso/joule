@@ -54,14 +54,16 @@ Quantization-aware fine-tuning, so a model holds its accuracy in the low-bit for
 - **Baseline (Mac, GSM8K-250, 2026-10-25):** Qwen2.5 1.5B scores 21% at Q2_K, 66% at Q3_K_M and Q4_0, and 70 to 72% from Q5_K_M to F16. Standard quantization holds at about 3.9 bits and collapses below it. The energy half of that run is not usable (passes disagreed by up to 24%, because the machine was in use), so it is to be rerun idle.
 - **Lattice item D (note 22, 2026-10-25):** on the Strix Halo, at 32B the GSM8K-calibrated Q2_K costs 473.7 J per correct answer at 95.6% against Q4_0's 563.6 at 94.8%: 16% less, with 2-bit tokens 10% cheaper and 9% faster. At 7B Q4_0 is still 21% cheaper. The crossover is between 7B and 32B on that machine: fewer bits pay once memory traffic dominates the token. The pre-registered margin ("under 15%") was missed.
 - **Clock cap (results/halo-clockcap.md, 2026-10-25):** capping the Strix Halo's shader clock at 1,800 MHz through the OD table cuts 7B Q4_0 decode energy per token 37% at 4% less speed (42% at 1,200 MHz, 8% slower); prefill loses a third of its speed. Per correct answer under the cap is being measured now (7B Q4_0, 32B Q4_0, 32B calibrated Q2_K, 8 slots).
+- **Decode against batch (note 24, 2026-10-25):** on the M5 Pro a 7B's chip energy per token falls 74% by batch 8 and 79% by 16, then rises 15% at 32 as total throughput falls. The knee is an optimum at 16 on that chip; Fabric's cost table now carries this curve. The Strix Halo half runs when its GPU is free.
 - **Lattice v0 (note 20):** an importance matrix calibrated on GSM8K-train lifts Q2_K from 21% to 42% at the same size (37% with general-text calibration). Joules per correct answer fall 40%, but Q4_0 is still cheaper per answer on the M5 Pro, because a 2-bit token costs more energy there. Next: 7B and 32B on the Strix Halo, where memory dominates.
 - **Lattice v1, target:** a Qwen2.5 1.5B at Q2_K size (about 3.3 bits per weight) that scores at least 60% where stock Q2_K scores 21%, at lower joules per correct answer than Q4_0. Method: quantization-aware fine-tuning on the Linux machine.
 
-### Kinetic: a small model shaped by energy
+### Shape study (was Kinetic; not a model family)
 
 A model trained from scratch, its width, depth and vocabulary chosen from our measurements of what each costs per token on real hardware.
 
-- Data (2026-10-25): 1B tokens of FineWeb-Edu, complete and verified deterministic (`results/kinetic-data.md`); the trainer runs on ROCm. The four shapes queue after the Trace retrain.
+- 2026-10-25, 16:30, Martin: two model families, not three. The four-shape runs stay as a research study of what width, depth and vocabulary cost per token (a note, not a release), last in the queue after Lattice v1. A third family is named only when Trace and Lattice clear their bars, and it would have to be something worth the name.
+- Data (2026-10-25): 1B tokens of FineWeb-Edu, complete and verified deterministic (`results/kinetic-data.md`); the trainer runs on ROCm.
 - Plan: `docs/kinetic.md`. Four shapes at about 50M parameters (24x512, 12x720, 6x1024, 4x1260, all 71.6 to 74.1M non-embedding), the same 1B tokens, trained on the Strix Halo, measured on both machines. Starts after Trace v1.
 
 ## Systems
@@ -71,6 +73,42 @@ the site's Systems page): Q4_0 below 32B, the largest model that leaves room to 
 requests at once as memory allows, the prefix cached, a draft with a 0.5 confidence threshold, the
 shader clock capped where the platform allows. Foundry is that recipe as an app. Clusters are
 groundwork only (`docs/clusters-groundwork.md`): nothing is claimed until measured.
+
+## Models roadmap (2026-10-25, 16:25)
+
+In flight on the Strix Halo: the Trace v1 harvest to 35,180 prompts (about 12 h), then the retrain and
+its eval against the 0.79 bar. Two families, Trace and Lattice; the shape study runs last. Being prepared
+beside the harvest: Lattice v1, quantization-aware fine-tuning of the 1.5B to a Q2_K-shaped grid, bar
+60% on GSM8K-250 at Q2_K size and cheaper per correct answer than Q4_0 on the M5 Pro; and a Trace for a
+72B target, which starts only if the 7B retrain clears its bar. Every run has its prediction committed
+first. The Mac stays light: evaluation of small artefacts, writing, and the site.
+
+## Frontier, open source, and what two people can do
+
+Martin's aim (25 October): the next Etched and Anthropic, a hardware company and a model company,
+open-source models now, a closed frontier-class model as a possibility. What that means in practice:
+
+- **What we can train today** is small: 0.5B to 1.5B on one Strix Halo, which is Trace and Lattice. A
+  frontier-class model needs thousands of accelerators for months. No plan here pretends otherwise.
+- **The path that is real:** be the group whose small models are the best per joule on the hardware
+  people own, measured and published; then the group whose cells serve the best open large models at
+  the lowest cost per correct answer; then, with revenue and cells, train larger models on our own
+  cells, where the training cost per token is the number we already know how to measure. Each step is
+  a measurement before it is a claim.
+- **Open or closed:** everything measured is open. Model weights are open while the models are small
+  and the point is credibility. A closed model is a business decision for when there is a model worth
+  closing; there is no work on one and the site says nothing about one.
+- **Frontier-class on the site:** never, until a model exists that can be measured against one.
+
+## Fabric: the cluster software
+
+`spliced/fabric` (local for now) is the control software for the designs and the simulator that costs
+them from our measurements: a scheduler that keeps decode modules batched and splits prefill from
+decode, a prefix cache with handoff accounting over a link, a clock policy, cells and rows with shared
+trunks and a sleep policy, and a report that prints joules per correct answer with the share of every
+joule that is derived rather than measured. The same scheduler is meant to drive llama-server on the
+two machines we own (`fabric/testbed.py`, not yet written), which is how the link and overhead numbers
+stop being literature and placeholders. Nothing Fabric prints is a result until that testbed runs.
 
 ## Order
 

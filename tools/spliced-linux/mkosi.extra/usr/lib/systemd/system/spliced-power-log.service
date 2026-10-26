@@ -1,0 +1,10 @@
+[Unit]
+Description=Spliced power log: package power, clocks and temperatures every 10 s
+After=sysinit.target
+
+[Service]
+ExecStart=/usr/local/bin/spliced-power-log /var/lib/spliced/power.csv 10
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

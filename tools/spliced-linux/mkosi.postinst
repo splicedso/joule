@@ -1,0 +1,9 @@
+#!/bin/sh
+# Runs on the build host after the package install; touches the image only through mkosi-chroot and $BUILDROOT.
+set -e
+mkosi-chroot systemctl enable spliced-clock spliced-power-log spliced-smoke   # spliced-fabric stays disabled: Fabric is not in the image yet
+mkdir -p "$BUILDROOT/var/lib/spliced/models" "$BUILDROOT/etc/spliced" "$BUILDROOT/opt"
+# llama.cpp at the pinned commit, Vulkan build (the toolchain for this is the build host's job; the commit is the contract)
+echo "620d2225c" > "$BUILDROOT/opt/llama.cpp.pin"
+# Fabric at a tag (vendored into mkosi.extra/opt/fabric by the build script before mkosi runs)
+echo "image built $(date -u +%FT%TZ)" > "$BUILDROOT/etc/spliced/image-id"

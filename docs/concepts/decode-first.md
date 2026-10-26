@@ -37,6 +37,15 @@ sink, and a switch between. A request is prefilled once on the front module and 
 to a decode module over the board, where the request lives for the rest of its life. Prefix cache
 hits (note 18) skip the front module entirely.
 
+## The rack
+
+Twenty-four sleds in a 42U cabinet, a coolant distribution unit in the bottom four units, a
+top-of-rack switch, a vertical busbar at the rear so no sled carries a power supply, and
+quick-disconnect couplers on every sled face. Liquid from the start, because a flat cold plate is
+what keeps the sled at 1U; the busbar removes twenty-four supplies and their conversion losses,
+which is the overhead between chip energy and wall energy in every measurement we have made (note 1
+found it at 2x on one chip for one format). Rendered by `site/render/rack.py`.
+
 ## What would have to be true
 
 - Joules per correct answer at eight slots, decode only, under a cap, below the single-chip figure
@@ -45,6 +54,10 @@ hits (note 18) skip the front module entirely.
   where the two-box microbenchmark in docs/clusters-reading.md says the link saturates.
 - The idle floor of a sled: six capped modules idling must cost less than one chip idling at 17 to
   26 W (results/halo-clockcap.md), or the design loses at low load.
+
+- For the rack: its idle at low load, at the wall, below the sum of its parts idling; the coolant
+  unit's pumps cheaper than the fans they replace; cache handoffs between sleds hidden under decode
+  time by the switch.
 
 None of those are measured. The groundwork order in docs/clusters-groundwork.md is how they
 would be.

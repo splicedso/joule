@@ -1,0 +1,12 @@
+[Unit]
+Description=Spliced clock policy: cap the shader clock and verify it under load
+After=sysinit.target
+Before=spliced-fabric.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/spliced-clock cap 1800
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
