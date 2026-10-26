@@ -481,6 +481,16 @@ decode energy per token against batch 1 to 32; it runs on this Mac after the ren
 Blender) and on Linux in the free-GPU window. `spliced/linux` also exists as its own local repo, same
 files; the phase copy is the one Linux pulls.
 
+## 23:30: Designs is complete and live
+
+The whole family is on the page: the lineup (package, node, tray, pod at true scale) at the top, "One
+part, four sizes.", the module, the carrier and desk unit, the air-cooled cell (concepts), the drawings
+and parts, the inside and the OS, then V1: the node, why its shape and the docks for grids, the tray of
+six, the pod of 84 with the budget's verdict, the row. Every model badged; every claim with its "what
+would have to be true"; checked at desktop and phone width; 44 pages, no broken links. Render lessons
+of the evening, now in memory: frames at or under about 2400x1400 on this Mac, no text objects in
+scenes with hundreds of instances, and a render counts only when its log says "Blender quit".
+
 ## Next, in order
 
 1. Review the Trace 35k retrain PR (morning), then the Lattice v1 QAT PR
