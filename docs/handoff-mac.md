@@ -628,3 +628,11 @@ restarted in a loop, ~180% CPU) held the chip at 10 to 17 W idle against 0.6 W i
 `decode_batch_energy.py` now refuse on macOS above 3 W idle. `experiments/when_quiet.sh` is waiting (up to 8 h)
 for two quiet readings in a row, then runs `width_granite.sh` (sweep plus GSM8K). **While it waits, open no
 browser and no Blender on this Mac.** Log: `results/log/granite-width-retry.log`.
+
+## 11:04 PT, Lattice v1 published; Lattice v2 goes to 32B
+
+PR 28 (Lattice v1 with both controls) and PR 29 (Strix batch follow-ups) verified and merged. Note 27 published;
+note 24 section 6 extended. Decision sent to Linux: no 1.5B Lattice v2 (2-bit costs 13.5% more per correct answer
+than 4-bit at equal answers there, so the energy bar is unreachable at any accuracy); instead a 32B post-training
+format search (Q2_K, IQ2_M, IQ2_XS, IQ3_XXS, Q3_K_M with the GSM8K imatrix, against Q4_0), prediction first; then
+the GPU waits for a job. The site check for notes 24 and 27 waits for the Mac waiter to finish (no browser during it).
