@@ -591,3 +591,14 @@ Written before the weights finished downloading; no output of this model has bee
 - Joules per correct answer: thinking costs 3 to 8 times more over the three tasks, and is not cheaper per correct
   answer on any single task.
 - Fewer than 5% of thinking replies hit the 4,096-token limit.
+
+### 12:47 entry (what thinking costs): design change at 13:21, before the measured run
+
+Two smoke tests have now been seen, so two clauses are no longer blind and will be reported but not counted:
+- At 4,096 tokens per reply, 7 of 19 thinking replies (37%) were cut off mid-thought and came back empty, so all
+  scored wrong; 11 of the 12 that finished were right. The "fewer than 5% hit the limit" clause had already failed.
+- At 16,384 tokens, 3 of 18 (17%) still hit the limit; thinking answers averaged about 3,000 tokens on GSM8K and
+  5,600 on MMLU-Pro, against about 270 and 500 without thinking at 4,096. So the token multiplier is seen too.
+Changes, for time and so that cut-off thoughts do not dominate: 16,384 tokens per reply and 18,432 context per slot;
+samples cut to GSM8K 50, MMLU-Pro 4 per subject (56), HumanEval 40. Still two passes in mirrored order on a quiet Mac.
+The accuracy and energy clauses stay blind: neither smoke run measured them at these settings.
