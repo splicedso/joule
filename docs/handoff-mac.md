@@ -31,9 +31,13 @@ Preview: `.claude/launch.json` config `spliced-site`, port 8772. Images carry `?
    Models first. Designs is a research thread linked from Research, not a nav item; no new cluster work
    unless he asks.
 1. **Trace 35k missed its bar (Linux, 05:50):** best held-out agreement 0.7754 against 0.79 (+1.4 points
-   over stock, +3 needed). Decision sent 05:55: an on-policy pilot with the Q4_0 teacher at 9k prompts
-   before any 35k on-policy harvest; no second off-policy epoch. The trainer's agreement is scored against the
-   bf16 teacher's tokens, so the PR must also report acceptance against the Q4_0 target and rest the verdict on it.
+   over stock, +3 needed). Next: Linux's pre-registered on-policy run with the Q4_0 7B's own weights as teacher
+   (dequantized into transformers; predictions entry committed 25 Oct 14:17 in d825a8f), from stock and from
+   the 35k checkpoint, scored on the existing held-out set and by the speculative eval at k=4, p 0.5, one
+   request. If it adds under 1 point of acceptance over the off-policy draft, Trace pauses and is written up.
+   No second off-policy epoch. My 05:55 premise was wrong: the harvest teacher is already the Q4_0 7B through
+   llama.cpp, so the held-out agreement already measures the served model; bf16 was only the first on-policy
+   run's teacher. The PR still reports eval acceptance beside agreement and rests the verdict on the eval.
    **Review the Trace 35k retrain PR** (Linux, after the harvest at about 03:55 PDT): held-out
    agreement against the 0.79 bar, read from the raw eval JSON. Then the **Lattice v1 QAT PR**, with the
    step-0 and final quantization checks (at most 4 distinct values per group, MAE about a third of magnitude),
