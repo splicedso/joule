@@ -30,7 +30,11 @@ Preview: `.claude/launch.json` config `spliced-site`, port 8772. Images carry `?
 0. **Direction (Martin, 23:45 PT): "continue company wide, focus more on AI, cluster stuff is just in research rn".**
    Models first. Designs is a research thread linked from Research, not a nav item; no new cluster work
    unless he asks.
-1. **Morning, review the Trace 35k retrain PR** (Linux, after the harvest at about 03:55 PDT): held-out
+1. **Trace 35k missed its bar (Linux, 05:50):** best held-out agreement 0.7754 against 0.79 (+1.4 points
+   over stock, +3 needed). Decision sent 05:55: an on-policy pilot with the Q4_0 teacher at 9k prompts
+   before any 35k on-policy harvest; no second off-policy epoch. The trainer's agreement is scored against the
+   bf16 teacher's tokens, so the PR must also report acceptance against the Q4_0 target and rest the verdict on it.
+   **Review the Trace 35k retrain PR** (Linux, after the harvest at about 03:55 PDT): held-out
    agreement against the 0.79 bar, read from the raw eval JSON. Then the **Lattice v1 QAT PR**, with the
    step-0 and final quantization checks (at most 4 distinct values per group, MAE about a third of magnitude),
    tokens per answer for every model, and the 16:40 prediction text byte-identical to 39ef9bc (Linux moved
