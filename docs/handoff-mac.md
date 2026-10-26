@@ -27,6 +27,10 @@ Preview: `.claude/launch.json` config `spliced-site`, port 8772. Images carry `?
 
 ## Next, in order (kept current; items leave the list when done)
 
+00. **The plan for now (Martin, 26 Oct ~14:00): the Spliced AI computer**, a compact offline box running open-weight
+   models, plus our lightweight models (`docs/concepts/ai-computer.md`). Chassis, power, cooling and controller are
+   Martin's; OS, serving, models and measurement are ours. `foundry/box/server.py` serves the interface from the box
+   (14:05); end-to-end chat test pending a quiet window. Linux: image work after its chain.
 0. **Direction (Martin, 23:45 PT): "continue company wide, focus more on AI, cluster stuff is just in research rn".**
    Models first. Designs is a research thread linked from Research, not a nav item; no new cluster work
    unless he asks.
