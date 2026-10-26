@@ -287,3 +287,10 @@ note 11's pair, prompts and 384 tokens; M5 Pro). Foundry drafts up to 4; note 11
 - Draft-4 within 0.1x of draft-8's speed on prose and code, and within 0.05x on chip energy: at a 0.5 threshold
   most drafts stop before 4 tokens anyway.
 - On edits, where nearly every token is accepted, draft-8 is faster than draft-4 by 0.2x or more.
+
+### Result for 01:50 (01:50:10 to 01:54:22)
+
+Draft-4 against draft-8 at p 0.5, against plain, three repetitions: prose 1.27x and 1.24x speed, 1.03x and 1.05x
+energy (held, within 0.1x); code 1.72x and 1.51x speed, 0.80x and 0.88x energy (missed: draft-4 is better by
+0.21x, not within 0.1x); edit 2.25x and 2.24x, 0.62x and 0.61x (missed: equal, not draft-8 faster). Draft-4 is
+never worse. Foundry keeps 4.

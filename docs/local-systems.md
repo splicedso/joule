@@ -49,7 +49,11 @@ penalty disappears on every task tested and prose gets a free 1.3 times speed-up
 the result holds in llama-server, the program deployments use (note 11). On the Strix Halo the
 same setting cuts chip energy per token by a third (note 21). Our own Trace v1 draft raised
 agreement by 0.7 points and bought nothing; the stock 0.5B draft is the one to ship until a
-Trace clears the 3-point bar.
+Trace clears the 3-point bar. Drafts of up to 4 tokens are enough: at the 0.5 threshold they match
+drafts of 8 on prose and edits and beat them on code (1.72 against 1.51 times plain's speed, 2026-10-26
+re-run of note 11's set). In llama-server the draft also needs `--spec-type draft-simple`; with `-md`
+alone it loads and never drafts. And only at one or two requests at once: from four on, on the M5 Pro,
+the draft costs more energy per token than it saves (measured 26 October, being written up).
 
 **Clock: cap the shader clock where the platform allows it.** On the Strix Halo, an 1,800 MHz cap
 through the OD table cuts 7B decode energy per token 37% at 4% less speed, and 42% at 8% less
