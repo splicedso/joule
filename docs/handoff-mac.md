@@ -43,6 +43,11 @@ Preview: `.claude/launch.json` config `spliced-site`, port 8772. Images carry `?
 3. **With Martin at the keyboard (his sudo):** the warm-case capped run with temperatures logged (20 min);
    the capped decode-batch variant; node wall power under the cap if a plug-in meter is at hand (do not buy one).
 4. **Martin's open calls:** a GitHub remote for Fabric (private, or keep local); a role title.
+4b. **Speculation against batch (Mac, unpublished):** the decode-batch script shows no batch-1 speed-up from the
+   draft (1.00 to 1.04x) while note 11's own script reproduces 1.25 to 2.24x the same night. Isolate which
+   difference does it (answer length and ignore_eos, one slot, context per slot, wall-clock timing), then
+   publish the batch result: drafts cost 5 to 72% more energy per token from batch 4 on, both pairs.
+   Raw files `results/spec-batch-mac-7b-*`; verdicts in predictions.md 01:36 to 01:45.
 5. **After the retrain:** the shape study (ex-Kinetic) four-shape runs on Linux; then Spliced Linux on the box
    needs a llama.cpp build against the image's Mesa before the clock policy can verify on a node.
 
@@ -566,3 +571,10 @@ scrolling away with the page is by design (transparent over the top render), not
 Note 24: the 1.5B small-batch rows re-run with 512-token answers, within 8%, knee at 16; the reversed pass
 reads 4 to 10% higher (warm chip). Lattice v1 Mac half: `experiments/lattice_mac_eval.sh`, mirrored order
 with a QAT-at-Q4_0 control, because fine-tuning shortens answers and J per correct scales with length.
+
+## 01:50 PT, speculation against batch; Foundry's Fast mode never drafted
+
+`llama-server -md` without `--spec-type draft-simple` loads the draft and never drafts in this build. Foundry's
+Fast mode had that defect since it was written; fixed (d1704c7) and the app now says so if a Fast-mode answer
+drafts nothing. A void run kept in `results/void/`. Note 11 re-run: reproduced within 0.02x. Note 24 corrected:
+the Q4_0 7B was on the machine all along (`models/quant/`); its run is section 5, same knee at 16.
