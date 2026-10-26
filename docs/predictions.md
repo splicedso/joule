@@ -333,3 +333,13 @@ passes differ by 20 to 40% at batches 1 to 8 and plain drifted 15% at batch 2; t
 draws up to 50 W where the reversed pass draws 39 W, over 1.6 to 2.7 s windows with 7 to 12 samples, while
 Spotlight was indexing (load average 3 to 4). Declared at 02:10, before running it: the same three runs with
 ANSWER=512 (four times every window) judge the energy half of the 02:06 prediction.
+
+### 02:06 entry, 512-token run (02:10:24 to 02:17:49): energy judged
+
+Plain runs agree within 1% at every batch; pass spreads 0 to 8%; 30 to 102 power samples per window.
+Draft-4 against plain, energy per token and speed: batch 1 1.03x, 1.26x; 2 0.71x, 1.25x; 4 1.12x, 0.85x;
+8 1.50x, 0.68x; 16 1.20x, 0.87x. Acceptance 74% falling to 67% at 16.
+- Batch 1: speed held (1.25 to 1.45x); energy missed narrowly (1.03x, predicted 0.8 to 1.0x).
+- Batch 2: 29% less energy. Held (10 to 30%).
+- Batch 4: 12% more energy, missed narrowly (within 10% predicted); the speed-up is gone (0.85x). Held.
+- Batch 8 and 16: 50% and 20% more energy, lower throughput. Held. Note 25.
