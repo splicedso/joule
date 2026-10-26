@@ -252,3 +252,21 @@ found no batch-1 speed-up with either pair (1.00 to 1.04x) on a 128-token weathe
 - Prose reproduces note 11 within 0.1x: about 1.25x speed, about 1.04x chip energy. If so, tonight's missing
   speed-up belongs to the workload (prompt and answer length), not to the machine or the build.
 - Code and edit reproduce note 11 within 0.15x (1.49x and 2.25x speed).
+
+### Results for 01:42 (Q4_0 pair, runs 01:42:38 to 01:45:14) and for 22:40's 7B Q4_0 half
+
+The 22:40 entry (note 24) named 7B Q4_0; note 24 ran Q4_K_M and wrongly said Q4_0 was not on the machine
+(it was in `models/quant/`). Its Q4_0 run is `results/decode-batch-mac-7b-q4_0.json`. Against 22:40:
+- 1 to 8: 366 to 110 mJ per token, 70% less. Held.
+- 8 to 16: 110 to 96, 13% further. Missed narrowly (15 to 30%).
+- 16 to 32: 96 to 119, 24% more, total throughput down 370 to 342 tok/s. Missed, as on Q4_K_M: an optimum, not a plateau.
+- Speed per request at 16: 23.1 against 59.5, 39%. Held. Passes within 5%: 5.9% at batch 4. Missed narrowly.
+
+Against 01:42:
+- Plain Q4_0 has the Q4_K_M shape, knee at 16, 32 above it; batch 1 is cheaper than Q4_K_M's (366 against 518). Held.
+- Draft-4 at batch 1: 1.01x speed, 1.26x energy. Missed on both. The format hypothesis is wrong: the Q4_0 pair
+  shows no speed-up either.
+- Draft-8 within 0.1x of draft-4's speed (1.00x against 1.01x). Held.
+- Draft-4 at 8 and 16 costs more energy than plain (1.61x, 1.30x). Held.
+- Batch 2 again favours the draft (0.86x energy): plain Q4_0 at batch 2 costs more per token than at batch 1
+  (392 against 366) because chip power steps from 22 to 38 W, the step note 1 described.
