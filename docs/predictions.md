@@ -578,3 +578,16 @@ per token at batches 1, 2, 4, 8, 16 and 32.
 - Lowest at batch 16; batch 32 costs 21% more than 16 (at least 5% predicted). Held.
 - Batch 8 costs 70% less than batch 1 (65 to 80%). Held.
 - Same-session Qwen2.5 1.5B within 8% of note 24's 512-token run at every batch: held (1.1 to 6.0% higher). Note 28.
+
+## 2026-10-26, 12:47 PT
+
+**What thinking costs** (M5 Pro; Qwen3.5 4B Instruct, Apache-2.0, converted here from the official weights and
+quantized to Q4_0; `experiments/general_eval.py` with GSM8K-250, MMLU-Pro 20 per subject and HumanEval-164 in the
+macOS sandbox; 8 requests at once; thinking off (THINK=0) and on (THINK=1) through the chat template's
+enable_thinking; 4,096 tokens allowed per reply; mirrored order, off, on, on, off; run by `when_quiet.sh`).
+Written before the weights finished downloading; no output of this model has been seen.
+- Thinking multiplies tokens per answer by 4 to 10 on GSM8K and MMLU-Pro, and by 3 to 8 on HumanEval.
+- Thinking raises accuracy: GSM8K by 3 to 10 points, MMLU-Pro by 5 to 15, HumanEval by 0 to 10.
+- Joules per correct answer: thinking costs 3 to 8 times more over the three tasks, and is not cheaper per correct
+  answer on any single task.
+- Fewer than 5% of thinking replies hit the 4,096-token limit.
