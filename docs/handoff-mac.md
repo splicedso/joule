@@ -651,3 +651,12 @@ their bases on the Halo; maybe no clusters; find a cheap-to-start engineering ni
 and the general-eval baselines), `experiments/general_eval.py` (maths, knowledge, executed code, energy per task),
 `docs/concepts/engineering-niche.md` (recommendation: a token-synced energy instrument; demand test: two PowerSensor3
 units, about EUR 200, Martin decides). Granite batch run still waiting for a quiet Mac.
+
+## 13:34 PT, software while the Mac measures
+
+- `experiments/general_summary.py` summarizes general-eval runs (passes, spreads, cut-off replies, ratios).
+- Thinking-cost run queued behind `when_quiet.sh` (log `results/log/thinking-mac.log`); smoke tests: thinking replies
+  cut off 37% at 4,096 tokens and 17% at 16,384; design change recorded in predictions.md before the run.
+- `docs/concepts/cell-zero.md`: the portable four-board cluster as Martin's engineering project (power, thermal,
+  enclosure, controller are his; the software is ours). Nothing bought.
+- Banners: package render, mark, name and tagline only (site/brand).
