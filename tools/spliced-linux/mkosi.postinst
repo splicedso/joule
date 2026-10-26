@@ -1,5 +1,5 @@
 #!/bin/sh
-# Runs inside the image at build time: pin llama.cpp and Fabric, so a node's numbers are the notes' numbers.
+# Runs on the build host after the package install; touches the image only through mkosi-chroot and $BUILDROOT.
 set -e
 mkosi-chroot systemctl enable spliced-clock spliced-power-log spliced-smoke   # spliced-fabric stays disabled: Fabric is not in the image yet
 mkdir -p "$BUILDROOT/var/lib/spliced/models" "$BUILDROOT/etc/spliced" "$BUILDROOT/opt"
