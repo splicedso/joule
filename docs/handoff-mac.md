@@ -393,6 +393,18 @@ same memory failure as every large frame on this 24 GB Mac; it renders at 2400 w
 nine-scene chain (`render/log/system.sh`) is running; Designs is rewritten around the lineup and builds
 when it lands. Rule: keep any frame at or under about 2800x1700, and the lineup at 2400.
 
+## 19:10: V1, the cluster someone could build
+
+Martin: "make them breathable, take in actual cluster design, design something that could be a real v1
+cluster modular system", "and do everything else we do too". `docs/concepts/v1-cluster.md`: the sealed
+cell is dropped for V1; a 2U 19-inch sled with two carriers and a 4 x 80 mm fan cage, front-to-back air;
+a 42U pod of 16 sleds, one prefill sled, a switch, a power shelf; a row in hot-aisle containment; every
+number with its basis; a four-step "what would have to be true" where the first two cost one sled.
+`fabric/v1.py` is the budget: airflow, feed and idle checks pass on paper, and it says overhead doubles
+joules per correct answer at full load (216 vs 111), which is now in the doc. `site/render/v1.py` has
+the sled, sled-open, pod and row scenes, queued after the nine-scene badge chain. Desk unit and cell
+stay on Designs as concepts; V1 becomes the page's second half when its renders land.
+
 ## Next, in order
 
 1. Review the Trace 35k retrain PR, then the Lattice v1 QAT PR when it lands (bar: 0.79 held-out agreement).

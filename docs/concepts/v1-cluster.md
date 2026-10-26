@@ -49,13 +49,22 @@ Standard 42U, 600 mm wide, 1,200 mm deep, on castors, with a front door grille a
 | power, idle | about 2.3 kW | arithmetic on sled idle; the number to attack |
 | airflow, busy, 20 C rise | about 480 cfm | arithmetic |
 | 7B tokens per second | about 6,100 | arithmetic from the measured sled |
-| 7B per correct answer, busy, overhead included | about 125 J | 111.3 x (1 + overhead share at full load) |
+| 7B per correct answer, busy, overhead included | about 216 J | arithmetic (fabric/v1.py): 111.3 x pod watts / module watts; fans, host, prefill and switch are nearly as much power as the 32 modules, so overhead roughly doubles the per-answer cost at full load |
 | weight | under 500 kg | estimate, unverified |
 
 **Row.** Pods side by side in a hot-aisle containment: cold aisle in front, hot aisle contained
 behind, the room's air handlers pull from the hot aisle. Ten pods is 55 kW busy, 61,000 tokens per
 second on a 7B, one switch tier above. The row's fabric is a leaf switch per pod and a spine pair per
 row, standard Ethernet, nothing proprietary.
+
+## What the budget says
+
+Fabric's V1 budget (`spliced/fabric`, `python -m fabric.v1`) passes its three checks on paper: the
+fan cage moves about 68 cfm after margin against 25 needed at a 20 C rise; the pod draws 5.3 kW busy
+against an 8 kW feed; idle is 1.96 kW against a 2 kW target. It also says the thing that matters:
+overhead at full load is 216 against 111 joules per correct answer, nearly double, because 32 capped
+modules at 85 W are only 2.7 kW of a 5.3 kW pod. Fans at 50 W per sled, the prefill GPU and the host
+boards are the rest. The design's first fight is not the module; it is everything around it.
 
 ## What V1 is not
 
