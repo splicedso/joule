@@ -206,3 +206,14 @@ judged on this machine. Written before the QAT run has finished; nothing about i
 - The control decides what any win means: the QAT weights at Q4_0 answer as briefly, are more accurate,
   and cost less per correct answer than the QAT 2-bit file. If that holds, a 2-bit win over stock Q4_0 is a
   win for fine-tuning, and the note says so.
+
+## Results so far, 2026-10-26, 06:34 PT (predictions above left unedited)
+
+- Trace v1, off-policy, 35,000 prompts, LR 3e-6, ALPHA=2, one epoch: held-out agreement with the Q4_0 7B
+  0.7754 (stock 0.7616, the 9k run 0.7685). The 05:05 prediction that 35k clears 0.79: missed.
+- Trace v1 at 35k in speculative decoding (k=4, p 0.5, one request, two passes): 1.44x plain, 34% less chip
+  energy per token (14:30 entry: held); 2.3% slower than the stock draft (within 5%: held); acceptance 75.3%
+  against 71.7% (+3.6 points, more than the +1.4 of agreement: missed), accepted tokens per generated token
+  0.592 against 0.601 (fell). results/drafter/trace-v1-35k.md.
+- Teacher faithfulness (14:30 entry): dequantized Q4_0 98.8% (predicted at least 99%: missed narrowly); bf16
+  93.3% (predicted 96 to 98.5%: missed).
