@@ -27,6 +27,14 @@ Preview: `.claude/launch.json` config `spliced-site`, port 8772. Images carry `?
 
 ## Next, in order (kept current; items leave the list when done)
 
+000. **State at 26 Oct 15:45.** Note 29 (what thinking costs) is published: on the 4B, thinking lost accuracy by
+   running out of tokens; a 2,048-token budget with plain fallback keeps the code gain (replay,
+   `experiments/think_fallback.py`). Next for it: measure that policy live on a larger HumanEval sample, prediction
+   first. The portable cluster v0 sheets are in `docs/concepts/portable-cluster/` (c613817); open items are the
+   board's mechanical drawing and the CPU connector pin count; asked Martin whether to start the distribution
+   board in KiCad. **The Linux session was unreachable at 15:44** (its bridge address returned 409 and ListAgents
+   no longer lists it); the note 29 guidance for it is at the top of `docs/handoff-linux.md`. Martin has to reopen
+   it; until then nothing new runs on the Strix.
 00. **The plan for now (Martin, 26 Oct ~14:00): the Spliced AI computer**, a compact offline box running open-weight
    models, plus our lightweight models (`docs/concepts/ai-computer.md`). Chassis, power, cooling and controller are
    Martin's; OS, serving, models and measurement are ours. `foundry/box/server.py` serves the interface from the box

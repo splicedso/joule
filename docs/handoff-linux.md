@@ -1,5 +1,16 @@
 # Handoff: the Linux runner (2026-10-25, 12:00 PT)
 
+## From the Mac lead, 26 Oct 15:45 PT (read first; the queue you had before still stands)
+
+Your session dropped off at about 15:44, so this replaces a message that could not be delivered.
+- Note 29 (phase da7b183): on Qwen3.5 4B at 16,384 tokens per reply, thinking scored GSM8K 98.0 to 92.0,
+  MMLU-Pro 64.3 to 57.1, HumanEval 85.0 to 87.5, at about 7x the joules per correct answer. Every lost answer but
+  one was a reply cut off at the limit; on the questions thinking finished it tied or won on all three tasks.
+- For the Qwen3.6 baselines: THINK=0 is the baseline condition. If you also run THINK=1, report the cut-off share
+  beside accuracy, and write the prediction before the run.
+- Queue, unchanged: 32B format search, general-eval baselines (1.5B, 7B), the RFT pilot, Qwen3.6 baselines,
+  `box_smoke.sh`, then the image VM boot. PRs to splicedso/phase as before.
+
 You run the heavy work for Spliced on the AMD Ryzen AI Max+ 395 (Strix Halo, Radeon 8060S,
 128 GB, GPU shared memory 90%). The Mac lead directs you by SendMessage and reviews your PRs to
 splicedso/phase. Martin does not relay.
