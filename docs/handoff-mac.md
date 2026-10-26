@@ -38,7 +38,10 @@ Preview: `.claude/launch.json` config `spliced-site`, port 8772. Images carry `?
    No second off-policy epoch. My 05:55 premise was wrong: the harvest teacher is already the Q4_0 7B through
    llama.cpp, so the held-out agreement already measures the served model; bf16 was only the first on-policy
    run's teacher. The PR still reports eval acceptance beside agreement and rests the verdict on the eval.
-   **Review the Trace 35k retrain PR** (Linux, after the harvest at about 03:55 PDT): held-out
+   PR 23 (Trace 35k) and PR 24 (batch script's Linux sensor) merged and verified at 06:39; note 26 published.
+   Proposed to Linux: the 35k and stock drafts at p 0.3 and 0.4 beside p 0.5 in the pilot's eval (the
+   trained draft guesses less at 0.5). Then review the pilot PR.
+   **(Done) Review the Trace 35k retrain PR** (Linux, after the harvest at about 03:55 PDT): held-out
    agreement against the 0.79 bar, read from the raw eval JSON. Then the **Lattice v1 QAT PR**, with the
    step-0 and final quantization checks (at most 4 distinct values per group, MAE about a third of magnitude),
    tokens per answer for every model, and the 16:40 prediction text byte-identical to 39ef9bc (Linux moved
@@ -591,3 +594,10 @@ for a 4-token draft; note 11's power-supply prompt 80% and 1.41x. On that prompt
 1.26x speed at one request, 29% less energy at two, 12 to 50% more from four on. Note 25, Systems updated.
 The 128-token windows were too noisy for energy (first pass of a series up to 50 W against 39 W reversed,
 Spotlight indexing); 512 tokens gave plain runs within 1%. Foundry's fix built green on all three platforms.
+
+## 06:39 PT, Trace 35k merged, note 26
+
+Trace v1 at 35k: agreement 0.7754 (bar 0.79). At one request it is 1.44x plain and a third cheaper, but no faster
+than the stock draft: 75.3% acceptance against 71.7%, yet fewer guesses clear p 0.5 (8,052 against 8,591), so
+accepted per generated token falls 0.601 to 0.592. Every figure recomputed from the raw eval. Strix plain draws
+104 W time-weighted, the draft 103 W: that is why speculation saves a third there and breaks even on the Mac.
