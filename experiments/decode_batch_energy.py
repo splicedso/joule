@@ -25,6 +25,17 @@ SERVER = shutil.which("llama-server") or "/opt/homebrew/bin/llama-server"
 PORT = 18555
 
 
+def linux_power_file():
+    """The GPU's package power sensor. /sys/class/drm also lists connectors (card0-HDMI-A-1, card0-DP-1, ...),
+    in no fixed order, and they have no hwmon; picking the first card* entry sampled nothing on the Strix Halo
+    (2026-10-26). Find the device whose hwmon has power1_average instead, and fail loudly if there is none."""
+    import glob
+    found = sorted(glob.glob("/sys/class/drm/card*/device/hwmon/hwmon*/power1_average"))
+    if not found:
+        raise RuntimeError("no amdgpu power1_average under /sys/class/drm/card*/device/hwmon: cannot measure power")
+    return found[0]
+
+
 def power_samples(stop, out):
     """Sample chip power at 5 Hz into out (watts)."""
     if sys.platform == "darwin":
@@ -35,9 +46,7 @@ def power_samples(stop, out):
             except Exception: pass
         p.terminate()
     else:
-        d = [x for x in os.listdir("/sys/class/drm") if x.startswith("card")][0]
-        hw = [h for h in os.listdir(f"/sys/class/drm/{d}/device/hwmon")][0]
-        f = f"/sys/class/drm/{d}/device/hwmon/{hw}/power1_average"
+        f = linux_power_file()
         while not stop.is_set():
             out.append(int(open(f).read()) / 1e6); time.sleep(0.2)
 
@@ -54,6 +63,8 @@ def one(batch):
         stop = threading.Event(); w = []; t = threading.Thread(target=power_samples, args=(stop, w), daemon=True); t.start()
         t0 = time.time(); timings = send(batch, ANSWER); secs = time.time() - t0
         stop.set(); t.join(timeout=2)
+        if not w:  # the sampler thread died or never ran: a row without power is void, not NaN
+            raise RuntimeError(f"batch {batch}: no power samples in a {secs:.1f} s window; result would be void")
         toks = sum(x["predicted_n"] for x in timings)
         drafted = sum(x.get("draft_n", 0) for x in timings); accepted = sum(x.get("draft_n_accepted", 0) for x in timings)
         watts = sum(w) / len(w) if w else float("nan")
