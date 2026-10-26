@@ -1,0 +1,16 @@
+{
+  "device": "cuda",
+  "held_out_records": 180,
+  "bf16": {
+    "top1_agreement_with_q4_0_tokens": 0.9332332155477032,
+    "positions": 56600,
+    "mean_abs_logprob_diff": 0.09036961959339283,
+    "seconds": 63.1
+  },
+  "q4_0-dequant": {
+    "top1_agreement_with_q4_0_tokens": 0.9881802120141343,
+    "positions": 56600,
+    "mean_abs_logprob_diff": 0.012087243483418289,
+    "seconds": 72.1
+  }
+}

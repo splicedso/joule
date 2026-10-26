@@ -1,0 +1,29 @@
+start 01:50:03
+0 draft-8-p0.5  edit  135.8 tok/s accept  97%  chip  222.3 mJ  n=19
+0 draft-8-p0.5  code   92.9 tok/s accept  66%  chip  314.2 mJ  n=28
+0 draft-8-p0.5  prose  76.6 tok/s accept  68%  chip  370.5 mJ  n=35
+0 plain         prose  61.6 tok/s accept    -  chip  355.9 mJ  n=44
+0 plain         edit   60.6 tok/s accept    -  chip  368.1 mJ  n=45
+0 plain         code   61.5 tok/s accept    -  chip  357.6 mJ  n=44
+0 draft-4-p0.5  edit  136.3 tok/s accept  99%  chip  232.4 mJ  n=19
+0 draft-4-p0.5  code  105.8 tok/s accept  80%  chip  287.5 mJ  n=24
+0 draft-4-p0.5  prose  78.4 tok/s accept  75%  chip  371.8 mJ  n=34
+1 draft-4-p0.5  prose  78.5 tok/s accept  75%  chip  371.6 mJ  n=34
+1 draft-4-p0.5  edit  136.3 tok/s accept  99%  chip  233.4 mJ  n=19
+1 draft-4-p0.5  code  105.7 tok/s accept  80%  chip  290.7 mJ  n=25
+1 plain         code   61.1 tok/s accept    -  chip  365.1 mJ  n=44
+1 plain         edit   60.5 tok/s accept    -  chip  376.4 mJ  n=44
+1 plain         prose  61.3 tok/s accept    -  chip  361.0 mJ  n=44
+1 draft-8-p0.5  prose  76.2 tok/s accept  68%  chip  383.2 mJ  n=35
+1 draft-8-p0.5  edit  135.5 tok/s accept  97%  chip  231.9 mJ  n=19
+1 draft-8-p0.5  code   92.5 tok/s accept  66%  chip  326.4 mJ  n=29
+2 draft-8-p0.5  prose  76.3 tok/s accept  68%  chip  385.4 mJ  n=35
+2 draft-8-p0.5  edit  135.5 tok/s accept  97%  chip  230.6 mJ  n=20
+2 draft-8-p0.5  code   92.5 tok/s accept  66%  chip  325.0 mJ  n=29
+2 draft-4-p0.5  prose  78.0 tok/s accept  75%  chip  375.5 mJ  n=34
+2 draft-4-p0.5  edit  135.9 tok/s accept  99%  chip  232.7 mJ  n=20
+2 draft-4-p0.5  code  105.3 tok/s accept  80%  chip  292.4 mJ  n=25
+2 plain         code   61.3 tok/s accept    -  chip  370.7 mJ  n=44
+2 plain         prose  61.5 tok/s accept    -  chip  367.8 mJ  n=44
+2 plain         edit   60.7 tok/s accept    -  chip  376.3 mJ  n=45
+exit 0 01:54:22

@@ -20,6 +20,10 @@ from gguf import GGUFReader
 
 ROOF_GB_S = 307.0
 WIDTHS = {"0.5b": 896, "1.5b": 1536, "3b": 2048, "7b": 3584}
+# WIDTHS="granite2b:2048,3b:2048" names other models (files models/quant/<name>-<FORMAT>.gguf) and their hidden size
+import os
+if os.environ.get("WIDTHS"):
+    WIDTHS = {k: int(v) for k, v in (x.split(":") for x in os.environ["WIDTHS"].split(","))}
 FORMATS = ["Q4_0", "Q4_K_M", "Q5_K_M", "Q6_K", "Q8_0"]
 
 

@@ -1,0 +1,37 @@
+plain1 02:10:24 (after a quoting failure at 02:10:07 that ran nothing)
+{'batch': 1, 'tokens': 512, 'seconds': 8.293092966079712, 'tok_s': 61.73812377290053, 'watts': 22.00790625352126, 'mj_per_token': 356.4718995101931, 'samples': 39, 'draft_n': 0, 'draft_accepted': 0, 'pass': 1}
+{'batch': 2, 'tokens': 1024, 'seconds': 10.210397005081177, 'tok_s': 100.28992991069879, 'watts': 38.31470432687313, 'mj_per_token': 382.03939678679313, 'samples': 47, 'draft_n': 0, 'draft_accepted': 0, 'pass': 1}
+{'batch': 4, 'tokens': 2048, 'seconds': 10.649016857147217, 'tok_s': 192.3182231254954, 'watts': 38.32237741898517, 'mj_per_token': 199.26545075231002, 'samples': 49, 'draft_n': 0, 'draft_accepted': 0, 'pass': 1}
+{'batch': 8, 'tokens': 4096, 'seconds': 12.061455965042114, 'tok_s': 339.59415943410926, 'watts': 36.37943179266794, 'mj_per_token': 107.12619985364195, 'samples': 56, 'draft_n': 0, 'draft_accepted': 0, 'pass': 1}
+{'batch': 16, 'tokens': 8192, 'seconds': 21.712723970413208, 'tok_s': 377.2902935238715, 'watts': 35.84184773763021, 'mj_per_token': 94.9980647603447, 'samples': 102, 'draft_n': 0, 'draft_accepted': 0, 'pass': 1}
+{'batch': 16, 'tokens': 8192, 'seconds': 21.73148202896118, 'tok_s': 376.9646262083119, 'watts': 36.06821325713513, 'mj_per_token': 95.68063088551898, 'samples': 102, 'draft_n': 0, 'draft_accepted': 0, 'pass': 2}
+{'batch': 8, 'tokens': 4096, 'seconds': 12.151096820831299, 'tok_s': 337.0889114288021, 'watts': 37.38191350301107, 'mj_per_token': 110.89630134839561, 'samples': 57, 'draft_n': 0, 'draft_accepted': 0, 'pass': 2}
+{'batch': 4, 'tokens': 2048, 'seconds': 10.655285835266113, 'tok_s': 192.2050737692718, 'watts': 39.56712551506198, 'mj_per_token': 205.8589023646662, 'samples': 49, 'draft_n': 0, 'draft_accepted': 0, 'pass': 2}
+{'batch': 2, 'tokens': 1024, 'seconds': 10.237987041473389, 'tok_s': 100.01966166316149, 'watts': 39.899525743849736, 'mj_per_token': 398.91682375631586, 'samples': 47, 'draft_n': 0, 'draft_accepted': 0, 'pass': 2}
+{'batch': 1, 'tokens': 512, 'seconds': 8.255170106887817, 'tok_s': 62.02173830104429, 'watts': 23.872023381684954, 'mj_per_token': 384.89768322541534, 'samples': 38, 'draft_n': 0, 'draft_accepted': 0, 'pass': 2}
+wrote results/spec-batch-power-a512-plain1.json
+draft 02:12:48
+{'batch': 1, 'tokens': 512, 'seconds': 6.534456014633179, 'tok_s': 78.35388268792897, 'watts': 30.15390739440918, 'mj_per_token': 384.84254206658, 'samples': 30, 'draft_n': 393, 'draft_accepted': 289, 'pass': 1}
+{'batch': 2, 'tokens': 1024, 'seconds': 8.16110897064209, 'tok_s': 125.4731438685146, 'watts': 35.1806450921136, 'mj_per_token': 280.38386548264054, 'samples': 37, 'draft_n': 778, 'draft_accepted': 578, 'pass': 1}
+{'batch': 4, 'tokens': 2048, 'seconds': 12.528596878051758, 'tok_s': 163.46603054870351, 'watts': 37.353814223717, 'mj_per_token': 228.51117200516904, 'samples': 58, 'draft_n': 1580, 'draft_accepted': 1156, 'pass': 1}
+{'batch': 8, 'tokens': 4096, 'seconds': 17.820255041122437, 'tok_s': 229.85080687947365, 'watts': 37.6517746707043, 'mj_per_token': 163.80962582588484, 'samples': 83, 'draft_n': 3216, 'draft_accepted': 2192, 'pass': 1}
+{'batch': 16, 'tokens': 8192, 'seconds': 24.898905992507935, 'tok_s': 329.01043935283616, 'watts': 37.51649716369107, 'mj_per_token': 114.02828809166682, 'samples': 117, 'draft_n': 6496, 'draft_accepted': 4384, 'pass': 1}
+{'batch': 16, 'tokens': 8192, 'seconds': 24.88175320625305, 'tok_s': 329.2372499676294, 'watts': 37.4617797003852, 'mj_per_token': 113.78353969384825, 'samples': 117, 'draft_n': 6496, 'draft_accepted': 4384, 'pass': 2}
+{'batch': 8, 'tokens': 4096, 'seconds': 17.82581877708435, 'tok_s': 229.7790666011671, 'watts': 37.45420809826219, 'mj_per_token': 163.00095849580737, 'samples': 83, 'draft_n': 3216, 'draft_accepted': 2192, 'pass': 2}
+{'batch': 4, 'tokens': 2048, 'seconds': 12.531677961349487, 'tok_s': 163.42584020404072, 'watts': 36.87827103713463, 'mj_per_token': 225.65752754332675, 'samples': 58, 'draft_n': 1580, 'draft_accepted': 1156, 'pass': 2}
+{'batch': 2, 'tokens': 1024, 'seconds': 8.161123752593994, 'tok_s': 125.47291660349153, 'watts': 34.7637256823088, 'mj_per_token': 277.0615892524924, 'samples': 38, 'draft_n': 778, 'draft_accepted': 578, 'pass': 2}
+{'batch': 1, 'tokens': 512, 'seconds': 6.543027877807617, 'tok_s': 78.25123315408472, 'watts': 29.509652201334635, 'mj_per_token': 377.11421292527234, 'samples': 30, 'draft_n': 393, 'draft_accepted': 289, 'pass': 2}
+wrote results/spec-batch-power-a512-draft.json
+plain2 02:15:25
+{'batch': 1, 'tokens': 512, 'seconds': 8.272202014923096, 'tok_s': 61.89403970990425, 'watts': 22.765178630226536, 'mj_per_token': 367.80889948250814, 'samples': 38, 'draft_n': 0, 'draft_accepted': 0, 'pass': 1}
+{'batch': 2, 'tokens': 1024, 'seconds': 10.22455883026123, 'tok_s': 100.15102040092985, 'watts': 39.05976104736328, 'mj_per_token': 390.00861789522645, 'samples': 47, 'draft_n': 0, 'draft_accepted': 0, 'pass': 1}
+{'batch': 4, 'tokens': 2048, 'seconds': 10.644707918167114, 'tok_s': 192.39607284148386, 'watts': 38.962773381447306, 'mj_per_token': 202.51335074572413, 'samples': 49, 'draft_n': 0, 'draft_accepted': 0, 'pass': 1}
+{'batch': 8, 'tokens': 4096, 'seconds': 12.04403018951416, 'tok_s': 340.08549759083814, 'watts': 36.90705156326294, 'mj_per_token': 108.52286211765005, 'samples': 56, 'draft_n': 0, 'draft_accepted': 0, 'pass': 1}
+{'batch': 16, 'tokens': 8192, 'seconds': 21.74004292488098, 'tok_s': 376.81618331233574, 'watts': 35.87073213913862, 'mj_per_token': 95.19424517233658, 'samples': 102, 'draft_n': 0, 'draft_accepted': 0, 'pass': 1}
+{'batch': 16, 'tokens': 8192, 'seconds': 21.745256185531616, 'tok_s': 376.72584448329536, 'watts': 35.78905502020144, 'mj_per_token': 95.00026489897054, 'samples': 102, 'draft_n': 0, 'draft_accepted': 0, 'pass': 2}
+{'batch': 8, 'tokens': 4096, 'seconds': 12.04808235168457, 'tok_s': 339.9711157707429, 'watts': 36.81102514266968, 'mj_per_token': 108.27691952363661, 'samples': 56, 'draft_n': 0, 'draft_accepted': 0, 'pass': 2}
+{'batch': 4, 'tokens': 2048, 'seconds': 10.654479026794434, 'tok_s': 192.21962846325795, 'watts': 38.99728969651826, 'mj_per_token': 202.87881111981469, 'samples': 49, 'draft_n': 0, 'draft_accepted': 0, 'pass': 2}
+{'batch': 2, 'tokens': 1024, 'seconds': 10.230536222457886, 'tok_s': 100.09250519558633, 'watts': 39.247715564484295, 'mj_per_token': 392.1144294249812, 'samples': 47, 'draft_n': 0, 'draft_accepted': 0, 'pass': 2}
+{'batch': 1, 'tokens': 512, 'seconds': 8.25907278060913, 'tok_s': 61.99243106345874, 'watts': 22.90038866745798, 'mj_per_token': 369.4062045093204, 'samples': 38, 'draft_n': 0, 'draft_accepted': 0, 'pass': 2}
+wrote results/spec-batch-power-a512-plain2.json
+exit 0 02:17:49

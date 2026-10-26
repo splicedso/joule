@@ -1,0 +1,87 @@
+[
+ {
+  "row": "batch script",
+  "plain": {
+   "tok_s": 56.437598819410105,
+   "tokens": 128,
+   "drafted": 0,
+   "accepted": 0
+  },
+  "draft": {
+   "tok_s": 57.0805296314042,
+   "tokens": 128,
+   "drafted": 255,
+   "accepted": 156
+  },
+  "speedup": 1.011391888128539,
+  "acceptance": 0.611764705882353
+ },
+ {
+  "row": "power-supply prompt",
+  "plain": {
+   "tok_s": 57.037750625082516,
+   "tokens": 128,
+   "drafted": 0,
+   "accepted": 0
+  },
+  "draft": {
+   "tok_s": 80.27791871156863,
+   "tokens": 128,
+   "drafted": 282,
+   "accepted": 225
+  },
+  "speedup": 1.4074523948051028,
+  "acceptance": 0.7978723404255319
+ },
+ {
+  "row": "384 forced tokens",
+  "plain": {
+   "tok_s": 58.73800226457081,
+   "tokens": 384,
+   "drafted": 0,
+   "accepted": 0
+  },
+  "draft": {
+   "tok_s": 48.97054836728138,
+   "tokens": 384,
+   "drafted": 819,
+   "accepted": 471
+  },
+  "speedup": 0.8337115066785155,
+  "acceptance": 0.575091575091575
+ },
+ {
+  "row": "default slots, 4096 context",
+  "plain": {
+   "tok_s": 55.70869768004034,
+   "tokens": 128,
+   "drafted": 0,
+   "accepted": 0
+  },
+  "draft": {
+   "tok_s": 58.62114174203985,
+   "tokens": 128,
+   "drafted": 255,
+   "accepted": 156
+  },
+  "speedup": 1.0522798805803533,
+  "acceptance": 0.611764705882353
+ },
+ {
+  "row": "note 11 settings",
+  "plain": {
+   "tok_s": 56.740355226908115,
+   "tokens": 384,
+   "drafted": 0,
+   "accepted": 0
+  },
+  "draft": {
+   "tok_s": 75.14987540319386,
+   "tokens": 384,
+   "drafted": 855,
+   "accepted": 645
+  },
+  "speedup": 1.324451972545201,
+  "acceptance": 0.7543859649122807
+ }
+]

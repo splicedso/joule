@@ -120,6 +120,10 @@ def main(argv=None):
     p.add_argument("--idle", type=float, default=10.0, help="seconds of idle baseline")
     p.add_argument("--cooldown", type=float, default=5.0, help="seconds between phases")
     p.add_argument("--out", type=Path, help="write JSON results here")
+    p.add_argument("--max-idle-soc", type=float, default=3.0,
+                   help="macOS: stop if idle chip power is above this many watts (a busy machine inflates every figure; "
+                        "a quiet M5 Pro idles near 0.6 W)")
+    p.add_argument("--allow-busy", action="store_true", help="measure even when idle chip power is above --max-idle-soc")
     p.epilog = "Arguments after -- are passed to llama-bench."
     argv = sys.argv[1:] if argv is None else argv
     split = argv.index("--") if "--" in argv else len(argv)
@@ -133,6 +137,11 @@ def main(argv=None):
     with Sampler() as s:
         idle = idle_baseline(s, a.idle)
         print(f"idle: SoC {idle[0]:.2f} W, sys {idle[1]:.2f} W", file=sys.stderr)
+        if sys.platform == "darwin" and idle[0] > a.max_idle_soc and not a.allow_busy:
+            print(f"error: the machine is not idle (SoC {idle[0]:.2f} W at rest, limit {a.max_idle_soc:.1f} W). "
+                  "Something else is using the chip (check `ps -Ao pcpu,comm -r | head` and `docker stats --no-stream`); "
+                  "every figure would carry it. Re-run when it is quiet, or pass --allow-busy.", file=sys.stderr)
+            return 2
         for model in a.models:
             for phase, n in (("prefill", a.prefill), ("decode", a.decode)):
                 time.sleep(a.cooldown)

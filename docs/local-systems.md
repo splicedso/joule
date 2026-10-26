@@ -30,9 +30,10 @@ is all there is.
 per token by 72% on the M5 Pro (note 1) and the second request alone saves 43% on a GPU that is
 already at its ceiling at batch 1 (note 10). Decode is bound by reading the weights once per
 step; every extra sequence in the step rides that read for free until memory or compute runs
-out. It does run out: on the M5 Pro a 7B is cheapest per token at 16 requests (79% less than
-one) and costs 15% more again at 32, with total throughput falling (note 24). The right number
-of slots is a measured optimum per machine, not "as many as fit". For a single user this means
+out. Where it runs out depends on the machine: on the M5 Pro a 7B is cheapest per token at 16
+requests (79% less than one) and costs 15% more again at 32; on the Strix Halo energy per token
+keeps falling to 32, 90% below one, with no knee yet (note 24). The right number of slots is a
+measured optimum per machine, not "as many as fit". For a single user this means
 batching their own tool calls and sub-requests, not waiting for another user.
 
 **Prompt handling: cache the prefix.** A prompt token costs about a fortieth of a generated one
@@ -49,7 +50,11 @@ penalty disappears on every task tested and prose gets a free 1.3 times speed-up
 the result holds in llama-server, the program deployments use (note 11). On the Strix Halo the
 same setting cuts chip energy per token by a third (note 21). Our own Trace v1 draft raised
 agreement by 0.7 points and bought nothing; the stock 0.5B draft is the one to ship until a
-Trace clears the 3-point bar.
+Trace clears the 3-point bar. Drafts of up to 4 tokens are enough: at the 0.5 threshold they match
+drafts of 8 on prose and edits and beat them on code (1.72 against 1.51 times plain's speed, 2026-10-26
+re-run of note 11's set). In llama-server the draft also needs `--spec-type draft-simple`; with `-md`
+alone it loads and never drafts. And only at one or two requests at once: at two it cuts energy per
+token 29%, and from four on, on the M5 Pro, it costs 12 to 50% more than it saves (note 25).
 
 **Clock: cap the shader clock where the platform allows it.** On the Strix Halo, an 1,800 MHz cap
 through the OD table cuts 7B decode energy per token 37% at 4% less speed, and 42% at 8% less
@@ -92,8 +97,6 @@ energy, so the gap a cell has to close is named: host, supplies, fans and idle.
 
 ## Not yet measured
 
-- Joules per correct answer with the draft on, at 8 slots. Notes 9 and 11 are per token at batch 1;
-  batching may make the draft useless (the draft steals the bandwidth the batch would use).
 - The clock cap on Apple silicon and on the RTX laptop. No control is known for the first; the second
   has one and has not been tried.
 - Whether an 8-slot 7B beats a 1-slot 32B per correct answer on the Strix Halo. Both are measured

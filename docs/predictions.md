@@ -75,6 +75,25 @@ the second reversed).
 - Clock cap, `force=low`: 10.7 tok/s (predicted: under half); energy per token flat against auto on the
   mean, spread 10% flagged. The "rises above auto" half did not show. `results/halo-clockcap.md`.
 
+## 2026-10-25, 14:30 PT
+
+**Teacher faithfulness** (Strix Halo, `experiments/drafter/teacher_check.py`: on the 180 held-out
+answers the Q4_0 7B wrote through llama.cpp, the share of positions where a transformers teacher's
+top-1 is that token).
+- The Q4_0 7B's weights dequantized into transformers match on at least 99% of positions; the bf16
+  7B on fewer, between 96 and 98.5%. The gap is the mismatch Trace v1's on-policy run trained against.
+
+**Trace v1 on-policy, second attempt** (TVD, LR 3e-6, 300 steps, GEN 128, teacher: the dequantized
+Q4_0 7B; two starts: the stock 0.5B and the 35k off-policy checkpoint).
+- Neither run declines: held-out agreement at step 300 is at least 0.5 points above its starting
+  checkpoint. From stock it stays below 0.79. From the 35k checkpoint it adds under 1 point to that
+  checkpoint's agreement.
+
+**Trace v1 at 35k, speculative decoding** (`evaluate.py`, 7B Q4_0 target, k=4 and k=8, p=0.5, two passes).
+- Acceptance rises over the stock draft by less than the agreement gain suggests (as at 9k), and the
+  35k draft is faster than plain decoding at k=4 by 1.3x to 1.6x with lower chip energy per token.
+  Against the stock draft, within 5% on tokens per second either way.
+
 ## 2026-10-25, 14:50 PT
 
 **Capped joules per correct answer** (Strix Halo, `experiments/halo_capped_quality.sh`: shader clock
@@ -145,6 +164,17 @@ chip power sampled over the window, two passes with the second reversed; batches
 - Pass agreement: 1.3 to 5.7% across the six batches; two batches (1 and 4) spread over 5%. Missed
   narrowly; the batch-1 window is 2.3 seconds, 10 power samples.
 - Strix Halo half: not run yet (GPU busy with the Trace harvest). Note 24 for the Mac half.
+
+### Result (2026-10-26, 08:00 PT, Strix Halo; run 07:53 to 07:58, auto clocks, shared 90%, package power)
+
+- Batch 1 to 8: 1,737 to 463 mJ per token, 73% less. Held.
+- 8 to 16: a further 31%. Missed narrowly (predicted 15 to 30%).
+- Knee at 8 to 16 on the Strix Halo: missed. Energy per token keeps falling to 32 (a further 43%, 181 mJ), and
+  throughput nearly doubles from 16 to 32. Batch 16 is a slow spot here (throughput +11% over 8 while package
+  power drops 126 to 96 W), likely a llama.cpp Vulkan kernel path; not diagnosed.
+- Tokens per second per request at 16: 18.8 against 48.6, 39%. Held.
+- Passes within 5% at every batch: missed (21%, 16% and 10% at batches 1, 2 and 4, in 2.6 to 3.0 s windows; a
+  512-token rerun narrows them to 7%, 8% and 0.3%). results/decode-batch-halo.md.
 
 ## 2026-10-25, 22:40 PT
 
@@ -223,6 +253,191 @@ model learns from average 93 tokens (median 85, 90th percentile 150).
   shorter answers. If that happens, the bar's energy half is met for the wrong reason, and the note says so:
   the win belongs to the fine-tuning, which a Q4_0 file of the same model keeps and improves on.
 
+## 2026-10-26, 01:36 PT
+
+**Speculative decoding against batch size** (M5 Pro; target Qwen2.5 7B Q4_K_M, draft Qwen2.5 0.5B Q4_K_M,
+drafts of up to 4 tokens with a 0.5 confidence threshold, Foundry's settings; `experiments/decode_batch_energy.py`
+with SERVER_ARGS, batches 1, 2, 4, 8, 16, two passes each, run straight after the same batches without the
+draft so both meet the same machine). The Systems page lists this as not yet measured: does batching make the
+draft useless, because the batch takes the spare compute the draft's verification uses?
+- Batch 1: with the draft, 0.9 to 1.1 times the energy per token of plain decoding, 1.15 to 1.4 times the
+  speed (note 11: 0.99x energy, 1.30x speed on prose through llama-server, Q4_0 pair).
+- Batch 4: no saving left: 1.0 to 1.2 times the energy, speed within 10% either way.
+- Batch 8 and 16: the draft costs energy, 1.15 to 1.5 times plain, and total tokens per second is lower than
+  without it, because from batch 8 the chip is compute bound (note 24) and rejected draft tokens are paid for.
+- The energy crossover sits between batch 2 and 4.
+- Draft acceptance stays within 10 points across batches: batching changes the cost of a guess, not its odds.
+
+## 2026-10-26, 01:41 PT
+
+**Draft length 8 against 4, batch 1 and 2** (M5 Pro, same pair, prompt and script as the 01:36 entry; drafts
+of up to 8 with the 0.5 threshold, note 11's best prose setting, against the 4 Foundry uses). Written after the
+01:36 run's draft-4 results were seen: at batch 1, draft-4 ran 1.04 times plain's speed at 1.08 times its energy.
+- Draft-8 at batch 1: 1.15 to 1.3 times plain's speed, 0.95 to 1.1 times its energy (note 11: 1.25x, 1.04x).
+- Acceptance lower than draft-4's 60%, 45 to 60%, because later tokens in a draft are less likely.
+- At batch 2, draft-8 saves energy against plain as draft-4 did (draft-4: 23% less), within 10 points of it.
+
+## 2026-10-26, 01:42 PT
+
+**The Q4_0 pair: does the format explain the missing speed-up?** (M5 Pro; target `models/quant/7b-Q4_0.gguf`,
+draft `models/quant/0.5b-Q4_0.gguf`, note 11's pair and Foundry's; same script and prompt.) Written after
+the Q4_K_M pair gave 1.02 to 1.04 times plain's speed at batch 1 with drafts of 4 and 8. Hypothesis: verifying a
+draft is a small batch, and llama.cpp's Metal small-batch kernel covers fewer batch sizes for K-quants (note 1).
+- Plain Q4_0 7B, batches 1 to 32: this is also the run note 24's 22:40 prediction named. Same shape as the
+  Q4_K_M curve: knee at 16, batch 32 above it; batch 1 cheaper per token than Q4_K_M's (note 5).
+- Draft-4 at batch 1: 1.15 to 1.35 times plain's speed, 0.9 to 1.05 times its energy. If it comes out near
+  1.0x speed like the K-quant pair, the format hypothesis is wrong and the note says so.
+- Draft-8 at batch 1: within 0.1x of draft-4's speed.
+- Draft-4 at 8 and 16: costs more energy than plain, as with the K-quant pair.
+
+### Results for 01:36 and 01:41 (K-quant pair; plain is the mean of two runs, 01:36 and 01:40, that bracket the draft run)
+
+A first draft run at 01:37 is void: it passed `-md` without `--spec-type`, and this llama-server build then
+loads the draft and never drafts (zero draft tokens, plain's speed). Kept as
+`results/void/spec-batch-mac-7b-draft-no-spec-type.json`. The valid run (01:39) adds `--spec-type draft-simple`.
+
+01:36, draft-4 against plain:
+- Batch 1: 1.08x energy (held, 0.9 to 1.1), 1.04x speed (missed, 1.15 to 1.4).
+- Batch 4: 1.05x energy (held), 0.86x speed (missed narrowly, within 10% predicted).
+- Batch 8: 1.72x energy (missed, above 1.5), 0.55x speed. Batch 16: 1.25x energy, 0.81x speed. Both cost energy
+  and throughput, as predicted.
+- Crossover between 2 and 4: missed in shape. The draft costs 8% at batch 1, saves 22% at batch 2 (plain's chip
+  power steps from 30 to 46 W at batch 2; with the draft it reads 36 W), and costs from 4 on.
+- Acceptance within 10 points across batches: held, trivially: 60% at every batch, because every request is the
+  same prompt at temperature 0, so every slot drafts the same tokens.
+
+01:41, draft-8 against plain, batch 1 and 2: speed 1.02x (missed, 1.15 to 1.3), energy 1.09x (held, 0.95 to
+1.1); acceptance 53% (held, 45 to 60); batch 2 saves 18%, within 10 points of draft-4's 22% (held).
+
+## 2026-10-26, 01:45 PT
+
+**Note 11 re-run, plain against draft-8 at p 0.5** (`experiments/speculative_server.py`, note 11's script,
+pair, prompts and 384 forced tokens, unchanged; M5 Pro, same build). Written after tonight's decode-batch runs
+found no batch-1 speed-up with either pair (1.00 to 1.04x) on a 128-token weather paragraph.
+- Prose reproduces note 11 within 0.1x: about 1.25x speed, about 1.04x chip energy. If so, tonight's missing
+  speed-up belongs to the workload (prompt and answer length), not to the machine or the build.
+- Code and edit reproduce note 11 within 0.15x (1.49x and 2.25x speed).
+
+### Results for 01:42 (Q4_0 pair, runs 01:42:38 to 01:45:14) and for 22:40's 7B Q4_0 half
+
+The 22:40 entry (note 24) named 7B Q4_0; note 24 ran Q4_K_M and wrongly said Q4_0 was not on the machine
+(it was in `models/quant/`). Its Q4_0 run is `results/decode-batch-mac-7b-q4_0.json`. Against 22:40:
+- 1 to 8: 366 to 110 mJ per token, 70% less. Held.
+- 8 to 16: 110 to 96, 13% further. Missed narrowly (15 to 30%).
+- 16 to 32: 96 to 119, 24% more, total throughput down 370 to 342 tok/s. Missed, as on Q4_K_M: an optimum, not a plateau.
+- Speed per request at 16: 23.1 against 59.5, 39%. Held. Passes within 5%: 5.9% at batch 4. Missed narrowly.
+
+Against 01:42:
+- Plain Q4_0 has the Q4_K_M shape, knee at 16, 32 above it; batch 1 is cheaper than Q4_K_M's (366 against 518). Held.
+- Draft-4 at batch 1: 1.01x speed, 1.26x energy. Missed on both. The format hypothesis is wrong: the Q4_0 pair
+  shows no speed-up either.
+- Draft-8 within 0.1x of draft-4's speed (1.00x against 1.01x). Held.
+- Draft-4 at 8 and 16 costs more energy than plain (1.61x, 1.30x). Held.
+- Batch 2 again favours the draft (0.86x energy): plain Q4_0 at batch 2 costs more per token than at batch 1
+  (392 against 366) because chip power steps from 22 to 38 W, the step note 1 described.
+
+### Result for 01:45 (note 11 re-run, 01:45:50 to 01:48:52)
+
+Held. Draft-8 at p 0.5 against plain, three repetitions: prose 1.25x speed, 1.06x chip energy (note 11: 1.25x,
+1.04x); code 1.51x, 0.91x (1.49x, 0.92x); edit 2.24x, 0.62x (2.25x, 0.62x). The machine and build reproduce
+note 11. So the decode-batch script's missing batch-1 speed-up (1.00 to 1.04x at 53 to 61% acceptance) belongs
+to its workload: a 128-token weather paragraph without ignore_eos, one server slot, 1,024 context per slot,
+wall-clock timing including prompt processing. Not yet isolated. The speculation-against-batch results above
+stay unpublished until it is: a note cannot rest on a batch-1 baseline that contradicts a reproduced note.
+
+## 2026-10-26, 01:50 PT
+
+**Foundry's draft length: 4 against 8 at p 0.5** (`experiments/speculative_server.py` plain,draft-4-p0.5,draft-8-p0.5;
+note 11's pair, prompts and 384 tokens; M5 Pro). Foundry drafts up to 4; note 11 measured 8.
+- Draft-4 within 0.1x of draft-8's speed on prose and code, and within 0.05x on chip energy: at a 0.5 threshold
+  most drafts stop before 4 tokens anyway.
+- On edits, where nearly every token is accepted, draft-8 is faster than draft-4 by 0.2x or more.
+
+### Result for 01:50 (01:50:10 to 01:54:22)
+
+Draft-4 against draft-8 at p 0.5, against plain, three repetitions: prose 1.27x and 1.24x speed, 1.03x and 1.05x
+energy (held, within 0.1x); code 1.72x and 1.51x speed, 0.80x and 0.88x energy (missed: draft-4 is better by
+0.21x, not within 0.1x); edit 2.25x and 2.24x, 0.62x and 0.61x (missed: equal, not draft-8 faster). Draft-4 is
+never worse. Foundry keeps 4.
+
+## 2026-10-26, 02:04 PT
+
+**Diagnostic: which difference removes the draft's batch-1 speed-up** (`experiments/spec_diag.py`, M5 Pro, Q4_0
+pair, draft-4 at p 0.5 against plain, speed from the server's own timings, three repetitions per cell). Starts
+from the decode-batch script's settings (one slot, 1,024 context, a weather paragraph, 128 tokens that may stop
+early) and changes one thing per row toward note 11's (default slots, 4,096 context, the power-supply prompt,
+384 forced tokens). Speed only; no energy claim rests on it.
+- My guess: the prompt. A weather paragraph is open-ended prose the 0.5B guesses badly beyond a token or two,
+  while the power-supply explanation is more predictable. Second guess: answer length (a 128-token window
+  carries the draft's fixed start-up cost over fewer tokens). Least likely: slots or context size.
+
+### Result for 02:04 (02:04:19 to 02:06:35)
+
+Held: the prompt. Draft-4 at p 0.5 against plain, speed from the server's timings:
+batch-script settings 1.01x (61% accepted); only the power-supply prompt changed 1.41x (80%); only 384 forced
+tokens 0.83x (58%); only default slots and 4,096 context 1.05x (61%); all note 11 settings 1.32x (75%). The
+weather paragraph is text the 0.5B draft predicts poorly, and at about 60% acceptance a 4-token draft is
+break-even. Last night's speculation-against-batch runs measured the draft at its worst case.
+
+## 2026-10-26, 02:06 PT
+
+**Speculation against batch, on a prompt the draft predicts well** (M5 Pro, Q4_0 pair, draft-4 at p 0.5,
+`PROMPT=power`, batches 1 to 16, plain then draft then plain again; same script as note 24). Written after the
+02:04 diagnostic found 1.41x at batch 1 on this prompt.
+- Batch 1: 1.25 to 1.45x plain's speed, 0.8 to 1.0x its energy per token.
+- Batch 2: still saves energy, 10 to 30% less than plain.
+- Batch 4: within 10% of plain on energy; the speed-up mostly gone.
+- Batch 8 and 16: the draft costs 15 to 60% more energy per token and lowers total throughput, as on the
+  weather prompt: once the batch fills the chip, a better guess does not pay for checking it.
+
+### 02:06 entry, first run (02:07:00 to 02:09:35): speed judged, energy not
+
+Speed, draft against the mean of the two plain runs: batch 1 1.32x, 2 1.29x, 4 0.90x, 8 0.77x, 16 0.94x
+(acceptance 78 to 82%). Batch 1 held (1.25 to 1.45x). Energy is not judged from this run: the draft's two
+passes differ by 20 to 40% at batches 1 to 8 and plain drifted 15% at batch 2; the first pass of each series
+draws up to 50 W where the reversed pass draws 39 W, over 1.6 to 2.7 s windows with 7 to 12 samples, while
+Spotlight was indexing (load average 3 to 4). Declared at 02:10, before running it: the same three runs with
+ANSWER=512 (four times every window) judge the energy half of the 02:06 prediction.
+
+### 02:06 entry, 512-token run (02:10:24 to 02:17:49): energy judged
+
+Plain runs agree within 1% at every batch; pass spreads 0 to 8%; 30 to 102 power samples per window.
+Draft-4 against plain, energy per token and speed: batch 1 1.03x, 1.26x; 2 0.71x, 1.25x; 4 1.12x, 0.85x;
+8 1.50x, 0.68x; 16 1.20x, 0.87x. Acceptance 74% falling to 67% at 16.
+- Batch 1: speed held (1.25 to 1.45x); energy missed narrowly (1.03x, predicted 0.8 to 1.0x).
+- Batch 2: 29% less energy. Held (10 to 30%).
+- Batch 4: 12% more energy, missed narrowly (within 10% predicted); the speed-up is gone (0.85x). Held.
+- Batch 8 and 16: 50% and 20% more energy, lower throughput. Held. Note 25.
+## Results so far, 2026-10-26, 06:34 PT (predictions above left unedited)
+
+- Trace v1, off-policy, 35,000 prompts, LR 3e-6, ALPHA=2, one epoch: held-out agreement with the Q4_0 7B
+  0.7754 (stock 0.7616, the 9k run 0.7685). The 05:05 prediction that 35k clears 0.79: missed.
+- Trace v1 at 35k in speculative decoding (k=4, p 0.5, one request, two passes): 1.44x plain, 34% less chip
+  energy per token (14:30 entry: held); 2.3% slower than the stock draft (within 5%: held); acceptance 75.3%
+  against 71.7% (+3.6 points, more than the +1.4 of agreement: missed), accepted tokens per generated token
+  0.592 against 0.601 (fell). results/drafter/trace-v1-35k.md.
+- Teacher faithfulness (14:30 entry): dequantized Q4_0 98.8% (predicted at least 99%: missed narrowly); bf16
+  93.3% (predicted 96 to 98.5%: missed).
+
+### 23:45 entry (Lattice v1 on the M5 Pro): not run (07:30, 26 October)
+
+Linux's Strix runs put the QAT 2-bit file at 24.0% on GSM8K-250 (stock Q4_0 65.6%), 36 points below the 60% bar,
+with 84 tokens per answer. The Mac half could not change the verdict, so it was not run and the files were not
+transferred. One prediction of this entry is answerable from the Strix data: answers did get shorter, but to 84
+to 86 tokens, not 150 to 200. Missed.
+
+## 2026-10-26, 06:39 PT
+
+**Trace drafts at lower confidence thresholds** (Strix Halo, added to the on-policy pilot's eval before it runs:
+`evaluate.py`, Q4_0 7B target, one request, k=4, two passes; the stock draft, the 35k off-policy draft and both
+on-policy pilot drafts at p 0.3 and p 0.4 beside their p 0.5 rows). The 35k draft accepted 75.3% against stock's
+71.7% at p 0.5 but proposed 6% fewer tokens, so its probability is spread and fewer guesses clear 0.5.
+- Lowering the threshold raises tokens proposed and lowers acceptance for every draft; the 35k draft's proposals
+  rise more than the stock draft's (it has more guesses sitting between 0.3 and 0.5).
+- The stock draft is fastest at p 0.4 or 0.5; the 35k draft at p 0.3 or 0.4.
+- At each draft's best threshold, the 35k draft is **0 to 4% faster** than the stock draft and within 3% on chip
+  energy per token: the extra data was not wasted, but it is still far short of a draft worth shipping.
+
 ## 2026-10-26, 07:31 PT
 
 **Lattice v1, the plain fine-tune control** (Strix Halo, `experiments/lattice_plain.sh`: `qat.py` with QUANT=0, so the
@@ -236,3 +451,48 @@ the terse GSM8K answers is.
 - Its Q4_0 file is within 2 points of its F16.
 - Because answers are about 2.5 times shorter at a similar accuracy, its Q4_0 file is **cheaper per correct answer than
   stock Q4_0 by 40 to 60%** at 8 slots: the length effect, measured on its own.
+
+## 2026-10-26, 08:03 PT
+
+**Decode energy against batch size, Strix Halo follow-ups** (7B Q4_0, `experiments/decode_batch_energy.py` with a
+BATCHES override, 128-token answers, auto clocks, two passes, after the Lattice plain control). Batch 32 gave 181 mJ
+per token and 565 tok/s; batch 16 was a slow spot (301 tok/s, power down to 96 W from 126 W at batch 8).
+- **The slow spot is exactly 16 rows, a kernel path, not a region:** batches 12 and 20 both run faster per token than
+  16 would on a straight line from 8 to 32 (above 330 and 400 tok/s respectively), and their package power is above
+  110 W; 16 reproduces at about 300 tok/s and under 100 W.
+- **The knee is past 32:** from 32 to 48 energy per token falls a further 15 to 30%, from 48 to 64 by less than 10%;
+  total throughput at 64 is 750 to 1,000 tok/s, under the 7B's prefill rate here (1,546 tok/s, the clock-cap sweep).
+
+## 2026-10-26, 09:55 PT
+
+**A second model family: IBM Granite 3.3 2B Instruct** (M5 Pro; IBM's F16 GGUF, Apache-2.0, quantized here
+with the Homebrew llama-quantize into Q4_0, Q4_K_M, Q5_K_M, Q6_K and Q8_0, as note 6 did for Qwen2.5;
+`phase --seconds 12` decode, two passes, the second reversed, with Qwen2.5 3B's five files run in the same
+session as a reference; then GSM8K-250 at 8 slots with `quality.py` for Granite Q4_0, Q4_K_M and Q8_0).
+Granite 2B and Qwen2.5 3B share a hidden width of 2,048, so note 6's per-weight figures predict Granite's.
+- Q4_0 is the cheapest format per weight on Granite, as at every Qwen width (board energy).
+- Granite's board energy per weight is within 15% of Qwen2.5 3B's for every format: the cost belongs to the
+  width and the format, not the family.
+- Q5_K_M and Q6_K land within 5% of each other (they did at 3B in note 6), order not predicted.
+- The same-session Qwen2.5 3B reproduces note 6's board figures within 7% for every format.
+- GSM8K-250: Granite Q4_0 within 3 points of its Q8_0, and Q4_0 the cheapest per correct answer of the three.
+
+## Results so far, 2026-10-26, 10:06 PT (predictions above left unedited)
+
+- Trace v1 on-policy, second attempt (14:30 entry, committed 14:17 in d825a8f): "neither run declines, step 300 at
+  least 0.5 points above its start": missed for both (from stock 0.7616 to 0.7597; from 35k 0.7758 to 0.7690).
+  "From stock below 0.79": held. "From 35k under +1 point": held, by declining. Agreed decision rule (one point of
+  acceptance over the best off-policy draft at p 0.5): missed, 67.3% against 75.3%. Trace pauses.
+- Trace thresholds (06:39 entry): lower thresholds raise proposals and lower acceptance for every draft: held. The
+  35k draft's proposals rise more than stock's: held (8,052 to 11,643, +45%; stock 8,591 to 11,880, +38%). Stock
+  fastest at p 0.4 or 0.5 (p 0.5) and 35k at p 0.3 or 0.4 (p 0.4): held. At the best thresholds 35k is 0 to 4%
+  faster (+0.3%): held; within 3% on energy: missed on the letter (-5.1%), but stock's p 0.5 cell is flagged
+  (5.6% pass gap); at p 0.4, both unflagged, -0.5%. results/drafter/trace-onpolicy-pilot.md.
+
+### 09:55 entry (Granite 3.3 2B): void at 10:24, to be re-run
+
+The reference did not reproduce: same-session Qwen2.5 3B read 23 to 45% above note 6 on board energy per weight
+(predicted within 7%), at the same tokens per second. The machine was not idle: chip power at rest was 9.7 and
+11.2 W in the two passes against 0.6 W in note 6's session, from another project's Docker container restarting
+in a loop. No clause is judged. Files in `results/void/`. The re-run waits for a quiet machine; `phase` now refuses
+to measure above 3 W idle on macOS.

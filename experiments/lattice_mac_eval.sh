@@ -10,7 +10,7 @@
 #   sh experiments/lattice_mac_eval.sh [QAT_Q2_K.gguf] [QAT_Q4_0.gguf]
 #
 # Missing files are fetched from the draft release lattice-v1-qat (drafts are visible only to repo writers,
-# so this is a transfer, not a publication) and checked against the release's SHA256SUMS.
+# so this is a transfer, not a publication) and checked against the release's 1.5b-qat-SHA256SUMS.
 set -e
 cd "$(dirname "$0")/.."
 QAT=${1:-models/quant/1.5b-qat-Q2_K-imat.gguf}
@@ -19,8 +19,8 @@ REF=models/quant/1.5b-Q4_0.gguf
 for f in "$QAT" "$CTL"; do
   [ -f "$f" ] && continue
   echo "fetching $f from the draft release lattice-v1-qat"
-  gh release download lattice-v1-qat --pattern "$(basename "$f")" --pattern SHA256SUMS --dir models/quant --clobber
-  (cd models/quant && grep " $(basename "$f")\$" SHA256SUMS | shasum -a 256 -c -) || { echo "checksum mismatch on $f; not measuring"; exit 1; }
+  gh release download lattice-v1-qat --pattern "$(basename "$f")" --pattern 1.5b-qat-SHA256SUMS --dir models/quant --clobber
+  (cd models/quant && grep " $(basename "$f")\$" 1.5b-qat-SHA256SUMS | shasum -a 256 -c -) || { echo "checksum mismatch on $f; not measuring"; exit 1; }
 done
 if pgrep -f "Blender|Google Chrome|Safari|firefox|llama-server|quality[.]py" >/dev/null; then
   echo "something else is running (a browser, Blender or a server); close it first"; exit 1

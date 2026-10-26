@@ -1,0 +1,118 @@
+pass1 10:02:32
+idle: SoC 7.95 W, sys 16.51 W
+Traceback (most recent call last):
+  File "/Users/martinmuskov/Docs/GitHub/spliced/phase/.venv/bin/phase", line 10, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/Users/martinmuskov/Docs/GitHub/spliced/phase/phase/cli.py", line 139, in main
+    r = measure(s, idle, model, phase, n, a.seconds, extra)
+  File "/Users/martinmuskov/Docs/GitHub/spliced/phase/phase/measure.py", line 56, in measure
+    probe = llamacpp.run_phase(model, phase, tokens, 3, extra)
+  File "/Users/martinmuskov/Docs/GitHub/spliced/phase/phase/llamacpp.py", line 20, in run_phase
+    out = subprocess.run(cmd, capture_output=True, text=True, check=True).stdout
+          ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/martinmuskov/.local/share/uv/python/cpython-3.14.7-macos-aarch64-none/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['llama-bench', '-m', ' models/quant/granite2b-Q4_0.gguf models/quant/granite2b-Q4_K_M.gguf models/quant/granite2b-Q5_K_M.gguf models/quant/granite2b-Q6_K.gguf models/quant/granite2b-Q8_0.gguf models/quant/3b-Q4_0.gguf models/quant/3b-Q4_K_M.gguf models/quant/3b-Q5_K_M.gguf models/quant/3b-Q6_K.gguf models/quant/3b-Q8_0.gguf', '-p', '512', '-n', '0', '-r', '3', '-o', 'json']' returned non-zero exit status 1.
+exit 1 10:02:47
+--- retry after the zsh word-splitting failure at 10:02:47
+start 10:03:05
+idle: SoC 9.70 W, sys 19.97 W
+granite2b-Q4_0.gguf prefill: 3949.9 tok/s, 12.8 mJ/tok SoC
+granite2b-Q4_0.gguf decode: 134.7 tok/s, 214.8 mJ/tok SoC
+granite2b-Q4_K_M.gguf prefill: 3638.7 tok/s, 14.6 mJ/tok SoC
+granite2b-Q4_K_M.gguf decode: 128.9 tok/s, 244.6 mJ/tok SoC
+granite2b-Q5_K_M.gguf prefill: 3482.0 tok/s, 15.4 mJ/tok SoC
+granite2b-Q5_K_M.gguf decode: 113.5 tok/s, 406.2 mJ/tok SoC
+granite2b-Q6_K.gguf prefill: 3601.4 tok/s, 12.7 mJ/tok SoC
+granite2b-Q6_K.gguf decode: 100.8 tok/s, 407.9 mJ/tok SoC
+granite2b-Q8_0.gguf prefill: 3651.3 tok/s, 12.4 mJ/tok SoC
+granite2b-Q8_0.gguf decode: 84.5 tok/s, 417.9 mJ/tok SoC
+3b-Q4_0.gguf prefill: 3549.9 tok/s, 15.1 mJ/tok SoC
+3b-Q4_0.gguf decode: 118.5 tok/s, 229.8 mJ/tok SoC
+3b-Q4_K_M.gguf prefill: 3268.1 tok/s, 14.9 mJ/tok SoC
+3b-Q4_K_M.gguf decode: 110.7 tok/s, 371.1 mJ/tok SoC
+3b-Q5_K_M.gguf prefill: 2990.1 tok/s, 16.3 mJ/tok SoC
+3b-Q5_K_M.gguf decode: 99.3 tok/s, 459.3 mJ/tok SoC
+3b-Q6_K.gguf prefill: 3171.5 tok/s, 15.8 mJ/tok SoC
+3b-Q6_K.gguf decode: 88.7 tok/s, 444.1 mJ/tok SoC
+3b-Q8_0.gguf prefill: 3274.1 tok/s, 15.6 mJ/tok SoC
+3b-Q8_0.gguf decode: 73.0 tok/s, 521.0 mJ/tok SoC
+| model | phase | tok/s | SoC W | sys W | SoC mJ/tok | sys mJ/tok | SoC net mJ/tok | sys net mJ/tok |
+|---|---|---:|---:|---:|---:|---:|---:|---:|
+| granite2b-Q4_0.gguf | prefill | 3949.9 | 50.7 | 81.9 | 12.8 | 20.7 | 10.4 | 15.7 |
+| granite2b-Q4_0.gguf | decode | 134.7 | 28.9 | 63.3 | 214.8 | 469.9 | 142.9 | 321.7 |
+| granite2b-Q4_K_M.gguf | prefill | 3638.7 | 53.2 | 92.2 | 14.6 | 25.3 | 12.0 | 19.9 |
+| granite2b-Q4_K_M.gguf | decode | 128.9 | 31.5 | 69.3 | 244.6 | 537.9 | 169.4 | 383.0 |
+| granite2b-Q5_K_M.gguf | prefill | 3482.0 | 53.5 | 95.3 | 15.4 | 27.4 | 12.6 | 21.6 |
+| granite2b-Q5_K_M.gguf | decode | 113.5 | 46.1 | 94.0 | 406.2 | 828.5 | 320.7 | 652.5 |
+| granite2b-Q6_K.gguf | prefill | 3601.4 | 45.7 | 84.3 | 12.7 | 23.4 | 10.0 | 17.9 |
+| granite2b-Q6_K.gguf | decode | 100.8 | 41.1 | 86.8 | 407.9 | 860.9 | 311.7 | 662.8 |
+| granite2b-Q8_0.gguf | prefill | 3651.3 | 45.1 | 86.0 | 12.4 | 23.5 | 9.7 | 18.1 |
+| granite2b-Q8_0.gguf | decode | 84.5 | 35.3 | 82.3 | 417.9 | 973.9 | 303.1 | 737.5 |
+| 3b-Q4_0.gguf | prefill | 3549.9 | 53.6 | 91.3 | 15.1 | 25.7 | 12.4 | 20.1 |
+| 3b-Q4_0.gguf | decode | 118.5 | 27.2 | 65.6 | 229.8 | 553.5 | 148.0 | 385.1 |
+| 3b-Q4_K_M.gguf | prefill | 3268.1 | 48.5 | 84.7 | 14.9 | 25.9 | 11.9 | 19.8 |
+| 3b-Q4_K_M.gguf | decode | 110.7 | 41.1 | 85.3 | 371.1 | 770.7 | 283.5 | 590.2 |
+| 3b-Q5_K_M.gguf | prefill | 2990.1 | 48.6 | 89.2 | 16.3 | 29.8 | 13.0 | 23.1 |
+| 3b-Q5_K_M.gguf | decode | 99.3 | 45.6 | 95.4 | 459.3 | 959.8 | 361.7 | 758.8 |
+| 3b-Q6_K.gguf | prefill | 3171.5 | 50.1 | 96.1 | 15.8 | 30.3 | 12.7 | 24.0 |
+| 3b-Q6_K.gguf | decode | 88.7 | 39.4 | 85.1 | 444.1 | 958.6 | 334.9 | 733.5 |
+| 3b-Q8_0.gguf | prefill | 3274.1 | 51.0 | 93.3 | 15.6 | 28.5 | 12.6 | 22.4 |
+| 3b-Q8_0.gguf | decode | 73.0 | 38.0 | 82.8 | 521.0 | 1133.9 | 388.2 | 860.5 |
+idle: SoC 11.19 W, sys 26.52 W
+3b-Q8_0.gguf prefill: 3408.2 tok/s, 16.0 mJ/tok SoC
+3b-Q8_0.gguf decode: 73.3 tok/s, 483.3 mJ/tok SoC
+3b-Q6_K.gguf prefill: 3196.6 tok/s, 15.0 mJ/tok SoC
+3b-Q6_K.gguf decode: 88.7 tok/s, 437.1 mJ/tok SoC
+3b-Q5_K_M.gguf prefill: 3102.9 tok/s, 14.6 mJ/tok SoC
+3b-Q5_K_M.gguf decode: 100.5 tok/s, 380.4 mJ/tok SoC
+3b-Q4_K_M.gguf prefill: 3289.2 tok/s, 14.6 mJ/tok SoC
+3b-Q4_K_M.gguf decode: 110.8 tok/s, 380.1 mJ/tok SoC
+3b-Q4_0.gguf prefill: 3547.7 tok/s, 16.1 mJ/tok SoC
+3b-Q4_0.gguf decode: 117.5 tok/s, 286.2 mJ/tok SoC
+granite2b-Q8_0.gguf prefill: 3836.7 tok/s, 12.3 mJ/tok SoC
+granite2b-Q8_0.gguf decode: 85.0 tok/s, 361.3 mJ/tok SoC
+granite2b-Q6_K.gguf prefill: 3690.1 tok/s, 13.8 mJ/tok SoC
+granite2b-Q6_K.gguf decode: 101.0 tok/s, 386.9 mJ/tok SoC
+granite2b-Q5_K_M.gguf prefill: 3494.1 tok/s, 15.4 mJ/tok SoC
+granite2b-Q5_K_M.gguf decode: 112.9 tok/s, 409.3 mJ/tok SoC
+granite2b-Q4_K_M.gguf prefill: 3640.2 tok/s, 14.9 mJ/tok SoC
+granite2b-Q4_K_M.gguf decode: 128.5 tok/s, 279.5 mJ/tok SoC
+granite2b-Q4_0.gguf prefill: 3945.2 tok/s, 13.6 mJ/tok SoC
+granite2b-Q4_0.gguf decode: 134.3 tok/s, 206.5 mJ/tok SoC
+| model | phase | tok/s | SoC W | sys W | SoC mJ/tok | sys mJ/tok | SoC net mJ/tok | sys net mJ/tok |
+|---|---|---:|---:|---:|---:|---:|---:|---:|
+| 3b-Q8_0.gguf | prefill | 3408.2 | 54.5 | 98.0 | 16.0 | 28.8 | 12.7 | 21.0 |
+| 3b-Q8_0.gguf | decode | 73.3 | 35.4 | 81.0 | 483.3 | 1105.2 | 330.7 | 743.5 |
+| 3b-Q6_K.gguf | prefill | 3196.6 | 47.8 | 88.6 | 15.0 | 27.7 | 11.5 | 19.4 |
+| 3b-Q6_K.gguf | decode | 88.7 | 38.8 | 83.8 | 437.1 | 945.0 | 310.9 | 646.0 |
+| 3b-Q5_K_M.gguf | prefill | 3102.9 | 45.4 | 84.7 | 14.6 | 27.3 | 11.0 | 18.8 |
+| 3b-Q5_K_M.gguf | decode | 100.5 | 38.2 | 79.6 | 380.4 | 791.6 | 269.1 | 527.9 |
+| 3b-Q4_K_M.gguf | prefill | 3289.2 | 47.9 | 82.4 | 14.6 | 25.1 | 11.2 | 17.0 |
+| 3b-Q4_K_M.gguf | decode | 110.8 | 42.1 | 85.1 | 380.1 | 768.2 | 279.1 | 528.9 |
+| 3b-Q4_0.gguf | prefill | 3547.7 | 57.2 | 103.1 | 16.1 | 29.1 | 13.0 | 21.6 |
+| 3b-Q4_0.gguf | decode | 117.5 | 33.6 | 71.0 | 286.2 | 604.8 | 190.9 | 379.0 |
+| granite2b-Q8_0.gguf | prefill | 3836.7 | 47.2 | 86.8 | 12.3 | 22.6 | 9.4 | 15.7 |
+| granite2b-Q8_0.gguf | decode | 85.0 | 30.7 | 75.0 | 361.3 | 882.2 | 229.7 | 570.1 |
+| granite2b-Q6_K.gguf | prefill | 3690.1 | 51.1 | 95.9 | 13.8 | 26.0 | 10.8 | 18.8 |
+| granite2b-Q6_K.gguf | decode | 101.0 | 39.1 | 85.5 | 386.9 | 846.9 | 276.2 | 584.4 |
+| granite2b-Q5_K_M.gguf | prefill | 3494.1 | 53.7 | 98.2 | 15.4 | 28.1 | 12.2 | 20.5 |
+| granite2b-Q5_K_M.gguf | decode | 112.9 | 46.2 | 90.6 | 409.3 | 802.0 | 310.2 | 567.2 |
+| granite2b-Q4_K_M.gguf | prefill | 3640.2 | 54.3 | 98.4 | 14.9 | 27.0 | 11.8 | 19.8 |
+| granite2b-Q4_K_M.gguf | decode | 128.5 | 35.9 | 74.2 | 279.5 | 577.3 | 192.4 | 370.9 |
+| granite2b-Q4_0.gguf | prefill | 3945.2 | 53.5 | 89.2 | 13.6 | 22.6 | 10.7 | 15.9 |
+| granite2b-Q4_0.gguf | decode | 134.3 | 27.7 | 65.5 | 206.5 | 487.5 | 123.2 | 290.0 |
+size  format   roof chip pJ/w board pJ/w spread
+granite2b Q4_0      60%      86.6      196.8   3.7%
+granite2b Q4_K_M    61%     107.7      229.2   7.1%
+granite2b Q5_K_M    63%     167.6      335.1   3.3%
+granite2b Q6_K      66%     163.4      351.0   1.6%
+granite2b Q8_0      71%     160.1      381.5   9.9%
+3b    Q4_0      70%      83.6      187.7   8.8%
+3b    Q4_K_M    69%     121.7      249.3   0.3%
+3b    Q5_K_M    72%     136.1      283.8  19.2%
+3b    Q6_K      73%     142.8      308.4   1.4%
+3b    Q8_0      78%     162.7      362.8   2.6%
+exit 0 10:23:05

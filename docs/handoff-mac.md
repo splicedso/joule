@@ -27,15 +27,36 @@ Preview: `.claude/launch.json` config `spliced-site`, port 8772. Images carry `?
 
 ## Next, in order (kept current; items leave the list when done)
 
-1. **Morning, review the Trace 35k retrain PR** (Linux, after the harvest at about 03:55 PDT): held-out
+0. **Direction (Martin, 23:45 PT): "continue company wide, focus more on AI, cluster stuff is just in research rn".**
+   Models first. Designs is a research thread linked from Research, not a nav item; no new cluster work
+   unless he asks.
+1. **Trace 35k missed its bar (Linux, 05:50):** best held-out agreement 0.7754 against 0.79 (+1.4 points
+   over stock, +3 needed). Next: Linux's pre-registered on-policy run with the Q4_0 7B's own weights as teacher
+   (dequantized into transformers; predictions entry committed 25 Oct 14:17 in d825a8f), from stock and from
+   the 35k checkpoint, scored on the existing held-out set and by the speculative eval at k=4, p 0.5, one
+   request. If it adds under 1 point of acceptance over the off-policy draft, Trace pauses and is written up.
+   No second off-policy epoch. My 05:55 premise was wrong: the harvest teacher is already the Q4_0 7B through
+   llama.cpp, so the held-out agreement already measures the served model; bf16 was only the first on-policy
+   run's teacher. The PR still reports eval acceptance beside agreement and rests the verdict on the eval.
+   PR 23 (Trace 35k) and PR 24 (batch script's Linux sensor) merged and verified at 06:39; note 26 published.
+   Proposed to Linux: the 35k and stock drafts at p 0.3 and 0.4 beside p 0.5 in the pilot's eval (the
+   trained draft guesses less at 0.5). Then review the pilot PR.
+   **(Done) Review the Trace 35k retrain PR** (Linux, after the harvest at about 03:55 PDT): held-out
    agreement against the 0.79 bar, read from the raw eval JSON. Then the **Lattice v1 QAT PR**, with the
-   step-0 and final quantization checks (at most 4 distinct values per group, MAE about a third of magnitude).
-2. **Review Linux's Strix decode-batch PR** (first free-GPU window after the eval, auto clocks, 7B Q4_0):
+   step-0 and final quantization checks (at most 4 distinct values per group, MAE about a third of magnitude),
+   tokens per answer for every model, and the 16:40 prediction text byte-identical to 39ef9bc (Linux moved
+   the entry back into time order after a merge). Then run `sh experiments/lattice_mac_eval.sh` here (it
+   fetches the draft release lattice-v1-qat and checks 1.5b-qat-SHA256SUMS); predictions at 23:45 (mine) and
+   Linux's control entry, 23:48 (b40930f; label corrected from a mistaken 00:05 in 0f96aa3 at 23:52, before any QAT file existed; verified one line). The 16:40 entry is byte-identical to 39ef9bc (verified, 1,386 bytes), so that check is done.
+2. **(Done 08:03) Linux's Strix decode-batch PR (#25)**: merged and verified; note 24 section 6; Fabric's curve replaced.
+   Was: **Review Linux's Strix decode-batch PR** (first free-GPU window after the eval, auto clocks, 7B Q4_0):
    if the knee differs from the Mac's 16, replace the transferred curve in `fabric/costs/strix-halo.json`
    with the measured one and add the Strix half to note 24 with its own verdict.
 3. **With Martin at the keyboard (his sudo):** the warm-case capped run with temperatures logged (20 min);
    the capped decode-batch variant; node wall power under the cap if a plug-in meter is at hand (do not buy one).
 4. **Martin's open calls:** a GitHub remote for Fabric (private, or keep local); a role title.
+4b. Done 02:20: speculation against batch is note 25 (the discrepancy was the prompt; `spec_diag.py`).
+   For Linux, after its decode-batch run and only if GPU time is free: the same draft-vs-batch on the Strix.
 5. **After the retrain:** the shape study (ex-Kinetic) four-shape runs on Linux; then Spliced Linux on the box
    needs a llama.cpp build against the image's Mesa before the clock policy can verify on a node.
 
@@ -546,3 +567,64 @@ Clock script restores auto before exit 3/4/5; bc gone; smoke boot re-run unchang
 unflagged on purpose: an OD write that fails right after the manual level is set exits 1 with the level
 still manual; an edge, note it when the script next changes. Nothing else queued for Linux before the
 batch run; the Trace retrain PR is the next review (morning).
+
+## 23:51 PT, AI first
+
+Martin: "continue company wide, focus more on AI, cluster stuff is just in research rn". Site nav is now
+Research, Models, Systems, Foundry, About; Designs is a "Research thread" section at the end of Research
+(and stays in the footer). Every nav page now marks itself (only Research did). Models page: Lattice v1
+status current. Dead `.announce` CSS removed. Checked with headless Chrome (the pane was hidden and runs no
+animation frames): every nav page at 1440 and 390 px, no overflow, no console errors; the home fall
+advances frame by frame on scroll at both sizes and lands on the last frame before scrolling away. The nav
+scrolling away with the page is by design (transparent over the top render), not a bug.
+Note 24: the 1.5B small-batch rows re-run with 512-token answers, within 8%, knee at 16; the reversed pass
+reads 4 to 10% higher (warm chip). Lattice v1 Mac half: `experiments/lattice_mac_eval.sh`, mirrored order
+with a QAT-at-Q4_0 control, because fine-tuning shortens answers and J per correct scales with length.
+
+## 01:50 PT, speculation against batch; Foundry's Fast mode never drafted
+
+`llama-server -md` without `--spec-type draft-simple` loads the draft and never drafts in this build. Foundry's
+Fast mode had that defect since it was written; fixed (d1704c7) and the app now says so if a Fast-mode answer
+drafts nothing. A void run kept in `results/void/`. Note 11 re-run: reproduced within 0.02x. Note 24 corrected:
+the Q4_0 7B was on the machine all along (`models/quant/`); its run is section 5, same knee at 16.
+
+## 02:20 PT, note 25
+
+The draft's missing speed-up was the prompt: a weather paragraph is accepted about 60% of the time, break-even
+for a 4-token draft; note 11's power-supply prompt 80% and 1.41x. On that prompt with 512-token windows: draft
+1.26x speed at one request, 29% less energy at two, 12 to 50% more from four on. Note 25, Systems updated.
+The 128-token windows were too noisy for energy (first pass of a series up to 50 W against 39 W reversed,
+Spotlight indexing); 512 tokens gave plain runs within 1%. Foundry's fix built green on all three platforms.
+
+## 06:39 PT, Trace 35k merged, note 26
+
+Trace v1 at 35k: agreement 0.7754 (bar 0.79). At one request it is 1.44x plain and a third cheaper, but no faster
+than the stock draft: 75.3% acceptance against 71.7%, yet fewer guesses clear p 0.5 (8,052 against 8,591), so
+accepted per generated token falls 0.601 to 0.592. Every figure recomputed from the raw eval. Strix plain draws
+104 W time-weighted, the draft 103 W: that is why speculation saves a third there and breaks even on the Mac.
+
+## 07:30 PT, Lattice v1 failed
+
+QAT 2-bit 24.0% on GSM8K-250 (stock Q4_0 65.6%), QAT weights at Q4_0 26.0%, answers 84 to 86 tokens against 248.
+The Mac eval is not run. The Q4_0 control cannot separate the 2-bit grid from the data, because qat.py writes the
+quantized values into the weights before saving. Next, after the Trace pilot: a plain fine-tune (same data and
+schedule, no fake quantization) decides between the grid and the terse GSM8K answers.
+
+## 08:03 PT, the Strix half of note 24
+
+PR 25 verified against the raw files and merged. On the Strix Halo the 7B has no knee to 32 requests: 1,737 mJ per
+token at one, 181 at 32 (90% less), throughput nearly doubling from 16 to 32. Batch 16 is a slow spot in both runs
+(+11% throughput over 8 while power falls 126 to 96 W), likely a Vulkan path, not diagnosed. Note 24 section 6;
+Systems updated; Fabric `costs/strix-halo.json` now carries the measured Strix curve (demo J per correct 4 to 12%
+lower than with the Mac curve). Site QA: one intermittent console error on `/lab/` at desktop, not reproducible in
+isolation or on the next full pass; most likely a request aborted by the meta refresh.
+
+## 10:25 PT, Trace paused; Granite void; a waiter is running
+
+Trace paused (PR 27, note 26 section 4): at each draft's best threshold every draft serves within 1.1%.
+Lattice v1: 24%; the plain fine-tune control is training on Linux.
+The Granite 3.3 2B sweep (second model family) is void: another project's Docker container (node:22-bookworm,
+restarted in a loop, ~180% CPU) held the chip at 10 to 17 W idle against 0.6 W in note 6's session. `phase` and
+`decode_batch_energy.py` now refuse on macOS above 3 W idle. `experiments/when_quiet.sh` is waiting (up to 8 h)
+for two quiet readings in a row, then runs `width_granite.sh` (sweep plus GSM8K). **While it waits, open no
+browser and no Blender on this Mac.** Log: `results/log/granite-width-retry.log`.

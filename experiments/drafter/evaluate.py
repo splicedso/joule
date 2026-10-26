@@ -23,7 +23,12 @@ import speculative_server as ss  # noqa: E402
 from phase.power import Sampler, idle_baseline  # noqa: E402
 
 DRAFTS = {"stock": "models/quant/drafter-stock-Q4_0.gguf", "spliced": "models/quant/drafter-spliced-Q4_0.gguf",
-          "v2": "models/quant/drafter-v2-Q4_0.gguf", "v1": "models/quant/drafter-v1-Q4_0.gguf"}
+          "v2": "models/quant/drafter-v2-Q4_0.gguf", "v1": "models/quant/drafter-v1-Q4_0.gguf",
+          "v135k": "models/quant/drafter-v135k-Q4_0.gguf",
+          # on-policy pilot (TVD, Q4_0 7B dequantized as teacher): from stock, and from the 35k checkpoint;
+          # v19k is the 9k off-policy draft (0.7685) re-converted, so its file's provenance is certain
+          "v19k": "models/quant/drafter-v19k-Q4_0.gguf",
+          "onq4s": "models/quant/drafter-onq4s-Q4_0.gguf", "onq4k": "models/quant/drafter-onq4k-Q4_0.gguf"}
 N = 256
 CONDS = ["plain", "stock-4", "spliced-4", "stock-8", "spliced-8"]
 
