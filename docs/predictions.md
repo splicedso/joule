@@ -401,3 +401,17 @@ per token and 565 tok/s; batch 16 was a slow spot (301 tok/s, power down to 96 W
   110 W; 16 reproduces at about 300 tok/s and under 100 W.
 - **The knee is past 32:** from 32 to 48 energy per token falls a further 15 to 30%, from 48 to 64 by less than 10%;
   total throughput at 64 is 750 to 1,000 tok/s, under the 7B's prefill rate here (1,546 tok/s, the clock-cap sweep).
+
+## 2026-10-26, 09:55 PT
+
+**A second model family: IBM Granite 3.3 2B Instruct** (M5 Pro; IBM's F16 GGUF, Apache-2.0, quantized here
+with the Homebrew llama-quantize into Q4_0, Q4_K_M, Q5_K_M, Q6_K and Q8_0, as note 6 did for Qwen2.5;
+`phase --seconds 12` decode, two passes, the second reversed, with Qwen2.5 3B's five files run in the same
+session as a reference; then GSM8K-250 at 8 slots with `quality.py` for Granite Q4_0, Q4_K_M and Q8_0).
+Granite 2B and Qwen2.5 3B share a hidden width of 2,048, so note 6's per-weight figures predict Granite's.
+- Q4_0 is the cheapest format per weight on Granite, as at every Qwen width (board energy).
+- Granite's board energy per weight is within 15% of Qwen2.5 3B's for every format: the cost belongs to the
+  width and the format, not the family.
+- Q5_K_M and Q6_K land within 5% of each other (they did at 3B in note 6), order not predicted.
+- The same-session Qwen2.5 3B reproduces note 6's board figures within 7% for every format.
+- GSM8K-250: Granite Q4_0 within 3 points of its Q8_0, and Q4_0 the cheapest per correct answer of the three.
