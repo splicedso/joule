@@ -1,0 +1,7 @@
+start 02:04:19
+batch script                   plain  56.4 tok/s  draft  57.1  speed-up 1.01x  accepted 61%  tokens 128/128
+power-supply prompt            plain  57.0 tok/s  draft  80.3  speed-up 1.41x  accepted 80%  tokens 128/128
+384 forced tokens              plain  58.7 tok/s  draft  49.0  speed-up 0.83x  accepted 58%  tokens 384/384
+default slots, 4096 context    plain  55.7 tok/s  draft  58.6  speed-up 1.05x  accepted 61%  tokens 128/128
+note 11 settings               plain  56.7 tok/s  draft  75.1  speed-up 1.32x  accepted 75%  tokens 384/384
+exit 0 02:06:35

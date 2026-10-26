@@ -305,3 +305,22 @@ early) and changes one thing per row toward note 11's (default slots, 4,096 cont
 - My guess: the prompt. A weather paragraph is open-ended prose the 0.5B guesses badly beyond a token or two,
   while the power-supply explanation is more predictable. Second guess: answer length (a 128-token window
   carries the draft's fixed start-up cost over fewer tokens). Least likely: slots or context size.
+
+### Result for 02:04 (02:04:19 to 02:06:35)
+
+Held: the prompt. Draft-4 at p 0.5 against plain, speed from the server's timings:
+batch-script settings 1.01x (61% accepted); only the power-supply prompt changed 1.41x (80%); only 384 forced
+tokens 0.83x (58%); only default slots and 4,096 context 1.05x (61%); all note 11 settings 1.32x (75%). The
+weather paragraph is text the 0.5B draft predicts poorly, and at about 60% acceptance a 4-token draft is
+break-even. Last night's speculation-against-batch runs measured the draft at its worst case.
+
+## 2026-10-26, 02:06 PT
+
+**Speculation against batch, on a prompt the draft predicts well** (M5 Pro, Q4_0 pair, draft-4 at p 0.5,
+`PROMPT=power`, batches 1 to 16, plain then draft then plain again; same script as note 24). Written after the
+02:04 diagnostic found 1.41x at batch 1 on this prompt.
+- Batch 1: 1.25 to 1.45x plain's speed, 0.8 to 1.0x its energy per token.
+- Batch 2: still saves energy, 10 to 30% less than plain.
+- Batch 4: within 10% of plain on energy; the speed-up mostly gone.
+- Batch 8 and 16: the draft costs 15 to 60% more energy per token and lowers total throughput, as on the
+  weather prompt: once the batch fills the chip, a better guess does not pay for checking it.

@@ -19,6 +19,8 @@ BATCHES = [int(b) for b in os.environ.get("BATCHES", "1,2,4,8,16,32").split(",")
 SERVER_ARGS = os.environ.get("SERVER_ARGS", "").split()  # extra llama-server flags, e.g. a draft model
 ANSWER = int(os.environ.get("ANSWER", 128))  # tokens per answer; note 24 used 128. A 1.5B at batch 1 gives a 0.7 s window at 128: raise it for small models
 PROMPT = "Write a plain paragraph about the weather in a city of your choice, about two hundred words long."
+PROMPTS = {"weather": PROMPT, "power": "Explain to a new engineer how a power supply in a laptop turns mains electricity into the voltages the processor needs, step by step.\n\n"}
+PROMPT = PROMPTS[os.environ.get("PROMPT", "weather")]  # "power": note 11's prose prompt, where a 0.5B draft is accepted far more often
 SERVER = shutil.which("llama-server") or "/opt/homebrew/bin/llama-server"
 PORT = 18555
 
@@ -77,5 +79,5 @@ rows = []
 for order, batches in ((1, BATCHES), (2, list(reversed(BATCHES)))):
     for b in batches:
         r = one(b); r["pass"] = order; rows.append(r); print(r)
-json.dump({"model": os.path.basename(MODEL), "machine": sys.platform, "answer_tokens": ANSWER, "power": "chip (macmon) on darwin, package hwmon on linux; not wall", "server_args": " ".join(SERVER_ARGS), "rows": rows}, open(OUT, "w"), indent=1)
+json.dump({"model": os.path.basename(MODEL), "machine": sys.platform, "answer_tokens": ANSWER, "power": "chip (macmon) on darwin, package hwmon on linux; not wall", "server_args": " ".join(SERVER_ARGS), "prompt": os.environ.get("PROMPT", "weather"), "rows": rows}, open(OUT, "w"), indent=1)
 print("wrote", OUT)
