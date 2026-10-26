@@ -468,9 +468,23 @@ lineup use that. The rack's own render needed a wider camera (top was cut). Chai
 row, lineup; node, open, grid and tray were already rendered and are good. Rule: no text objects in a
 scene with more than about a hundred instances.
 
+## 22:50: company-wide, while Blender renders
+
+Martin: "continue company-wide research and improvements." Three things that need neither Blender
+nor the GPU: `fabric/testbed.py` is real now (the scheduler drives llama-server instances over HTTP,
+records every timing, and measures the second prefill as the handoff cost a real transfer must beat;
+twelve tests pass, one against two fake servers). `tools/spliced-linux/` in phase is a mkosi recipe for
+the appliance image (clock policy service that caps and verifies, power log service, Fabric service),
+untested; Linux is asked to build it on the CPU beside the harvest and smoke-boot it in qemu, not install
+it. `experiments/decode_batch_energy.py` with its prediction is the reading note's first experiment,
+decode energy per token against batch 1 to 32; it runs on this Mac after the renders (never beside
+Blender) and on Linux in the free-GPU window. `spliced/linux` also exists as its own local repo, same
+files; the phase copy is the one Linux pulls.
+
 ## Next, in order
 
 1. Review the Trace 35k retrain PR (morning), then the Lattice v1 QAT PR
+2. Run `decode_batch_energy.py` on the Mac once no Blender is running; publish as a note if the two passes agree
 2. With Martin at the keyboard: the warm-case capped run (20 min, logged with temperatures), the one measurement V1's sled depends on when it lands (bar: 0.79 held-out agreement).
 2. The capped J-per-correct run (quality.py at OD 1800, 7B and 32B, 8 slots, two passes, about 1.5 h
    GPU-exclusive): Linux asked Martin directly at 14:30 whether to run it now (pausing the resumable
