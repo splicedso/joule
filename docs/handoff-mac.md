@@ -518,3 +518,10 @@ Fabric `costs/strix-halo.json` carries the curve (knee 16) in place of note 1's 
 The Linux half is queued behind the Trace harvest; same script, hwmon package power, 7B Q4_0.
 Site: note 24 registered in `build.py`, 29 pages, 0 broken links. README lists notes 22 to 24 (22 and 23
 were missing from it).
+
+## 23:05 PT, nav and About
+
+Site nav is now Research, Models, Systems, Designs, Foundry, About; the Lab page is `/about/` (About
+label, same copy) with `/lab/` redirecting. Phone nav holds the six on one row at 375 px (About hides
+below 520 px, it is in the footer). Systems page: concurrency rule now says "as many as the chip
+rewards" and cites note 24. Next on the Mac: the 1.5B half of the batch question (prediction at 23:05).

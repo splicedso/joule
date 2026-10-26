@@ -127,3 +127,17 @@ chip power sampled over the window, two passes with the second reversed; batches
 - Pass agreement: 1.3 to 5.7% across the six batches; two batches (1 and 4) spread over 5%. Missed
   narrowly; the batch-1 window is 2.3 seconds, 10 power samples.
 - Strix Halo half: not run yet (GPU busy with the Trace harvest). Note 24 for the Mac half.
+
+## 2026-10-25, 23:05 PT
+
+**Decode energy against batch size, 1.5B** (M5 Pro; Qwen2.5 1.5B Q4_0, the format note 1 used;
+same script and batches as note 24, run right after it on the same idle machine). The question is
+whether the knee moves with model size.
+- Total throughput stops rising by batch 8 to 16 (the 1.5B reaches the 7B's compute ceiling, about
+  1,800 tok/s, at a smaller batch than its 9x memory headroom suggests, because it is compute bound
+  sooner per token: note 6 found small models cost more per weight).
+- Energy per token is lowest at 16 or 32, not 8, and batch 32 is within 10% of the minimum: the
+  minimum sits at about twice the batch where throughput plateaus, as it did on the 7B.
+- Batch 8 saves 65 to 75% against batch 1 (note 1 measured 72% with llama-batched-bench).
+- Tokens per second per request at batch 16 is under half of batch 1.
+- Passes agree within 6% at every batch.
