@@ -202,3 +202,12 @@ draft useless, because the batch takes the spare compute the draft's verificatio
   without it, because from batch 8 the chip is compute bound (note 24) and rejected draft tokens are paid for.
 - The energy crossover sits between batch 2 and 4.
 - Draft acceptance stays within 10 points across batches: batching changes the cost of a guess, not its odds.
+
+## 2026-10-26, 01:41 PT
+
+**Draft length 8 against 4, batch 1 and 2** (M5 Pro, same pair, prompt and script as the 01:36 entry; drafts
+of up to 8 with the 0.5 threshold, note 11's best prose setting, against the 4 Foundry uses). Written after the
+01:36 run's draft-4 results were seen: at batch 1, draft-4 ran 1.04 times plain's speed at 1.08 times its energy.
+- Draft-8 at batch 1: 1.15 to 1.3 times plain's speed, 0.95 to 1.1 times its energy (note 11: 1.25x, 1.04x).
+- Acceptance lower than draft-4's 60%, 45 to 60%, because later tokens in a draft are less likely.
+- At batch 2, draft-8 saves energy against plain as draft-4 did (draft-4: 23% less), within 10 points of it.

@@ -1,0 +1,25 @@
+draft start 01:39:12
+{'batch': 1, 'tokens': 128, 'seconds': 2.173593044281006, 'tok_s': 58.888668390241655, 'watts': 32.2165781656901, 'mj_per_token': 547.0760172771822, 'samples': 9, 'draft_n': 102, 'draft_accepted': 61, 'pass': 1}
+{'batch': 2, 'tokens': 256, 'seconds': 2.593764066696167, 'tok_s': 98.69825991000121, 'watts': 35.56821615045721, 'mj_per_token': 360.37328502944604, 'samples': 11, 'draft_n': 204, 'draft_accepted': 122, 'pass': 1}
+{'batch': 4, 'tokens': 512, 'seconds': 3.6620359420776367, 'tok_s': 139.8129368739946, 'watts': 36.00403189659119, 'mj_per_token': 257.5157399707551, 'samples': 16, 'draft_n': 408, 'draft_accepted': 244, 'pass': 1}
+{'batch': 8, 'tokens': 1024, 'seconds': 6.353839159011841, 'tok_s': 161.16240502368242, 'watts': 36.38001737923458, 'mj_per_token': 225.73513577120312, 'samples': 29, 'draft_n': 816, 'draft_accepted': 488, 'pass': 1}
+{'batch': 16, 'tokens': 2048, 'seconds': 7.502150297164917, 'tok_s': 272.98839917589294, 'watts': 36.33091298271628, 'mj_per_token': 133.08592267068244, 'samples': 34, 'draft_n': 1632, 'draft_accepted': 976, 'pass': 1}
+{'batch': 16, 'tokens': 2048, 'seconds': 7.50226902961731, 'tok_s': 272.98407880535154, 'watts': 36.33130166190011, 'mj_per_token': 133.0894527655064, 'samples': 35, 'draft_n': 1632, 'draft_accepted': 976, 'pass': 2}
+{'batch': 8, 'tokens': 1024, 'seconds': 6.405271053314209, 'tok_s': 159.86833210909364, 'watts': 36.557640996472585, 'mj_per_token': 228.67343716031118, 'samples': 29, 'draft_n': 816, 'draft_accepted': 488, 'pass': 2}
+{'batch': 4, 'tokens': 512, 'seconds': 3.6820809841156006, 'tok_s': 139.0518030995935, 'watts': 37.14349293708801, 'mj_per_token': 267.11982231891386, 'samples': 16, 'draft_n': 408, 'draft_accepted': 244, 'pass': 2}
+{'batch': 2, 'tokens': 256, 'seconds': 2.6065971851348877, 'tok_s': 98.21233655124674, 'watts': 36.56187334927645, 'mj_per_token': 372.2737349823526, 'samples': 11, 'draft_n': 204, 'draft_accepted': 122, 'pass': 2}
+{'batch': 1, 'tokens': 128, 'seconds': 2.1834490299224854, 'tok_s': 58.62284772662824, 'watts': 33.20332018534342, 'mj_per_token': 566.3887285069826, 'samples': 9, 'draft_n': 102, 'draft_accepted': 61, 'pass': 2}
+wrote results/spec-batch-mac-7b-draft.json
+plain start 01:40:17
+{'batch': 1, 'tokens': 128, 'seconds': 2.276068925857544, 'tok_s': 56.237312739452314, 'watts': 29.760646629333497, 'mj_per_token': 529.1975234879143, 'samples': 10, 'draft_n': 0, 'draft_accepted': 0, 'pass': 1}
+{'batch': 2, 'tokens': 256, 'seconds': 2.7056961059570312, 'tok_s': 94.61520805547018, 'watts': 45.685641288757324, 'mj_per_token': 482.8572723950799, 'samples': 12, 'draft_n': 0, 'draft_accepted': 0, 'pass': 1}
+{'batch': 4, 'tokens': 512, 'seconds': 3.147361993789673, 'tok_s': 162.67591748590428, 'watts': 40.8721866607666, 'mj_per_token': 251.2491540999493, 'samples': 14, 'draft_n': 0, 'draft_accepted': 0, 'pass': 1}
+{'batch': 8, 'tokens': 1024, 'seconds': 3.475834846496582, 'tok_s': 294.60548191238894, 'watts': 39.665967051188154, 'mj_per_token': 134.6409672817432, 'samples': 15, 'draft_n': 0, 'draft_accepted': 0, 'pass': 1}
+{'batch': 16, 'tokens': 2048, 'seconds': 6.065845966339111, 'tok_s': 337.62809200313717, 'watts': 36.62180723462786, 'mj_per_token': 108.46789145225384, 'samples': 28, 'draft_n': 0, 'draft_accepted': 0, 'pass': 1}
+{'batch': 16, 'tokens': 2048, 'seconds': 6.066910982131958, 'tok_s': 337.5688230850418, 'watts': 36.63804259123626, 'mj_per_token': 108.53503074247541, 'samples': 27, 'draft_n': 0, 'draft_accepted': 0, 'pass': 2}
+{'batch': 8, 'tokens': 1024, 'seconds': 3.4835429191589355, 'tok_s': 293.9536052127166, 'watts': 39.57903188069661, 'mj_per_token': 134.643804936686, 'samples': 15, 'draft_n': 0, 'draft_accepted': 0, 'pass': 2}
+{'batch': 4, 'tokens': 512, 'seconds': 3.146050214767456, 'tok_s': 162.74374693597989, 'watts': 41.20902633666992, 'mj_per_token': 253.21419171257452, 'samples': 14, 'draft_n': 0, 'draft_accepted': 0, 'pass': 2}
+{'batch': 2, 'tokens': 256, 'seconds': 2.7052838802337646, 'tok_s': 94.62962533080962, 'watts': 45.7027390797933, 'mj_per_token': 482.96438794958794, 'samples': 12, 'draft_n': 0, 'draft_accepted': 0, 'pass': 2}
+{'batch': 1, 'tokens': 128, 'seconds': 2.2677149772644043, 'tok_s': 56.444483227962486, 'watts': 30.062050437927248, 'mj_per_token': 532.5950158231685, 'samples': 10, 'draft_n': 0, 'draft_accepted': 0, 'pass': 2}
+wrote results/spec-batch-mac-7b-plain-run2.json
+exit 0 01:41:10
