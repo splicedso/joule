@@ -526,3 +526,13 @@ Run by `when_quiet.sh` after two quiet readings (idle chip 0.46 and 0.50 W); pha
 - Same-session Qwen2.5 3B reproduces note 6 within 7%: held (within 0.9% on board and 2% on chip, every format).
 - GSM8K-250: Q4_0 within 3 points of Q8_0: missed narrowly (75.2% against 78.8%, 3.6 points). Q4_0 the cheapest per
   correct answer of the three: held, narrowly (20.0 J against 20.4 for Q4_K_M and 20.6 for Q8_0). Note 28.
+
+## 2026-10-26, 11:52 PT
+
+**Batching on a second family** (M5 Pro; Granite 3.3 2B Q4_0 and, in the same session, Qwen2.5 1.5B Q4_0;
+`experiments/batch_granite.sh`: `decode_batch_energy.py`, 512-token answers, batches 1 to 32, two passes; run by
+`when_quiet.sh` once the Mac idles under 2 W twice in a row).
+- Granite's lowest energy per token is at batch 16, as for both Qwen sizes on this machine (note 24); batch 32
+  costs at least 5% more than 16.
+- Batch 8 costs 65 to 80% less per token than batch 1 (Qwen 1.5B: 71%).
+- The same-session Qwen 1.5B reproduces note 24's 512-token run within 8% at every batch.
