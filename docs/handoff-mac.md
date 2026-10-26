@@ -494,7 +494,7 @@ scenes with hundreds of instances, and a render counts only when its log says "B
 ## Next, in order
 
 1. Review the Trace 35k retrain PR (morning), then the Lattice v1 QAT PR
-2. Run `decode_batch_energy.py` on the Mac once no Blender is running; publish as a note if the two passes agree
+2. Done: `decode_batch_energy.py` ran on the Mac (7B Q4_K_M, passes within 6%), published as note 24; the Strix half is Linux's when the GPU is free
 2. With Martin at the keyboard: the warm-case capped run (20 min, logged with temperatures), the one measurement V1's sled depends on when it lands (bar: 0.79 held-out agreement).
 2. The capped J-per-correct run (quality.py at OD 1800, 7B and 32B, 8 slots, two passes, about 1.5 h
    GPU-exclusive): Linux asked Martin directly at 14:30 whether to run it now (pausing the resumable
@@ -509,3 +509,12 @@ scenes with hundreds of instances, and a render counts only when its log says "B
 2. Check the home hero fall on a real scroll, at desktop and phone width.
 3. Trace: decide between the 35k run and Q4_0-teacher on-policy; queue it on Linux.
 4. Foundry: create its GitHub repo once Martin says yes, then a signed release.
+
+## 22:50 PT, note 24 published
+
+Decode energy against batch, Mac half: `results/decode-batch-mac-7b-q4km.json`, note 24, verdict in
+`docs/predictions.md`. Knee at batch 16 (111 mJ per token), 32 is 15% worse and slower in total.
+Fabric `costs/strix-halo.json` carries the curve (knee 16) in place of note 1's 1.5B curve; 12 tests pass.
+The Linux half is queued behind the Trace harvest; same script, hwmon package power, 7B Q4_0.
+Site: note 24 registered in `build.py`, 29 pages, 0 broken links. README lists notes 22 to 24 (22 and 23
+were missing from it).

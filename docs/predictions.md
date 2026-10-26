@@ -115,3 +115,15 @@ chip power sampled over the window, two passes with the second reversed; batches
   (its capped runs are already compute bound at 8, Fabric's roofline).
 - Tokens per second per request fall below half of batch 1 by batch 16 on both machines.
 - The two passes agree within 5% at every batch, because each run is short and warmed.
+
+### Result (2026-10-25, 22:35 PT, M5 Pro; ran on Qwen2.5 7B Q4_K_M because the Q4_0 7B is not on this Mac)
+
+- Batch 1 to 8: 534 to 137 mJ per token at the chip, 74% less. Held (note 1's 1.5B gave 72%).
+- 8 to 16: 137 to 111, a further 19%. Held (predicted 15 to 30%).
+- 16 to 32: 111 to 128, 15% more energy per token, and total throughput fell (338.8 to 322.7 tok/s).
+  Missed: predicted a flattening with under 10% more saving, not a rise. The knee on this machine is
+  at 16, and 32 is worse, not merely no better.
+- Tokens per second per request at batch 16: 21.2 against 55.6, 38% of batch 1. Held.
+- Pass agreement: 1.3 to 5.7% across the six batches; two batches (1 and 4) spread over 5%. Missed
+  narrowly; the batch-1 window is 2.3 seconds, 10 power samples.
+- Strix Halo half: not run yet (GPU busy with the Trace harvest). Note 24 for the Mac half.

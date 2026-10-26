@@ -68,6 +68,9 @@ Raw JSON is in `results/`.
 - [19. Per correct answer, serving matters as much as size](notes/2026-10-joules-per-correct-answer.md): joules per correct GSM8K answer on an M5 Pro and a Strix Halo. The 7B batched at 8 costs less per correct answer than the 1.5B alone, on both machines; the Halo spends 4.5 to 6 times the chip energy, with its GPU clock at maximum through memory-bound decode.
 - [20. Calibration doubles 2-bit accuracy](notes/2026-10-lattice-v0-calibration.md): an importance matrix lifts Qwen2.5 1.5B Q2_K from 21% to 42% on GSM8K at the same size (37% from general-text calibration). It cuts joules per correct answer 40%, but Q4_0 is still cheaper per answer on an M5 Pro, because a 2-bit token costs more energy than a 4-bit one.
 - [21. Trace v1](notes/2026-10-trace-v1.md): a 0.5B draft trained on Qwen2.5 7B's probabilities on the Strix Halo. +0.7 points of agreement, no faster than the stock draft; on-policy distillation drifted. On the Halo, speculative decoding itself cuts chip energy per token by 34%.
+- [22. Does 2-bit pay on large models?](notes/2026-10-lattice-large.md): calibrated 2-bit against Q4_0 at 7B and 32B on the Strix Halo. At 32B the 2-bit model costs 16% less per correct answer at equal accuracy; at 7B Q4_0 still wins by 21%.
+- [23. Does a clock cap pay per correct answer?](notes/2026-10-capped-quality.md): capping the Strix Halo's shader clock at 1,800 MHz cuts joules per correct answer 19 to 28% at eight requests at once, accuracy within a point, for 11 to 24% less speed.
+- [24. Where batching stops paying](notes/2026-10-decode-batch.md): decode energy per token at batch 1 to 32 on the M5 Pro, 7B. 74% less by batch 8, 79% by 16, then 15% more at 32: the knee is an optimum, not a plateau.
 
 ## Known limits
 
