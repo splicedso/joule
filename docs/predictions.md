@@ -152,3 +152,13 @@ whether the knee moves with model size.
 - Tokens per second per request at 16: 73.2 against 191.0, 38%. Held.
 - Passes within 4.8% at every batch. Held. Batch-1 and batch-2 windows are under 0.8 s with 2 to 3
   power samples; those rows stand on their agreement with note 1. Folded into note 24, section 4.
+
+## 2026-10-25, 23:12 PT
+
+**Decode against batch, 1.5B, longer windows** (M5 Pro; Qwen2.5 1.5B Q4_0; the same script with
+ANSWER=512, so every window is four times longer: batch 1 about 2.7 s and about 13 power samples).
+Note 24's 1.5B rows at batch 1 to 8 had 2 to 4 samples each. This rerun checks them.
+- Batch 1 to 8 mJ per token within 10% of the 128-token run (97, 100, 53, 30), slightly higher, because
+  attention reads a longer KV cache on average (up to about 540 tokens against about 150).
+- The knee stays at 16; batch 32 still costs more per token than 16.
+- Passes within 5% at every batch, now that no window has fewer than 8 samples.

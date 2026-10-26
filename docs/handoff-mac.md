@@ -25,6 +25,20 @@ Foundry app, and direct the Linux session (AMD Strix Halo) by SendMessage. Marti
 
 Preview: `.claude/launch.json` config `spliced-site`, port 8772. Images carry `?v=` so a reload shows new renders.
 
+## Next, in order (kept current; items leave the list when done)
+
+1. **Morning, review the Trace 35k retrain PR** (Linux, after the harvest at about 03:55 PDT): held-out
+   agreement against the 0.79 bar, read from the raw eval JSON. Then the **Lattice v1 QAT PR**, with the
+   step-0 and final quantization checks (at most 4 distinct values per group, MAE about a third of magnitude).
+2. **Review Linux's Strix decode-batch PR** (first free-GPU window after the eval, auto clocks, 7B Q4_0):
+   if the knee differs from the Mac's 16, replace the transferred curve in `fabric/costs/strix-halo.json`
+   with the measured one and add the Strix half to note 24 with its own verdict.
+3. **With Martin at the keyboard (his sudo):** the warm-case capped run with temperatures logged (20 min);
+   the capped decode-batch variant; node wall power under the cap if a plug-in meter is at hand (do not buy one).
+4. **Martin's open calls:** a GitHub remote for Fabric (private, or keep local); a role title.
+5. **After the retrain:** the shape study (ex-Kinetic) four-shape runs on Linux; then Spliced Linux on the box
+   needs a llama.cpp build against the image's Mesa before the clock policy can verify on a node.
+
 ## State at handoff
 
 - **Notes published:** 1 to 21. Note 22 (`notes/2026-10-lattice-large.md`, Lattice on 7B and 32B)
@@ -493,22 +507,7 @@ scenes with hundreds of instances, and a render counts only when its log says "B
 
 ## Next, in order
 
-1. Review the Trace 35k retrain PR (morning), then the Lattice v1 QAT PR
-2. Done: `decode_batch_energy.py` ran on the Mac (7B Q4_K_M, passes within 6%), published as note 24; the Strix half is Linux's when the GPU is free
-2. With Martin at the keyboard: the warm-case capped run (20 min, logged with temperatures), the one measurement V1's sled depends on when it lands (bar: 0.79 held-out agreement).
-2. The capped J-per-correct run (quality.py at OD 1800, 7B and 32B, 8 slots, two passes, about 1.5 h
-   GPU-exclusive): Linux asked Martin directly at 14:30 whether to run it now (pausing the resumable
-   harvest) or after the retrain. Martin answered at 14:50: run it now, pause the harvest, resume after.
-   Relayed to Linux verbatim with the run spec (7B Q4_0, 32B Q4_0 and 32B calibrated Q2_K at OD 1800,
-   8 slots, two passes, prediction pushed first, readback committed, harvest resumed after).
-3. Kinetic (14:30): data complete and verified (1e9 uint32 tokens, all ids in vocabulary, shard reproduction
-   byte-identical); the prepare.py crash is a PyGILState abort at interpreter exit after every token is
-   written; a small fix PR is coming; train.py smoke-tested on ROCm (10 steps, wide shape, 72.4M params).
-   The four-shape runs queue after the retrain. PR 19 (the exit fix and `results/kinetic-data.md`) reviewed
-   and merged at 14:45; the fix is `os._exit(0)` after flushing and closing both files, documented in place.
-2. Check the home hero fall on a real scroll, at desktop and phone width.
-3. Trace: decide between the 35k run and Q4_0-teacher on-policy; queue it on Linux.
-4. Foundry: create its GitHub repo once Martin says yes, then a signed release.
+Moved to the top of this file (23:10 PT) and kept current there; the old list here had gone stale.
 
 ## 22:36 PT, note 24 published
 
