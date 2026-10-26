@@ -48,7 +48,8 @@ Preview: `.claude/launch.json` config `spliced-site`, port 8772. Images carry `?
    the entry back into time order after a merge). Then run `sh experiments/lattice_mac_eval.sh` here (it
    fetches the draft release lattice-v1-qat and checks 1.5b-qat-SHA256SUMS); predictions at 23:45 (mine) and
    Linux's control entry, 23:48 (b40930f; label corrected from a mistaken 00:05 in 0f96aa3 at 23:52, before any QAT file existed; verified one line). The 16:40 entry is byte-identical to 39ef9bc (verified, 1,386 bytes), so that check is done.
-2. **Review Linux's Strix decode-batch PR** (first free-GPU window after the eval, auto clocks, 7B Q4_0):
+2. **(Done 08:03) Linux's Strix decode-batch PR (#25)**: merged and verified; note 24 section 6; Fabric's curve replaced.
+   Was: **Review Linux's Strix decode-batch PR** (first free-GPU window after the eval, auto clocks, 7B Q4_0):
    if the knee differs from the Mac's 16, replace the transferred curve in `fabric/costs/strix-halo.json`
    with the measured one and add the Strix half to note 24 with its own verdict.
 3. **With Martin at the keyboard (his sudo):** the warm-case capped run with temperatures logged (20 min);
@@ -608,3 +609,12 @@ QAT 2-bit 24.0% on GSM8K-250 (stock Q4_0 65.6%), QAT weights at Q4_0 26.0%, answ
 The Mac eval is not run. The Q4_0 control cannot separate the 2-bit grid from the data, because qat.py writes the
 quantized values into the weights before saving. Next, after the Trace pilot: a plain fine-tune (same data and
 schedule, no fake quantization) decides between the grid and the terse GSM8K answers.
+
+## 08:03 PT, the Strix half of note 24
+
+PR 25 verified against the raw files and merged. On the Strix Halo the 7B has no knee to 32 requests: 1,737 mJ per
+token at one, 181 at 32 (90% less), throughput nearly doubling from 16 to 32. Batch 16 is a slow spot in both runs
+(+11% throughput over 8 while power falls 126 to 96 W), likely a Vulkan path, not diagnosed. Note 24 section 6;
+Systems updated; Fabric `costs/strix-halo.json` now carries the measured Strix curve (demo J per correct 4 to 12%
+lower than with the Mac curve). Site QA: one intermittent console error on `/lab/` at desktop, not reproducible in
+isolation or on the next full pass; most likely a request aborted by the meta refresh.

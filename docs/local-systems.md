@@ -30,9 +30,10 @@ is all there is.
 per token by 72% on the M5 Pro (note 1) and the second request alone saves 43% on a GPU that is
 already at its ceiling at batch 1 (note 10). Decode is bound by reading the weights once per
 step; every extra sequence in the step rides that read for free until memory or compute runs
-out. It does run out: on the M5 Pro a 7B is cheapest per token at 16 requests (79% less than
-one) and costs 15% more again at 32, with total throughput falling (note 24). The right number
-of slots is a measured optimum per machine, not "as many as fit". For a single user this means
+out. Where it runs out depends on the machine: on the M5 Pro a 7B is cheapest per token at 16
+requests (79% less than one) and costs 15% more again at 32; on the Strix Halo energy per token
+keeps falling to 32, 90% below one, with no knee yet (note 24). The right number of slots is a
+measured optimum per machine, not "as many as fit". For a single user this means
 batching their own tool calls and sub-requests, not waiting for another user.
 
 **Prompt handling: cache the prefix.** A prompt token costs about a fortieth of a generated one

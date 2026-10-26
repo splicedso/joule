@@ -75,11 +75,28 @@ The 7B at Q4_0 (`results/decode-batch-mac-7b-q4_0.json`, run 26 October at 01:42
 
 Same shape: the knee at 16, batch 32 costs 24% more than 16 with less total throughput. Q4_0 is cheaper than Q4_K_M at every batch, 30% at batch 1 and 10% at 16, as note 5's unpacking cost predicts. Batch 2 costs more per token than batch 1 here: the chip's power steps from 22 to 38 W when the second request arrives, and Q4_0's lower batch-1 power makes the step larger in proportion.
 
+## 6. The Strix Halo has no knee to 32
+
+The prediction's Strix Halo half, run on 26 October (AMD Ryzen AI Max+ 395, Radeon 8060S, Linux, llama.cpp 620d2225c, Vulkan, auto clocks; package power from the amdgpu sensor, not the chip-only reading the Mac gives). Qwen2.5 7B Q4_0, the same script, 128-token answers:
+
+| batch | tok/s | tok/s per request | W | mJ per token | vs batch 1 | pass spread |
+|---:|---:|---:|---:|---:|---:|---:|
+| 1 | 48.6 | 48.6 | 84.4 | 1,737 | | 21.4% |
+| 2 | 92.5 | 46.3 | 102.5 | 1,109 | 36% less | 15.6% |
+| 4 | 175.4 | 43.9 | 126.4 | 721 | 58% less | 9.7% |
+| 8 | 271.9 | 34.0 | 125.9 | 463 | 73% less | 3.2% |
+| 16 | 300.7 | 18.8 | 95.7 | 318 | 82% less | 0.5% |
+| 32 | 565.4 | 17.7 | 102.4 | 181 | 90% less | 4.8% |
+
+Energy per token keeps falling all the way to 32, where it is 90% below batch 1, and total throughput nearly doubles from 16 to 32. The M5 Pro was cheapest at 16 and worse at 32. The Strix Halo's GPU has far more arithmetic for the same memory, so the batch fills it later. Its knee, if it has one, lies beyond 32.
+
+Batch 16 is a slow spot in both of its runs: only 11% more throughput than batch 8 while power falls from 126 to 96 W, then nearly double at 32. That looks like a llama.cpp Vulkan code path at 16 rows, not a property of the chip; it is not diagnosed. The short windows at batches 1 to 4 spread up to 21% between passes; a rerun with 512-token answers narrowed them to 0.3 to 8% and gave the same shape (`results/decode-batch-halo-7b-a512.json`), though some of its answers stop early and lower the concurrency late in the window. Prediction verdict for this half: held on the fall to 8 (73%) and on speed per request (39% of batch 1 at 16); missed on the knee at 8 to 16, and on pass agreement.
+
 ## What this changes
 
 - Fabric's cost table carried note 1's 1.5B curve to batch 8 as its batch curve, labelled as transferred. It now carries the 7B curve to 32, still transferred to the Strix Halo until the same script runs there, with the knee at 16.
-- The Systems page's per-module figure assumed 8 slots. Sixteen is 19% cheaper per token on this chip at 7B and 13% at 1.5B; the Strix Halo's knee is expected earlier (its capped runs are compute bound at 8), which the Linux run will settle.
-- Two model sizes put the knee at the same batch on this chip. The place to look for it moving is the machine, not the model.
+- The Systems page's per-module figure assumed 8 slots. Sixteen is 19% cheaper per token on the M5 Pro at 7B and 13% at 1.5B. On the Strix Halo, 32 is 61% cheaper than 8 (section 6); the prediction that its knee would come earlier was wrong.
+- Two model sizes put the knee at the same batch on the M5 Pro, and the Strix Halo has none to 32 (section 6). The knee belongs to the machine, not the model, so every machine needs its own measurement before its slot count is set.
 
 ## Limits
 
@@ -99,6 +116,9 @@ uv run python experiments/decode_batch_energy.py models/qwen2.5-1.5b-instruct-q4
 uv run python experiments/decode_batch_summary.py results/decode-batch-mac-1.5b-q4_0.json
 ANSWER=512 uv run python experiments/decode_batch_energy.py models/qwen2.5-1.5b-instruct-q4_0.gguf results/decode-batch-mac-1.5b-q4_0-a512.json
 uv run python experiments/decode_batch_energy.py models/quant/7b-Q4_0.gguf results/decode-batch-mac-7b-q4_0.json
+# Strix Halo, Linux, llama.cpp Vulkan build on PATH
+uv run python experiments/decode_batch_energy.py models/quant/7b-Q4_0.gguf results/decode-batch-halo-7b.json
+ANSWER=512 uv run python experiments/decode_batch_energy.py models/quant/7b-Q4_0.gguf results/decode-batch-halo-7b-a512.json
 ```
 
-Nothing else running: no browser, no Blender. Raw results: `results/decode-batch-mac-7b-q4km.json`, `results/decode-batch-mac-1.5b-q4_0.json`, `results/decode-batch-mac-1.5b-q4_0-a512.json`, `results/decode-batch-mac-7b-q4_0.json`.
+Nothing else running: no browser, no Blender. Raw results: `results/decode-batch-mac-7b-q4km.json`, `results/decode-batch-mac-1.5b-q4_0.json`, `results/decode-batch-mac-1.5b-q4_0-a512.json`, `results/decode-batch-mac-7b-q4_0.json`; Strix Halo `results/decode-batch-halo-7b.json`, `results/decode-batch-halo-7b-a512.json`, `results/decode-batch-halo.md`.
