@@ -414,6 +414,15 @@ per token and 565 tok/s; batch 16 was a slow spot (301 tok/s, power down to 96 W
 - **The knee is past 32:** from 32 to 48 energy per token falls a further 15 to 30%, from 48 to 64 by less than 10%;
   total throughput at 64 is 750 to 1,000 tok/s, under the 7B's prefill rate here (1,546 tok/s, the clock-cap sweep).
 
+### Result (2026-10-26, 11:01 PT; runs 10:56 to 10:58, auto clocks, 128-token answers, two passes)
+
+- Slow spot exactly at 16: missed. Batch 12 ran at 253 tok/s, 20 at 392, and 16 at 327 tok/s and 110 W did not
+  reproduce the morning's 301 tok/s and 96 W. Per-request speed is flat at 19 to 21 tok/s from 12 to 32 and at 11 at 48
+  and 64: tiers of 32 and 64 rows, not one slow row.
+- Knee past 32, a further 15 to 30% from 32 to 48: missed, 48 is 5% worse than 32. 48 to 64 under 10%: missed, 64 is
+  21% below 48 (171 mJ per token, the lowest measured). 750 to 1,000 tok/s at 64: missed narrowly, 720.
+  results/decode-batch-halo.md.
+
 ## 2026-10-26, 09:55 PT
 
 **A second model family: IBM Granite 3.3 2B Instruct** (M5 Pro; IBM's F16 GGUF, Apache-2.0, quantized here
