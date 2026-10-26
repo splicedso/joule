@@ -390,3 +390,14 @@ Linux's Strix runs put the QAT 2-bit file at 24.0% on GSM8K-250 (stock Q4_0 65.6
 with 84 tokens per answer. The Mac half could not change the verdict, so it was not run and the files were not
 transferred. One prediction of this entry is answerable from the Strix data: answers did get shorter, but to 84
 to 86 tokens, not 150 to 200. Missed.
+
+## 2026-10-26, 08:03 PT
+
+**Decode energy against batch size, Strix Halo follow-ups** (7B Q4_0, `experiments/decode_batch_energy.py` with a
+BATCHES override, 128-token answers, auto clocks, two passes, after the Lattice plain control). Batch 32 gave 181 mJ
+per token and 565 tok/s; batch 16 was a slow spot (301 tok/s, power down to 96 W from 126 W at batch 8).
+- **The slow spot is exactly 16 rows, a kernel path, not a region:** batches 12 and 20 both run faster per token than
+  16 would on a straight line from 8 to 32 (above 330 and 400 tok/s respectively), and their package power is above
+  110 W; 16 reproduces at about 300 tok/s and under 100 W.
+- **The knee is past 32:** from 32 to 48 energy per token falls a further 15 to 30%, from 48 to 64 by less than 10%;
+  total throughput at 64 is 750 to 1,000 tok/s, under the 7B's prefill rate here (1,546 tok/s, the clock-cap sweep).
