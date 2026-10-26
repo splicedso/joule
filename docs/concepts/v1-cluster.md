@@ -83,11 +83,13 @@ scheduling unit.
 
 1. Two carriers at 85 W each under a 4 x 80 mm fan cage hold their clock at 1,800 MHz at a 35 C inlet.
    One sled, one afternoon, a thermocouple and the power log. This is the first prototype. What we
-   know today (Linux power log, 25 October, 17:40): the Strix Halo holds 1,800 MHz under every capped
-   run of the afternoon with its GPU edge at 94 C and CPU at 93.5 C, in a desktop chassis whose air
-   is 70 to 93 C by its ACPI zones. The clock holds, but at the top of the die's range; the sled's job
-   is to bring that down, and a part that needs 94 C to deliver 85 W is a part with no thermal margin
-   in a 16-sled pod. The carrier's fin stack is sized for that, not for the module's nominal power.
+   know today, and no more: every capped run of 25 October held 1,800 MHz throughout (clock sampled
+   every 0.5 s) at 59 to 88 W package power, but no die temperature was recorded for any of them;
+   temperature logging began at 17:34, after the last one. The one temperature we have is the
+   harvest on auto at 119 W: GPU edge 94 C in a desktop chassis. The capped runs drew less and were
+   very likely cooler. So "the clock holds warm" is not yet measured. A 20 minute capped run with the
+   die pre-heated by the harvest, logged, would be the evidence; it needs root and is queued for the
+   morning. The carrier's fin stack is sized for that measurement, whatever it says.
 2. The sled's idle at the wall is at or below 110 W. Same afternoon.
 3. Sixteen sleds in a rack stay within 20 C rise at the hot-aisle face. Needs sixteen sleds.
 4. Joules per correct answer at the wall for a full pod, under Fabric, against the single-module figure.

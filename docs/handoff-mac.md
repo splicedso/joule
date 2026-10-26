@@ -417,7 +417,8 @@ die's range, so the sled's fin stack is sized to bring it down, not to the nomin
 
 ## Next, in order
 
-1. Review the Trace 35k retrain PR (morning), then the Lattice v1 QAT PR when it lands (bar: 0.79 held-out agreement).
+1. Review the Trace 35k retrain PR (morning), then the Lattice v1 QAT PR
+2. With Martin at the keyboard: the warm-case capped run (20 min, logged with temperatures), the one measurement V1's sled depends on when it lands (bar: 0.79 held-out agreement).
 2. The capped J-per-correct run (quality.py at OD 1800, 7B and 32B, 8 slots, two passes, about 1.5 h
    GPU-exclusive): Linux asked Martin directly at 14:30 whether to run it now (pausing the resumable
    harvest) or after the retrain. Martin answered at 14:50: run it now, pause the harvest, resume after.
