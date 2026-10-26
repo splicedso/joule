@@ -46,6 +46,7 @@ The first runs of this series used a weather paragraph as the prompt. The draft'
 ## What this changes
 
 - A draft model belongs on a machine serving one or two requests at once, which describes a person's own laptop. A server with four or more requests in flight should turn it off. The rule depends on the load, not on the model, so a scheduler can apply it per moment.
+- The power at one request decides how much the draft saves. On the Strix Halo, whose package draws about 104 W decoding one request with or without the draft, the same kind of draft cuts energy per token by a third (note 26).
 - Trace, our draft-model family, is for the first case. Its bar stays at one request, and its value is largest on text the stock draft guesses badly.
 
 ## Limits

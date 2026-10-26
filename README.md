@@ -72,6 +72,7 @@ Raw JSON is in `results/`.
 - [23. Does a clock cap pay per correct answer?](notes/2026-10-capped-quality.md): capping the Strix Halo's shader clock at 1,800 MHz cuts joules per correct answer 19 to 28% at eight requests at once, accuracy within a point, for 11 to 24% less speed.
 - [24. Where batching stops paying](notes/2026-10-decode-batch.md): decode energy per token at batch 1 to 32 on the M5 Pro, 7B and 1.5B. 74% less by batch 8, 79% by 16, then 15% more at 32: the knee is an optimum, not a plateau, and it sits at 16 for both sizes.
 - [25. A draft and a batch fill the same gap](notes/2026-10-draft-and-batch.md): a draft model at 1 to 16 requests at once on the M5 Pro. 1.26x speed at one request, 29% less energy at two, then 12 to 50% more energy from four on. Which text it guesses matters more than anything else; and `-md` without `--spec-type` loads a draft that never drafts.
+- [26. More data made the draft right more often, and no faster](notes/2026-10-trace-35k.md): Trace v1 on 35,000 prompts on the Strix Halo. Agreement 0.7754 against a 0.79 bar; its guesses are accepted more often but it guesses less at the same threshold, so it is no faster than the stock draft. Speculation itself is 1.45x faster and a third cheaper there.
 
 ## Known limits
 
