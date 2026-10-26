@@ -370,6 +370,19 @@ cell is a product only if idle comes down to about 200 W). `docs/program.md` "Fr
 and what two people can do": no frontier claim until a model can be measured against one; weights open
 while small; a closed model is a business decision with no work and no mention. Systems page updated.
 
+## 18:30: the system, air cooled, on paper, printable, and a desk unit
+
+Martin, in order: "fix logos, renders; make an actual schematic design if I gotta 3D print; design the
+system inside; make it able to air cool, that looks like a box"; "make it more like a system" (with
+Etched's chip-board-sled-rack lineup picture); "for people doing local hosting also, not just big data
+centers". Done: cell v2 with a real air path and twelve pull-out carriers in two tiers, every part a
+named collection; STL export at 1:10 (25 parts); SVG drawings (plan, side, front, parts list) generated
+from the same numbers; a desk unit (one carrier, small enclosure) for local hosting; a lineup render of
+package, carrier, desk unit and cell at true relative scale, which is the Designs page's top render.
+Render chain `render/log/system.sh` (six scenes) is running; the Designs page is rewritten around the
+lineup and waits for the chain to build. Carrier, desk and cell geometry are duplicated across
+`cell.py`, `desk.py` and `lineup.py` on purpose for now; a shared `parts.py` is the right next cleanup.
+
 ## Next, in order
 
 1. Review the Trace 35k retrain PR, then the Lattice v1 QAT PR when it lands (bar: 0.79 held-out agreement).

@@ -3,6 +3,27 @@
 A design, not a product. A unit that is a datacenter on its own and a row of hundreds when
 docked, built so that the cost of one is low and the cost of the hundredth is lower. 25 October 2026.
 
+## Revision 2 (25 October, evening): air cooled, in parts, one carrier at every size
+
+Martin: "make it air-coolable, that looks like a box with no space to air cool"; "make it more like a
+system"; "for people doing local hosting too, not just big datacenters". So:
+
+- **Air path.** Intake through the whole front door (filtered grille), a wall of eight 230 mm fans,
+  ducted lanes front to back over the carriers, the prefill fin stack, exhaust through the rear door.
+  The long sides are closed and carry the docks. Liquid stays as an option through the same couplers.
+- **The carrier is the unit.** A tray, the module board, a vapour chamber the length of the tray, a fin
+  stack in its own duct, a handle. Twelve per cell in two tiers of six, pulled from the front. One in
+  a 0.32 by 0.28 by 0.62 m enclosure is the desk unit (`site/render/desk.py`): filtered intake, the
+  carrier's duct, two rear fans, a host board beneath, power and two network ports.
+- **Parts.** `site/render/cell.py` builds every part in its own named collection and exports STL at 1:10
+  (`--parts DIR`; 25 parts, `site/render/parts/cell`), so a scale model can be printed.
+- **Drawings.** `site/render/cell_drawings.py` draws plan, side and front with dimensions and the parts
+  list from the same numbers, as SVG on the Designs page.
+- **The lineup.** `site/render/lineup.py` shows package, carrier, desk unit and cell at true relative
+  size in one frame, the way Etched shows its family.
+
+The earlier text below describes the first revision and stays for the record.
+
 ## The unit
 
 A low, narrow, deep block: 0.6 metres wide, 1.2 metres tall, 3.0 metres deep, on a skid with
