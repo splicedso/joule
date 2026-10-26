@@ -270,3 +270,12 @@ Against 01:42:
 - Draft-4 at 8 and 16 costs more energy than plain (1.61x, 1.30x). Held.
 - Batch 2 again favours the draft (0.86x energy): plain Q4_0 at batch 2 costs more per token than at batch 1
   (392 against 366) because chip power steps from 22 to 38 W, the step note 1 described.
+
+### Result for 01:45 (note 11 re-run, 01:45:50 to 01:48:52)
+
+Held. Draft-8 at p 0.5 against plain, three repetitions: prose 1.25x speed, 1.06x chip energy (note 11: 1.25x,
+1.04x); code 1.51x, 0.91x (1.49x, 0.92x); edit 2.24x, 0.62x (2.25x, 0.62x). The machine and build reproduce
+note 11. So the decode-batch script's missing batch-1 speed-up (1.00 to 1.04x at 53 to 61% acceptance) belongs
+to its workload: a 128-token weather paragraph without ignore_eos, one server slot, 1,024 context per slot,
+wall-clock timing including prompt processing. Not yet isolated. The speculation-against-batch results above
+stay unpublished until it is: a note cannot rest on a batch-1 baseline that contradicts a reproduced note.

@@ -1,8 +1,10 @@
 # Where batching stops paying
 
-**Prediction verdict, 7B:** held on the fall (74% less energy per token from batch 1 to 8, a further 19% to 16, speed per request at 38% of batch 1 by 16); missed on the top end, where energy per token rose 15% from batch 16 to 32 instead of flattening, and on pass agreement, which was 5.2 and 5.7% at two batches against a predicted 5%. **1.5B (second prediction, same evening):** held on the knee (lowest at 16, batch 8 saves 69%, speed per request 38% at 16, passes within 4.8%); missed on the ceiling (1,171 tok/s, not about 1,800) and narrowly on batch 32, which costs 12% more than 16 against a predicted 10%.
+**Prediction verdict, 7B:** held on the fall (74% less energy per token from batch 1 to 8, a further 19% to 16, speed per request at 38% of batch 1 by 16); missed on the top end, where energy per token rose 15% from batch 16 to 32 instead of flattening, and on pass agreement, which was 5.2 and 5.7% at two batches against a predicted 5%. **1.5B (second prediction, same evening):** held on the knee (lowest at 16, batch 8 saves 69%, speed per request 38% at 16, passes within 4.8%); missed on the ceiling (1,171 tok/s, not about 1,800) and narrowly on batch 32, which costs 12% more than 16 against a predicted 10%. **7B at Q4_0, the format first named (26 October):** held on the fall (70% by batch 8) and on speed per request; missed on the top end in the same way (batch 32 costs 24% more than 16) and narrowly on the step from 8 to 16 (13%, not 15 to 30).
 
-Spliced research note 24, 25 October 2026. Apple M5 Pro, 24 GB, macOS 27.0.1 on AC, Metal. llama.cpp build 11669 (Homebrew), llama-server. Qwen2.5 7B Instruct Q4_K_M (the Q4_0 the prediction names is not on this machine; Q4_K_M is the format every earlier Mac 7B figure used), then Qwen2.5 1.5B Instruct Q4_0 under a second prediction.
+Spliced research note 24, 25 October 2026. Apple M5 Pro, 24 GB, macOS 27.0.1 on AC, Metal. llama.cpp build 11669 (Homebrew), llama-server. Qwen2.5 7B Instruct Q4_K_M, then Qwen2.5 1.5B Instruct Q4_0 under a second prediction, then the 7B at Q4_0, the format the first prediction named.
+
+**Correction, 26 October:** the first version of this note said the Q4_0 7B was not on this machine. It was, in `models/quant/`; the search had looked only in `models/`. The Q4_0 run is now in section 5. Its result agrees with the Q4_K_M one.
 
 Note 1 measured that serving eight requests at once cuts chip energy per token 72% on a 1.5B model, and stopped at eight. Note 8's roofline says a server has to batch tens of sequences per weight pass before the memory traffic is paid for. The cluster reading note ranks one question first: on the machines we own, where does energy per token stop falling as the batch grows? This note answers it on the Mac at a 7B.
 
@@ -58,6 +60,21 @@ Batch 1 to 8 reproduces note 1, which measured the same model and format with a 
 
 **Checked with longer windows.** The 1.5B's small-batch rows above rest on 2 to 4 power samples each. A third prediction, committed before the rerun, repeated them with 512-token answers, four times every window, 11 to 75 samples each (`ANSWER=512`, `results/decode-batch-mac-1.5b-q4_0-a512.json`). Batch 1 to 8 came back at 105, 103, 54 and 30 mJ per token, within 8% of the short run, the knee stayed at 16 and batch 32 stayed above it. The passes did not agree within 5%: they spread 4 to 10%, and the second pass was higher at every batch. The second pass runs in reverse, straight after the two longest windows, so it meets a warmer chip. That is a run-order effect the short run was too brief to show, and it is the reason the tables above are means of both orders.
 
+## 5. The format the prediction named
+
+The 7B at Q4_0 (`results/decode-batch-mac-7b-q4_0.json`, run 26 October at 01:42):
+
+| batch | tok/s | tok/s per request | W | mJ per token | vs batch 1 | pass spread |
+|---:|---:|---:|---:|---:|---:|---:|
+| 1 | 59.5 | 59.5 | 21.8 | 366 | | 3.1% |
+| 2 | 98.0 | 49.0 | 38.4 | 392 | 7% more | 2.8% |
+| 4 | 185.6 | 46.4 | 38.2 | 206 | 44% less | 5.9% |
+| 8 | 329.5 | 41.2 | 36.3 | 110 | 70% less | 0.2% |
+| 16 | 369.6 | 23.1 | 35.4 | 96 | 74% less | 1.2% |
+| 32 | 341.5 | 10.7 | 40.5 | 119 | 68% less | 0.5% |
+
+Same shape: the knee at 16, batch 32 costs 24% more than 16 with less total throughput. Q4_0 is cheaper than Q4_K_M at every batch, 30% at batch 1 and 10% at 16, as note 5's unpacking cost predicts. Batch 2 costs more per token than batch 1 here: the chip's power steps from 22 to 38 W when the second request arrives, and Q4_0's lower batch-1 power makes the step larger in proportion.
+
 ## What this changes
 
 - Fabric's cost table carried note 1's 1.5B curve to batch 8 as its batch curve, labelled as transferred. It now carries the 7B curve to 32, still transferred to the Strix Halo until the same script runs there, with the knee at 16.
@@ -69,7 +86,7 @@ Batch 1 to 8 reproduces note 1, which measured the same model and format with a 
 - Chip energy only, not wall. Idle and board power are a fixed cost per second, so at the wall batching pays more than this table shows and the knee moves later, not earlier.
 - Short windows. 7B: 2.3 seconds and 10 power samples at batch 1, 12.7 seconds at 32; two batches spread over 5% between passes. 1.5B: 0.7 seconds and 2 samples at batch 1, 3 to 4 samples through batch 8, 7 at 16 and 19 at 32, so its small-batch rows were thin on power; a 512-token rerun with 11 to 75 samples per window reproduced them within 8% (section 4). Longer windows show a run-order effect: the reversed pass, after the batch-32 runs, reads 4 to 10% higher.
 - One prompt and one answer length. Longer contexts make the KV-cache read a larger share of each step and move the knee down (note 14 measured batching at 4,096-token contexts on the Windows laptop; this run did not vary context).
-- The 7B is Q4_K_M, not the Q4_0 the prediction names. Note 5 found the two read the same bytes with Q4_K costing more to unpack; the shape of the curve should carry, the mJ figures are Q4_K_M's.
+- Sections 1 to 3 are Q4_K_M; section 5 repeats the 7B at the Q4_0 the prediction named, with the same shape.
 - Why batch 32 is slower in total than 16 was not isolated; the server was started fresh per batch and the context per slot was constant, so it is the batch, not memory pressure from a larger context.
 
 ## Reproduce
@@ -81,6 +98,7 @@ uv run python experiments/decode_batch_summary.py results/decode-batch-mac-7b-q4
 uv run python experiments/decode_batch_energy.py models/qwen2.5-1.5b-instruct-q4_0.gguf results/decode-batch-mac-1.5b-q4_0.json
 uv run python experiments/decode_batch_summary.py results/decode-batch-mac-1.5b-q4_0.json
 ANSWER=512 uv run python experiments/decode_batch_energy.py models/qwen2.5-1.5b-instruct-q4_0.gguf results/decode-batch-mac-1.5b-q4_0-a512.json
+uv run python experiments/decode_batch_energy.py models/quant/7b-Q4_0.gguf results/decode-batch-mac-7b-q4_0.json
 ```
 
-Nothing else running: no browser, no Blender. Raw results: `results/decode-batch-mac-7b-q4km.json`, `results/decode-batch-mac-1.5b-q4_0.json`, `results/decode-batch-mac-1.5b-q4_0-a512.json`.
+Nothing else running: no browser, no Blender. Raw results: `results/decode-batch-mac-7b-q4km.json`, `results/decode-batch-mac-1.5b-q4_0.json`, `results/decode-batch-mac-1.5b-q4_0-a512.json`, `results/decode-batch-mac-7b-q4_0.json`.
