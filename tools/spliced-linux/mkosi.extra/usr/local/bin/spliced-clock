@@ -1,20 +1,30 @@
 #!/bin/sh
 # Cap the amdgpu shader clock through the OD table (the control that works on gfx1151, results/halo-clockcap.md)
-# and verify under a short load that the active clock stays at the cap. Exits non-zero if it does not.
-set -e
+# and verify under a real GPU load that the active clock stays at the cap. Fails loudly, never silently:
+# no amdgpu device, no OD table, no load tool, or an active clock reading of 0 all exit non-zero.
+#   spliced-clock cap [MHz]   write the cap, verify under load (SPLICED_LOAD: a command that busies the GPU
+#                             for a few seconds; default: the pinned llama-bench on the configured model)
+#   spliced-clock auto        reset the OD table and return to auto
+set -u
 MHZ="${2:-1800}"
-D=$(ls -d /sys/class/drm/card*/device | head -1)
+D=$(ls -d /sys/class/drm/card*/device 2>/dev/null | head -1)
+[ -n "$D" ] && [ -e "$D/pp_od_clk_voltage" ] || { echo "spliced-clock: no amdgpu device with an OD table (/sys/class/drm/card*/device/pp_od_clk_voltage); not capped" >&2; exit 2; }
+cur() { grep '\*' "$D/pp_dpm_sclk" | grep -o '[0-9]*Mhz' | grep -o '[0-9]*' | head -1; }
 case "$1" in
   cap)
-    echo manual > "$D/power_dpm_force_performance_level"
-    echo "s 1 $MHZ" > "$D/pp_od_clk_voltage"
-    echo c > "$D/pp_od_clk_voltage"
-    # verify: sample the active clock for 5 s while a small compute load runs
-    ( python3 -c "import time; x=[i*i for i in range(10**6)]; time.sleep(5)" & ) ; sleep 1
-    MAX=0; for i in $(seq 1 8); do C=$(grep '\*' "$D/pp_dpm_sclk" | grep -o '[0-9]*Mhz' | tr -d 'Mhz'); [ "$C" -gt "$MAX" ] && MAX=$C; sleep 0.5; done
-    echo "cap $MHZ MHz, active max $MAX MHz"; [ "$MAX" -le "$MHZ" ]
+    echo manual > "$D/power_dpm_force_performance_level" || exit 1
+    echo "s 1 $MHZ" > "$D/pp_od_clk_voltage" || exit 1
+    echo c > "$D/pp_od_clk_voltage" || exit 1
+    LOAD="${SPLICED_LOAD:-/opt/llama.cpp/build/bin/llama-bench -m /var/lib/spliced/models/$(sed -n 's/^model *= *"\(.*\)"/\1/p' /etc/spliced/node.toml 2>/dev/null) -p 0 -n 256 -r 2 -ngl 99}"
+    set -- $LOAD
+    command -v "$1" >/dev/null 2>&1 || { echo "spliced-clock: cap $MHZ MHz written but NOT verified: no GPU load tool ($1)" >&2; exit 3; }
+    "$@" >/dev/null 2>&1 & LP=$!
+    MAX=0; while kill -0 $LP 2>/dev/null; do C=$(cur); [ -n "$C" ] && [ "$C" -gt "$MAX" ] && MAX=$C; sleep 0.2; done; wait $LP
+    [ "$MAX" -gt 0 ] || { echo "spliced-clock: active clock read 0 MHz under load; cannot verify the cap" >&2; exit 4; }
+    echo "cap $MHZ MHz, active max under load $MAX MHz"
+    [ "$MAX" -le "$MHZ" ] || { echo "spliced-clock: cap did NOT hold ($MAX > $MHZ)" >&2; exit 5; }
     ;;
   auto)
-    echo r > "$D/pp_od_clk_voltage"; echo c > "$D/pp_od_clk_voltage"; echo auto > "$D/power_dpm_force_performance_level"; echo "auto" ;;
-  *) echo "usage: spliced-clock cap [MHz] | auto"; exit 2 ;;
+    echo "r 1" > "$D/pp_od_clk_voltage"; echo c > "$D/pp_od_clk_voltage"; echo auto > "$D/power_dpm_force_performance_level"; echo "auto" ;;
+  *) echo "usage: spliced-clock cap [MHz] | auto" >&2; exit 2 ;;
 esac
