@@ -31,6 +31,18 @@ changes with that:
   beside the exhaust, a badge on the front. It breathes front to back on its own, stands on a desk
   as the local-hosting product, and stands six across in a tray. The shell and its heatsink are the
   first Spliced hardware; the board inside is bought.
+- **Why that shape.** Martin: "whatever is most efficient." For air, the most efficient box is the one
+  where air goes in one face, along the fins, and out the opposite face with no turn: lowest pressure
+  drop per watt of fan, every fin in the stream, and the box packs edge to edge on its closed faces.
+  A square box with top intake must stand alone; a narrow deep box with front intake stands six
+  across and stacks. The board decides the depth (it stands on edge along the fins), the heatsink
+  decides the height, and the width is the board plus the fin depth plus the fan. 60 by 240 by 120
+  is that, not a styling choice.
+- **Docks.** Each side face and the top and bottom carry a recessed blind-mate connector with two
+  alignment pins: power passes through, the link is a 10GbE pair, and nothing is on the front or the
+  rear, so the air path never changes. One node becomes two side by side, or two stacked, or a 2 by 2
+  grid, by pushing them together. A grid of four on a desk is 32B class with headroom; it needs one
+  power lead and one network cable. In a tray the same docks carry power along the row.
 - **Tray.** A 3U, 19-inch, 0.3 m deep tray holds six nodes standing side by side, 12 mm apart, one
   row deep; each breathes front to back through the tray, and a fan plate at the rear pulls the
   plenum out. No host board: every node is its own host. The tray carries power distribution and a
