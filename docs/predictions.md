@@ -570,3 +570,11 @@ Q4_0, HumanEval and MMLU-Pro no more than 1 point below stock, tokens per answer
   Both "no more than 1 point below" clauses are close enough that either can miss on noise alone.
 - Tokens per GSM8K answer within 15% of stock: the model is trained on its own answers, so their length does not move.
 - The RFT F16 and Q4_0 files score within 2 points of each other on every task.
+
+### 11:52 entry (batching on Granite), run 12:13 to 12:16, judged 12:16
+
+Idle chip 0.75 and 0.85 W at the two script starts. Granite 2B Q4_0, 512-token answers: 149, 152, 80, 44, 38 and 46 mJ
+per token at batches 1, 2, 4, 8, 16 and 32.
+- Lowest at batch 16; batch 32 costs 21% more than 16 (at least 5% predicted). Held.
+- Batch 8 costs 70% less than batch 1 (65 to 80%). Held.
+- Same-session Qwen2.5 1.5B within 8% of note 24's 512-token run at every batch: held (1.1 to 6.0% higher). Note 28.

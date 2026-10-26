@@ -1,6 +1,6 @@
 # A second model family: the format findings hold
 
-**Prediction verdict:** held on energy, missed narrowly on accuracy. On IBM's Granite 3.3 2B, Q4_0 is the cheapest format per weight and per correct answer, and every format's cost per weight lands within 7% of the Qwen2.5 model of the same width. Q4_0 scores 3.6 points below Q8_0, against a predicted 3.
+**Prediction verdict:** held on energy and on batching, missed narrowly on accuracy. On IBM's Granite 3.3 2B, Q4_0 is the cheapest format per weight and per correct answer, and every format's cost per weight lands within 7% of the Qwen2.5 model of the same width. Q4_0 scores 3.6 points below Q8_0, against a predicted 3.
 
 Spliced research note 28, 26 October 2026. Apple M5 Pro, 24 GB, macOS 27.0.1 on AC, Metal. llama.cpp build 11669 (Homebrew). IBM Granite 3.3 2B Instruct (Apache-2.0) and Qwen2.5 3B Instruct.
 
@@ -40,10 +40,21 @@ At the same width, a Granite weight costs within 1.3 to 7.1% of a Qwen weight in
 
 Per correct answer, Q4_0 is cheapest, but by 2 to 3%. Q8_0 answers 3.6 points more often, which nearly pays for its larger weights. At 8 requests at once Q8_0 also costs less per token than Q4_K_M, 63.5 against 69.3 millijoules: in a batch, the work of unpacking a K-quant shows, as note 5 found for a single matrix. Q4_K_M gives shorter answers, 219 tokens against 260, which is why it nearly matches Q4_0 per answer despite costing more per token.
 
+## 3. Batching has the same shape
+
+A third pre-registered run, 512-token answers, batches 1 to 32, with a same-session Qwen2.5 1.5B reference that matched note 24 within 6% at every batch:
+
+| batch | 1 | 2 | 4 | 8 | 16 | 32 |
+|---|---:|---:|---:|---:|---:|---:|
+| Granite 2B Q4_0, mJ per token | 149 | 152 | 80 | 44 | 38 | 46 |
+| Qwen2.5 1.5B Q4_0, mJ per token | 107 | 106 | 55 | 31 | 27 | 30 |
+
+Granite follows note 24's curve on this machine: no saving at the second request, 70% less by batch 8, cheapest at 16, and 21% dearer at 32. The knee belongs to the machine, as note 24 concluded, on a second family too.
+
 ## What this changes
 
 - The format recipe on the Systems page, Q4_0 below 32B, holds on a second family. On Granite the margin per correct answer is small, so a model that loses more accuracy at Q4_0 than Granite does could reverse it; check accuracy per model.
-- Batching and speculative decoding have still been measured only on Qwen2.5.
+- Batching now holds on two families (section 3). Speculative decoding has been measured only on Qwen2.5.
 
 ## Limits
 
@@ -59,4 +70,4 @@ for f in Q4_0 Q4_K_M Q5_K_M Q6_K Q8_0; do llama-quantize models/quant/granite2b-
 sh experiments/when_quiet.sh experiments/width_granite.sh   # waits for a quiet Mac, then the sweep and GSM8K
 ```
 
-Raw: `results/width-granite-run1.json`, `results/width-granite-run2.json`, `results/summary-width-granite.json`, `results/quality-mac-granite2b-*-pass{1,2}.json`.
+Raw: `results/decode-batch-mac-granite2b-q4_0-a512.json`, `results/decode-batch-mac-1.5b-q4_0-a512-ref.json` (section 3, `experiments/batch_granite.sh`), `results/width-granite-run1.json`, `results/width-granite-run2.json`, `results/summary-width-granite.json`, `results/quality-mac-granite2b-*-pass{1,2}.json`.
