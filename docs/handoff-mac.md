@@ -426,6 +426,20 @@ the capped module measures 192 tok/s against a memory bound of 526 at eight slot
 bound under the cap; that is in `v1-cluster.md` with the conclusion that the cap should be a scheduler
 setting, not a fixed number.
 
+## 20:20: the node
+
+Martin: "make them really small, tiny computers, like the AMD Halo." So V1's unit is the box on the
+bench. Linux identified it: AMD Ryzen AI Halo developer platform RAH-001 (Compal board), 150 x 150 x 45 mm,
+1.2 kg, two blowers, air in top and sides, out the rear, 120 W TDP, 240 W USB-C brick, rear ports USB-C
+power, three USB-C, HDMI, 10GbE, lock slot (AMD user guide and reviews, not a ruler). `render/node.py`
+matches that shape with a badge; `--open`, `--tray`, `--rack`, `--row`. The top-and-side intake sets
+the tray at two nodes across in 2U with clear air above, 36 per rack; a Spliced front-intake shell
+(the carrier) is what would allow three or four, and is the first hardware worth making.
+`v1-cluster.md` is revised around the node; the sled-with-carriers revision stays below it for the
+record. The V1 Designs section (`render/log/designs-v1.part`) is rewritten around the node and goes in
+when the five node renders land. Morning list for Martin's sudo and a plug-in meter: node wall power
+under the cap, idle and busy; the warm-case capped run with temperatures logged.
+
 ## Next, in order
 
 1. Review the Trace 35k retrain PR (morning), then the Lattice v1 QAT PR
