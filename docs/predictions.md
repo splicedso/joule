@@ -372,3 +372,10 @@ Draft-4 against plain, energy per token and speed: batch 1 1.03x, 1.26x; 2 0.71x
   0.592 against 0.601 (fell). results/drafter/trace-v1-35k.md.
 - Teacher faithfulness (14:30 entry): dequantized Q4_0 98.8% (predicted at least 99%: missed narrowly); bf16
   93.3% (predicted 96 to 98.5%: missed).
+
+### 23:45 entry (Lattice v1 on the M5 Pro): not run (07:30, 26 October)
+
+Linux's Strix runs put the QAT 2-bit file at 24.0% on GSM8K-250 (stock Q4_0 65.6%), 36 points below the 60% bar,
+with 84 tokens per answer. The Mac half could not change the verdict, so it was not run and the files were not
+transferred. One prediction of this entry is answerable from the Strix data: answers did get shorter, but to 84
+to 86 tokens, not 150 to 200. Missed.

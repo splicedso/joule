@@ -601,3 +601,10 @@ Trace v1 at 35k: agreement 0.7754 (bar 0.79). At one request it is 1.44x plain a
 than the stock draft: 75.3% acceptance against 71.7%, yet fewer guesses clear p 0.5 (8,052 against 8,591), so
 accepted per generated token falls 0.601 to 0.592. Every figure recomputed from the raw eval. Strix plain draws
 104 W time-weighted, the draft 103 W: that is why speculation saves a third there and breaks even on the Mac.
+
+## 07:30 PT, Lattice v1 failed
+
+QAT 2-bit 24.0% on GSM8K-250 (stock Q4_0 65.6%), QAT weights at Q4_0 26.0%, answers 84 to 86 tokens against 248.
+The Mac eval is not run. The Q4_0 control cannot separate the 2-bit grid from the data, because qat.py writes the
+quantized values into the weights before saving. Next, after the Trace pilot: a plain fine-tune (same data and
+schedule, no fake quantization) decides between the grid and the terse GSM8K answers.
