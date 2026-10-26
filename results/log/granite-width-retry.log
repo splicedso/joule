@@ -23,3 +23,91 @@ granite2b-Q8_0.gguf decode: 87.1 tok/s, 239.3 mJ/tok SoC
 3b-Q4_K_M.gguf prefill: 3294.8 tok/s, 13.0 mJ/tok SoC
 3b-Q4_K_M.gguf decode: 114.2 tok/s, 240.7 mJ/tok SoC
 3b-Q5_K_M.gguf prefill: 3158.5 tok/s, 13.5 mJ/tok SoC
+3b-Q5_K_M.gguf decode: 101.9 tok/s, 330.9 mJ/tok SoC
+3b-Q6_K.gguf prefill: 3324.7 tok/s, 13.1 mJ/tok SoC
+3b-Q6_K.gguf decode: 91.4 tok/s, 295.4 mJ/tok SoC
+3b-Q8_0.gguf prefill: 3465.3 tok/s, 12.2 mJ/tok SoC
+3b-Q8_0.gguf decode: 75.3 tok/s, 279.5 mJ/tok SoC
+| model | phase | tok/s | SoC W | sys W | SoC mJ/tok | sys mJ/tok | SoC net mJ/tok | sys net mJ/tok |
+|---|---|---:|---:|---:|---:|---:|---:|---:|
+| granite2b-Q4_0.gguf | prefill | 3963.7 | 40.8 | 70.1 | 10.3 | 17.7 | 10.2 | 16.7 |
+| granite2b-Q4_0.gguf | decode | 138.2 | 19.7 | 50.7 | 142.8 | 367.0 | 139.9 | 337.9 |
+| granite2b-Q4_K_M.gguf | prefill | 3654.3 | 41.1 | 74.6 | 11.3 | 20.4 | 11.1 | 19.3 |
+| granite2b-Q4_K_M.gguf | decode | 131.3 | 25.8 | 60.6 | 196.8 | 461.8 | 193.7 | 431.2 |
+| granite2b-Q5_K_M.gguf | prefill | 3506.2 | 41.8 | 76.1 | 11.9 | 21.7 | 11.8 | 20.6 |
+| granite2b-Q5_K_M.gguf | decode | 116.7 | 32.1 | 70.0 | 275.0 | 600.0 | 271.5 | 565.6 |
+| granite2b-Q6_K.gguf | prefill | 3700.3 | 43.6 | 80.2 | 11.8 | 21.7 | 11.7 | 20.6 |
+| granite2b-Q6_K.gguf | decode | 104.6 | 26.0 | 62.2 | 248.6 | 594.8 | 244.7 | 556.4 |
+| granite2b-Q8_0.gguf | prefill | 3839.6 | 42.2 | 78.9 | 11.0 | 20.6 | 10.9 | 19.5 |
+| granite2b-Q8_0.gguf | decode | 87.1 | 20.8 | 56.4 | 239.3 | 647.8 | 234.6 | 601.7 |
+| 3b-Q4_0.gguf | prefill | 3585.1 | 43.6 | 78.2 | 12.2 | 21.8 | 12.0 | 20.7 |
+| 3b-Q4_0.gguf | decode | 120.3 | 22.1 | 57.2 | 183.6 | 475.4 | 180.2 | 442.0 |
+| 3b-Q4_K_M.gguf | prefill | 3294.8 | 42.7 | 77.7 | 13.0 | 23.6 | 12.8 | 22.3 |
+| 3b-Q4_K_M.gguf | decode | 114.2 | 27.5 | 65.1 | 240.7 | 569.4 | 237.2 | 534.3 |
+| 3b-Q5_K_M.gguf | prefill | 3158.5 | 42.7 | 78.6 | 13.5 | 24.9 | 13.4 | 23.6 |
+| 3b-Q5_K_M.gguf | decode | 101.9 | 33.7 | 73.8 | 330.9 | 724.8 | 327.0 | 685.3 |
+| 3b-Q6_K.gguf | prefill | 3324.7 | 43.4 | 80.9 | 13.1 | 24.3 | 12.9 | 23.1 |
+| 3b-Q6_K.gguf | decode | 91.4 | 27.0 | 65.0 | 295.4 | 711.5 | 290.9 | 667.6 |
+| 3b-Q8_0.gguf | prefill | 3465.3 | 42.2 | 79.1 | 12.2 | 22.8 | 12.1 | 21.7 |
+| 3b-Q8_0.gguf | decode | 75.3 | 21.1 | 57.6 | 279.5 | 765.1 | 274.1 | 711.8 |
+idle: SoC 0.52 W, sys 6.58 W
+3b-Q8_0.gguf prefill: 3467.3 tok/s, 12.0 mJ/tok SoC
+3b-Q8_0.gguf decode: 75.3 tok/s, 279.8 mJ/tok SoC
+3b-Q6_K.gguf prefill: 3332.1 tok/s, 13.0 mJ/tok SoC
+3b-Q6_K.gguf decode: 91.6 tok/s, 291.5 mJ/tok SoC
+3b-Q5_K_M.gguf prefill: 3160.8 tok/s, 13.2 mJ/tok SoC
+3b-Q5_K_M.gguf decode: 102.0 tok/s, 322.4 mJ/tok SoC
+3b-Q4_K_M.gguf prefill: 3294.8 tok/s, 12.7 mJ/tok SoC
+3b-Q4_K_M.gguf decode: 114.3 tok/s, 236.3 mJ/tok SoC
+3b-Q4_0.gguf prefill: 3587.0 tok/s, 11.9 mJ/tok SoC
+3b-Q4_0.gguf decode: 120.5 tok/s, 180.6 mJ/tok SoC
+granite2b-Q8_0.gguf prefill: 3839.7 tok/s, 10.8 mJ/tok SoC
+granite2b-Q8_0.gguf decode: 87.1 tok/s, 236.1 mJ/tok SoC
+granite2b-Q6_K.gguf prefill: 3702.8 tok/s, 11.7 mJ/tok SoC
+granite2b-Q6_K.gguf decode: 104.6 tok/s, 244.6 mJ/tok SoC
+granite2b-Q5_K_M.gguf prefill: 3506.1 tok/s, 11.9 mJ/tok SoC
+granite2b-Q5_K_M.gguf decode: 116.5 tok/s, 273.2 mJ/tok SoC
+granite2b-Q4_K_M.gguf prefill: 3653.1 tok/s, 11.4 mJ/tok SoC
+granite2b-Q4_K_M.gguf decode: 131.1 tok/s, 196.1 mJ/tok SoC
+granite2b-Q4_0.gguf prefill: 3960.4 tok/s, 10.8 mJ/tok SoC
+granite2b-Q4_0.gguf decode: 137.3 tok/s, 148.5 mJ/tok SoC
+| model | phase | tok/s | SoC W | sys W | SoC mJ/tok | sys mJ/tok | SoC net mJ/tok | sys net mJ/tok |
+|---|---|---:|---:|---:|---:|---:|---:|---:|
+| 3b-Q8_0.gguf | prefill | 3467.3 | 41.6 | 77.5 | 12.0 | 22.4 | 11.8 | 20.5 |
+| 3b-Q8_0.gguf | decode | 75.3 | 21.1 | 57.6 | 279.8 | 764.1 | 272.9 | 676.7 |
+| 3b-Q6_K.gguf | prefill | 3332.1 | 43.4 | 80.2 | 13.0 | 24.1 | 12.9 | 22.1 |
+| 3b-Q6_K.gguf | decode | 91.6 | 26.7 | 64.4 | 291.5 | 703.0 | 285.9 | 631.2 |
+| 3b-Q5_K_M.gguf | prefill | 3160.8 | 41.9 | 76.7 | 13.2 | 24.3 | 13.1 | 22.2 |
+| 3b-Q5_K_M.gguf | decode | 102.0 | 32.9 | 72.3 | 322.4 | 709.4 | 317.4 | 644.9 |
+| 3b-Q4_K_M.gguf | prefill | 3294.8 | 41.7 | 76.3 | 12.7 | 23.2 | 12.5 | 21.2 |
+| 3b-Q4_K_M.gguf | decode | 114.3 | 27.0 | 64.0 | 236.3 | 559.8 | 231.7 | 502.3 |
+| 3b-Q4_0.gguf | prefill | 3587.0 | 42.9 | 77.1 | 11.9 | 21.5 | 11.8 | 19.7 |
+| 3b-Q4_0.gguf | decode | 120.5 | 21.7 | 56.6 | 180.6 | 469.9 | 176.3 | 415.3 |
+| granite2b-Q8_0.gguf | prefill | 3839.7 | 41.5 | 77.6 | 10.8 | 20.2 | 10.7 | 18.5 |
+| granite2b-Q8_0.gguf | decode | 87.1 | 20.6 | 56.0 | 236.1 | 642.9 | 230.2 | 567.4 |
+| granite2b-Q6_K.gguf | prefill | 3702.8 | 43.2 | 79.3 | 11.7 | 21.4 | 11.5 | 19.7 |
+| granite2b-Q6_K.gguf | decode | 104.6 | 25.6 | 61.9 | 244.6 | 591.9 | 239.6 | 529.0 |
+| granite2b-Q5_K_M.gguf | prefill | 3506.1 | 41.9 | 76.6 | 11.9 | 21.8 | 11.8 | 20.0 |
+| granite2b-Q5_K_M.gguf | decode | 116.5 | 31.8 | 70.1 | 273.2 | 601.3 | 268.8 | 544.9 |
+| granite2b-Q4_K_M.gguf | prefill | 3653.1 | 41.7 | 76.2 | 11.4 | 20.8 | 11.3 | 19.0 |
+| granite2b-Q4_K_M.gguf | decode | 131.1 | 25.7 | 61.2 | 196.1 | 466.8 | 192.2 | 416.7 |
+| granite2b-Q4_0.gguf | prefill | 3960.4 | 42.6 | 75.6 | 10.8 | 19.1 | 10.6 | 17.4 |
+| granite2b-Q4_0.gguf | decode | 137.3 | 20.4 | 53.2 | 148.5 | 387.8 | 144.8 | 339.9 |
+size  format   roof chip pJ/w board pJ/w spread
+granite2b Q4_0      61%      59.9      155.1   5.5%
+granite2b Q4_K_M    62%      80.8      190.8   1.1%
+granite2b Q5_K_M    65%     112.7      246.9   0.2%
+granite2b Q6_K      68%     101.4      243.9   0.5%
+granite2b Q8_0      73%      97.7      265.3   0.8%
+3b    Q4_0      71%      59.0      153.2   1.2%
+3b    Q4_K_M    72%      77.3      183.0   1.7%
+3b    Q5_K_M    74%     105.9      232.4   2.1%
+3b    Q6_K      75%      95.1      229.2   1.2%
+3b    Q8_0      80%      90.6      247.8   0.1%
+{"model": "granite2b-Q4_0.gguf", "server_args": "", "n": 250, "slots": 8, "correct": 188, "accuracy": 0.752, "seconds": 115.953, "tokens": 65016, "tok_s": 560.71, "soc_w": 32.5309, "idle_soc_w": 0.746, "chip_j": 3772.0575, "chip_j_per_correct": 20.0641, "net_j_per_correct": 19.604, "chip_mj_per_token": 58.0174}
+{"model": "granite2b-Q4_K_M.gguf", "server_args": "", "n": 250, "slots": 8, "correct": 186, "accuracy": 0.744, "seconds": 107.9885, "tokens": 54821, "tok_s": 507.6561, "soc_w": 35.2145, "idle_soc_w": 0.5998, "chip_j": 3802.7554, "chip_j_per_correct": 20.4449, "net_j_per_correct": 20.0967, "chip_mj_per_token": 69.3668}
+{"model": "granite2b-Q8_0.gguf", "server_args": "", "n": 250, "slots": 8, "correct": 197, "accuracy": 0.788, "seconds": 152.4459, "tokens": 63643, "tok_s": 417.4792, "soc_w": 26.4889, "idle_soc_w": 0.5461, "chip_j": 4038.1302, "chip_j_per_correct": 20.4981, "net_j_per_correct": 20.0756, "chip_mj_per_token": 63.4497}
+{"model": "granite2b-Q8_0.gguf", "server_args": "", "n": 250, "slots": 8, "correct": 197, "accuracy": 0.788, "seconds": 153.1107, "tokens": 63644, "tok_s": 415.6732, "soc_w": 26.4578, "idle_soc_w": 0.687, "chip_j": 4050.9728, "chip_j_per_correct": 20.5633, "net_j_per_correct": 20.0294, "chip_mj_per_token": 63.6505}
+{"model": "granite2b-Q4_K_M.gguf", "server_args": "", "n": 250, "slots": 8, "correct": 186, "accuracy": 0.744, "seconds": 107.5249, "tokens": 54763, "tok_s": 509.3053, "soc_w": 35.2045, "idle_soc_w": 0.5016, "chip_j": 3785.3631, "chip_j_per_correct": 20.3514, "net_j_per_correct": 20.0615, "chip_mj_per_token": 69.1226}
+{"model": "granite2b-Q4_0.gguf", "server_args": "", "n": 250, "slots": 8, "correct": 188, "accuracy": 0.752, "seconds": 116.2186, "tokens": 65016, "tok_s": 559.4284, "soc_w": 32.2448, "idle_soc_w": 0.5216, "chip_j": 3747.4446, "chip_j_per_correct": 19.9332, "net_j_per_correct": 19.6108, "chip_mj_per_token": 57.6388}
+exit 0 11:29:53

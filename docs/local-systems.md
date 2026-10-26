@@ -101,4 +101,4 @@ energy, so the gap a cell has to close is named: host, supplies, fans and idle.
   has one and has not been tried.
 - Whether an 8-slot 7B beats a 1-slot 32B per correct answer on the Strix Halo. Both are measured
   alone; the comparison is not.
-- Any of this on a model family other than Qwen2.5.
+- Batching and speculative decoding on a model family other than Qwen2.5. The format findings hold on IBM's Granite 3.3 2B (note 28).

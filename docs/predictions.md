@@ -516,3 +516,13 @@ to measure above 3 W idle on macOS.
 - The plain control (07:31 entry): F16 48.8% (predicted 55 to 65%): missed; 94.7 tokens (85 to 110): held; its Q4_0 2.8
   points under its F16 (within 2): missed narrowly; its Q4_0 35% cheaper per correct than stock Q4_0 (40 to 60%):
   missed. The data costs 17 points, the grid about 21 more. results/lattice-v1.md.
+
+### 09:55 entry (Granite 3.3 2B), re-run (10:56 to 11:29, judged 11:30)
+
+Run by `when_quiet.sh` after two quiet readings (idle chip 0.46 and 0.50 W); phase's own idle 0.40 and 0.52 W.
+- Q4_0 cheapest per weight on Granite (board): held (155.1 pJ; Q4_K_M 190.8, Q6_K 243.9, Q5_K_M 246.9, Q8_0 265.3).
+- Granite within 15% of Qwen2.5 3B per format: held (+1.3 to +7.1%, Granite always the higher).
+- Q5_K_M and Q6_K within 5% of each other: held (1.2%).
+- Same-session Qwen2.5 3B reproduces note 6 within 7%: held (within 0.9% on board and 2% on chip, every format).
+- GSM8K-250: Q4_0 within 3 points of Q8_0: missed narrowly (75.2% against 78.8%, 3.6 points). Q4_0 the cheapest per
+  correct answer of the three: held, narrowly (20.0 J against 20.4 for Q4_K_M and 20.6 for Q8_0). Note 28.
