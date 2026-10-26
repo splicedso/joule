@@ -507,7 +507,7 @@ scenes with hundreds of instances, and a render counts only when its log says "B
 
 ## Next, in order
 
-Moved to the top of this file (23:10 PT) and kept current there; the old list here had gone stale.
+Moved to the top of this file (23:40 PT) and kept current there; the old list here had gone stale.
 
 ## 22:36 PT, note 24 published
 

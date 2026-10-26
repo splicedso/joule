@@ -153,7 +153,7 @@ whether the knee moves with model size.
 - Passes within 4.8% at every batch. Held. Batch-1 and batch-2 windows are under 0.8 s with 2 to 3
   power samples; those rows stand on their agreement with note 1. Folded into note 24, section 4.
 
-## 2026-10-25, 23:12 PT
+## 2026-10-25, 23:40 PT
 
 **Decode against batch, 1.5B, longer windows** (M5 Pro; Qwen2.5 1.5B Q4_0; the same script with
 ANSWER=512, so every window is four times longer: batch 1 about 2.7 s and about 13 power samples).
