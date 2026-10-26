@@ -171,3 +171,19 @@ Note 24's 1.5B rows at batch 1 to 8 had 2 to 4 samples each. This rerun checks t
 - Passes within 5% at every batch: missed. Spread 3.8 to 10.4%, and pass 2 is higher than pass 1 in all six
   rows. Pass 2 runs in reverse, straight after the two longest windows (batch 32, about 16 s each), so it
   meets a warmer chip; that is run order, not noise. Every window had 11 to 75 power samples.
+
+## 2026-10-26, 00:05 PT
+
+**Lattice v1 on the M5 Pro** (`experiments/lattice_mac_eval.sh`: the QAT 2-bit file Linux produces, stock
+Q4_0, and the QAT weights at Q4_0 as a control, mirrored order, GSM8K-250 at 8 slots, note 20's settings).
+Linux's 16:40 prediction covers accuracy and the Strix Halo; this one covers the half of the bar that is
+judged on this machine. Written before the QAT run has finished; nothing about its outputs is known.
+- Accuracy is the same file's as on the Strix Halo to within 1 point (greedy decoding, same GGUF).
+- Answers get shorter after fine-tuning on GSM8K's worked answers: 150 to 200 tokens per answer against
+  228 (calibrated Q2_K) and 250 (stock Q4_0) in note 20.
+- Chip mJ per token stays within 5% of calibrated Q2_K's 44.2: the grid changed, the format did not.
+- Joules per correct answer: 13 to 19 against a same-session stock Q4_0 of about 15. So the energy half of
+  the bar is a coin toss on this machine, decided by answer length, not by bits.
+- The control decides what any win means: the QAT weights at Q4_0 answer as briefly, are more accurate,
+  and cost less per correct answer than the QAT 2-bit file. If that holds, a 2-bit win over stock Q4_0 is a
+  win for fine-tuning, and the note says so.
