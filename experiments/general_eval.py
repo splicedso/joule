@@ -10,8 +10,8 @@ over each set (idle measured first, as in quality.py):
 - humaneval: the 164 HumanEval problems (MIT). The model completes the function; the completion is run against
   the task's tests in a separate Python process with a 10 s limit. This EXECUTES MODEL-WRITTEN CODE, so it only
   runs when EXEC_OK=1 is set. On Linux the process runs inside bubblewrap (no network, home and /run hidden, the
-  filesystem read-only except its own temporary directory; see sandboxed()); SANDBOX=0 drops that, only for a
-  machine that holds nothing else. On macOS it runs unwrapped, as before.
+  filesystem read-only except its own temporary directory; see sandboxed()); on macOS inside sandbox-exec with the
+  same boundaries. SANDBOX=0 drops either, only for a machine that holds nothing else.
 
     uv run --with pyarrow python experiments/general_eval.py MODEL.gguf results/general-X.json [TASKS] [SLOTS]
 
@@ -80,8 +80,18 @@ def sandboxed(cmd, workdir):
     is all HumanEval's tests use). SANDBOX=0 runs unwrapped, for a machine that holds nothing else; on macOS there is
     no bubblewrap and the code runs unwrapped as before."""
     import shutil
-    if os.environ.get("SANDBOX", "1") == "0" or sys.platform == "darwin":
+    if os.environ.get("SANDBOX", "1") == "0":
         return [sys.executable if cmd[0] == "/usr/bin/python3" else cmd[0], *cmd[1:]]
+    if sys.platform == "darwin":
+        # macOS has no bubblewrap; sandbox-exec with the same boundaries: no network, the home directory unreadable
+        # and unwritable (credentials, SSH keys, the repo), writes only in the task's own temporary directory. The
+        # code runs under the system Python, which lives outside the home directory.
+        home = os.path.realpath(os.path.expanduser("~"))
+        wd = os.path.realpath(workdir)
+        profile = ("(version 1)(allow default)(deny network*)"
+                   f'(deny file-read* (subpath "{home}"))(deny file-write*)'
+                   f'(allow file-read* file-write* (subpath "{wd}"))(allow file-write* (literal "/dev/null"))')
+        return ["/usr/bin/sandbox-exec", "-p", profile, *cmd]
     bwrap = shutil.which("bwrap")
     if not bwrap:
         sys.exit("humaneval: bubblewrap (bwrap) not found; install it, or set SANDBOX=0 on a machine that holds nothing else")
