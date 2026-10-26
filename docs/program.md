@@ -82,6 +82,23 @@ beside the harvest: Lattice v1, quantization-aware fine-tuning of the 1.5B to a 
 72B target, which starts only if the 7B retrain clears its bar. Every run has its prediction committed
 first. The Mac stays light: evaluation of small artefacts, writing, and the site.
 
+## Frontier, open source, and what two people can do
+
+Martin's aim (25 October): the next Etched and Anthropic, a hardware company and a model company,
+open-source models now, a closed frontier-class model as a possibility. What that means in practice:
+
+- **What we can train today** is small: 0.5B to 1.5B on one Strix Halo, which is Trace and Lattice. A
+  frontier-class model needs thousands of accelerators for months. No plan here pretends otherwise.
+- **The path that is real:** be the group whose small models are the best per joule on the hardware
+  people own, measured and published; then the group whose cells serve the best open large models at
+  the lowest cost per correct answer; then, with revenue and cells, train larger models on our own
+  cells, where the training cost per token is the number we already know how to measure. Each step is
+  a measurement before it is a claim.
+- **Open or closed:** everything measured is open. Model weights are open while the models are small
+  and the point is credibility. A closed model is a business decision for when there is a model worth
+  closing; there is no work on one and the site says nothing about one.
+- **Frontier-class on the site:** never, until a model exists that can be measured against one.
+
 ## Fabric: the cluster software
 
 `spliced/fabric` (local for now) is the control software for the designs and the simulator that costs
