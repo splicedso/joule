@@ -243,3 +243,12 @@ loads the draft and never drafts (zero draft tokens, plain's speed). Kept as
 
 01:41, draft-8 against plain, batch 1 and 2: speed 1.02x (missed, 1.15 to 1.3), energy 1.09x (held, 0.95 to
 1.1); acceptance 53% (held, 45 to 60); batch 2 saves 18%, within 10 points of draft-4's 22% (held).
+
+## 2026-10-26, 01:45 PT
+
+**Note 11 re-run, plain against draft-8 at p 0.5** (`experiments/speculative_server.py`, note 11's script,
+pair, prompts and 384 forced tokens, unchanged; M5 Pro, same build). Written after tonight's decode-batch runs
+found no batch-1 speed-up with either pair (1.00 to 1.04x) on a 128-token weather paragraph.
+- Prose reproduces note 11 within 0.1x: about 1.25x speed, about 1.04x chip energy. If so, tonight's missing
+  speed-up belongs to the workload (prompt and answer length), not to the machine or the build.
+- Code and edit reproduce note 11 within 0.15x (1.49x and 2.25x speed).

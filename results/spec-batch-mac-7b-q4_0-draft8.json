@@ -1,0 +1,57 @@
+{
+ "model": "7b-Q4_0.gguf",
+ "machine": "darwin",
+ "answer_tokens": 128,
+ "power": "chip (macmon) on darwin, package hwmon on linux; not wall",
+ "server_args": "-md models/quant/0.5b-Q4_0.gguf --spec-type draft-simple --spec-draft-p-min 0.5 -ngld 99 --spec-draft-n-max 8",
+ "rows": [
+  {
+   "batch": 1,
+   "tokens": 128,
+   "seconds": 2.147275924682617,
+   "tok_s": 59.61041081337478,
+   "watts": 27.620695961846245,
+   "mj_per_token": 463.35355829570955,
+   "samples": 9,
+   "draft_n": 91,
+   "draft_accepted": 53,
+   "pass": 1
+  },
+  {
+   "batch": 2,
+   "tokens": 256,
+   "seconds": 2.5411458015441895,
+   "tok_s": 100.74195657897131,
+   "watts": 33.899620056152344,
+   "mj_per_token": 336.49952023294816,
+   "samples": 11,
+   "draft_n": 182,
+   "draft_accepted": 106,
+   "pass": 1
+  },
+  {
+   "batch": 2,
+   "tokens": 256,
+   "seconds": 2.538330078125,
+   "tok_s": 100.85370780032702,
+   "watts": 34.108284343372695,
+   "mj_per_token": 338.19564086727706,
+   "samples": 11,
+   "draft_n": 182,
+   "draft_accepted": 106,
+   "pass": 2
+  },
+  {
+   "batch": 1,
+   "tokens": 128,
+   "seconds": 2.148218870162964,
+   "tok_s": 59.58424524512715,
+   "watts": 27.803028954399956,
+   "mj_per_token": 466.61712068382224,
+   "samples": 9,
+   "draft_n": 91,
+   "draft_accepted": 53,
+   "pass": 2
+  }
+ ]
+}
