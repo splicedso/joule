@@ -642,3 +642,12 @@ the GPU waits for a job. The site check for notes 24 and 27 waits for the Mac wa
 Granite 3.3 2B re-run clean (idle 0.4 to 0.5 W, Qwen 3B reference within 0.9% of note 6). Format findings hold on a second
 family: Granite within 1.3 to 7.1% of Qwen 3B per weight, same order, Q4_0 cheapest; per correct answer Q4_0 leads by
 2 to 3%. Published as note 28; Systems open list now says batching and speculation are Qwen-only. Site checked at both widths.
+
+## 12:03 PT, three families, a training pilot, and the engineering niche
+
+Martin: a third, closed flagship family ("Fable level", built up to run on our own hardware); train models to beat
+their bases on the Halo; maybe no clusters; find a cheap-to-start engineering niche. Done: `docs/concepts/closed-model.md`
+(bases, node counts, phases, bars; Phase 2 pilot = rejection-sampling fine-tuning, queued on Linux after the 32B search
+and the general-eval baselines), `experiments/general_eval.py` (maths, knowledge, executed code, energy per task),
+`docs/concepts/engineering-niche.md` (recommendation: a token-synced energy instrument; demand test: two PowerSensor3
+units, about EUR 200, Martin decides). Granite batch run still waiting for a quiet Mac.
