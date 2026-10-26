@@ -449,6 +449,16 @@ a 3U tray; 14 trays, 84 nodes per rack. `render/nodeparts.py` now holds the node
 and both `node.py` and `lineup.py` import it (the duplication the earlier handoff flagged is gone for this
 family). The lineup is package, node, tray, rack. `v1-cluster.md` and `designs-v1.part` are revised.
 
+## 21:10: the shape by efficiency, and docks for grids
+
+Martin: "whatever is most efficient", "allow for connections like a 2x2 grid, make it airflow efficient".
+The shape stays narrow, deep, tall because a straight front-to-back path is the least fan power per watt
+and packs edge to edge; the reasoning is in `v1-cluster.md` ("Why that shape"). Docks: a recessed
+blind-mate connector with two alignment pins on each side and on the top and bottom (power through, a
+10GbE link), never on the front or rear, so grids form without touching the air path. `nodeparts.grid`
+and `node.py --grid` render a 2x2. The lineup (package, node, tray, rack) is being test-rendered; the
+rack of 84 is slow at any size, so the family chain will take well over an hour.
+
 ## Next, in order
 
 1. Review the Trace 35k retrain PR (morning), then the Lattice v1 QAT PR
