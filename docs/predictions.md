@@ -439,3 +439,11 @@ Granite 2B and Qwen2.5 3B share a hidden width of 2,048, so note 6's per-weight 
   fastest at p 0.4 or 0.5 (p 0.5) and 35k at p 0.3 or 0.4 (p 0.4): held. At the best thresholds 35k is 0 to 4%
   faster (+0.3%): held; within 3% on energy: missed on the letter (-5.1%), but stock's p 0.5 cell is flagged
   (5.6% pass gap); at p 0.4, both unflagged, -0.5%. results/drafter/trace-onpolicy-pilot.md.
+
+### 09:55 entry (Granite 3.3 2B): void at 10:24, to be re-run
+
+The reference did not reproduce: same-session Qwen2.5 3B read 23 to 45% above note 6 on board energy per weight
+(predicted within 7%), at the same tokens per second. The machine was not idle: chip power at rest was 9.7 and
+11.2 W in the two passes against 0.6 W in note 6's session, from another project's Docker container restarting
+in a loop. No clause is judged. Files in `results/void/`. The re-run waits for a quiet machine; `phase` now refuses
+to measure above 3 W idle on macOS.

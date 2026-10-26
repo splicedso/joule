@@ -86,6 +86,21 @@ def send(batch, n):
     return res
 
 
+def require_quiet(seconds=5, limit=float(os.environ.get("MAX_IDLE_W", "3"))):
+    """macOS: stop before measuring if the chip is busy at rest (another job inflates every row). Linux's
+    package sensor idles far higher, so the check is macOS only."""
+    if sys.platform != "darwin":
+        return
+    stop = threading.Event(); w = []; t = threading.Thread(target=power_samples, args=(stop, w), daemon=True); t.start()
+    time.sleep(seconds); stop.set(); t.join(timeout=2)
+    idle = sum(w) / len(w) if w else float("nan")
+    print(f"idle chip power {idle:.2f} W over {seconds} s")
+    if not idle <= limit:
+        sys.exit(f"the machine is not idle ({idle:.2f} W at rest, limit {limit} W): check `ps -Ao pcpu,comm -r | head` and "
+                 "`docker stats --no-stream`; set MAX_IDLE_W to override")
+
+
+require_quiet()
 rows = []
 for order, batches in ((1, BATCHES), (2, list(reversed(BATCHES)))):
     for b in batches:
