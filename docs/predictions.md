@@ -294,3 +294,14 @@ Draft-4 against draft-8 at p 0.5, against plain, three repetitions: prose 1.27x 
 energy (held, within 0.1x); code 1.72x and 1.51x speed, 0.80x and 0.88x energy (missed: draft-4 is better by
 0.21x, not within 0.1x); edit 2.25x and 2.24x, 0.62x and 0.61x (missed: equal, not draft-8 faster). Draft-4 is
 never worse. Foundry keeps 4.
+
+## 2026-10-26, 02:04 PT
+
+**Diagnostic: which difference removes the draft's batch-1 speed-up** (`experiments/spec_diag.py`, M5 Pro, Q4_0
+pair, draft-4 at p 0.5 against plain, speed from the server's own timings, three repetitions per cell). Starts
+from the decode-batch script's settings (one slot, 1,024 context, a weather paragraph, 128 tokens that may stop
+early) and changes one thing per row toward note 11's (default slots, 4,096 context, the power-supply prompt,
+384 forced tokens). Speed only; no energy claim rests on it.
+- My guess: the prompt. A weather paragraph is open-ended prose the 0.5B guesses badly beyond a token or two,
+  while the power-supply explanation is more predictable. Second guess: answer length (a 128-token window
+  carries the draft's fixed start-up cost over fewer tokens). Least likely: slots or context size.
