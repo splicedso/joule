@@ -496,3 +496,14 @@ The reference did not reproduce: same-session Qwen2.5 3B read 23 to 45% above no
 11.2 W in the two passes against 0.6 W in note 6's session, from another project's Docker container restarting
 in a loop. No clause is judged. Files in `results/void/`. The re-run waits for a quiet machine; `phase` now refuses
 to measure above 3 W idle on macOS.
+
+## Results so far, 2026-10-26, 11:00 PT (predictions above left unedited)
+
+- Lattice v1 (16:40 entry): QAT Q2_K 23.8% on GSM8K-250 (predicted 45 to 60%; bar 60%): missed. 82.4 J per correct at
+  8 slots (predicted 85 to 110): missed narrowly. Smoke-test memory 30.4 GiB (predicted under 30): missed narrowly.
+- The Q4_0 control (23:48 entry): answers 85 to 86 tokens (predicted 90 to 140): missed narrowly; QAT Q4_0 within 2
+  points of QAT Q2_K (1.6): held; 13.5% cheaper per correct than QAT Q2_K (10 to 25%): held; QAT Q2_K against stock Q4_0
+  23% more expensive (predicted 25 to 50% cheaper): missed.
+- The plain control (07:31 entry): F16 48.8% (predicted 55 to 65%): missed; 94.7 tokens (85 to 110): held; its Q4_0 2.8
+  points under its F16 (within 2): missed narrowly; its Q4_0 35% cheaper per correct than stock Q4_0 (40 to 60%):
+  missed. The data costs 17 points, the grid about 21 more. results/lattice-v1.md.

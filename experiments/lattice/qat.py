@@ -209,7 +209,7 @@ def main():
     warm = max(1, min(50, total // 10))
     sched = torch.optim.lr_scheduler.LambdaLR(opt, lambda s: min(1.0, (s + 1) / warm) * 0.5 * (1 + math.cos(math.pi * min(1.0, s / total))))
     v0 = validate(model, held, pad)
-    print(f"{DEVICE}: {n_q} linears fake-quantized (group {GROUP}, {QMAX + 1} levels); {len(train)} train, {len(held)} held out; "
+    print(f"{DEVICE}: {n_q} linears {'fake-quantized (group ' + str(GROUP) + ', ' + str(QMAX + 1) + ' levels)' if QUANT else 'with fp32 masters, NOT quantized (QUANT=0)'}; {len(train)} train, {len(held)} held out; "
           f"{total} steps, batch {BATCH}; held-out loss before training {v0:.4f}", flush=True)
     qc0 = quant_check(model) if QUANT else None
     print("quant check at step 0:" if QUANT else "QUANT=0: fake quantization off (plain fine-tune)", json.dumps(qc0) if QUANT else "", flush=True)
