@@ -516,3 +516,17 @@ to measure above 3 W idle on macOS.
 - The plain control (07:31 entry): F16 48.8% (predicted 55 to 65%): missed; 94.7 tokens (85 to 110): held; its Q4_0 2.8
   points under its F16 (within 2): missed narrowly; its Q4_0 35% cheaper per correct than stock Q4_0 (40 to 60%):
   missed. The data costs 17 points, the grid about 21 more. results/lattice-v1.md.
+
+## 2026-10-26, 11:04 PT
+
+**Lattice v2 at 32B, a post-training format search** (Strix Halo; `experiments/lattice32_formats.sh`: Qwen2.5 32B
+Instruct, Q2_K, IQ2_M, IQ2_XS, IQ3_XXS and Q3_K_M all quantized from the same F16 with note 22's GSM8K imatrix, stock Q4_0
+as the reference; quality.py GSM8K-250, 8 slots, auto clocks, two passes in mirrored order). Note 22: Q4_0 94.8% at 563.6 J
+per correct answer, calibrated Q2_K 95.6% at 473.7 J, 1,992 against 2,224 mJ per token.
+- Accuracy: Q3_K_M and IQ3_XXS within 1 point of Q4_0; Q2_K and IQ2_M within 2 points; **IQ2_XS falls 2 to 6 points
+  below**, outside the band.
+- Energy per token: the IQ formats save bytes but cost more to unpack on this GPU's Vulkan path, so **IQ2_M and IQ2_XS are
+  no cheaper per token than Q2_K** (within 5% either side), and Q3_K_M sits between Q2_K and Q4_0.
+- Answer length is the same across formats within 5% (the same model, lightly perturbed).
+- **The calibrated Q2_K stays the cheapest per correct answer inside the band**, within 5% of whatever comes second; no format
+  beats note 22's 473.7 J by more than 5%. The ranking is set by tokens per second, not file size.
