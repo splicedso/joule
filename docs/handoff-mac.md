@@ -459,6 +459,15 @@ blind-mate connector with two alignment pins on each side and on the top and bot
 and `node.py --grid` render a 2x2. The lineup (package, node, tray, rack) is being test-rendered; the
 rack of 84 is slow at any size, so the family chain will take well over an hour.
 
+## 22:20: the row render hung; far views use cheap nodes
+
+The row of six racks (504 full nodes, each with a text badge and docks) wrote nothing to its log for
+nearly three hours: Blender hung, not crashed. Killed. `nodeparts.node_simple` and `tray_simple` are
+far-view versions (shell, grille, light, no text), `rack(simple=True)` uses them, and the row and the
+lineup use that. The rack's own render needed a wider camera (top was cut). Chain restarted for rack,
+row, lineup; node, open, grid and tray were already rendered and are good. Rule: no text objects in a
+scene with more than about a hundred instances.
+
 ## Next, in order
 
 1. Review the Trace 35k retrain PR (morning), then the Lattice v1 QAT PR
