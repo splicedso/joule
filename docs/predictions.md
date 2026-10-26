@@ -75,6 +75,25 @@ the second reversed).
 - Clock cap, `force=low`: 10.7 tok/s (predicted: under half); energy per token flat against auto on the
   mean, spread 10% flagged. The "rises above auto" half did not show. `results/halo-clockcap.md`.
 
+## 2026-10-25, 14:30 PT
+
+**Teacher faithfulness** (Strix Halo, `experiments/drafter/teacher_check.py`: on the 180 held-out
+answers the Q4_0 7B wrote through llama.cpp, the share of positions where a transformers teacher's
+top-1 is that token).
+- The Q4_0 7B's weights dequantized into transformers match on at least 99% of positions; the bf16
+  7B on fewer, between 96 and 98.5%. The gap is the mismatch Trace v1's on-policy run trained against.
+
+**Trace v1 on-policy, second attempt** (TVD, LR 3e-6, 300 steps, GEN 128, teacher: the dequantized
+Q4_0 7B; two starts: the stock 0.5B and the 35k off-policy checkpoint).
+- Neither run declines: held-out agreement at step 300 is at least 0.5 points above its starting
+  checkpoint. From stock it stays below 0.79. From the 35k checkpoint it adds under 1 point to that
+  checkpoint's agreement.
+
+**Trace v1 at 35k, speculative decoding** (`evaluate.py`, 7B Q4_0 target, k=4 and k=8, p=0.5, two passes).
+- Acceptance rises over the stock draft by less than the agreement gain suggests (as at 9k), and the
+  35k draft is faster than plain decoding at k=4 by 1.3x to 1.6x with lower chip energy per token.
+  Against the stock draft, within 5% on tokens per second either way.
+
 ## 2026-10-25, 14:50 PT
 
 **Capped joules per correct answer** (Strix Halo, `experiments/halo_capped_quality.sh`: shader clock
@@ -343,3 +362,13 @@ Draft-4 against plain, energy per token and speed: batch 1 1.03x, 1.26x; 2 0.71x
 - Batch 2: 29% less energy. Held (10 to 30%).
 - Batch 4: 12% more energy, missed narrowly (within 10% predicted); the speed-up is gone (0.85x). Held.
 - Batch 8 and 16: 50% and 20% more energy, lower throughput. Held. Note 25.
+## Results so far, 2026-10-26, 06:34 PT (predictions above left unedited)
+
+- Trace v1, off-policy, 35,000 prompts, LR 3e-6, ALPHA=2, one epoch: held-out agreement with the Q4_0 7B
+  0.7754 (stock 0.7616, the 9k run 0.7685). The 05:05 prediction that 35k clears 0.79: missed.
+- Trace v1 at 35k in speculative decoding (k=4, p 0.5, one request, two passes): 1.44x plain, 34% less chip
+  energy per token (14:30 entry: held); 2.3% slower than the stock draft (within 5%: held); acceptance 75.3%
+  against 71.7% (+3.6 points, more than the +1.4 of agreement: missed), accepted tokens per generated token
+  0.592 against 0.601 (fell). results/drafter/trace-v1-35k.md.
+- Teacher faithfulness (14:30 entry): dequantized Q4_0 98.8% (predicted at least 99%: missed narrowly); bf16
+  93.3% (predicted 96 to 98.5%: missed).

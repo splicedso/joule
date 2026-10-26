@@ -12,9 +12,12 @@ scores the prompt plus those tokens in one forward pass; the loss is the total v
 best divergence for acceptance). Held-out top-1 agreement on the off-policy validation set
 (the 7B's own answers, from teacher.py) is checked every EVAL_EVERY steps and the best weights kept.
 
-    python experiments/drafter/train_onpolicy.py data/drafter/teacher.jsonl TEACHER_HF_DIR models/trace-0.5b-v1-onpolicy
+    python experiments/drafter/train_onpolicy.py data/drafter/teacher.jsonl TEACHER models/trace-0.5b-v1-onpolicy
 
-Environment: LR (3e-6), STEPS (300), GEN (128), MICRO (4), DIV (tvd or kl), MAX_STEPS for smoke tests.
+TEACHER is a Hugging Face directory (the bf16 7B) or a .gguf (the Q4_0 7B's weights dequantized into
+transformers, so the teacher is the model the draft is judged on; see teacher_check.py).
+Environment: LR (3e-6), STEPS (300), GEN (128), MICRO (4), DIV (tvd or kl), MAX_STEPS for smoke tests,
+STUDENT (default the stock 0.5B; a checkpoint directory to continue from, e.g. the 35k off-policy model).
 """
 
 import json
@@ -70,8 +73,12 @@ def divergence(s_logits, t_logits, valid):
 def main():
     src, teacher_dir, out = Path(sys.argv[1]), sys.argv[2], Path(sys.argv[3])
     tok = AutoTokenizer.from_pretrained(BASE)
-    student = AutoModelForCausalLM.from_pretrained(BASE, torch_dtype=torch.float32).to(DEVICE)
-    teacher = AutoModelForCausalLM.from_pretrained(teacher_dir, torch_dtype=torch.bfloat16).to(DEVICE).eval()
+    student = AutoModelForCausalLM.from_pretrained(os.environ.get("STUDENT", BASE), torch_dtype=torch.float32).to(DEVICE)
+    if teacher_dir.endswith(".gguf"):  # the Q4_0 7B's own weights, dequantized (the model the draft is judged on)
+        teacher = AutoModelForCausalLM.from_pretrained("models/hf-7b", gguf_file=str(Path(teacher_dir).resolve()),
+                                                       torch_dtype=torch.bfloat16).to(DEVICE).eval()
+    else:
+        teacher = AutoModelForCausalLM.from_pretrained(teacher_dir, torch_dtype=torch.bfloat16).to(DEVICE).eval()
     teacher.requires_grad_(False)
     held = {json.loads(l)["messages"][0]["content"] for l in VALID.read_text().splitlines()}
     train, valid = index(src, held)
