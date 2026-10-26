@@ -28,3 +28,4 @@ granite2b-Q5_K_M.gguf decode: 113.5 tok/s, 406.2 mJ/tok SoC
 granite2b-Q6_K.gguf prefill: 3601.4 tok/s, 12.7 mJ/tok SoC
 granite2b-Q6_K.gguf decode: 100.8 tok/s, 407.9 mJ/tok SoC
 granite2b-Q8_0.gguf prefill: 3651.3 tok/s, 12.4 mJ/tok SoC
+granite2b-Q8_0.gguf decode: 84.5 tok/s, 417.9 mJ/tok SoC
