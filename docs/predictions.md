@@ -391,6 +391,18 @@ with 84 tokens per answer. The Mac half could not change the verdict, so it was 
 transferred. One prediction of this entry is answerable from the Strix data: answers did get shorter, but to 84
 to 86 tokens, not 150 to 200. Missed.
 
+## 2026-10-26, 06:39 PT
+
+**Trace drafts at lower confidence thresholds** (Strix Halo, added to the on-policy pilot's eval before it runs:
+`evaluate.py`, Q4_0 7B target, one request, k=4, two passes; the stock draft, the 35k off-policy draft and both
+on-policy pilot drafts at p 0.3 and p 0.4 beside their p 0.5 rows). The 35k draft accepted 75.3% against stock's
+71.7% at p 0.5 but proposed 6% fewer tokens, so its probability is spread and fewer guesses clear 0.5.
+- Lowering the threshold raises tokens proposed and lowers acceptance for every draft; the 35k draft's proposals
+  rise more than the stock draft's (it has more guesses sitting between 0.3 and 0.5).
+- The stock draft is fastest at p 0.4 or 0.5; the 35k draft at p 0.3 or 0.4.
+- At each draft's best threshold, the 35k draft is **0 to 4% faster** than the stock draft and within 3% on chip
+  energy per token: the extra data was not wasted, but it is still far short of a draft worth shipping.
+
 ## 2026-10-26, 08:03 PT
 
 **Decode energy against batch size, Strix Halo follow-ups** (7B Q4_0, `experiments/decode_batch_energy.py` with a
