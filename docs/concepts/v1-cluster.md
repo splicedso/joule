@@ -66,6 +66,16 @@ overhead at full load is 216 against 111 joules per correct answer, nearly doubl
 modules at 85 W are only 2.7 kW of a 5.3 kW pod. Fans at 50 W per sled, the prefill GPU and the host
 boards are the rest. The design's first fight is not the module; it is everything around it.
 
+## What the roofline says about the module
+
+Fabric's roofline (`python -m fabric.roofline`) puts a 7B Q4_0 on a 230 GB/s part at a memory bound of
+about 526 tokens per second at a batch of 8. The measured capped figure is 192, 37% of that bound. So at
+eight slots a capped Strix Halo is not memory bound; it is compute bound on a die held at 1,800 MHz,
+which is also why the cap costs 15% of speed at eight slots where it cost 4% at one (note 23). The
+headroom to the memory bound is the module's upside: a less aggressive cap, or a part with the same
+memory and more compute per watt, closes it. That trade is Fabric's to find, per request mix, and a
+reason the cap should be a scheduler setting and not a fixed number.
+
 ## What V1 is not
 
 Not liquid cooled, not a custom chip, not a custom enclosure. The only custom parts are the carrier
