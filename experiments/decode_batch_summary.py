@@ -13,7 +13,7 @@ by = {}
 for r in d["rows"]:
     by.setdefault(r["batch"], {})[r["pass"]] = r
 base = None
-print(f'{d["model"]} on {d["machine"]}, {d["answer_tokens"]}-token answers, power: {d["power"]}\n')
+print(f'{d["model"]} on {d["machine"]}, {d["answer_tokens"]}-token answers, power: {d["power"]}' + (f', server args: {d["server_args"]}' if d.get("server_args") else "") + "\n")
 print("| batch | tok/s | tok/s per request | W | mJ/token pass 1 | pass 2 | mean | vs batch 1 | spread |")
 print("|---:|---:|---:|---:|---:|---:|---:|---:|---:|")
 factor = {}
@@ -25,7 +25,8 @@ for b in sorted(by):
     factor[str(b)] = round(m / base, 3)
     tok_s = (p1["tok_s"] + p2["tok_s"]) / 2
     w = (p1["watts"] + p2["watts"]) / 2
-    print(f'| {b} | {tok_s:.1f} | {tok_s / b:.1f} | {w:.1f} | {p1["mj_per_token"]:.0f} | {p2["mj_per_token"]:.0f} | {m:.0f} | {100 * (1 - m / base):.0f}% less | {100 * spread:.1f}% |')
+    acc = (p1.get("draft_accepted", 0) + p2.get("draft_accepted", 0)) / max(1, p1.get("draft_n", 0) + p2.get("draft_n", 0))
+    print(f'| {b} | {tok_s:.1f} | {tok_s / b:.1f} | {w:.1f} | {p1["mj_per_token"]:.0f} | {p2["mj_per_token"]:.0f} | {m:.0f} | {100 * (1 - m / base):.0f}% less | {100 * spread:.1f}% |' + (f' draft accepted {100 * acc:.0f}% |' if p1.get("draft_n") else ""))
 thin = sorted({r["batch"] for r in d["rows"] if r["samples"] < 5})
 if thin: print(f"\nthin windows (under 5 power samples) at batch {thin}: those rows lean on a second tool or a longer answer")
 print("\nper_token_factor:", json.dumps(factor))

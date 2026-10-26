@@ -187,3 +187,18 @@ judged on this machine. Written before the QAT run has finished; nothing about i
 - The control decides what any win means: the QAT weights at Q4_0 answer as briefly, are more accurate,
   and cost less per correct answer than the QAT 2-bit file. If that holds, a 2-bit win over stock Q4_0 is a
   win for fine-tuning, and the note says so.
+
+## 2026-10-26, 01:36 PT
+
+**Speculative decoding against batch size** (M5 Pro; target Qwen2.5 7B Q4_K_M, draft Qwen2.5 0.5B Q4_K_M,
+drafts of up to 4 tokens with a 0.5 confidence threshold, Foundry's settings; `experiments/decode_batch_energy.py`
+with SERVER_ARGS, batches 1, 2, 4, 8, 16, two passes each, run straight after the same batches without the
+draft so both meet the same machine). The Systems page lists this as not yet measured: does batching make the
+draft useless, because the batch takes the spare compute the draft's verification uses?
+- Batch 1: with the draft, 0.9 to 1.1 times the energy per token of plain decoding, 1.15 to 1.4 times the
+  speed (note 11: 0.99x energy, 1.30x speed on prose through llama-server, Q4_0 pair).
+- Batch 4: no saving left: 1.0 to 1.2 times the energy, speed within 10% either way.
+- Batch 8 and 16: the draft costs energy, 1.15 to 1.5 times plain, and total tokens per second is lower than
+  without it, because from batch 8 the chip is compute bound (note 24) and rejected draft tokens are paid for.
+- The energy crossover sits between batch 2 and 4.
+- Draft acceptance stays within 10 points across batches: batching changes the cost of a guess, not its odds.

@@ -9,12 +9,14 @@ machine's power sampler for watts over the same window. Two passes, the second r
 
 Mac: power from macmon (chip only). Linux: from the amdgpu hwmon (package). Wall power is not measured
 here; the note says so. Never run with a browser or Blender open. ANSWER=512 in the environment lengthens
-every window four times (keep 128 for a row meant to compare with note 24).
+every window four times (keep 128 for a row meant to compare with note 24). BATCHES=1,2,4 picks batches;
+SERVER_ARGS adds llama-server flags (a draft model: "-md draft.gguf --spec-draft-n-max 4 --spec-draft-p-min 0.5 -ngld 99").
 """
 import json, os, shutil, subprocess, sys, threading, time, urllib.request
 
 MODEL, OUT = sys.argv[1], sys.argv[2]
-BATCHES = [1, 2, 4, 8, 16, 32]
+BATCHES = [int(b) for b in os.environ.get("BATCHES", "1,2,4,8,16,32").split(",")]
+SERVER_ARGS = os.environ.get("SERVER_ARGS", "").split()  # extra llama-server flags, e.g. a draft model
 ANSWER = int(os.environ.get("ANSWER", 128))  # tokens per answer; note 24 used 128. A 1.5B at batch 1 gives a 0.7 s window at 128: raise it for small models
 PROMPT = "Write a plain paragraph about the weather in a city of your choice, about two hundred words long."
 SERVER = shutil.which("llama-server") or "/opt/homebrew/bin/llama-server"
@@ -39,7 +41,7 @@ def power_samples(stop, out):
 
 
 def one(batch):
-    srv = subprocess.Popen([SERVER, "-m", MODEL, "--port", str(PORT), "--parallel", str(batch), "-c", str(batch * 1024), "-ngl", "99", "--log-disable"],
+    srv = subprocess.Popen([SERVER, "-m", MODEL, "--port", str(PORT), "--parallel", str(batch), "-c", str(batch * 1024), "-ngl", "99", "--log-disable"] + SERVER_ARGS,
                            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     try:
         for _ in range(120):
@@ -51,8 +53,10 @@ def one(batch):
         t0 = time.time(); timings = send(batch, ANSWER); secs = time.time() - t0
         stop.set(); t.join(timeout=2)
         toks = sum(x["predicted_n"] for x in timings)
+        drafted = sum(x.get("draft_n", 0) for x in timings); accepted = sum(x.get("draft_n_accepted", 0) for x in timings)
         watts = sum(w) / len(w) if w else float("nan")
-        return {"batch": batch, "tokens": toks, "seconds": secs, "tok_s": toks / secs, "watts": watts, "mj_per_token": watts * secs / toks * 1000, "samples": len(w)}
+        return {"batch": batch, "tokens": toks, "seconds": secs, "tok_s": toks / secs, "watts": watts, "mj_per_token": watts * secs / toks * 1000, "samples": len(w),
+                "draft_n": drafted, "draft_accepted": accepted}
     finally:
         srv.terminate(); srv.wait(timeout=10)
 
@@ -73,5 +77,5 @@ rows = []
 for order, batches in ((1, BATCHES), (2, list(reversed(BATCHES)))):
     for b in batches:
         r = one(b); r["pass"] = order; rows.append(r); print(r)
-json.dump({"model": os.path.basename(MODEL), "machine": sys.platform, "answer_tokens": ANSWER, "power": "chip (macmon) on darwin, package hwmon on linux; not wall", "rows": rows}, open(OUT, "w"), indent=1)
+json.dump({"model": os.path.basename(MODEL), "machine": sys.platform, "answer_tokens": ANSWER, "power": "chip (macmon) on darwin, package hwmon on linux; not wall", "server_args": " ".join(SERVER_ARGS), "rows": rows}, open(OUT, "w"), indent=1)
 print("wrote", OUT)
