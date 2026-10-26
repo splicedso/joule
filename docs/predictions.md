@@ -224,3 +224,22 @@ draft is a small batch, and llama.cpp's Metal small-batch kernel covers fewer ba
   1.0x speed like the K-quant pair, the format hypothesis is wrong and the note says so.
 - Draft-8 at batch 1: within 0.1x of draft-4's speed.
 - Draft-4 at 8 and 16: costs more energy than plain, as with the K-quant pair.
+
+### Results for 01:36 and 01:41 (K-quant pair; plain is the mean of two runs, 01:36 and 01:40, that bracket the draft run)
+
+A first draft run at 01:37 is void: it passed `-md` without `--spec-type`, and this llama-server build then
+loads the draft and never drafts (zero draft tokens, plain's speed). Kept as
+`results/void/spec-batch-mac-7b-draft-no-spec-type.json`. The valid run (01:39) adds `--spec-type draft-simple`.
+
+01:36, draft-4 against plain:
+- Batch 1: 1.08x energy (held, 0.9 to 1.1), 1.04x speed (missed, 1.15 to 1.4).
+- Batch 4: 1.05x energy (held), 0.86x speed (missed narrowly, within 10% predicted).
+- Batch 8: 1.72x energy (missed, above 1.5), 0.55x speed. Batch 16: 1.25x energy, 0.81x speed. Both cost energy
+  and throughput, as predicted.
+- Crossover between 2 and 4: missed in shape. The draft costs 8% at batch 1, saves 22% at batch 2 (plain's chip
+  power steps from 30 to 46 W at batch 2; with the draft it reads 36 W), and costs from 4 on.
+- Acceptance within 10 points across batches: held, trivially: 60% at every batch, because every request is the
+  same prompt at temperature 0, so every slot drafts the same tokens.
+
+01:41, draft-8 against plain, batch 1 and 2: speed 1.02x (missed, 1.15 to 1.3), energy 1.09x (held, 0.95 to
+1.1); acceptance 53% (held, 45 to 60); batch 2 saves 18%, within 10 points of draft-4's 22% (held).
