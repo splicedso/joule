@@ -1,0 +1,1771 @@
+{
+  "summary": {
+    "model": "1.5b-qat-Q4_0.gguf",
+    "server_args": "",
+    "n": 250,
+    "slots": 8,
+    "correct": 62,
+    "accuracy": 0.248,
+    "seconds": 46.20855439800653,
+    "tokens": 21300,
+    "tok_s": 460.9536108084545,
+    "soc_w": 97.88266740088106,
+    "idle_soc_w": 17.267017543859648,
+    "chip_j": 4523.016561215592,
+    "chip_j_per_correct": 72.95188001960634,
+    "net_j_per_correct": 60.082784544335816,
+    "chip_mj_per_token": 212.3481953622344
+  },
+  "rows": [
+    {
+      "gold": 18.0,
+      "got": 88.0,
+      "correct": false,
+      "tokens": 70,
+      "reply": "Janet\u2019s ducks lay 16 x 3 = 48 eggs a day.\nSo, Janet has 48 - 4 = 44 eggs left to sell.\nTherefore, Janet makes $2 x 44 = $88 every day at the farmers' market.\nThe answer is 88."
+    },
+    {
+      "gold": 3.0,
+      "got": 6.0,
+      "correct": false,
+      "tokens": 50,
+      "reply": "It takes 1 bolt of blue fiber + 1/2 bolt of white fiber = 3 bolts of fiber.\nSo it takes 3 bolts * 2 bolts/bolt = 6 bolts of fiber.\nThe answer is 6."
+    },
+    {
+      "gold": 70000.0,
+      "got": 42000.0,
+      "correct": false,
+      "tokens": 101,
+      "reply": "The value of the house increased to 80,000*.15=$12,000\nSo it was worth 80,000+12,000=92,000\nHe spent 50,000 so he made a profit of 92,000-50,000 = $42,000\nThe answer is 42,000."
+    },
+    {
+      "gold": 540.0,
+      "got": 540.0,
+      "correct": true,
+      "tokens": 41,
+      "reply": "He runs 3*60=180 meters per sprint.\nSo he runs 180*3=540 meters per week.\nThe answer is 540."
+    },
+    {
+      "gold": 20.0,
+      "got": 2.0,
+      "correct": false,
+      "tokens": 131,
+      "reply": "In the morning, Wendi feeds her flock of chickens 15 cups of mixed chicken feed.\nIn the afternoon, Wendi feeds her flock of chickens 25 cups of mixed chicken feed.\nSo far, Wendi has given her flock of chickens a total of 15 + 25 = 40 cups of mixed chicken feed.\nThe size of Wendi's flock is 20 chickens and she gives the flock 40 cups of mixed chicken feed so she needs to give them 40/20 = 2 cups of mixed chicken feed in the final meal of the day.\nThe answer is 2."
+    },
+    {
+      "gold": 64.0,
+      "got": 49.0,
+      "correct": false,
+      "tokens": 48,
+      "reply": "The first glass cost 5*1=5 dollars.\nEach subsequent glass cost 5*.6=$3.\nSo, the total cost is 5+16*3=$49.\nThe answer is 49."
+    },
+    {
+      "gold": 260.0,
+      "got": 240.0,
+      "correct": false,
+      "tokens": 56,
+      "reply": "Charleston has 4*20=80 sheep.\nSo Toulouse has 80*2=160 sheep.\nTogether they have 160+80+20=240 sheep.\nThe answer is 240."
+    },
+    {
+      "gold": 160.0,
+      "got": 5.0,
+      "correct": false,
+      "tokens": 115,
+      "reply": "First find how many MB Carla downloads per minute: 2 GB/minute * 40% = 800 MB/minute\nThen add that time to the normal download time to find the total time spent downloading: 800 MB/minute + 20 minutes = 1000 minutes\nThen divide the total amount of time by the number of minutes per file to find how many files Carla downloads in total: 1000 minutes / 200 GB/file = 5 files\nThe answer is 5."
+    },
+    {
+      "gold": 45.0,
+      "got": 345.0,
+      "correct": false,
+      "tokens": 141,
+      "reply": "He drives for 2+1=3 hours in standstill traffic\nThat means he travels 60*3=180 miles\nThe next half hour takes 1/2*3=1.5 hours to drive\nSo he covers 30*1.5=45 miles\nThat leaves him with 4-1.5-1=1.5 hours to drive at 80 mph\nSo he drives for 1.5*80=120 miles in the last hour\nSo he is 180+45+120=345 miles from home\nThe answer is 345."
+    },
+    {
+      "gold": 460.0,
+      "got": 960.0,
+      "correct": false,
+      "tokens": 71,
+      "reply": "Eliza's overtime pay is $10 x 1.2 = $12.\nSo, Eliza's total earnings per hour is $10 + $12 = $22.\nTherefore, Eliza earned $22 x 45 = $960 for this week.\nThe answer is 960."
+    },
+    {
+      "gold": 366.0,
+      "got": 240.0,
+      "correct": false,
+      "tokens": 61,
+      "reply": "The program had 60*3=180 downloads in the second month.\nSo it had a total of 60+180-30/100=240 downloads in the first, second and third months.\nThe answer is 240."
+    },
+    {
+      "gold": 694.0,
+      "got": 724.0,
+      "correct": false,
+      "tokens": 93,
+      "reply": "The cost of the donuts is 3 x $68 = $234.\nThe cost of the mini cupcakes is 2 x $80 = $160.\nThe cost of the cheesecakes is 6 x $55 = $330.\nSo, the total cost was $234 + $160 + $330 = $724.\nThe answer is 724."
+    },
+    {
+      "gold": 13.0,
+      "got": 8.0,
+      "correct": false,
+      "tokens": 58,
+      "reply": "The lemon tree will earn him $1.5 x 7 = $10.5 per year.\nSo, Carlos needs to wait for 90 / 10.5 = 8 years to start making money from his lemon tree.\nThe answer is 8."
+    },
+    {
+      "gold": 18.0,
+      "got": 6.0,
+      "correct": false,
+      "tokens": 115,
+      "reply": "If Melanie sold a third of her vacuum cleaners at the green house, then she had 1/3*5 = 5 vacs left.\nShe sold 2 more to the red house, so she had 5+2 = 7 vacs left.\nAfter selling half of what was left at the orange house, she had 7/2=3.5 vacs left.\nIf Melanie started with 5 vacs, then she had 5+5-3.5 = 6 vacs\nThe answer is 6."
+    },
+    {
+      "gold": 60.0,
+      "got": 10.0,
+      "correct": false,
+      "tokens": 58,
+      "reply": "There are 100 - 20 - 25 = 50 students who don't enroll in contemporary or jazz.\nSo there are 50 * 20% = 10 students who enroll in hip-hop.\nThe answer is 10."
+    },
+    {
+      "gold": 125.0,
+      "got": 4791.0,
+      "correct": false,
+      "tokens": 108,
+      "reply": "The increase in price for jewelry is $5000 * 2.5/100 = $125.\nThe increase in price for electronic gadgets is $8000 * 1.2/100 = $96.\nSo the total increase in price is $125 + $96 = $221.\nTherefore, the profit would be $221 - $5000 = $4791.\nThe answer is 4791."
+    },
+    {
+      "gold": 230.0,
+      "got": 310.0,
+      "correct": false,
+      "tokens": 75,
+      "reply": "In the first day, each train covers 80 + 80 = 160 miles.\nThe total distance covered is 160 + 150 = 310 miles.\nEach train covers 160 + 150 = 310 miles in the two days.\nThe answer is 310."
+    },
+    {
+      "gold": 57500.0,
+      "got": 60550.0,
+      "correct": false,
+      "tokens": 101,
+      "reply": "She makes $20 x 50 = $1000 per week.\nSo, Jill makes $1000 x 50 = $50000 per year.\nAnd she also makes $30 x 35 = $1050 for being a coach.\nTherefore, Jill's annual salary is $50000 + $1050 = $60550.\nThe answer is 60550."
+    },
+    {
+      "gold": 7.0,
+      "got": 6.0,
+      "correct": false,
+      "tokens": 57,
+      "reply": "She eats 3*7=21 eggs per week.\nSo she eats 21/12=1.8 dozen eggs per week.\nIn 4 weeks, she will eat 1.8*4=6 dozen eggs.\nThe answer is 6."
+    },
+    {
+      "gold": 6.0,
+      "got": 2.0,
+      "correct": false,
+      "tokens": 92,
+      "reply": "The total time Marissa spent walking was 1+2 = 3 hours.\nShe walked a total of 4+2=6 miles in those three hours.\nSo far, she has traveled 12-6=6 miles.\nHer average speed is 6/3=2 miles per hour.\nTherefore, Marissa needs to walk at 4-2=2 miles per hour to reach her goal.\nThe answer is 2."
+    },
+    {
+      "gold": 15.0,
+      "got": 20.0,
+      "correct": false,
+      "tokens": 117,
+      "reply": "The orange drink is 10/3 = 10/3*2 = 20 liters.\nSo there are 24-10= 14 liters of orange left after I pour it.\nThe pineapple drink is 15/5 = 15/5*3 = 9 liters.\nSo there are 15-9 = 6 liters of pineapple left.\nTherefore, the total amount of water in the remaining 24 liters is 14+6 = 20 liters.\nThe answer is 20."
+    },
+    {
+      "gold": 14.0,
+      "got": 8.0,
+      "correct": false,
+      "tokens": 78,
+      "reply": "Samantha is now 31 years old and Raymond was born 6 years before Samantha so he was 31-6 = 25 years old.\nRaymond had a son at the age of 23 and Samantha is now 31 so Raymond's son was born 31-23 = 8 years ago\nThe answer is 8."
+    },
+    {
+      "gold": 7.0,
+      "got": 0.0,
+      "correct": false,
+      "tokens": 92,
+      "reply": "He sold 1*3=3 DVDs for the first three customers.\nHe sold 2*2=4 DVDs for the next two customers.\nSo he sold a total of 3+4=7 DVDs for the first four customers.\nThe last three didn't buy any DVDs, so he didn't sell any DVDs for those customers.\nThat means he sold 7-3-3=0 DVDs on Tuesday.\nThe answer is 0."
+    },
+    {
+      "gold": 8.0,
+      "got": 8.0,
+      "correct": true,
+      "tokens": 89,
+      "reply": "From 1:00 PM to 5:00 PM, the candle will burn for 5 hours - 1 hour = 4 hours.\nSo, the candle will melt by 2 centimeters every hour * 4 hours = 8 centimeters.\nTherefore, a candle will be 8 cm shorter after burning from 1:00 PM to 5:00 PM.\nThe answer is 8."
+    },
+    {
+      "gold": 26.0,
+      "got": 24.35,
+      "correct": false,
+      "tokens": 71,
+      "reply": "Let x be the original price.\nThen, Kyle got the book at 19.50*.25=$4.875 less than the original price.\nSo, the original price is $4.875+19.50=$24.35\nThe answer is 24.35."
+    },
+    {
+      "gold": 2.0,
+      "got": 1.0,
+      "correct": false,
+      "tokens": 73,
+      "reply": "The cost of the milk is 5 packs * $3/pack = $15.\nSo the total cost for the milk, apples and pizza is $12 + $15 + $1.50 = $49.\nTherefore Marie ordered $50 - $49 = $1 boxes of pizza.\nThe answer is 1."
+    },
+    {
+      "gold": 243.0,
+      "got": 243.0,
+      "correct": true,
+      "tokens": 102,
+      "reply": "Mishka spent 3 * $16.50 = $49.50 on shorts.\nShe spent 3 * $22.50 = $67.50 on pants.\nAnd she spent 3 * $42 = $126 on shoes.\nTherefore, Mishka spent a total of $49.50 + $67.50 + $126 = $243.\nThe answer is 243."
+    },
+    {
+      "gold": 16.0,
+      "got": 16.0,
+      "correct": true,
+      "tokens": 114,
+      "reply": "She eats 1 serving every night and there are 30 nights in a month so that's 1*30 = 30 servings\nEach carton has 15 servings of ice cream and she needs to buy 60 days worth of ice cream so that's 60/15 = 4 cartons\nThe ice cream costs $4.00 per carton and she buys 4 cartons for a total cost of 4*4 = $16.00\nThe answer is 16."
+    },
+    {
+      "gold": 25.0,
+      "got": 35.0,
+      "correct": false,
+      "tokens": 27,
+      "reply": "He traveled 20+15=35 miles between his first and second stops.\nThe answer is 35."
+    },
+    {
+      "gold": 104.0,
+      "got": 9.0,
+      "correct": false,
+      "tokens": 101,
+      "reply": "Let x be the price of the boots.\nThe cost of the two pairs of heels is 2*x = 2x.\nSo, the cost of the boots is x + 2x - 5 = x+2x-5 = 3x-5 dollars.\nWe know that 3x-5 = 33\nThus, 4x = 38\nTherefore, the price of the boots is x = 9 dollars.\nThe answer is 9."
+    },
+    {
+      "gold": 109.0,
+      "got": 53.0,
+      "correct": false,
+      "tokens": 91,
+      "reply": "Let x be the age of Darrell.\nThen Allen's age is (x+11)*7 = 7x+77\nThe total age of both is x+x+77=162\nSo 2x=85\nAllen's age is 43 years old now.\nIn ten years, Allen will be 43+10=53 years old.\nThe answer is 53."
+    },
+    {
+      "gold": 80.0,
+      "got": 90.0,
+      "correct": false,
+      "tokens": 133,
+      "reply": "Half of 80 is (1/2)*80 = 40.\nSo, the second friend thinks there are 40+20 = 60 jelly beans in the jar.\nThe third friend says 25% more than 80 which is 25/100*80 = 20 more than 80.\nThus, the third friend thinks there are 80+20 = 100 jelly beans in the jar.\nTherefore, their average guess is (40+60+100)/3 = 90\nThe answer is 90."
+    },
+    {
+      "gold": 35.0,
+      "got": 35.0,
+      "correct": true,
+      "tokens": 38,
+      "reply": "He spends 10*.5=5 hours per day on his dogs\nSo he spends 5*7=35 hours a week\nThe answer is 35."
+    },
+    {
+      "gold": 70.0,
+      "got": 40.0,
+      "correct": false,
+      "tokens": 76,
+      "reply": "Let x be the number of silver coins.\nThere are 30 + x gold coins.\nx + (30 + x) = 110.\n2x + 30 = 110.\n2x = 80.\nx = 40.\nGretchen has 40 gold coins.\nThe answer is 40."
+    },
+    {
+      "gold": 23.0,
+      "got": 23.0,
+      "correct": true,
+      "tokens": 49,
+      "reply": "Half of Raymond's jewels is 40/2=20.\nAaron has 20+5=25 jewels.\nSiobhan has 25-2=23 jewels.\nThe answer is 23."
+    },
+    {
+      "gold": 9.0,
+      "got": 9.0,
+      "correct": true,
+      "tokens": 67,
+      "reply": "He scored 4*.25=1 point more than the first 20 minute.\nSo he scored 4+1=5 points in the second 20 minutes.\nThat means he scored a total of 4+5=9 points in the two 20 minute periods.\nThe answer is 9."
+    },
+    {
+      "gold": 75.0,
+      "got": 9000.0,
+      "correct": false,
+      "tokens": 71,
+      "reply": "He buys 2*30=60 yuts in total.\nSo he spends 60*5=$300.00 a day.\nThat means he spends 300*30=$9,000.00 on yogurt over 30 days.\nThe answer is 9000."
+    },
+    {
+      "gold": 2.0,
+      "got": 96.0,
+      "correct": false,
+      "tokens": 81,
+      "reply": "He sold 13*15=$195 selling his toys.\nSo he spent 195-8=187 on the video games.\nThat means he had 187+5=$192 left after buying the video games.\nTherefore, he still has 192/2=$96 lego sets.\nThe answer is 96."
+    },
+    {
+      "gold": 10.0,
+      "got": 17.0,
+      "correct": false,
+      "tokens": 56,
+      "reply": "He runs 24/3=8 miles per hour on the second day.\nSo he runs 60-3-8=51 miles a week.\nThat means he runs 51/3=17 mph.\nThe answer is 17."
+    },
+    {
+      "gold": 18.0,
+      "got": 5.5,
+      "correct": false,
+      "tokens": 199,
+      "reply": "Dana runs four times faster than she can walk, so she can run 4*2=8 mph.\nShe can run 1/2 as fast as she can skip, so she can run at a rate of 3*.5=1.5 mph.\nIf she spends one-third of the time running and two-thirds of the time walking, then she runs for 6/3=.5 hours\nIn that time, she can travel 8*0.5=4 miles\nIn the same time period, she can walk at a rate of 2*1.5=3 mph.\nIf she spends one-third of the time running and two-thirds of the time walking, then she walks for 6/3=.5 hours\nIn that time, she can travel 3*0.5=1.5 miles\nThe total distance she travels is 4+1.5=5.5 miles\nThe answer is 5.5."
+    },
+    {
+      "gold": 8.0,
+      "got": 8.0,
+      "correct": true,
+      "tokens": 37,
+      "reply": "Ben's iPhone is 2 * 1 = 2 years old.\nBrandon's iPhone is 4 * 2 = 8 years old.\nThe answer is 8."
+    },
+    {
+      "gold": 200.0,
+      "got": 200.0,
+      "correct": true,
+      "tokens": 108,
+      "reply": "Polly can throw the javelin 3 times farther than when she holds the sapphire, so she can throw it 400 feet * 3 = 1200 feet.\nThe distance of the dragon's flames is 1000 feet and Polly can throw the javelin 1200 feet, so she needs to stand 1200 - 1000 = 200 feet outside the reach of the dragon's flames.\nThe answer is 200."
+    },
+    {
+      "gold": 26.0,
+      "got": 26.0,
+      "correct": true,
+      "tokens": 74,
+      "reply": "Each pie was cut into 8 pieces so 5 pies are cut into 5*8 = 40 pieces of pie\nThere were 14 pieces left after the guests had eaten their pie and there were 40 pieces so 40-14 = 26 pieces were taken by the guests\nThe answer is 26."
+    },
+    {
+      "gold": 48.0,
+      "got": 13200.0,
+      "correct": false,
+      "tokens": 112,
+      "reply": "If each serving contains 250 calories, then the total number of servings in the bag is 300g / 5 = 60 servings.\nThe total number of calories that a bag of chips has is 60 x 250 = 15000 calories.\nSince you have already consumed 1800 calories, then you can eat 15000 - 1800 = 13200 more calories.\nThe answer is 13200."
+    },
+    {
+      "gold": 20.0,
+      "got": 40.0,
+      "correct": false,
+      "tokens": 238,
+      "reply": "He uses 10 pounds of wax to make a candle so he needs 20*10=200 pounds of wax.\nThe wicks cost $10.00 in supplies and he uses 200 pounds of wax so that's 10*20=$200.00 worth of supplies\nHe sells each candle for $2.00 and he makes 20 candles so that's 20*$2.00 = $40.00 in sales\nHis net profit is his sales minus his cost at $40.00 and he uses 10 pounds of wax to make a candle so he can make 200/10=20 candles\nHe sells each candle for $2.00 and he makes 20 candles so that's 20*$2.00 = $40.00 in sales\nHis net profit is his sales minus his cost at $40.00 and he uses 10 pounds of wax to make a candle so he can make 20 candles\nThe answer is 40."
+    },
+    {
+      "gold": 104.0,
+      "got": 24.0,
+      "correct": false,
+      "tokens": 384,
+      "reply": "On Tuesday, Meredith wrote 2 * 5 = 10 articles.\nIn total, she wrote 5 + 10 + 2*10 = 35 articles for the week.\nThe total time she spent writing on Monday and Tuesday is 4 hours/day x 2 days = 8 hours\nOn Wednesday, Meredith wrote twice as many articles as she did on Tuesday so she wrote 2 * 10 = 20 articles.\nIn total, she wrote 5 + 10 + 20 = 35 articles for the week.\nThe total time she spent writing on Monday and Tuesday is 4 hours/day x 2 days = 8 hours\nOn Wednesday, Meredith wrote twice as many articles as she did on Tuesday so she wrote 2 * 10 = 20 articles.\nIn total, she wrote 5 + 10 + 20 = 35 articles for the week.\nThe total time she spent writing on Monday and Tuesday is 4 hours/day x 2 days = 8 hours\nOn Wednesday, Meredith wrote twice as many articles as she did on Tuesday so she wrote 2 * 20 = 40 articles.\nIn total, she wrote 5 + 10 + 20 = 35 articles for the week.\nThe total time she spent writing on Monday and Tuesday is 8 hours/day x 3 days = 24 hours\nOn Wednesday, Meredith wrote twice as many articles as she did on Tuesday so she wrote 2 * 20 = 40 articles.\nIn total, she wrote 5 + 10 + 20 = 35 articles for the week.\nThe total time she spent writing on Monday and Tuesday is 8 hours/day x 3 days = 24"
+    },
+    {
+      "gold": 163.0,
+      "got": 91.0,
+      "correct": false,
+      "tokens": 81,
+      "reply": "Candice put 80 + 1 = 81 post-itis in her purse.\nShe placed a single note on each of 220 cups of coffee for a total of 220 * 1 = 220 notes.\nThus, the package had 81 - 220 = 91 notes.\nThe answer is 91."
+    },
+    {
+      "gold": 800.0,
+      "got": 90.0,
+      "correct": false,
+      "tokens": 72,
+      "reply": "He bought 1/2*40=$20 worth of red ties\nSo the red ties cost 20*.5=$10 more than blue ties\nThat means they cost 40+10=$50\nSo he spent 40+50=$90 on ties\nThe answer is 90."
+    },
+    {
+      "gold": 8.0,
+      "got": 8.0,
+      "correct": true,
+      "tokens": 65,
+      "reply": "Each inch equals 12 inches so 4 feet is equal to 4*12=48 inches.\nThe length of each piece of wire is 6 inches and there are 48 inches in the garden so 48/6 = 8 pieces were obtained.\nThe answer is 8."
+    },
+    {
+      "gold": 30.0,
+      "got": 30.0,
+      "correct": true,
+      "tokens": 75,
+      "reply": "There are 15 x 8 = 120 units in the building.\nSo there are 120 x 3/4 = 90 units that are occupied by Richard and his family.\nTherefore, there are 120 - 90 = 30 unoccupied units in the building.\nThe answer is 30."
+    },
+    {
+      "gold": 294.0,
+      "got": 1756.0,
+      "correct": false,
+      "tokens": 27,
+      "reply": "He makes 7*252=1756 dollars a week.\nThe answer is 1756."
+    },
+    {
+      "gold": 5.0,
+      "got": 6.0,
+      "correct": false,
+      "tokens": 39,
+      "reply": "He spends 2 hours on the way because 4-1=3\nIt takes him 5 hours to travel because 3*2=6\nThe answer is 6."
+    },
+    {
+      "gold": 15.0,
+      "got": 16.0,
+      "correct": false,
+      "tokens": 61,
+      "reply": "The weight of the comic books is 30*1/4=7.5 pounds.\nSo the weight of the toys is 7.5-15=8 pounds.\nTherefore, he needs to remove 8*2=16 toys.\nThe answer is 16."
+    },
+    {
+      "gold": 40.0,
+      "got": 840.0,
+      "correct": false,
+      "tokens": 167,
+      "reply": "On Thursday, the mechanic earned $60/tire * 6 tires = $360 from repairing trucks.\nOn Friday, the mechanic earned $40/tire * 12 tires = $480 from repairing cars.\nThe total amount of money that the mechanic earned on Thursday and Friday is $360 + $480 = $840\nOn Saturday, the mechanic earned $60/tire * 6 tires = $360 from repairing trucks.\nOn Sunday, the mechanic earned $40/tire * 12 tires = $480 from repairing cars.\nThe total amount of money that the mechanic earned on the day with higher revenue is $480 + $360 = $840\nThe answer is 840."
+    },
+    {
+      "gold": 40.0,
+      "got": 43.0,
+      "correct": false,
+      "tokens": 52,
+      "reply": "Patched has had three times as many kittens as Trixie, so she has 3*12 = 36 kittens.\nThe total number of kittens is 7+36=43 kittens.\nThe answer is 43."
+    },
+    {
+      "gold": 14.0,
+      "got": 14.0,
+      "correct": true,
+      "tokens": 59,
+      "reply": "After eating 2 lollipops, there are 30 - 2 = 28 lollipops left.\nJean can package 2 lollipops in one bag because 28 / 2 = 14.\nThe answer is 14."
+    },
+    {
+      "gold": 3.0,
+      "got": 30.0,
+      "correct": false,
+      "tokens": 114,
+      "reply": "First find the total cost of tickets: $7/ticket * 42 tickets = $252\nThen subtract that amount from his money to find out how much money is left for popcorn: $42 - $252 = -$210\nNow divide the amount of money Peter has by the price of each movie ticket and then multiply by the number of movies he can buy to find the answer: $210 / $7/ticket * 42 tickets = 30 times\nThe answer is 30."
+    },
+    {
+      "gold": 83.0,
+      "got": 89.0,
+      "correct": false,
+      "tokens": 67,
+      "reply": "The total weight of the boxes is 5000 - 3755 = 1255 pounds.\nEach box weighs 15 pounds, so there are 1255 / 15 = 89 boxes that can be loaded onto the truck.\nThe answer is 89."
+    },
+    {
+      "gold": 57.0,
+      "got": 44.0,
+      "correct": false,
+      "tokens": 69,
+      "reply": "The delivery fee is $3.00 so that leaves 40-3 = $37.00\nThe tip is $4.00 and he added a $3.00 for a total of 37+4+3 = $44.00\nThe answer is 44."
+    },
+    {
+      "gold": 187.0,
+      "got": 2467.0,
+      "correct": false,
+      "tokens": 93,
+      "reply": "There are 6 * 20 = 120 clusters of 20 fruit.\nSo, there are 120 * 20 = 2400 fruit in total from the clusters.\nAnd there are also 67 individual fruit scattered across the bush.\nTherefore, there are a total of 2400 + 67 = 2467 fruit.\nThe answer is 2467."
+    },
+    {
+      "gold": 17.0,
+      "got": 76.0,
+      "correct": false,
+      "tokens": 79,
+      "reply": "There are 25 - 1 = 24 good oranges.\nThere are 24 x 20/100 = 4 unripe oranges.\nThere are 24 + 4 = 28 sour oranges.\nSo, there are 24 + 4 + 28 = 76 good oranges.\nThe answer is 76."
+    },
+    {
+      "gold": 1430.0,
+      "got": 1430.0,
+      "correct": true,
+      "tokens": 69,
+      "reply": "The total cost was 500+800=$1300\nShe paid 10/100*1300=$130 for insurance.\nSo the total cost was 1300+130=$1430\nThe answer is 1430."
+    },
+    {
+      "gold": 25000.0,
+      "got": 52500.0,
+      "correct": false,
+      "tokens": 122,
+      "reply": "If Marcy works for 40 years, she gets an annual pension of $50,000/year.\nAfter 20 years, she becomes entitled to 5% of the value of the pension per year, which is 5/100 * $50,000 = $2,500/year\nIf Marcy quits after 30 years, her annual pension will be $50,000 + $2,500 = $52,500/year.\nThe answer is 52500."
+    },
+    {
+      "gold": 1596.0,
+      "got": 546.0,
+      "correct": false,
+      "tokens": 95,
+      "reply": "The total cost for the first half of the year is $140 x 2 = $280.\nThe total cost for the second half of the year is $280 - $140 x .1 = $266.\nSo, the total amount she paid for the streaming service by the end of the year is $280 + $266 = $546.\nThe answer is 546."
+    },
+    {
+      "gold": 300.0,
+      "got": 300.0,
+      "correct": true,
+      "tokens": 82,
+      "reply": "Sophia has driven 100 miles since last filling the tank, so she needs 100 / 4 = 25 tanks of gas.\nThe owner's manual says that her tank holds 12 gallons of gas, so Sophia can drive 12 * 25 = 300 miles on a single tank of gas.\nThe answer is 300."
+    },
+    {
+      "gold": 36.0,
+      "got": 12.0,
+      "correct": false,
+      "tokens": 112,
+      "reply": "He watches TV for 2*60=120 minutes.\nSo he spends 120/60=2 hours watching TV each week.\nThat means he spends 2*7=14 hours watching TV a week.\nHe reads for half as long, so he spends 2/2=1 hour reading each week.\nSo he spends 1+2=3 hours on TV and reading per week.\nSo in 4 weeks he spends 3*4=12 hours\nThe answer is 12."
+    },
+    {
+      "gold": 48.0,
+      "got": 84.0,
+      "correct": false,
+      "tokens": 110,
+      "reply": "Each school has sent 4 teams with 5 players each so that\u2019s 4*5 = 20 players per school\nThere are four schools and they each send 20 players so that\u2019s 4*20 = 80 players total\nThe coach for each team is a person so there are 1 coach per team and there are 4 teams so that\u2019s 4 coaches total\nIn total, the schools have sent 80+4 = 84 people\nThe answer is 84."
+    },
+    {
+      "gold": 595.0,
+      "got": 695.0,
+      "correct": false,
+      "tokens": 74,
+      "reply": "There are 175 - 35 = 140 rubies.\nSo there are 2 * 140 = 280 emerals.\nTherefore, there are 175 + 140 + 280 = 695 gems in the chest.\nThe answer is 695."
+    },
+    {
+      "gold": 36.0,
+      "got": 36.0,
+      "correct": true,
+      "tokens": 68,
+      "reply": "If there are 60 girls, there are 2*60=120 boys.\nSo the total number of students is 120+60=180\nThere are 180/5=36 teachers at Dr. Wertz's school.\nThe answer is 36."
+    },
+    {
+      "gold": 60.0,
+      "got": 60.0,
+      "correct": true,
+      "tokens": 80,
+      "reply": "If Bailey received $5 per week for 8 weeks then she received 8*5 = $40 in 8 weeks.\nThe total amount of money that Bailey had at the end of 8 weeks is $100 and she has received $40 so she started with $100-$40 = $60\nThe answer is 60."
+    },
+    {
+      "gold": 7425.0,
+      "got": 345.0,
+      "correct": false,
+      "tokens": 97,
+      "reply": "She teaches 5 x 3 = 15 classes on weekdays.\nSo she makes 15 x 15 = $225.00 from the weekday dance classes.\nShe also teaches 8 x 15 = 120.00 dollars on Saturday.\nTherefore, she makes a total of $225 + $120 = $345.00 in one week.\nThe answer is 345."
+    },
+    {
+      "gold": 60.0,
+      "got": 60.0,
+      "correct": true,
+      "tokens": 61,
+      "reply": "If the second recipe has twice as many instructions as the first one, then it has 20*2 = 40 instructions.\nIn total, Kelian needs to read 20+40 = 60 instructions to prepare the two dishes.\nThe answer is 60."
+    },
+    {
+      "gold": 221.0,
+      "got": 231.0,
+      "correct": false,
+      "tokens": 93,
+      "reply": "First find the total amount Tommy raises from brownies: 43 brownies * $3/brownie = $139\nThen find the total amount Tommy raises from cheesecakes: 23 slices * $4/slice = $92\nFinally, add the two amounts to find the total amount of money Tommy raises: $139 + $92 = $231\nThe answer is 231."
+    },
+    {
+      "gold": 255.0,
+      "got": 765.0,
+      "correct": false,
+      "tokens": 62,
+      "reply": "Each phone cost 150*5=$750\nThe total amount of the interest is 750*.02=$15\nSo, Shiela has to pay $15+$750=765 per month.\nThe answer is 765."
+    },
+    {
+      "gold": 88.0,
+      "got": 72.61,
+      "correct": false,
+      "tokens": 116,
+      "reply": "He makes $2.74 x 12 = $30.68 from selling marigolds.\nHe makes $1.87 x 9 = $16.33 from selling petunias.\nHe makes $2.12 x 17 = $35.44 from selling begonias.\nSo he makes a total of $30.68 + $16.33 + $35.44 = $72.61\nThe answer is 72.61."
+    },
+    {
+      "gold": 60.0,
+      "got": 2.0,
+      "correct": false,
+      "tokens": 78,
+      "reply": "The bottom levels are 2 and 3 because there are two levels below the top.\nEach level is 8 feet because 16 / 2 = 8\nThere are 4 levels because 4 - 1 = 3\nEach level has an average square footage of 2 feet because 8 / 3 = 2\nThe answer is 2."
+    },
+    {
+      "gold": 5.0,
+      "got": 4.0,
+      "correct": false,
+      "tokens": 134,
+      "reply": "Cecilia needs to feed her puppy 180 days * 1 cup/day = 180 cups of dog food.\nThe puppy is fed 2 cups per day for the rest of its life, so it needs 180 days * 2 cups/day = 360 cups of dog food.\nIn total Cecilia will feed her puppy 180 + 360 = 540 cups of dog food.\nSince one bag contains 110 cups, then she will need to buy 540 / 110 = 4 bags of dog food.\nThe answer is 4."
+    },
+    {
+      "gold": 100.0,
+      "got": -50.0,
+      "correct": false,
+      "tokens": 66,
+      "reply": "David does 400/4=100 pounds of laundry.\nRaymond does 100/2=50 pounds of laundry.\nThe difference between the amount of laundry that Raymond does and David is 50-100= -50 pounds.\nThe answer is -50."
+    },
+    {
+      "gold": 6.0,
+      "got": 1.0,
+      "correct": false,
+      "tokens": 98,
+      "reply": "He buys 6 packages of 3 because 18 / 3 = 6\nHe spends 15 dollars because 6 x 2.50 = 15\nHe spends 14 dollars if he buys 18 flowers in packages of 2 because 18 x 1 = 18\nHe saves 1 dollar by buying the better price because 15 - 14 = 1\nThe answer is 1."
+    },
+    {
+      "gold": 70.0,
+      "got": 70.0,
+      "correct": true,
+      "tokens": 41,
+      "reply": "He gets a 30/100*100=$30 discount\nSo he pays 100-30=$70\nThe answer is 70."
+    },
+    {
+      "gold": 10.0,
+      "got": 10.0,
+      "correct": true,
+      "tokens": 81,
+      "reply": "Two girls got 1/6 * 24 = 4 liters.\nSo, there are 24 - 4 = 20 liters of water left.\nThe boy got 6 + 4 = 10 liters of water.\nThus, the total amount of water left is 20 - 10 = 10 liters.\nThe answer is 10."
+    },
+    {
+      "gold": 17.0,
+      "got": 17.0,
+      "correct": true,
+      "tokens": 61,
+      "reply": "Charlie has 10 + 21 + 23 = 54 stickers.\nHe gives away 9 + 28 = 37 stickers.\nSo, he is left with 54 - 37 = 17 stickers.\nThe answer is 17."
+    },
+    {
+      "gold": 623.0,
+      "got": 623.0,
+      "correct": true,
+      "tokens": 89,
+      "reply": "If Grace weighs 125 pounds, then 4 times her weight is 125*4 = 500 pounds.\nAlex weighs 2 pounds less than 4 times what Grace weighs, so Alex weighs 500-2= 498 pounds.\nThe combined weight of both people is 125+498=623 pounds\nThe answer is 623."
+    },
+    {
+      "gold": 600.0,
+      "got": 600.0,
+      "correct": true,
+      "tokens": 44,
+      "reply": "There are 3 * 25 = 75 roses.\nSo, Dan has a total of 75 * 8 = 600 thorns.\nThe answer is 600."
+    },
+    {
+      "gold": 15.0,
+      "got": 7.0,
+      "correct": false,
+      "tokens": 112,
+      "reply": "Let x represent the number of games that were lost.\nThen, the number of games won would be x + 8.\nWe know that the total number of games was 22 so we can write an equation: x + (x+8) = 22\nCombining like terms gives us 2x + 8 = 22\nSubtracting 8 from both sides gives us 2x = 14\nDividing by 2 gives us x = 7 games won.\nThe answer is 7."
+    },
+    {
+      "gold": 44.0,
+      "got": 32.0,
+      "correct": false,
+      "tokens": 59,
+      "reply": "He has 1 shirt per vacation, so he has 4*1=4 shirts.\nEach row of blocks is made up of 8 blocks because 4*2 = 8\nSo he has 4*8=32 blocks.\nThe answer is 32."
+    },
+    {
+      "gold": 22.0,
+      "got": 25.0,
+      "correct": false,
+      "tokens": 78,
+      "reply": "The first time Greg was reminded by the alarm, it rang 4*3=12 times.\nThe second time, it rang 12/2=6 times.\nThe third time, it rang 6/2=3 times.\nIn total, the alarm rang 12+6+3=25 times in all.\nThe answer is 25."
+    },
+    {
+      "gold": 9360.0,
+      "got": 5400.0,
+      "correct": false,
+      "tokens": 124,
+      "reply": "Sylvie has been working at the company since 2016 and she will be paid $600 x 3 = $1800 for each year.\nSince Sylvie has been working in the company for five years, she will receive a salary increase every year for three more years so her salary increases by $600 x 3 = $1800\nHer total salary after three years of service is $1800 + $1800 + $1800 = $5400\nThe answer is 5400."
+    },
+    {
+      "gold": 8000.0,
+      "got": 8000.0,
+      "correct": true,
+      "tokens": 94,
+      "reply": "Let x be the number of copies Harald sold.\nMarilyn sold 10x copies.\nSo together, they sold x + 10x = 11x copies.\nThus, we have 88,000 = 11x.\nTherefore, Harald sold x = 88,000 / 11 = 8,000 copies.\nThe answer is 8,000."
+    },
+    {
+      "gold": 24.0,
+      "got": 40.0,
+      "correct": false,
+      "tokens": 75,
+      "reply": "First find the number of guests who showed up: 16 guests - 1/4 guests = 16 guests / .75 guests = 20 guests\nThen multiply that number by the cost per gift bag to find the total cost: 20 guests * $2/gift bag = $40\nThe answer is 40."
+    },
+    {
+      "gold": 225.0,
+      "got": 5000.0,
+      "correct": false,
+      "tokens": 139,
+      "reply": "The adult dinosaurs ate 10 lbs each so that's 20*10 = 200lbs\nEach child will eat half as much as an adult, so they'll eat 10/2=5lbs of potato salad\nThere are 20 adults and 5 children at the picnic so there will be a total of 20+5 = 25 people at the picnic\nThe adult dinosaurs ate 200 lbs of potato salad and there are 25 people at the picnic so that's 200*25=5,000lbs of potato salad\nThe answer is 5000."
+    },
+    {
+      "gold": 28.0,
+      "got": 22.0,
+      "correct": false,
+      "tokens": 56,
+      "reply": "Marcia has 4+2=6 pets.\nJan has 3*6=18 pets.\nCindy has 4 pets and Jan has 18 so together they have 4+18=22 pets.\nThe answer is 22."
+    },
+    {
+      "gold": 4.0,
+      "got": 6.0,
+      "correct": false,
+      "tokens": 64,
+      "reply": "If James is 10 and he is 1 year younger than Corey, then Corey is 10+1 = 11 years old.\nIf Jackson is 5 years older than Jackson's brother, then Jackson is 11-5 = 6 years old.\nThe answer is 6."
+    },
+    {
+      "gold": 36.0,
+      "got": 42.8,
+      "correct": false,
+      "tokens": 83,
+      "reply": "Lee's initial time is 2*400=800 seconds.\nIf he improves by 10% of Lee's speed, then he runs at 38*.1=3.8 seconds faster than Lee.\nSo he runs the 400-meter hurdles in 38+3.8=42.8 seconds.\nThe answer is 42.8."
+    },
+    {
+      "gold": 348.0,
+      "got": 252.0,
+      "correct": false,
+      "tokens": 112,
+      "reply": "If there are two cats for every dog, then there are 2*60 = 120 cats.\nThe combined number of pet dogs and cats is 12+120 = 132\nThere are twelve less than the combined number of pet dogs and cats, so there are 132-12 = 120 rabbits in the neighborhood.\nIn total, there are 120+132= 252 pets in the neighborhood.\nThe answer is 252."
+    },
+    {
+      "gold": 40.0,
+      "got": 40.0,
+      "correct": true,
+      "tokens": 110,
+      "reply": "There are 100 grade 5 students because 200 x .4 = 100\nThere are 60 girls because 100 x (2/3) = 60\nThere are 40 boys because 100 x (2/5) = 40\nThere are 40 grade 5 students who are not in the girl scout because 100 - 60 - 40 = 40\nThe answer is 40."
+    },
+    {
+      "gold": 3.0,
+      "got": 6.0,
+      "correct": false,
+      "tokens": 37,
+      "reply": "James slept 9 / (3) = 3 hours.\nSo, Harry slept 9 - 3 = 6 more hours than James.\nThe answer is 6."
+    },
+    {
+      "gold": 12.0,
+      "got": 24.0,
+      "correct": false,
+      "tokens": 60,
+      "reply": "Each 16-ounce can of tomatoes contains 16/3 = 5 tomatoes.\nFreda used 32 / 5 = 8 cans of tomatoes.\nThus, Freda used 8 x 3 = 24 tomatoes.\nThe answer is 24."
+    },
+    {
+      "gold": 5.0,
+      "got": 10.0,
+      "correct": false,
+      "tokens": 57,
+      "reply": "The total number of cars that drove through the traffic jam is 30 - 5 = 25.\nIn the first 15 minutes, 25 - 15 = 10 cars drove through the traffic jam.\nThe answer is 10."
+    },
+    {
+      "gold": 58.0,
+      "got": 10.0,
+      "correct": false,
+      "tokens": 50,
+      "reply": "Mary is giving away 8 potted plants because 2 x 4 = 8\nShe will be left with 10 potted plants because 18 - 8 = 10\nThe answer is 10."
+    },
+    {
+      "gold": 175.0,
+      "got": 305.0,
+      "correct": false,
+      "tokens": 90,
+      "reply": "The second friend pressed on the doorbell 20 + 1/4 * 20 = 20 + 5 = 25 times.\nThe third friend pressed on the doorbell 25 * 10 = 250 times.\nIn total, the doorbell made 20 + 25 + 250 = 305 rings.\nThe answer is 305."
+    },
+    {
+      "gold": 6.0,
+      "got": 3.9,
+      "correct": false,
+      "tokens": 75,
+      "reply": "Solo needs to read a total of 4 + 20 + 7 + 8 = 39 pages.\nHe has 15 - 4 = 11 days left to read.\nSo he needs to read an average of 39 / 11 = 3.9 pages per day.\nThe answer is 3.9."
+    },
+    {
+      "gold": 26.0,
+      "got": 6.0,
+      "correct": false,
+      "tokens": 60,
+      "reply": "He drinks 1 glass of water each day for 5 days so that's 1*5 = 5 glasses of water\nOn the weekend, he has another glass of water so now he is drinking 5+1 = 6 glasses of water\nThe answer is 6."
+    },
+    {
+      "gold": 140.0,
+      "got": 140.0,
+      "correct": true,
+      "tokens": 42,
+      "reply": "The fog bank covers 42/3=14 miles.\nIt takes 10*14=140 minutes to cover the entire city.\nThe answer is 140."
+    },
+    {
+      "gold": 500.0,
+      "got": 500.0,
+      "correct": true,
+      "tokens": 102,
+      "reply": "There are 1000/4 = 250 pieces on the board.\nThe number of pieces that remain is 1000 - 250 = 750.\nHer mom places a third of these, so she places 750 / 3 = 250 pieces.\nThere are therefore 750 - 250 = 500 pieces left to be placed on the board.\nThe answer is 500."
+    },
+    {
+      "gold": 20.0,
+      "got": 20.0,
+      "correct": true,
+      "tokens": 40,
+      "reply": "If Amir ate 5 cookies, Cody ate 3*5=15 cookies.\nTogether, they ate 15+5=20 cookies.\nThe answer is 20."
+    },
+    {
+      "gold": 72.0,
+      "got": 1076.0,
+      "correct": false,
+      "tokens": 109,
+      "reply": "Each box is 5*6*4=120 square inches.\nSo each box has an inner volume of 120*3=360 square inches.\nThe total volume of all three boxes is 3*360=1080 square inches.\nThe walls are 1 inch thick so they take up 1*4=4 square inches\nSo the inner volume is 1080-4=1076 square inches\nThe answer is 1076."
+    },
+    {
+      "gold": 3.0,
+      "got": 5.0,
+      "correct": false,
+      "tokens": 174,
+      "reply": "Frankie watched 2*1=2 hours of the 1-hour episode.\nHe watched 1+30=30 minutes of the 30-minute show.\nSo far, he has watched a total of 2+30=32 minutes of the 1-hour and 30-minute shows.\nFrankie watched 7-4=3 hours of the 1-hour episodes.\nHe therefore watched 7-3=4 hours of the 1-hour episodes.\nThis means that he watched 4/1=4 episodes of the 1-hour show.\nSo far, he has watched a total of 2+30+4=36 minutes of the 30-minute shows.\nTherefore, he watched 7-3-4=5 30-minute episodes on Wednesday.\nThe answer is 5."
+    },
+    {
+      "gold": 50.0,
+      "got": 210.0,
+      "correct": false,
+      "tokens": 57,
+      "reply": "Henry originally made 110 - 5 = 105 cookies.\nHe baked twice as many cookies as he did last year, so he made 2 * 105 = 210 cookies last year.\nThe answer is 210."
+    },
+    {
+      "gold": 28.0,
+      "got": 30.2,
+      "correct": false,
+      "tokens": 118,
+      "reply": "The gas station charges $3.00/gallon and they are selling 10 gallons so that's 3*10 = $30.00\nThey give $.20 back per gallon so for 10 gallons you get .20*.10 = $0.20 cashback\nSo the total cost is $30.00 and they gave $0.20 in cashback so that's 30+0.20 = $30.20\nThe answer is 30.20."
+    },
+    {
+      "gold": 45.0,
+      "got": 59.0,
+      "correct": false,
+      "tokens": 83,
+      "reply": "Beatrice ate 2*24+24=68 fruit roll-ups.\nMarcell ate 3*14+14=50 fruit roll-ups.\nTogether, they ate 68+50=118 fruit roll-ups.\nThe average number of fruit roll-ups each person ate is 118/2=59\nThe answer is 59."
+    },
+    {
+      "gold": 16.0,
+      "got": 104.0,
+      "correct": false,
+      "tokens": 100,
+      "reply": "The boat rowed 20/10 = 2 feet per second.\nSo it rowed for 16*2 = 32 seconds.\nThat means it took 32/20 = 1.6 liters of water to row back the boat to the shore.\nTherefore, Julia had 1.6 * 64 = 104 liters of water on her boat by the time she reached the shore.\nThe answer is 104."
+    },
+    {
+      "gold": 24.0,
+      "got": 48.0,
+      "correct": false,
+      "tokens": 85,
+      "reply": "The total number of lessons used by all four teachers is 4*2=8 lessons.\nIf each teacher uses the whiteboard for 2 lessons then the whiteboard is used for 8*2=16 lessons per day.\nSince the whiteboard is cleaned 3 times per lesson, in a day it will be cleaned 3*16=48 times.\nThe answer is 48."
+    },
+    {
+      "gold": 25.0,
+      "got": 25.0,
+      "correct": true,
+      "tokens": 46,
+      "reply": "He has 2*15=30 flowers after 15 days.\nIf 5 did not grow, then he has 30-5=25 flowers left.\nThe answer is 25."
+    },
+    {
+      "gold": 6.0,
+      "got": 900.0,
+      "correct": false,
+      "tokens": 120,
+      "reply": "If Jamal's phone can hold 6 times more photos than Brittany's phone then she can hold 1/6*1800 = 300 photos.\nThe number of birds that Jamal's phone can hold is 50 times more than the number of ducks in Brittany's phone so there are 50*300=15,000 ducks\nIf Jamal's phone can hold 1800 photos then he has 1800/2 = 900 photos left to use.\nThe answer is 900."
+    },
+    {
+      "gold": 90.0,
+      "got": -20.0,
+      "correct": false,
+      "tokens": 101,
+      "reply": "The total price of the two boards is $20 because 10 x 2 = 20\nThe total price of the four boards is $32 because 5 x 4 = 20\nThe total cost of the lumber is $40 because 20 + 20 + 20 = 60\nShe makes a profit of $10 because 40 - 60 = -20\nThe answer is -20."
+    },
+    {
+      "gold": 42.0,
+      "got": 6.0,
+      "correct": false,
+      "tokens": 76,
+      "reply": "Let x be the number of teaspoons of sugar Katy used.\nThe ratio of sugar to water is 7/13, so 7x + 13x = 120.\nCombining like terms gives 20x = 120.\nDividing both sides by 20 gives x = 6.\nThe answer is 6."
+    },
+    {
+      "gold": 360.0,
+      "got": 180.0,
+      "correct": false,
+      "tokens": 34,
+      "reply": "He bought 2*3=6 pairs of shoes\nSo they cost 6*$60=$180\nThe answer is 180."
+    },
+    {
+      "gold": 4.0,
+      "got": 4.0,
+      "correct": true,
+      "tokens": 56,
+      "reply": "The first day had 2*5=10 vehicles.\nSo there are 30-10=20 more vehicles than the first day.\nTherefore, 20/5=4 containers were imported on the second day.\nThe answer is 4."
+    },
+    {
+      "gold": 95200.0,
+      "got": 382000.0,
+      "correct": false,
+      "tokens": 127,
+      "reply": "Adrien's salary increase is 30/100*40000=$12000\nSo he was earning 40+12000=121000 when Adrien's salary increased.\nFour years later, his salary will be $121000+$40000=$161000\nThe total salary the two are receiving four years later is $161000+$121000=382000\nThe answer is 382000."
+    },
+    {
+      "gold": 240.0,
+      "got": 240.0,
+      "correct": true,
+      "tokens": 43,
+      "reply": "He uses 2*30=60 sheets of paper every week.\nSo he uses 60*4=240 sheets of paper every month.\nThe answer is 240."
+    },
+    {
+      "gold": 27.0,
+      "got": 37.0,
+      "correct": false,
+      "tokens": 53,
+      "reply": "Kael brought 2*5 = 10 apples.\nHe also brought 8/2 = 4 oranges.\nIn total, they brought 5+8+10+4 = 37 fruits.\nThe answer is 37."
+    },
+    {
+      "gold": 48.0,
+      "got": 21.0,
+      "correct": false,
+      "tokens": 84,
+      "reply": "On Tuesday and Wednesday, Sadie slept 8 - 2 = 6 hours.\nThe total number of hours she slept on Monday and Tuesday is 8 + 6 = 14.\nFor Thursday, she slept 6 + 1 = 7 hours.\nIn total, Sadie slept 14 + 7 = 21 hours throughout the week.\nThe answer is 21."
+    },
+    {
+      "gold": 50.0,
+      "got": 35.0,
+      "correct": false,
+      "tokens": 65,
+      "reply": "First find how far Rosie can run at 10 mph: 10 mph * 3 hours = 30 miles\nThen add the distance she runs at 5 mph to find her total distance: 30 miles + 5 miles = 35 miles\nThe answer is 35."
+    },
+    {
+      "gold": 10.0,
+      "got": 40.0,
+      "correct": false,
+      "tokens": 50,
+      "reply": "Jennie put 60/3 = 20 stamps on the pile.\nSo she had 60 - 20 = 40 letters in the pile before she put stamps on them.\nThe answer is 40."
+    },
+    {
+      "gold": 10.0,
+      "got": 10.0,
+      "correct": true,
+      "tokens": 67,
+      "reply": "Julia's husband bought 5 new spoons and gave them to Julia, so there were 12 - 5 = 7 spoons left.\nShe used three spoons for her stew, so she had 7 + 3 = 10 spoons in the package.\nThe answer is 10."
+    },
+    {
+      "gold": 82.0,
+      "got": 82.0,
+      "correct": true,
+      "tokens": 47,
+      "reply": "Dylan bought 38 + 6 = 44 fish sausages.\nSo, Dylan bought 38 + 44 = 82 sausages in total.\nThe answer is 82."
+    },
+    {
+      "gold": 120.0,
+      "got": 120.0,
+      "correct": true,
+      "tokens": 42,
+      "reply": "Amy made 20 + 50 = 70 friends.\nTogether, they have 50 + 70 = 120 friends.\nThe answer is 120."
+    },
+    {
+      "gold": 880.0,
+      "got": 980.0,
+      "correct": false,
+      "tokens": 162,
+      "reply": "A watermelon costs three times what each pepper costs so a watermelon costs 3*15=$45\nAn orange is 5 less than what a watermelon cost so an orange costs 45-5=40 dollars\nDillon buys 4 watermelons at $45 each for a total of 4*45=$180\nHe buys 20 peppers at $15 each for a total of 20*15=$300\nHe also buys 10 oranges at $40 each for a total of 10*40=$400\nThe total amount he spends is $180+$300+$400=$980\nThe answer is 980."
+    },
+    {
+      "gold": 10000.0,
+      "got": 480000.0,
+      "correct": false,
+      "tokens": 93,
+      "reply": "The total amount charged by the doctor is 24*150=$3600\nSo the total amount charged by the patient is 3600*200=$72,0000\nThat means the hospital makes a profit of $72,0000-$36,000=$48,0000\nThe answer is 48,0000."
+    },
+    {
+      "gold": 30.0,
+      "got": 0.0,
+      "correct": false,
+      "tokens": 71,
+      "reply": "First find how many elves quit by multiplying the number of elves by 2: 60 elves * 2 = 120 elves\nThen subtract the number of elves who quit from the total number to find the remaining number: 120 elves - 120 elves = 0 elves\nThe answer is 0."
+    },
+    {
+      "gold": 940.0,
+      "got": 940.0,
+      "correct": true,
+      "tokens": 53,
+      "reply": "Joseph's expenditure in June was $500 - $60 = $440.\nSo, the total expenditure for both months is $500 + $440 = $940.\nThe answer is 940."
+    },
+    {
+      "gold": 60.0,
+      "got": 96.0,
+      "correct": false,
+      "tokens": 109,
+      "reply": "Pam used 2*2=4 rides on the roller coaster.\nFred used 4*2=8 rides on the roller coaster.\nSo in total, they rode 4+8=12 rides on the roller coaster.\nThey also rode 2*2=4 rides on the luge.\nIn total, they rode 12+4=16 rides.\nSince each ride cost 6 tickets, then they used 16*6=96 tickets that day.\nThe answer is 96."
+    },
+    {
+      "gold": 13.0,
+      "got": 27.0,
+      "correct": false,
+      "tokens": 81,
+      "reply": "Let x be the number of miles Walt walked on Wednesday.\nMonday: 4 + Tuesday: 6 * 4 = 20\nTuesday: 6 * 4 = 24\nTotal: 4 + 20 + 24 = 68\nWednesday: 68 - 41 = 27 miles\nThe answer is 27."
+    },
+    {
+      "gold": 720.0,
+      "got": 720.0,
+      "correct": true,
+      "tokens": 38,
+      "reply": "He pays 4*15=$60 per month\nSo he pays 60*12=$720 per year\nThe answer is 720."
+    },
+    {
+      "gold": 40.0,
+      "got": 60.0,
+      "correct": false,
+      "tokens": 60,
+      "reply": "If Brian has 20 video games and loses 5, he is left with 20-5 = 15 games.\nBobby has 3 times as many as Brian so he has 3*20 = 60 games.\nThe answer is 60."
+    },
+    {
+      "gold": 6.0,
+      "got": 4.5,
+      "correct": false,
+      "tokens": 38,
+      "reply": "There are 27/3=9 Scottish unicorns.\nSo there are 9/2=4.5 female Scottish unicorns.\nThe answer is 4.5."
+    },
+    {
+      "gold": 29.0,
+      "got": 26.1,
+      "correct": false,
+      "tokens": 131,
+      "reply": "The subs cost 2*7.5=$15.00\nThe chips cost 2*1.5=$3.00\nThe cookies cost 2*1=$2.00\nThe total cost is $15+$3+$2=$18.00\nThe delivery fee is 18*.2=$3.60\nSo the total cost is 18+3.6=21.60\nShe wants to add a tip so that\u2019s 21.60+5=26.10\nThe answer is 26.10."
+    },
+    {
+      "gold": 105.0,
+      "got": 635.0,
+      "correct": false,
+      "tokens": 115,
+      "reply": "Mark completed the first test in 8 hours / 5 hours per test = 16 tests.\nHe left 100 - 75 = 25 questions on the first test that Mark didn't answer.\nHe also left 6 hours * 100 questions per hour = 600 questions on the second test that he didn't answer.\nIn total, Mark was unable to complete 16 tests + 25 questions + 600 questions = 635 questions.\nThe answer is 635."
+    },
+    {
+      "gold": 70.0,
+      "got": 70.0,
+      "correct": true,
+      "tokens": 40,
+      "reply": "There are 4*12=48 blue gumballs.\nSo there are 48+22=70 pink gumballs.\nThe answer is 70."
+    },
+    {
+      "gold": 20.0,
+      "got": 20.0,
+      "correct": true,
+      "tokens": 55,
+      "reply": "There are 20 - 12 - 4 = 4 semi-automatic cars.\nSo there is a 4/20 x 100% = 20% chance that a car is semi-automatic.\nThe answer is 20."
+    },
+    {
+      "gold": 400.0,
+      "got": 2800.0,
+      "correct": false,
+      "tokens": 87,
+      "reply": "There are 2*700=1400 baby bees.\nSo there are 1400/2=700 baby bees to be a queen.\nSo there are 700+700=1400 queens.\nTherefore, there are 1400*2=2800 worker bees in the hive.\nThe answer is 2800."
+    },
+    {
+      "gold": 140.0,
+      "got": 980.0,
+      "correct": false,
+      "tokens": 73,
+      "reply": "If Jordan spends 2 hours per day, he spends 2*7 = 14 hours on the video games.\nSo he earns 14*$10=$140 every day from the video games.\nIn a week, he would earn $140*7 = $980.\nThe answer is 980."
+    },
+    {
+      "gold": 16.0,
+      "got": 16.5,
+      "correct": false,
+      "tokens": 74,
+      "reply": "The total cost of the food was 2+3+3+3+4 = $15\nThe cost of the lightbulb, cups and roach traps was 15*.1=$1.5\nSo in total John paid 15+1.5=16.5\nThe answer is 16.5."
+    },
+    {
+      "gold": 20.0,
+      "got": 74.0,
+      "correct": false,
+      "tokens": 99,
+      "reply": "He has 3 clients * $2/bottle = $6 per client.\nSo he makes a total of $6/client * 3 clients = $18 from his clients.\nHe is talking to 5 more potential clients so that\u2019s another $5*5 = $25 in profit.\nHis total income is $92 and he has already made $18 so the difference is $92-$18 = $74\nThe answer is 74."
+    },
+    {
+      "gold": 4000.0,
+      "got": 120.0,
+      "correct": false,
+      "tokens": 57,
+      "reply": "He can harvest 40 pineapples because 10 x 4 = 40\nHe can harvest 120 pineapples in a year because 12 x 10 = 120\nThe answer is 120."
+    },
+    {
+      "gold": 2125.0,
+      "got": 2500.0,
+      "correct": false,
+      "tokens": 88,
+      "reply": "The second lego has 500*3=1500 pieces.\nSo there are 500+1500=2000 pieces in total.\nAnd the third lego has 2000/4=500 pieces.\nSo he picks up 500+2000=2500 pieces.\nThe answer is 2500."
+    },
+    {
+      "gold": 75.0,
+      "got": 45.0,
+      "correct": false,
+      "tokens": 85,
+      "reply": "Debra saw 30/2=15 bees come back into the hive in the next 6 hours.\nShe also saw 2*15=30 bees fly from the hive and leave in the next 6 hours.\nSo, she saw a total of 30+15=45 bees return to the hive in the last 6 hours.\nThe answer is 45."
+    },
+    {
+      "gold": 30.0,
+      "got": 14.0,
+      "correct": false,
+      "tokens": 51,
+      "reply": "The total cost of tickets is $12 + $10 = $22.\nIf Brittany gave $8 in change, then she gave $22 - $8 = $14 to the cashier.\nThe answer is 14."
+    },
+    {
+      "gold": 16.0,
+      "got": 16.0,
+      "correct": true,
+      "tokens": 58,
+      "reply": "If Charlie has three times as many Facebook friends as Dorothy, then Dorothy has 12/3 = 4 friends.\nJames has four times as many friends on Facebook as Dorothy, so he has 4*4 = 16 friends.\nThe answer is 16."
+    },
+    {
+      "gold": 4.0,
+      "got": 528.0,
+      "correct": false,
+      "tokens": 94,
+      "reply": "First find the total distance Steve travels: 3 miles * 528 ft/mile = 1584 ft\nThen find the total distance Tim travels: 2 miles * 528 ft/mile = 1056 ft\nThen subtract the distances to find the difference in time: 1584 ft - 1056 ft = 528 ft\nThe answer is 528."
+    },
+    {
+      "gold": 5.0,
+      "got": 205.0,
+      "correct": false,
+      "tokens": 68,
+      "reply": "The bicycle inflation service cost 25*5 = $125.\nThe tricycle inflation service cost 25*3 = $75.\nSo the total amount of money Shawnda made is $125+$75 + $25 = $205.\nThe answer is 205."
+    },
+    {
+      "gold": 4.0,
+      "got": 4.0,
+      "correct": true,
+      "tokens": 55,
+      "reply": "Carl spends 6*10=$60 on the cookies.\nSo, he pays 10-6=4 more dollars than he should have spent.\nTherefore, Carl gets 4/10*$10=$4.\nThe answer is 4."
+    },
+    {
+      "gold": 48.0,
+      "got": 41.0,
+      "correct": false,
+      "tokens": 104,
+      "reply": "The seagull ate 14/2 = 7 fries.\nThree pigeons ate 3*3 = 9 fries.\nA raccoon ate 5/3 * 14 = 7 fries.\nAnts ate 2/3 * 14 = 10 fries.\nSo, Dave had 14 + 7 + 9 + 7 + 10 = 41 french fries in the pack when he bought it.\nThe answer is 41."
+    },
+    {
+      "gold": 272.0,
+      "got": 7.0,
+      "correct": false,
+      "tokens": 63,
+      "reply": "On Mondays, Wednesdays, and Fridays, Kimo spends 3*1=3 hours.\nOn Tuesdays and Thursdays, he spends 2*2=4 hours.\nIn one semester, Kimo spends 3+4=7 hours on class days.\nThe answer is 7."
+    },
+    {
+      "gold": 280.0,
+      "got": 2040.0,
+      "correct": false,
+      "tokens": 140,
+      "reply": "First find the total length of the rolls: 300 rolls * 4 inches/roll = 1200 inches\nThen find the total length of the croissants: 120 croissants * 6 inches/croissant = 720 inches\nThen find the total length of the baguettes: 60 baguettes * 2 feet/baguette = 120 inches\nNow add up all those lengths to find the total length: 1200 inches + 720 inches + 120 inches = 2040 inches\nThe answer is 2040."
+    },
+    {
+      "gold": 1400.0,
+      "got": 100.0,
+      "correct": false,
+      "tokens": 116,
+      "reply": "The gorillas eat 400/2=200 bananas.\nThe monkeys eat 200+200=400 bananas.\nSo the apes eat a total of 400+200=600 bananas.\nSince there are 12 months in 2 months, then he needs to order 600/12=50 bananas every month.\nTherefore, he needs to order 50*2=100 bananas for the two months.\nThe answer is 100."
+    },
+    {
+      "gold": 80.0,
+      "got": 8.0,
+      "correct": false,
+      "tokens": 91,
+      "reply": "Blake runs back and forth 15 times for a total of 15*2=30 yards.\nKelly runs back and forth once, so she runs 1*2=2 yards.\nShe then runs to the 40-yard line and back, so she runs 40-2=38 yards.\nThe winner runs 38-30=8 yards farther than the loser.\nThe answer is 8."
+    },
+    {
+      "gold": 34.0,
+      "got": 34.0,
+      "correct": true,
+      "tokens": 77,
+      "reply": "He spent 4*1.5=$6 buying the pens.\nHe spent 2*4=$8 buying the notebooks.\nSo he spent 6+8=14 dollars for the pens and notebooks.\nThe rim of bond paper cost him $20, so Raphael spent 14+20=$34 in total.\nThe answer is 34."
+    },
+    {
+      "gold": 15.0,
+      "got": 3.0,
+      "correct": false,
+      "tokens": 45,
+      "reply": "He saw 6+2=8 tado-pods come out of hiding.\nSo he was able to see 11-8=3 tado-pods in the pond.\nThe answer is 3."
+    },
+    {
+      "gold": 16.0,
+      "got": 8.0,
+      "correct": false,
+      "tokens": 54,
+      "reply": "On Tuesday, the depth of the water in the tank increased by 17 + 7 = 24 feet.\nThe depth of the water in the tank on Wednesday is 24 / 3 = 8 feet.\nThe answer is 8."
+    },
+    {
+      "gold": 32.0,
+      "got": 28.0,
+      "correct": false,
+      "tokens": 73,
+      "reply": "Anakin:10+6+3=19 starfish.\nLocsin:10-5=5 starfish.\nAnakin:10-3=7 sea horses.\nLocsin:6-3=3 sea horses.\nTotal:19+5+7+3=28 fish.\nThe answer is 28."
+    },
+    {
+      "gold": 92.0,
+      "got": 36.0,
+      "correct": false,
+      "tokens": 133,
+      "reply": "After one month, the price of the bag of marbles would be $20 + $20 * .2 = $24.\nAfter two months, the price of the bag of marbles would be $24 + $24 * .2 = $28.\nAfter three months, the price of the bag of marbles would be $28 + $28 * .2 = $30.4.\nAfter four months, the price of the bag of marbles would be $30.4 + $30.4 * .2 = $36.16.\nThe answer is 36."
+    },
+    {
+      "gold": 50.0,
+      "got": 32.0,
+      "correct": false,
+      "tokens": 83,
+      "reply": "The dolls cost 1 * 3 = $3.\nSo the total price is 5 + 3 + 4 = $12.\nThe action figures cost 5 - 1 = $4 each.\nSo they cost 5 * 4 = $20.\nTherefore, all toys are worth 12 + 20 = $32.\nThe answer is 32."
+    },
+    {
+      "gold": 15.0,
+      "got": -15.0,
+      "correct": false,
+      "tokens": 70,
+      "reply": "If Jackie does her own taxes, she'll lose 3*35 = $105.\nThe accountant charges $90 and Jackie loses $105 so she'd be charged $90-$105 = -$15 more than she would have been if she hired an accountant.\nThe answer is -15."
+    },
+    {
+      "gold": 77.0,
+      "got": 85.0,
+      "correct": false,
+      "tokens": 70,
+      "reply": "The total cost of the computer is \u20ac1090 + \u20ac157 + \u20ac74 + \u20ac102 = \u20ac1635.\nElvira has 1500 - 1635 = \u20ac85 left to keep a little money for her clothing.\nThe answer is 85."
+    },
+    {
+      "gold": 5.0,
+      "got": 15.0,
+      "correct": false,
+      "tokens": 79,
+      "reply": "Sandra makes 15/3 = 5 times as many flans as she needs.\nSince each time she babysits the daughter, she gets 9 eggs, then she has to babysit 9/9 = 1 time per egg.\nTherefore, Sandra has to babysit 15 / 1 = 15 times.\nThe answer is 15."
+    },
+    {
+      "gold": 16.0,
+      "got": 19.0,
+      "correct": false,
+      "tokens": 54,
+      "reply": "Let x represent Seth's age.\nBrooke = x/2\nx + x/2 = 28\n3x = 56\nSeth = 56/3 = 19 years old\nThe answer is 19."
+    },
+    {
+      "gold": 18.0,
+      "got": 18.0,
+      "correct": true,
+      "tokens": 39,
+      "reply": "Twice the money Ethel has is 8*2=16 dollars.\nSo, Jimmy has 16+2=18 dollars.\nThe answer is 18."
+    },
+    {
+      "gold": 120.0,
+      "got": 110.0,
+      "correct": false,
+      "tokens": 43,
+      "reply": "He walks 20*5=100 miles for work.\nSo he walks 100+10=110 miles in a week.\nThe answer is 110."
+    },
+    {
+      "gold": 150.0,
+      "got": 75.0,
+      "correct": false,
+      "tokens": 62,
+      "reply": "Each jacket costs 3 * 25 = $75.\nThe average price of the hats and jackets is 25 + 75 = $100.\nSo, each uniform costs 100 - 25 = $75.\nThe answer is 75."
+    },
+    {
+      "gold": 1210.0,
+      "got": 1200.0,
+      "correct": false,
+      "tokens": 81,
+      "reply": "He sees 80*8=640 spider legs.\nHe sees 90*6=540 insect legs.\nHe sees 3*10=30 legs from the rare mutant insects.\nSo he sees a total of 640+540+30 = 1,200 legs.\nThe answer is 1200."
+    },
+    {
+      "gold": 51.0,
+      "got": 26.0,
+      "correct": false,
+      "tokens": 73,
+      "reply": "Sally Forty is 8/2=4 years old.\nGranny Red is 3*4=12 years old.\nSally Twenty-two is 8-12=4 years old.\nThe total age of the four birds is 4+4+4+8 = 26 years old.\nThe answer is 26."
+    },
+    {
+      "gold": 18000.0,
+      "got": 48600.0,
+      "correct": false,
+      "tokens": 87,
+      "reply": "Jessica needs to pay 1.5 times the minimum because 50/100 = 1.5\nShe pays 375/month because 200 x .15 = 375\nShe pays 48,600/year because 375 x 12 = 48,600\nThe answer is 48,600."
+    },
+    {
+      "gold": 95.0,
+      "got": 300.0,
+      "correct": false,
+      "tokens": 67,
+      "reply": "It takes him 60/2=30 minutes to prepare all the potatoes.\nHe spends 180*1.5=270 seconds cutting them.\nSo he spends a total of 30+270=300 seconds preparing the potatoes.\nThe answer is 300."
+    },
+    {
+      "gold": 15.0,
+      "got": 60.0,
+      "correct": false,
+      "tokens": 142,
+      "reply": "Each gallon of lemonade is sold at a price of $3 + $2 = $5.\nThey make $25 in profit so each gallon makes $25/5 = $5/gallon.\nSince each glass has 20 glasses, then the total number of gallons they made is 25/5 = 5 gallons.\nEach gallon contains 20 glasses and they sold 5 gallons so they have a total of 20*5 = 100 glasses\nThey spent $3/gallon on lemons and each glass has 20 glasses so they spent 3*20 = $60 for lemons\nThe answer is 60."
+    },
+    {
+      "gold": 100.0,
+      "got": 20.0,
+      "correct": false,
+      "tokens": 66,
+      "reply": "There are 240 - 80 = 160 Chinese.\nThe total number of boys is 60 + 160 = 220.\nSo there are 240 - 220 = 20 girls in the race.\nThe answer is 20."
+    },
+    {
+      "gold": 350.0,
+      "got": 1750.0,
+      "correct": false,
+      "tokens": 106,
+      "reply": "Zaid spends 1/4*6000=$1500 on rent.\nHe spends 1/3*$1500=$500 on car fuel.\nSo he has $6000-$1500-$500=$3500 left after these expenses.\nAfter donating half of the remaining money to his favorite charity, Zaid will have $3500/$2=1750$.\nThe answer is 1750."
+    },
+    {
+      "gold": 122.0,
+      "got": 46.0,
+      "correct": false,
+      "tokens": 38,
+      "reply": "Monic has 40-4=36 crabs.\nTogether, they have 36+10=46 crabs.\nThe answer is 46."
+    },
+    {
+      "gold": 130.0,
+      "got": 130.0,
+      "correct": true,
+      "tokens": 63,
+      "reply": "He earned 10*5=$50 for the first week.\nHe earned 10*8=$80 for the second week.\nSo, Lloyd earned a total of $50+$80= $130 in the first two weeks.\nThe answer is 130."
+    },
+    {
+      "gold": 20.0,
+      "got": 20.0,
+      "correct": true,
+      "tokens": 70,
+      "reply": "If the winner received 3/4 of the votes, he received 3/4*80 = 60 votes.\nThe total number of votes is 80 and the winner received 60 so the other candidate must have received 80-60 = 20 votes.\nThe answer is 20."
+    },
+    {
+      "gold": 160.0,
+      "got": 120.0,
+      "correct": false,
+      "tokens": 69,
+      "reply": "Fred needs to deliver 200 / 5 = 40 white carnations.\nSandra ordered 4 * 40 = 160 red roses.\nFred has to deliver 160 - 40 = 120 red roses by 5 pm.\nThe answer is 120."
+    },
+    {
+      "gold": 23.0,
+      "got": 19.0,
+      "correct": false,
+      "tokens": 93,
+      "reply": "Mark was 1/2*30 = 15 years old two years ago.\nSo he was 15+2 = 17 years old two years ago.\nThat means Mark was 17-2 = 15 years old two years ago.\nSo Jan is 15+2 = 17 years old\nJean is 17+2 = 19 years old\nThe answer is 19."
+    },
+    {
+      "gold": 2.0,
+      "got": 2.0,
+      "correct": true,
+      "tokens": 301,
+      "reply": "The slower team has 2 runners who run at a rate of 55 seconds per lap.\nSo they run their first lap in 2*55 = 110 seconds.\nThen each subsequent runner runs 3 seconds faster than the previous runner, so the second runner runs 58 seconds because 60-3=58\nThe third runner runs 47 seconds because 58+3=58\nThe fourth runner runs 42 seconds because 58+3=58\nSo the slower team has a total of 110+58+58+42 = 266 seconds.\nThe faster team is running at a rate of 60-3=57 seconds per lap.\nSo they run their first lap in 2*57 = 114 seconds.\nThen each subsequent runner runs 3 seconds faster than the previous runner, so the second runner runs 54 seconds because 57+3=54\nThe third runner runs 46 seconds because 54+3=57\nThe fourth runner runs 40 seconds because 57+3=50\nSo the faster team has a total of 114+54+50+42 = 268 seconds.\nTherefore, the faster team will win by 268-266 = 2 seconds.\nThe answer is 2."
+    },
+    {
+      "gold": 25.0,
+      "got": 33.333333333333336,
+      "correct": false,
+      "tokens": 384,
+      "reply": "First find how many even numbers Jerry rolls: 6 - 2 = 4\nThen multiply the probability of rolling an even number by itself to find the chance of rolling an odd number: 4 * 1 = 4\nNow subtract that from the probability of rolling an even number to find the difference: 6 - 4 = 2\nFinally, divide the difference by the total number of possible outcomes and multiply by 100% to express the answer as a percentage: 2 / 6 * 100% = 33.333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333"
+    },
+    {
+      "gold": 30.0,
+      "got": 30.0,
+      "correct": true,
+      "tokens": 36,
+      "reply": "Jenna picked 20/2=10 apples.\nTogether, they picked 10+20=30 apples.\nThe answer is 30."
+    },
+    {
+      "gold": 5.0,
+      "got": 11.0,
+      "correct": false,
+      "tokens": 92,
+      "reply": "The total number of pieces of straw that the hamsters received is 10 * 5 = 50.\nSo there are 160 - 50 = 110 pieces of straw left for the rabbits.\nThere are 20 / 2 = 10 rabbits in the pen.\nThus, each cage has 110 / 10 = 11 rats.\nThe answer is 11."
+    },
+    {
+      "gold": 106.0,
+      "got": 2.0,
+      "correct": false,
+      "tokens": 96,
+      "reply": "If Mandy owed Benedict $100 and they agreed to have a monthly interest of 2%, then the amount of interest is 2/100*$100 = $2.\nSo in total, Mandy owed Benedict $100+$2=$102.\nSince she was able to pay it after 3 months, then she should give Benedict $102-$100 = $2.\nThe answer is 2."
+    },
+    {
+      "gold": 50.0,
+      "got": 140.0,
+      "correct": false,
+      "tokens": 104,
+      "reply": "The total cost for transporting 100 bags is $2 x 100 = $200.\nSo, the total revenue from selling the bags was $30 x 100 = $3000.\nTherefore, the trader sold $3000 - $200 = $2800 worth of wheat.\nThus, he sold $2800/$20 = 140 bags of wheat.\nThe answer is 140."
+    },
+    {
+      "gold": 34.0,
+      "got": 57.33,
+      "correct": false,
+      "tokens": 134,
+      "reply": "The total cost of the tickets is $20.25 x 3 = $67.75.\nThe cost of food was $4.50 less than the cost of the tickets so it was $67.75 - $4.50 = $63.25.\nThe total cost for all three friends is $67.75 + $63.25 + $33 = $163.\nSince they agreed to split the costs evenly, each of them paid $163 / 3 = $57.33\nThe answer is 57.33."
+    },
+    {
+      "gold": 360.0,
+      "got": 360.0,
+      "correct": true,
+      "tokens": 41,
+      "reply": "He spends 3*60=180 minutes collecting peaches.\nSo he collects 180*2=360 peaches.\nThe answer is 360."
+    },
+    {
+      "gold": 5.0,
+      "got": 24.0,
+      "correct": false,
+      "tokens": 72,
+      "reply": "Each duck needs to eat 3.5*10 = 35 pounds of insects.\nSo the flock needs to eat 35*7 = 245 pounds of insects per week.\nThus, each duck eats 245/10 = 24 pounds of insects per day.\nThe answer is 24."
+    },
+    {
+      "gold": 91.0,
+      "got": 28.0,
+      "correct": false,
+      "tokens": 68,
+      "reply": "He has 40 trees because 50 - 2 = 40\nAfter 10 years, 40*0.3= 12 trees will be dead.\nSo he has 28 trees left because 40-12 = 28\nThe answer is 28."
+    },
+    {
+      "gold": 24.0,
+      "got": 12.0,
+      "correct": false,
+      "tokens": 94,
+      "reply": "On Friday afternoon, there were 18/3 = 6 pink plastic flamingos.\nOn Saturday morning, there were 6 + 18 = 24 white plastic flamingos.\nOn Sunday morning, there were 18 + 18 = 36 pink plastic flamingos.\nThere are 36 - 24 = 12 more pink plastic flamingos than white plastic flamingos.\nThe answer is 12."
+    },
+    {
+      "gold": 10.0,
+      "got": -10.0,
+      "correct": false,
+      "tokens": 60,
+      "reply": "If Violetta bought all the crayons, she would have spent 5 * $2 = $10.\nThe difference between the cost of the new crayons and the money she paid is $10 - $20 = -$10.\nThe answer is -10."
+    },
+    {
+      "gold": 12.0,
+      "got": 12.0,
+      "correct": true,
+      "tokens": 48,
+      "reply": "Each pen costs $1.20 + $0.30 = $1.50.\nSo, 8 pens cost $1.50 x 8 = $12.\nThe answer is 12."
+    },
+    {
+      "gold": 120.0,
+      "got": 200.0,
+      "correct": false,
+      "tokens": 49,
+      "reply": "Each restaurant will receive 200/40=5 pounds of carrots.\nSo, the total amount of carrots that will be used is 5*40=200 pounds.\nThe answer is 200."
+    },
+    {
+      "gold": 6277.0,
+      "got": 15269.0,
+      "correct": false,
+      "tokens": 44,
+      "reply": "There are 23786 - 8417 - 9092 = 15269 people who are not children.\nThe answer is 15269."
+    },
+    {
+      "gold": 320.0,
+      "got": 220.0,
+      "correct": false,
+      "tokens": 72,
+      "reply": "Elaine collected 3*20=60 Pokemon cards in the second month.\nIn the third month, she collected 2*(60+20)=140 Pokemon cards.\nSo Elaine has a total of 20+60+140=220 Pokemon cards.\nThe answer is 220."
+    },
+    {
+      "gold": 7500.0,
+      "got": 10000.0,
+      "correct": false,
+      "tokens": 87,
+      "reply": "If Publisher B pays Mark 2 times the amount paid by Publisher A, then he pays Mark 2*5 = $10 per sentence.\nSince Mark edits 1000 sentences each week, and since he is paid $10 for every sentence, then he makes 1000*$10 = $10000 in a week.\nThe answer is 10000."
+    },
+    {
+      "gold": 55.0,
+      "got": 460.0,
+      "correct": false,
+      "tokens": 84,
+      "reply": "He gets 5*8=40 pails of water in the morning.\nHe gets 6*8=48 pails of water in the afternoon.\nSo he gets a total of 40+48=92 pails of water every day.\nTherefore, he gets 92*5=460 liters of water every day.\nThe answer is 460."
+    },
+    {
+      "gold": 114200.0,
+      "got": 7100.0,
+      "correct": false,
+      "tokens": 72,
+      "reply": "He gets a raise of .05*2000=$100 per week\nSo he gets $100+5000=$5100 per week\nThat means he makes 2000+$5100=$7100 per year\nThe answer is 7100."
+    },
+    {
+      "gold": 100.0,
+      "got": 25.0,
+      "correct": false,
+      "tokens": 50,
+      "reply": "She has 10 acres * 5 tons/acre = 50 tons of grapes.\nSo she can make 50 tons / 2 barrels/ton = 25 barrels of wine.\nThe answer is 25."
+    },
+    {
+      "gold": 31.0,
+      "got": 46.0,
+      "correct": false,
+      "tokens": 165,
+      "reply": "He ate 2 slices of cheese on each sandwich, so he ate 2*7 = 14 slices of cheese from sandwiches.\nHe ate 3 omelets per day with one more slice than the sandwich, for a total of 3+1 = 4 omelets.\nSo he used 4*2 = 8 slices of cheese on each omelet.\nThus, he used 8*7 = 56 slices of cheese from omelets.\nHe ate 8 slices of cheese in the macaroni dish for dinner, so he used 8*3 = 24 slices of cheese from macaroni dishes.\nIn total, he used 14+8+24 = 46 slices of cheese.\nThe answer is 46."
+    },
+    {
+      "gold": 98.0,
+      "got": 66.0,
+      "correct": false,
+      "tokens": 91,
+      "reply": "Janet has 22 green pens + 10 yellow pens = 32 pens.\nShe bought 6 bags of blue pens * 9 pens/bag = 54 pens.\nShe also bought 2 bags of red pens * 6 pens/bag = 12 pens.\nSo, Janet has a total of 54 pens + 12 pens = 66 pens.\nThe answer is 66."
+    },
+    {
+      "gold": 98.0,
+      "got": 1.0,
+      "correct": false,
+      "tokens": 100,
+      "reply": "Brinley's total for the first five tests is 89 + 71 + 92 + 100 + 86 = 456.\nThe average for Brinley's first five tests is 456 / 5 = 93.\nIf she needs an average of 93, then the lowest score she can have on her sixth test is 93 - 92 = 1.\nThe answer is 1."
+    },
+    {
+      "gold": 860.0,
+      "got": 860.0,
+      "correct": true,
+      "tokens": 168,
+      "reply": "Micheal rode it 5 times a week for 4 weeks so he rode it 5*4 = 20 times\nHe made 25 kilometers each time so he made 25*20 = 500 kilometers riding the bike at least 5 times a week.\nFor the first four weeks, he did 500 kilometers and then decided to ride only 2 times a week for 3 weeks so he rode it 2*3 = 6 times\nHe made 60 kilometers each time so he made 60*6 = 360 kilometers riding the bike at least 6 times a week.\nIn total, he did 500+360 = 860 kilometers riding the bike.\nThe answer is 860."
+    },
+    {
+      "gold": 2600.0,
+      "got": 2600.0,
+      "correct": true,
+      "tokens": 64,
+      "reply": "Each candied apple weighs 40/2 = 20 g.\nJoe's bag of candy weighs 25*40 + 80*20 = 1000+1600 = 2600 g.\nThe answer is 2600."
+    },
+    {
+      "gold": 76.0,
+      "got": 76.0,
+      "correct": true,
+      "tokens": 62,
+      "reply": "On Tuesday, Rose bought 3 * 4 = 12 cakes.\nOn Wednesday, she bought 5 * 12 = 60 cakes.\nIn total, Rose bought 4 + 12 + 60 = 76 cakes.\nThe answer is 76."
+    },
+    {
+      "gold": 145.0,
+      "got": 3000.0,
+      "correct": false,
+      "tokens": 114,
+      "reply": "Half a dozen plates are 6000/2=3000 plates.\nA dozen is 12*12=144 cups.\nSo, 20 dozen cups cost 144*12=$17280 less than the total cost of half a dozen plates sold at $6000 each.\nThus, the total cost of buying each cup is $6000-$17280/$2=3000 dollars.\nThe answer is 3000."
+    },
+    {
+      "gold": 10.0,
+      "got": 2.0,
+      "correct": false,
+      "tokens": 105,
+      "reply": "Sara earns 2*5=$10 from babysitting.\nSo she has a total of $10+$4=$14 saved.\nShe needs to save $30-$14=$16 more.\nSince each time she mows the lawn, she earns $5, then she must earn $16/$5=3 times her earnings.\nTherefore, Sara must babysit 3/5*4=2 times before she can afford the jacket and shoes.\nThe answer is 2."
+    },
+    {
+      "gold": 4.0,
+      "got": 2.0,
+      "correct": false,
+      "tokens": 110,
+      "reply": "Let x be the number of red chickens.\nThere are (x+2) white chickens because there are 2 more white chickens than red ones.\nThe total number of eggs is 3*x + 5*(x+2) = 42.\nSimplifying, we get 8*x + 10*x + 10 = 42.\nCombining like terms gives 19*x = 42.\nDividing both sides by 19 gives x = 2.\nThe answer is 2."
+    },
+    {
+      "gold": 5.0,
+      "got": 3.0,
+      "correct": false,
+      "tokens": 64,
+      "reply": "First find the total distance Gary walks: 1.5 miles * 6 miles = 9 miles\nThen divide the total distance by his speed to find how long it takes him to walk around the park: 9 miles / 3 miles/hour = 3 hours\nThe answer is 3."
+    },
+    {
+      "gold": 250.0,
+      "got": 250.0,
+      "correct": true,
+      "tokens": 92,
+      "reply": "On the second day, Sloane counted 100 + 50 = 150 customers.\nThe total number of customers for the first two days is 100+150=250.\nIf the total number of customers by the third day was 500, then she counted 500-250=250 on the third day.\nThe answer is 250."
+    },
+    {
+      "gold": 8.0,
+      "got": 6.0,
+      "correct": false,
+      "tokens": 55,
+      "reply": "The big pool is 2*3=6 times bigger than the small pool.\nSo it has 4*6=24 gallons of water.\nThat means the small pool has 24/4=6 gallons of water.\nThe answer is 6."
+    },
+    {
+      "gold": 44.0,
+      "got": 48.0,
+      "correct": false,
+      "tokens": 50,
+      "reply": "The total cost for the shoes and belt is $320 + $32 = $352.\nShe needs to earn $352 / $8/hour = 48 hours.\nThe answer is 48."
+    },
+    {
+      "gold": 220.0,
+      "got": 1020.0,
+      "correct": false,
+      "tokens": 133,
+      "reply": "If Janeth borrowed $2000, she promised to return it with an additional 10/100*$2000 = $200.\nSo the total amount she needs to pay back is $200+$200=$400.\nSince she has been going to pay $165 a month for 12 months, then she will have paid $165*12 = $1980\nThe remaining balance Janeth should be paying back is $400-$1980 = $1020\nThe answer is 1020."
+    },
+    {
+      "gold": 15.0,
+      "got": 15.0,
+      "correct": true,
+      "tokens": 44,
+      "reply": "There are 4 + 7 = 11 dahlias.\nSo, there are a total of 4 + 11 = 15 flowers in the vase.\nThe answer is 15."
+    },
+    {
+      "gold": 45.0,
+      "got": 42.0,
+      "correct": false,
+      "tokens": 114,
+      "reply": "If Harriet is half the age of Zack, then Zack is 2 * 21 = 42 years old.\nAdrian's age is three times the age of Harriet, so Adrian is 3 * 21 = 63 years old.\nThe total age of all three in three years will be 63 + 21 + 42 = 126\nThe average age of the three in three years is 126 / 3 = 42 years\nThe answer is 42."
+    },
+    {
+      "gold": 54.0,
+      "got": 46.0,
+      "correct": false,
+      "tokens": 113,
+      "reply": "Half as many points as Naomi is (68/2) = 34.\nYuri scored 10 + 34 = 44 points.\nBrianna scored 17 + 34 = 51 points.\nSo, the total number of points that all four students scored is 68 + 44 + 51 + 34 = 205.\nTherefore, Jojo scored 251 - 205 = 46 points.\nThe answer is 46."
+    },
+    {
+      "gold": 70.0,
+      "got": 70.0,
+      "correct": true,
+      "tokens": 59,
+      "reply": "Carmen spent 10*3=30 minutes on crossword puzzles.\nShe spent 5*8=40 minutes on sudoku puzzles.\nSo in total, she spent 30+40 =70 minutes solving the puzzles.\nThe answer is 70."
+    },
+    {
+      "gold": 90.0,
+      "got": 90.0,
+      "correct": true,
+      "tokens": 77,
+      "reply": "Celine had 120 - 90 = 30 liters of water left after using some.\nShe collected 30 x 2 = 60 liters of rainwater from the tank.\nSo, she has a total of 30 + 60 = 90 liters of water in the tank now.\nThe answer is 90."
+    },
+    {
+      "gold": 140.0,
+      "got": 140.0,
+      "correct": true,
+      "tokens": 47,
+      "reply": "He plants 90 - 40 = 50 petunias.\nSo, he plants a total of 90 + 50 = 140 flowers.\nThe answer is 140."
+    },
+    {
+      "gold": 20000.0,
+      "got": 20000.0,
+      "correct": true,
+      "tokens": 64,
+      "reply": "The company spends 15000/3=5000 dollars on advertising for the second year.\nSo in total they spend 15000+5000=$20000 on advertising for the two years.\nThe answer is 20000."
+    },
+    {
+      "gold": 180.0,
+      "got": 180.0,
+      "correct": true,
+      "tokens": 61,
+      "reply": "Carlos pays $30/hour * 3 hours = $90.\nBenji pays $18/hour * 5 hours = $90.\nThe total amount Carlos pays is $90 + $90 = $180.\nThe answer is 180."
+    },
+    {
+      "gold": 9.0,
+      "got": 3.0,
+      "correct": false,
+      "tokens": 74,
+      "reply": "If Andrew travels by bus for six days, then the total number of days he spends traveling is 6 + 1 = 7.\nHe plans to travel by car for half as many days as he traveled by bus, so he will spend 7 / 2 = 3 days traveling from New Jersey to Rochester and back.\nThe answer is 3."
+    },
+    {
+      "gold": 33.0,
+      "got": 89.0,
+      "correct": false,
+      "tokens": 85,
+      "reply": "He has 30 fire type + 20 grass type + 40 water type = 90 total type cards.\nHe loses 8 of the water type so he is left with 90 - 8 = 82 type cards.\nThe probability that a randomly picked card will be a water type is 82/90 = .89\nThe answer is 89."
+    },
+    {
+      "gold": 9.0,
+      "got": 11.0,
+      "correct": false,
+      "tokens": 210,
+      "reply": "The base burrito is $6.50, the extra meat costs $2.00, cheese costs $1.00, avocado costs $1.00 and sauces cost $0.25 each so that's 2+1+1+1+1+0.25 = $7.50\nThe base burrito is $6.50, the extra meat costs $2.00, cheese costs $1.00, avocado costs $1.00 and sauces cost $0.25 each and he adds a drink for $3.00 so that's 7+2+1+1+1+0.25+3 = $16.50\nHe has a gift card for $5.00 and he uses it to pay off the $16.50 so he still owes $16.50-$5.00 = $11.50\nThe answer is 11."
+    },
+    {
+      "gold": 1.0,
+      "got": 360.0,
+      "correct": false,
+      "tokens": 93,
+      "reply": "If Kalinda can add 4 pieces per minute, and her mom can place half as many pieces per minute, then the total number of pieces that they need to complete is 360 * 2 = 720.\nSince each piece takes 1/2 a minute to place, then it will take them 720 / 2 = 360 minutes to complete the puzzle.\nThe answer is 360."
+    },
+    {
+      "gold": 21.0,
+      "got": 63.0,
+      "correct": false,
+      "tokens": 80,
+      "reply": "Ashlyn found out that 120 x 30% = 36 watermelons were ready for harvest.\nSo there are 120 - 36 = 84 watermelons left.\nThe number of melons that were not ready to be harvested is 84 x 3/4 = 63.\nThe answer is 63."
+    },
+    {
+      "gold": 276000.0,
+      "got": 2400000.0,
+      "correct": false,
+      "tokens": 384,
+      "reply": "He makes 12*20000=$2400000 dollars from selling the cars.\nThe taxes amount to 2400000*.1=$2400000*.1=$2400000*.1=$2400000*.1=$2400000*.1=$2400000*0.1=$2400000*.1=$2400000*0.1=$2400000*0.1=$2400000*0.1=$2400000*0.1=$2400000*0.1=$2400000*.1=$2400000*0.1=$2400000*0.1=$2400000*0.1=$2400000*0.1=$2400000*0.1=$2400000*0.1=$2400000*0.1=$2400000*0.1=$2400000*0.1=$2400000*0.1=$2400000*0.1=$2400000*0.1=$2400000*0.1=$2400000*0.1=$2400000*0.1=$2400000*0.1=$2400000*0.1=$2400000*"
+    },
+    {
+      "gold": 50.0,
+      "got": 50.0,
+      "correct": true,
+      "tokens": 42,
+      "reply": "On Monday, Kylie collects 20 + 5 = 25 shells.\nOn Tuesday, Kylie collects 2 * 25 = 50 shells.\nThe answer is 50."
+    },
+    {
+      "gold": 75.0,
+      "got": 75.0,
+      "correct": true,
+      "tokens": 55,
+      "reply": "If Dax found half as many bugs as ants, he found 1/2*50 = 25 bugs.\nThe total number of insects in the garden is 25+50 = 75 insects.\nThe answer is 75."
+    },
+    {
+      "gold": 12.0,
+      "got": 24.0,
+      "correct": false,
+      "tokens": 68,
+      "reply": "One-third of the penguin population is swimming, so there are 36/3 = 12 penguins swimming.\nAnother one-third of the penguin population is eating, so there are 36-12-1 = 24 penguins still left sunbathing.\nThe answer is 24."
+    },
+    {
+      "gold": 21.0,
+      "got": 4.0,
+      "correct": false,
+      "tokens": 38,
+      "reply": "He eats 12 because 6 x 2 = 12\nHe needs 4 because 12 / 3 = 4\nThe answer is 4."
+    },
+    {
+      "gold": 10.0,
+      "got": 5.0,
+      "correct": false,
+      "tokens": 19,
+      "reply": "There are 20/8=5 pizzas needed.\nThe answer is 5."
+    },
+    {
+      "gold": 31.0,
+      "got": 20.0,
+      "correct": false,
+      "tokens": 56,
+      "reply": "He makes 1 pen out of 5 pens so he can make 1/5*25 = 5 pens\nSo he has 25-5 = 20 pens left after using them to make new pens\nThe answer is 20."
+    },
+    {
+      "gold": 90.0,
+      "got": 90.0,
+      "correct": true,
+      "tokens": 48,
+      "reply": "He had $20 + $10 = $30 at the start of the year.\nSo he had $30 * 3 = $90 by the end of the year.\nThe answer is 90."
+    },
+    {
+      "gold": 68.0,
+      "got": 78.0,
+      "correct": false,
+      "tokens": 64,
+      "reply": "Joana is 20 + 5 = 25 years old.\nMary is 25 - 2 = 23 years old.\nThe total age of the three girls is 20 + 25 + 23 = 78 years.\nThe answer is 78."
+    },
+    {
+      "gold": 280.0,
+      "got": 487.0,
+      "correct": false,
+      "tokens": 102,
+      "reply": "The total number of students that went out through exit A is 1000 x 30% = 30.\nThe total number of students remaining after going out through exit A and B is 1000 - 30 + 3/5 * 1000 = 975\nThe total number of students that went out through exit C is 975 / 2 = 487.\nThe answer is 487."
+    },
+    {
+      "gold": 21.0,
+      "got": 6.0,
+      "correct": false,
+      "tokens": 73,
+      "reply": "If John has twice as many candies as Robert, then he has 2*54 = 108 candies.\nJames has 6 more candies than Robert, meaning he has 108+6=114 candies.\nJohn has 114-108=6 more candies than James.\nThe answer is 6."
+    },
+    {
+      "gold": 6.0,
+      "got": 6.0,
+      "correct": true,
+      "tokens": 48,
+      "reply": "Pandora reads 1 + 2 = 3 books.\nDolly reads 1 + 2 = 3 books.\nTogether, they read 3 + 3 = 6 books.\nThe answer is 6."
+    },
+    {
+      "gold": 3.0,
+      "got": 1.7,
+      "correct": false,
+      "tokens": 86,
+      "reply": "He was pen pals with 5 people and stopped being one with 2 so he is left with 5-2 = 3 people\nEach person sends 2 letters a week that are 5 pages long for a total of 2*5 = 10 pages per week\nSo he spends 10/6= 1.7 hours writing a week\nThe answer is 1.7."
+    },
+    {
+      "gold": 250.0,
+      "got": 550.0,
+      "correct": false,
+      "tokens": 47,
+      "reply": "He has already used 15*30=450 minutes for the calls.\nSo he has 1000-450=550 minutes left.\nThe answer is 550."
+    },
+    {
+      "gold": 20.0,
+      "got": 35.0,
+      "correct": false,
+      "tokens": 80,
+      "reply": "Kyle had 24-5 = 19 fries.\nBilly had 19*2 = 38 fries.\nGinger had 38-3 = 35 fries.\nGriffin had 27+35 = 62 fries.\nSo, Ginger gave Griffin 62-27 = 35 fries.\nThe answer is 35."
+    },
+    {
+      "gold": 7.0,
+      "got": 28.0,
+      "correct": false,
+      "tokens": 77,
+      "reply": "The difference between the number of snails in the two aquariums is 32 - 4 = 28.\nTwice that amount is 2 x 28 = 56.\nSince both aquariums have the same number of fish, then 56/2= 28 fish are there in each aquarium.\nThe answer is 28."
+    },
+    {
+      "gold": 27000.0,
+      "got": 6600.0,
+      "correct": false,
+      "tokens": 134,
+      "reply": "The artist spends 6*4=24 hours doing makeup for the movies.\nSo she spent 24*250=$6,000 on makeup for the movies.\nThat means she made $6,000/week doing makeup for movies.\nShe also spent 10% of her $6,000 per week doing makeup for movies so that's .10*$6,000=$600\nSo in total she paid $6,000+$600=$6,600 for the makeup done to her movie.\nThe answer is 6,600."
+    },
+    {
+      "gold": 32.0,
+      "got": 70.0,
+      "correct": false,
+      "tokens": 73,
+      "reply": "The total cost of all the items was 12 + 43 + 15 + 4 + 22 = $106.\nSo, each parent paid 106 / 3 = $35.\nTherefore, each person paid $35 x 2 = $70.\nThe answer is 70."
+    },
+    {
+      "gold": 300.0,
+      "got": 120.0,
+      "correct": false,
+      "tokens": 55,
+      "reply": "Each bag weighed 4*50=200 pounds.\nSo, each bag cost 200*$1.5=$30.\nTherefore, the chef spent 4*$30=$120.\nThe answer is 120."
+    },
+    {
+      "gold": 5600.0,
+      "got": 28.0,
+      "correct": false,
+      "tokens": 154,
+      "reply": "On Monday, Sue ate 4 times as many cookies as her sister, so she ate 4*5 = 20 cookies.\nOn Tuesday, Sue ate twice as many cookies as her sister, so she ate 2*13 = 26 cookies.\nIn total, Sue ate 20+26 = 46 cookies on Monday and Tuesday.\nHer sister ate 5 cookies on Monday and 13 cookies on Tuesday for a total of 5+13 = 18 cookies.\nSue consumed 20*200= 4000 calories more than her sister on Tuesday than she did on Monday because 46-18 = 28\nThe answer is 28."
+    }
+  ]
+}

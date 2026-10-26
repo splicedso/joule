@@ -1,0 +1,92 @@
+{
+  "steps": 910,
+  "lr": 1e-05,
+  "batch": 8,
+  "group": 16,
+  "general_frac": 0.3,
+  "baked_linears": 196,
+  "quant_check_step0": {
+    "linear": "model.layers.0.mlp.down_proj",
+    "shape": [
+      1536,
+      8960
+    ],
+    "groups_sampled": 4096,
+    "max_distinct_per_group": 4,
+    "mean_distinct_per_group": 3.99,
+    "mae_master_vs_quantized": 0.006980814505368471,
+    "mean_abs_master": 0.021174512803554535,
+    "frac_changed_by_quant": 0.8735617399215698
+  },
+  "quant_check_end": {
+    "linear": "model.layers.0.mlp.down_proj",
+    "shape": [
+      1536,
+      8960
+    ],
+    "groups_sampled": 4096,
+    "max_distinct_per_group": 4,
+    "mean_distinct_per_group": 3.99,
+    "mae_master_vs_quantized": 0.007016473915427923,
+    "mean_abs_master": 0.021175766363739967,
+    "frac_changed_by_quant": 0.9999544620513916
+  },
+  "peak_gib": 30.413719654083252,
+  "minutes": 881.2277713354666,
+  "log": [
+    {
+      "step": 0,
+      "valid_loss": 3.955608379182208
+    },
+    {
+      "step": 100,
+      "train_loss": 0.8112466335296631,
+      "valid_loss": 0.7816188044811492
+    },
+    {
+      "step": 200,
+      "train_loss": 3.083103895187378,
+      "valid_loss": 0.7332301869869031
+    },
+    {
+      "step": 300,
+      "train_loss": 0.7617622017860413,
+      "valid_loss": 0.6927168309965097
+    },
+    {
+      "step": 400,
+      "train_loss": 3.043306589126587,
+      "valid_loss": 0.681593695052914
+    },
+    {
+      "step": 500,
+      "train_loss": 0.49723318219184875,
+      "valid_loss": 0.6599165418891151
+    },
+    {
+      "step": 600,
+      "train_loss": 0.794258177280426,
+      "valid_loss": 0.6492221804924124
+    },
+    {
+      "step": 700,
+      "train_loss": 0.6730216145515442,
+      "valid_loss": 0.6394625068062822
+    },
+    {
+      "step": 800,
+      "train_loss": 0.8818932771682739,
+      "valid_loss": 0.635354922522678
+    },
+    {
+      "step": 900,
+      "train_loss": 0.5203381776809692,
+      "valid_loss": 0.6341621064274988
+    },
+    {
+      "step": 910,
+      "train_loss": 0.37108632922172546,
+      "valid_loss": 0.6342845693111219
+    }
+  ]
+}

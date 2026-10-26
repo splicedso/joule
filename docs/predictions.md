@@ -122,6 +122,24 @@ in note 22).
   session's pass 1 within 1%, Q2_K within 3% on power, so the 10% pass-to-pass spread is run order (pass 2
   followed four 32B runs), not the session.
 
+## 2026-10-25, 16:40 PT
+
+**Lattice v1, quantization-aware fine-tuning** (Strix Halo, `experiments/lattice/qat.py`: Qwen2.5 1.5B
+Instruct, every linear in the blocks fake-quantized to a Q2_K-shaped grid, group 16, learned per-group scale
+and minimum, straight-through rounding, one epoch of GSM8K train in quality.py's chat format plus 30%
+FineWeb-Edu windows, LR 1e-5; then converted and quantized to Q2_K with the GSM8K imatrix;
+`experiments/lattice_qat.sh`; GSM8K-250 on auto, two passes, 8 and 1 slots). The bar from docs/program.md:
+at least 60% at Q2_K size, cheaper per correct answer than Q4_0.
+- Accuracy of the resulting Q2_K file on GSM8K-250: **52%**, between 45 and 60. Above calibrated Q2_K's 42%
+  and plain Q2_K's 21%, below the 60% bar and below Q4_0's 66%.
+- The real Q2_K requantization costs the fine-tuned model under 3 points against the same weights served at
+  F16, because the weights already sit on a 16-group, 4-level grid.
+- Joules per correct answer on the Strix Halo at 8 slots: between 85 and 110 against Q4_0's 65.2 (note 19),
+  so not cheaper per correct answer; the 2-bit 1.5B token costs more energy than the 4-bit one on both
+  machines (notes 20 and 22), and 52% against 66% accuracy widens the gap. The bar is missed on energy.
+- The 50-step smoke test's training loss falls from its first value by at least 20% and peak memory stays
+  under 30 GiB.
+
 ## 2026-10-25, 22:40 PT
 
 **Decode energy against batch size** (M5 Pro first, Strix Halo when its GPU is free; Qwen2.5 7B Q4_0;
@@ -217,6 +235,23 @@ judged on this machine. Written before the QAT run has finished; nothing about i
 - The control decides what any win means: the QAT weights at Q4_0 answer as briefly, are more accurate,
   and cost less per correct answer than the QAT 2-bit file. If that holds, a 2-bit win over stock Q4_0 is a
   win for fine-tuning, and the note says so.
+
+## 2026-10-25, 23:48 PT
+
+**Lattice v1, the Q4_0 control** (Strix Halo; added to `experiments/lattice_qat.sh` before any QAT file
+exists: the fine-tuned weights also quantized to plain Q4_0 with no imatrix, and stock Q4_0 re-run in the
+same window; 8 slots, QAT Q2_K / stock Q4_0 / QAT Q4_0 then reversed; 1 slot for QAT Q2_K and stock Q4_0).
+The 16:40 entry above is left as written; this one adds what that entry did not consider: answer length.
+Stock 1.5B answers on GSM8K-250 run 247 to 250 tokens on both machines; the GSM8K-train worked answers the QAT
+model learns from average 93 tokens (median 85, 90th percentile 150).
+- Both QAT files answer in **90 to 140 tokens** on average, against stock Q4_0's 248.
+- QAT Q4_0 scores within 2 points of QAT Q2_K: the weights already sit on the 2-bit grid, so a 4-bit file
+  of them holds the same values to within Q4_0's rounding.
+- At equal length, the bits do not pay on the 1.5B: QAT Q4_0 is **10 to 25% cheaper** per correct answer than
+  QAT Q2_K at 8 slots (the 2-bit token costs more on this machine, notes 20 and 22).
+- Against stock Q4_0, QAT Q2_K is **25 to 50% cheaper** per correct answer at 8 slots, almost all of it from
+  shorter answers. If that happens, the bar's energy half is met for the wrong reason, and the note says so:
+  the win belongs to the fine-tuning, which a Q4_0 file of the same model keeps and improves on.
 
 ## 2026-10-26, 01:36 PT
 
@@ -403,6 +438,20 @@ on-policy pilot drafts at p 0.3 and p 0.4 beside their p 0.5 rows). The 35k draf
 - At each draft's best threshold, the 35k draft is **0 to 4% faster** than the stock draft and within 3% on chip
   energy per token: the extra data was not wasted, but it is still far short of a draft worth shipping.
 
+## 2026-10-26, 07:31 PT
+
+**Lattice v1, the plain fine-tune control** (Strix Halo, `experiments/lattice_plain.sh`: `qat.py` with QUANT=0, so the
+identical data, 910 steps, LR, schedule, seed and fp32 masters, with fake quantization off; exported at F16 and plain
+Q4_0; quality.py GSM8K-250, 8 slots, two passes). QAT gave 24% at Q2_K and 26% at Q4_0 (stock Q4_0 65.6%), with answers
+of 84 to 86 tokens against stock's 248; the Q4_0 control showed the export is not the loss, not which of the grid or
+the terse GSM8K answers is.
+- The plain fine-tune scores **55 to 65%** at F16: within 11 points of stock. The 2-bit grid, not the data, did most of
+  the damage, and the next Lattice step is a grid that matches llama.cpp's Q2_K mix.
+- Its answers are short too: **85 to 110 tokens**. The data sets the length, the grid does not.
+- Its Q4_0 file is within 2 points of its F16.
+- Because answers are about 2.5 times shorter at a similar accuracy, its Q4_0 file is **cheaper per correct answer than
+  stock Q4_0 by 40 to 60%** at 8 slots: the length effect, measured on its own.
+
 ## 2026-10-26, 08:03 PT
 
 **Decode energy against batch size, Strix Halo follow-ups** (7B Q4_0, `experiments/decode_batch_energy.py` with a
@@ -447,3 +496,14 @@ The reference did not reproduce: same-session Qwen2.5 3B read 23 to 45% above no
 11.2 W in the two passes against 0.6 W in note 6's session, from another project's Docker container restarting
 in a loop. No clause is judged. Files in `results/void/`. The re-run waits for a quiet machine; `phase` now refuses
 to measure above 3 W idle on macOS.
+
+## Results so far, 2026-10-26, 11:00 PT (predictions above left unedited)
+
+- Lattice v1 (16:40 entry): QAT Q2_K 23.8% on GSM8K-250 (predicted 45 to 60%; bar 60%): missed. 82.4 J per correct at
+  8 slots (predicted 85 to 110): missed narrowly. Smoke-test memory 30.4 GiB (predicted under 30): missed narrowly.
+- The Q4_0 control (23:48 entry): answers 85 to 86 tokens (predicted 90 to 140): missed narrowly; QAT Q4_0 within 2
+  points of QAT Q2_K (1.6): held; 13.5% cheaper per correct than QAT Q2_K (10 to 25%): held; QAT Q2_K against stock Q4_0
+  23% more expensive (predicted 25 to 50% cheaper): missed.
+- The plain control (07:31 entry): F16 48.8% (predicted 55 to 65%): missed; 94.7 tokens (85 to 110): held; its Q4_0 2.8
+  points under its F16 (within 2): missed narrowly; its Q4_0 35% cheaper per correct than stock Q4_0 (40 to 60%):
+  missed. The data costs 17 points, the grid about 21 more. results/lattice-v1.md.
