@@ -1,0 +1,848 @@
+{
+  "overall": {
+    "model": "qwen35-4b-Q4_0.gguf",
+    "slots": 8,
+    "think": "1",
+    "max_tokens": 16384,
+    "server_args": "",
+    "idle_soc_w": 0.5571837749045628,
+    "mean_accuracy": 0.7888095238095238,
+    "chip_j_per_correct_all": 763.9913264147665
+  },
+  "tasks": {
+    "gsm8k": {
+      "summary": {
+        "n": 50,
+        "correct": 46,
+        "accuracy": 0.92,
+        "seconds": 649.2672269169707,
+        "tokens": 161418,
+        "tokens_per_answer": 3228.36,
+        "tok_s": 248.61565979002108,
+        "soc_w": 29.518862276650843,
+        "chip_j": 19165.62985210507,
+        "chip_j_per_correct": 416.64412721967545
+      },
+      "rows": [
+        {
+          "correct": true,
+          "tokens": 1332,
+          "reply": "To find out how much Janet makes at the farmers' market, we need to determine how many eggs she has left to sell after accounting for her breakfast and muffin ingredients.\n\n1.  **Find the total number of eggs laid:**\n    Janet's ducks lay 16 eggs per day.\n\n2.  **Calculate the number of eggs used:**\n    *   She eats 3 eggs for breakfast.\n    *   She uses 4 eggs for muffins.\n    *   Total eggs used = $3 + 4 = 7$ eggs.\n\n3.  **Calculate the number of eggs remaining for sale:**\n    *   Remaining eggs = Total eggs - Eggs used\n    *   Remaining eggs = $16 - 7 = 9$ eggs.\n\n4.  **Calculate the total earnings:**\n    *   She sells the remaining 9 eggs at $2 per egg.\n    *   Total earnings = $9 \\times 2 = 18$ dollars.\n\nThe answer is 18."
+        },
+        {
+          "correct": true,
+          "tokens": 1000,
+          "reply": "To solve this problem, we need to determine the total number of bolts required for the robe by adding the amount of blue fiber and the amount of white fiber.\n\n1.  **Identify the amount of blue fiber:** The problem states the robe takes 2 bolts of blue fiber.\n2.  **Calculate the amount of white fiber:** The problem states it takes \"half that much\" white fiber. \"That much\" refers to the 2 bolts of blue fiber.\n    *   Calculation: $2 \\div 2 = 1$ bolt of white fiber.\n3.  **Calculate the total bolts:** Add the bolts of blue fiber and white fiber together.\n    *   Calculation: $2 \\text{ (blue)} + 1 \\text{ (white)} = 3 \\text{ bolts}$.\n\nThe answer is 3."
+        },
+        {
+          "correct": true,
+          "tokens": 8980,
+          "reply": "1.  **Identify the Costs:**\n    *   Purchase Price: $80,000\n    *   Repair Cost: $50,000\n    *   Total Cost (Investment) = Purchase Price + Repair Cost = $80,000 + $50,000 = $130,000.\n\n2.  **Determine the Selling Price:**\n    *   The problem states that the repairs \"increased the value of the house by 150%.\"\n    *   In percentage increase problems, the base value is the original value before the increase. The original value of the house is the purchase price ($80,000).\n    *   Value Increase = 150% of $80,000 = 1.50 * $80,000 = $120,000.\n    *   Selling Price = Original Value + Value Increase = $80,000 + $120,000 = $200,000.\n\n3.  **Calculate the Profit:**\n    *   Profit = Selling Price - Total Cost\n    *   Profit = $200,000 - $130,000 = $70,000.\n\nThe answer is $70,000.\n\nThe answer is 70,000."
+        },
+        {
+          "correct": true,
+          "tokens": 641,
+          "reply": "To find the total number of meters James runs in a week, we can break the problem down into steps:\n\n1.  **Calculate the total number of sprints per week:**\n    James runs 3 sprints per session, and he does this 3 times a week.\n    $$3 \\text{ sprints/session} \\times 3 \\text{ sessions/week} = 9 \\text{ sprints/week}$$\n\n2.  **Calculate the total distance:**\n    Each sprint is 60 meters long.\n    $$9 \\text{ sprints} \\times 60 \\text{ meters/sprint} = 540 \\text{ meters}$$\n\nThe answer is 540."
+        },
+        {
+          "correct": true,
+          "tokens": 1928,
+          "reply": "To solve this problem, we need to determine the total amount of feed required for the flock and then subtract the amount already fed to find the remaining amount needed for the final meal.\n\n**Step 1: Calculate the total daily feed needed.**\nWendi has a flock of 20 chickens. Each chicken requires 3 cups of feed per day.\n$$ \\text{Total feed needed} = 20 \\text{ chickens} \\times 3 \\text{ cups/chicken} = 60 \\text{ cups} $$\n\n**Step 2: Calculate the total feed given in the first two meals.**\nIn the morning, she gives 15 cups.\nIn the afternoon, she gives 25 cups.\n$$ \\text{Feed given so far} = 15 \\text{ cups} + 25 \\text{ cups} = 40 \\text{ cups} $$\n\n**Step 3: Calculate the feed needed for the final meal.**\nSubtract the feed given so far from the total daily requirement.\n$$ \\text{Feed for final meal} = \\text{Total feed needed} - \\text{Feed given so far} $$\n$$ \\text{Feed for final meal} = 60 \\text{ cups} - 40 \\text{ cups} = 20 \\text{ cups} $$\n\nThe answer is 20."
+        },
+        {
+          "correct": false,
+          "tokens": 16384,
+          "reply": ""
+        },
+        {
+          "correct": true,
+          "tokens": 789,
+          "reply": "To solve this problem, we need to determine the number of sheep in each city based on the relationships provided and then sum them up.\n\n1.  **Find the number of sheep in Seattle:**\n    The problem states that Seattle has 20 sheep.\n    $$Seattle = 20$$\n\n2.  **Find the number of sheep in Charleston:**\n    The problem states that Charleston has 4 times as many sheep as Seattle.\n    $$Charleston = 4 \\times 20 = 80$$\n\n3.  **Find the number of sheep in Toulouse:**\n    The problem states that Toulouse has twice as many sheep as Charleston.\n    $$Toulouse = 2 \\times 80 = 160$$\n\n4.  **Calculate the total number of sheep:**\n    Add the number of sheep from all three cities together.\n    $$Total = Seattle + Charleston + Toulouse$$\n    $$Total = 20 + 80 + 160$$\n    $$Total = 260$$\n\nThe answer is 260."
+        },
+        {
+          "correct": false,
+          "tokens": 16384,
+          "reply": ""
+        },
+        {
+          "correct": true,
+          "tokens": 7204,
+          "reply": "Here is the step-by-step solution:\n\n1.  **Calculate the distance from home after the initial drive:**\n    John drives away from home for 3 hours at a speed of 60 mph.\n    $$ \\text{Distance} = \\text{Speed} \\times \\text{Time} $$\n    $$ \\text{Distance} = 60 \\text{ mph} \\times 3 \\text{ hours} = 180 \\text{ miles} $$\n    At this point, John is 180 miles away from home.\n\n2.  **Analyze the return trip timeline:**\n    The problem states, \"He tries to get home in 4 hours.\" Based on the context of the subsequent events (spending the first 2 hours in traffic after turning around), this 4-hour duration applies to the return journey, not the total trip time from the start.\n    *   **Segment 1 (Traffic):** He spends the first 2 hours in standstill traffic.\n        $$ \\text{Distance} = 0 \\text{ mph} \\times 2 \\text{ hours} = 0 \\text{ miles} $$\n        He is still 180 miles away from home.\n    *   **Segment 2 (30 mph Drive):** He spends the next half-hour (0.5 hours) driving at 30 mph towards home.\n        $$ \\text{Distance} = 30 \\text{ mph} \\times 0.5 \\text{ hours} = 15 \\text{ miles} $$\n        New distance from home = $180 - 15 = 165 \\text{ miles}$.\n    *   **Segment 3 (80 mph Drive):** He drives the remaining time of the 4 hours at 80 mph.\n        $$ \\text{Time used so far} = 2 \\text{ hours} + 0.5 \\text{ hours} = 2.5 \\text{ hours} $$\n        $$ \\text{Remaining time} = 4 \\text{ hours} - 2.5 \\text{ hours} = 1.5 \\text{ hours} $$\n        $$ \\text{Distance} = 80 \\text{ mph} \\times 1.5 \\text{ hours} = 120 \\text{ miles} $$\n        New distance from home = $165 - 120 = 45 \\text{ miles}$.\n\n3.  **Calculate the final distance from home:**\n    After the 4-hour attempt to get home, John is 45 miles away from his starting point (home).\n\nThe answer is 45."
+        },
+        {
+          "correct": true,
+          "tokens": 1348,
+          "reply": "To calculate Eliza's earnings for the week, we need to separate her hours into regular hours and overtime hours, then calculate the pay for each category.\n\n1.  **Calculate Regular Pay:**\n    *   Eliza's regular hourly rate is $10.\n    *   She works 40 hours at this rate.\n    *   Regular Pay = $40 \\text{ hours} \\times \\$10/\\text{hour} = \\$400$.\n\n2.  **Calculate Overtime Pay:**\n    *   She worked a total of 45 hours.\n    *   Overtime hours = Total hours - Regular hours = $45 - 40 = 5$ hours.\n    *   The overtime rate is 1.2 times the regular rate.\n    *   Overtime Rate = $1.2 \\times \\$10 = \\$12$ per hour.\n    *   Overtime Pay = $5 \\text{ hours} \\times \\$12/\\text{hour} = \\$60$.\n\n3.  **Calculate Total Earnings:**\n    *   Total Earnings = Regular Pay + Overtime Pay\n    *   Total Earnings = $\\$400 + \\$60 = \\$460$.\n\nThe answer is $460."
+        },
+        {
+          "correct": true,
+          "tokens": 1123,
+          "reply": "Here is the step-by-step solution:\n\n1.  **First Month:** The problem states there were **60** downloads.\n2.  **Second Month:** The downloads were three times as many as the first month.\n    $$60 \\times 3 = 180 \\text{ downloads}$$\n3.  **Third Month:** The downloads were reduced by 30% compared to the second month.\n    *   First, calculate 30% of the second month's downloads: $180 \\times 0.30 = 54$.\n    *   Subtract this from the second month's total: $180 - 54 = 126 \\text{ downloads}$.\n    *   (Alternatively, calculate 70% of the second month's downloads: $180 \\times 0.70 = 126$).\n4.  **Total Downloads:** Add the downloads from all three months together.\n    $$60 + 180 + 126 = 366$$\n\nThe answer is 366."
+        },
+        {
+          "correct": true,
+          "tokens": 1336,
+          "reply": "To find the total cost, we need to calculate the cost for each type of pastry and then sum them up.\n\n1.  **Donuts:**\n    *   Quantity: 3 dozen\n    *   Price per dozen: $68\n    *   Cost: $3 \\times 68 = 204$\n\n2.  **Mini Cupcakes:**\n    *   Quantity: 2 dozen\n    *   Price per dozen: $80\n    *   Cost: $2 \\times 80 = 160$\n\n3.  **Mini Cheesecakes:**\n    *   Quantity: 6 dozen\n    *   Price per dozen: $55\n    *   Cost: $6 \\times 55 = 330$\n\n4.  **Total Cost:**\n    *   Sum of costs: $204 + 160 + 330$\n    *   $204 + 160 = 364$\n    *   $364 + 330 = 694$\n\nThe total cost is $694.\n\nThe answer is $694."
+        },
+        {
+          "correct": false,
+          "tokens": 5018,
+          "reply": "To determine how many years it will take for Carlos to start earning money on the lemon tree, we need to calculate the time required to recover the initial planting cost through the net annual profit.\n\n**Step 1: Calculate the annual revenue from selling lemons.**\nCarlos grows 7 lemons per year, and each lemon sells for $1.50.\n$$ \\text{Annual Revenue} = 7 \\text{ lemons} \\times \\$1.50/\\text{lemon} = \\$10.50 $$\n\n**Step 2: Calculate the annual net profit.**\nThe annual revenue is $10.50. The annual cost to water and feed the tree is $3.00.\n$$ \\text{Annual Net Profit} = \\text{Annual Revenue} - \\text{Annual Cost} $$\n$$ \\text{Annual Net Profit} = \\$10.50 - \\$3.00 = \\$7.50 $$\n\n**Step 3: Calculate the number of years to recover the initial cost.**\nThe initial cost to plant the tree is $90. We divide this cost by the annual net profit to find the break-even point.\n$$ \\text{Years} = \\frac{\\text{Initial Cost}}{\\text{Annual Net Profit}} $$\n$$ \\text{Years} = \\frac{\\$90}{\\$7.50} $$\n$$ \\text{Years} = 12 $$\n\nIt will take 12 years for the cumulative net profit to equal the initial planting cost. After 12 years, the tree has generated enough money to cover the cost, and he begins earning money on the investment.\n\nThe answer is 12."
+        },
+        {
+          "correct": true,
+          "tokens": 2684,
+          "reply": "Let $N$ be the total number of vacuum cleaners Melanie started with. We can track the number of vacuum cleaners remaining after each house to solve for $N$.\n\n1.  **Green House:** Melanie sold a third of her vacuum cleaners.\n    *   Sold: $\\frac{1}{3}N$\n    *   Remaining: $N - \\frac{1}{3}N = \\frac{2}{3}N$\n\n2.  **Red House:** She sold 2 more vacuum cleaners.\n    *   Remaining: $\\frac{2}{3}N - 2$\n\n3.  **Orange House:** She sold half of what was left.\n    *   Sold: $\\frac{1}{2} \\left( \\frac{2}{3}N - 2 \\right)$\n    *   Remaining: $\\frac{1}{2} \\left( \\frac{2}{3}N - 2 \\right)$\n\n4.  **Final Count:** We are told she has 5 vacuum cleaners left.\n    *   Equation: $\\frac{1}{2} \\left( \\frac{2}{3}N - 2 \\right) = 5$\n\nNow, we solve the equation for $N$:\n\n1.  Multiply both sides by 2:\n    $$ \\frac{2}{3}N - 2 = 10 $$\n\n2.  Add 2 to both sides:\n    $$ \\frac{2}{3}N = 12 $$\n\n3.  Multiply both sides by $\\frac{3}{2}$ to isolate $N$:\n    $$ N = 12 \\times \\frac{3}{2} $$\n    $$ N = 6 \\times 3 $$\n    $$ N = 18 $$\n\n**Verification:**\n*   Start with 18.\n*   Green House: Sell $\\frac{1}{3}$ of 18 (6). Remaining: 12.\n*   Red House: Sell 2. Remaining: 10.\n*   Orange House: Sell half of 10 (5). Remaining: 5.\n*   This matches the final count of 5.\n\nThe answer is 18."
+        },
+        {
+          "correct": true,
+          "tokens": 1811,
+          "reply": "First, determine the number of students enrolled in contemporary dance.\nThere are 20 students in total.\n20% of 20 students enrolled in contemporary dance:\n$0.20 \\times 20 = 4$ students.\n\nNext, determine the number of remaining students.\n$20 - 4 = 16$ students remaining.\n\nThen, determine the number of students enrolled in jazz dance.\n25% of the remaining 16 students enrolled in jazz dance:\n$0.25 \\times 16 = 4$ students.\n\nNow, determine the number of students enrolled in hip-hop dance.\nThe rest of the students enrolled in hip-hop dance:\n$16 - 4 = 12$ students.\n\nFinally, calculate the percentage of the entire class enrolled in hip-hop dance.\nThe total number of students is 20. The number of hip-hop students is 12.\nPercentage = $(12 / 20) \\times 100\\% = 0.60 \\times 100\\% = 60\\%$.\n\nThe answer is 60%."
+        },
+        {
+          "correct": false,
+          "tokens": 16384,
+          "reply": ""
+        },
+        {
+          "correct": true,
+          "tokens": 4906,
+          "reply": "To solve this problem, we need to calculate the total distance traveled by a single train over the course of the two days.\n\n1.  **Analyze the first day's travel:**\n    The problem states that on the first day, the trains travel westward for 80 miles.\n    Distance on Day 1 = 80 miles.\n\n2.  **Analyze the second day's travel:**\n    The problem states that on the next day, the trains travel northward for 150 miles.\n    Distance on Day 2 = 150 miles.\n\n3.  **Calculate the total distance for one train:**\n    Since \"distance covered\" refers to the total length of the path traveled (scalar quantity), we sum the distances from both days.\n    Total Distance = Distance on Day 1 + Distance on Day 2\n    Total Distance = 80 miles + 150 miles = 230 miles.\n\n4.  **Verify for both trains:**\n    The problem states that both trains follow the same itinerary (traveling 80 miles west, then 150 miles north). Therefore, the distance covered by each train is the same as calculated above.\n\n5.  **Final Conclusion:**\n    Each train covers a total distance of 230 miles over the two days.\n\nThe answer is 230 miles."
+        },
+        {
+          "correct": true,
+          "tokens": 1468,
+          "reply": "To find Jill's annual salary, we need to calculate her earnings from teaching and her earnings from coaching separately, and then add them together.\n\n**Step 1: Calculate annual earnings as a teacher.**\n*   Hourly rate: $20\n*   Hours per week: 35\n*   Weeks per year: 50\n*   Weekly earnings: $35 \\text{ hours} \\times \\$20/\\text{hour} = \\$700$\n*   Annual earnings: $\\$700 \\times 50 \\text{ weeks} = \\$35,000$\n\n**Step 2: Calculate annual earnings as a cheerleading coach.**\n*   Hourly rate: $30\n*   Hours per week: 15\n*   Weeks per year: 50\n*   Weekly earnings: $15 \\text{ hours} \\times \\$30/\\text{hour} = \\$450$\n*   Annual earnings: $\\$450 \\times 50 \\text{ weeks} = \\$22,500$\n\n**Step 3: Calculate total annual salary.**\n*   Total Salary = Teacher Annual Earnings + Coach Annual Earnings\n*   Total Salary = $\\$35,000 + \\$22,500 = \\$57,500$\n\nThe answer is 57,500."
+        },
+        {
+          "correct": true,
+          "tokens": 675,
+          "reply": "To solve this problem, we need to calculate the total number of eggs Claire eats and then convert that number into dozens.\n\n1.  **Calculate the number of days in 4 weeks:**\n    There are 7 days in a week.\n    $4 \\text{ weeks} \\times 7 \\text{ days/week} = 28 \\text{ days}$\n\n2.  **Calculate the total number of eggs eaten:**\n    Claire eats 3 eggs every day.\n    $3 \\text{ eggs/day} \\times 28 \\text{ days} = 84 \\text{ eggs}$\n\n3.  **Convert the total number of eggs into dozens:**\n    There are 12 eggs in a dozen.\n    $84 \\text{ eggs} \\div 12 \\text{ eggs/dozen} = 7 \\text{ dozen}$\n\nThe answer is 7."
+        },
+        {
+          "correct": true,
+          "tokens": 2151,
+          "reply": "Here is the step-by-step solution:\n\n1.  **Calculate the total distance and the distance already covered:**\n    The total distance of the trail is 12 miles. Marissa has already walked the first 4 miles and the next 2 miles.\n    Distance covered = $4 + 2 = 6$ miles.\n\n2.  **Calculate the remaining distance:**\n    Remaining distance = Total distance - Distance covered\n    Remaining distance = $12 - 6 = 6$ miles.\n\n3.  **Calculate the total time required to achieve the target average speed:**\n    The target average speed is 4 miles per hour.\n    Total time required = Total distance / Target average speed\n    Total time required = $12 / 4 = 3$ hours.\n\n4.  **Calculate the time already spent:**\n    Marissa took 1 hour for the first 4 miles and 1 hour for the next 2 miles.\n    Time spent = $1 + 1 = 2$ hours.\n\n5.  **Calculate the time remaining:**\n    Time remaining = Total time required - Time spent\n    Time remaining = $3 - 2 = 1$ hour.\n\n6.  **Calculate the speed needed for the remaining distance:**\n    Speed = Remaining distance / Time remaining\n    Speed = $6 / 1 = 6$ miles per hour.\n\nThe answer is 6."
+        },
+        {
+          "correct": true,
+          "tokens": 2002,
+          "reply": "Here is the step-by-step solution:\n\n1.  **Analyze the Orange Drink:**\n    *   Initial volume: 10 liters.\n    *   Water concentration: Two-thirds ($2/3$).\n    *   Water content initially: $10 \\times \\frac{2}{3} = \\frac{20}{3}$ liters.\n    *   Spill: 1 liter of the orange drink is spilled.\n    *   Remaining volume: $10 - 1 = 9$ liters.\n    *   Since the drink is a homogeneous mixture, the remaining 9 liters still maintain the same water concentration ($2/3$).\n    *   Water in remaining orange drink: $9 \\times \\frac{2}{3} = 6$ liters.\n\n2.  **Analyze the Pineapple Drink:**\n    *   Volume: 15 liters.\n    *   Water concentration: Three-fifths ($3/5$).\n    *   Water in pineapple drink: $15 \\times \\frac{3}{5} = 9$ liters.\n\n3.  **Calculate Total Water:**\n    *   Total Volume check: $9 \\text{ (Orange)} + 15 \\text{ (Pineapple)} = 24$ liters. This matches the problem description.\n    *   Total Water: $6 \\text{ (from Orange)} + 9 \\text{ (from Pineapple)} = 15$ liters.\n\nThe answer is 15."
+        },
+        {
+          "correct": true,
+          "tokens": 999,
+          "reply": "Here is the step-by-step solution:\n\n1.  **Find Samantha's age:** We are told that Samantha is currently 31 years old.\n2.  **Find Raymond's age:** Raymond was born 6 years before Samantha. This means Raymond is 6 years older than Samantha.\n    *   Raymond's age = Samantha's age + 6 years\n    *   Raymond's age = 31 + 6 = 37 years old.\n3.  **Determine when Raymond's son was born:** Raymond had a son when he was 23 years old.\n4.  **Calculate the time elapsed:** To find out how many years ago the son was born, we subtract Raymond's age at the time of the son's birth from his current age.\n    *   Years ago = Raymond's current age - Raymond's age when son was born\n    *   Years ago = 37 - 23 = 14 years.\n\nThe answer is 14."
+        },
+        {
+          "correct": true,
+          "tokens": 879,
+          "reply": "To find the total number of DVDs Billy sold on Tuesday, we need to calculate the sales from each group of customers and sum them up.\n\n1.  **First 3 customers:** These customers buy 1 DVD each.\n    $3 \\text{ customers} \\times 1 \\text{ DVD/customer} = 3 \\text{ DVDs}$\n\n2.  **Next 2 customers:** These customers buy 2 DVDs each.\n    $2 \\text{ customers} \\times 2 \\text{ DVDs/customer} = 4 \\text{ DVDs}$\n\n3.  **Last 3 customers:** These customers buy 0 DVDs.\n    $3 \\text{ customers} \\times 0 \\text{ DVDs/customer} = 0 \\text{ DVDs}$\n\n4.  **Total DVDs sold:** Add the results from each group.\n    $3 + 4 + 0 = 7 \\text{ DVDs}$\n\nThe answer is 7."
+        },
+        {
+          "correct": true,
+          "tokens": 529,
+          "reply": "To solve this problem, we need to determine the total duration the candle burns and then multiply that by the rate at which it melts.\n\n1.  **Calculate the duration of burning:**\n    The candle burns from 1:00 PM to 5:00 PM.\n    $5:00 \\text{ PM} - 1:00 \\text{ PM} = 4 \\text{ hours}$.\n\n2.  **Calculate the total length lost:**\n    The candle melts by 2 centimeters every hour.\n    $4 \\text{ hours} \\times 2 \\text{ cm/hour} = 8 \\text{ cm}$.\n\nTherefore, the candle will be 8 centimeters shorter.\n\nThe answer is 8."
+        },
+        {
+          "correct": true,
+          "tokens": 1896,
+          "reply": "To find the original price of the book, we can set up an equation based on the information given.\n\n1.  **Identify the relationship between the original price and the discounted price:**\n    Kyle bought the book for $19.50, which was after a 25% discount. This means he paid 75% of the original price (since $100\\% - 25\\% = 75\\%$).\n\n2.  **Set up the equation:**\n    Let $P$ be the original price.\n    $$0.75 \\times P = 19.50$$\n\n3.  **Solve for $P$:**\n    To isolate $P$, divide both sides by 0.75:\n    $$P = \\frac{19.50}{0.75}$$\n\n    To make the division easier, you can multiply the numerator and denominator by 100 to work with whole numbers:\n    $$P = \\frac{1950}{75}$$\n\n    Dividing 1950 by 75:\n    $$1950 \\div 75 = 26$$\n\n    Alternatively, using fractions:\n    $$0.75 = \\frac{3}{4}$$\n    $$P = 19.50 \\div \\frac{3}{4} = 19.50 \\times \\frac{4}{3}$$\n    $$19.50 \\times 4 = 78$$\n    $$78 \\div 3 = 26$$\n\n4.  **Verification:**\n    If the original price was $26.00, a 25% discount is $26.00 \\times 0.25 = $6.50$.\n    Subtracting the discount from the original price: $26.00 - $6.50 = $19.50$. This matches the price Kyle paid.\n\nThe answer is $26.00."
+        },
+        {
+          "correct": true,
+          "tokens": 1303,
+          "reply": "To find the number of pizza boxes Marie ordered, we need to calculate the total cost of the items she already purchased and subtract that from the total amount she paid.\n\n1.  **Calculate the cost of the chicken meal:**\n    1 meal $\\times$ $12/meal = $12\n\n2.  **Calculate the cost of the milk:**\n    5 packs $\\times$ $3/pack = $15\n\n3.  **Calculate the cost of the apples:**\n    4 apples $\\times$ $1.50/apple = $6\n\n4.  **Calculate the total cost of these items:**\n    $12 (chicken) + $15 (milk) + $6 (apples) = $33\n\n5.  **Calculate the cost of the pizza:**\n    Total paid ($50) - Cost of other items ($33) = $17\n\n6.  **Calculate the number of pizza boxes:**\n    Cost of pizza ($17) / Cost per box ($8.50) = 2 boxes\n\nThe answer is 2."
+        },
+        {
+          "correct": true,
+          "tokens": 1529,
+          "reply": "To find the total amount Mishka spent, we need to calculate the cost for each type of clothing item and then sum them up.\n\n1.  **Calculate the cost of the shorts:**\n    Mishka bought 3 pairs of shorts at $16.50 each.\n    $3 \\times 16.50 = 49.50$\n\n2.  **Calculate the cost of the pants:**\n    Mishka bought 3 pairs of pants at $22.50 each.\n    $3 \\times 22.50 = 67.50$\n\n3.  **Calculate the cost of the shoes:**\n    Mishka bought 3 pairs of shoes at $42.00 each.\n    $3 \\times 42.00 = 126.00$\n\n4.  **Calculate the total cost:**\n    Add the costs of the shorts, pants, and shoes together.\n    $49.50 + 67.50 + 126.00 = 243.00$\n\nMishka spent a total of $243.00.\n\nThe answer is 243."
+        },
+        {
+          "correct": true,
+          "tokens": 1872,
+          "reply": "First, determine the total number of servings Cynthia needs over the 60-day period. Since she eats one serving per night:\n$$1 \\text{ serving/night} \\times 60 \\text{ nights} = 60 \\text{ servings}$$\n\nNext, calculate how many cartons of ice cream she needs to buy. Each carton contains 15 servings:\n$$60 \\text{ servings} \\div 15 \\text{ servings/carton} = 4 \\text{ cartons}$$\n\nFinally, calculate the total cost for the cartons. Each carton costs $4.00:\n$$4 \\text{ cartons} \\times \\$4.00/\\text{carton} = \\$16.00$$\n\nThe answer is $16.00."
+        },
+        {
+          "correct": true,
+          "tokens": 929,
+          "reply": "To solve this problem, we need to determine the distance covered between the two specific points on the bike trip.\n\n1.  **Identify the total distance of the trip:**\n    The total distance is given as 60 miles.\n\n2.  **Determine the location of the first stop:**\n    Henry made his first stop after 20 miles. So, the first stop is at the 20-mile mark.\n\n3.  **Determine the location of the second stop:**\n    The second stop was 15 miles before the end of the trip. Since the trip ends at 60 miles, we subtract 15 miles from the total distance to find the location of the second stop.\n    $60 \\text{ miles} - 15 \\text{ miles} = 45 \\text{ miles}$.\n    So, the second stop is at the 45-mile mark.\n\n4.  **Calculate the distance between the two stops:**\n    To find the miles traveled between the first and second stops, we subtract the location of the first stop from the location of the second stop.\n    $45 \\text{ miles} - 20 \\text{ miles} = 25 \\text{ miles}$.\n\nThe answer is 25."
+        },
+        {
+          "correct": true,
+          "tokens": 4310,
+          "reply": "First, I calculated the cost of the second pair of heels by doubling the cost of the first pair ($33). Next, I added the costs of both pairs to find the total cost of the heels ($99). Finally, since the heels cost five dollars less than the boots, I added five dollars to the total heel cost to find the cost of the boots ($104).\n\nThe answer is 104."
+        },
+        {
+          "correct": true,
+          "tokens": 1012,
+          "reply": "Let Darrell's current age be $7x$ and Allen's current age be $11x$, based on the given ratio of 7:11.\n\nThe sum of their current ages is given as 162. We can set up the equation:\n$$7x + 11x = 162$$\n$$18x = 162$$\n\nNow, solve for $x$:\n$$x = \\frac{162}{18}$$\n$$x = 9$$\n\nNow we can find Allen's current age:\n$$\\text{Allen's current age} = 11x = 11 \\times 9 = 99$$\n\nThe problem asks for Allen's age 10 years from now. We add 10 to his current age:\n$$\\text{Allen's future age} = 99 + 10 = 109$$\n\nThe answer is 109."
+        },
+        {
+          "correct": true,
+          "tokens": 1234,
+          "reply": "To find the average guess, we first need to determine the value of each individual guess based on the information provided.\n\n1.  **First Guess:** The first friend says there are **80** jelly beans.\n2.  **Second Guess:** The second friend says there are \"20 more than half the first one.\"\n    *   Half of the first guess is $80 / 2 = 40$.\n    *   20 more than 40 is $40 + 20 = 60$.\n    *   So, the second guess is **60**.\n3.  **Third Guess:** The third friend says there are \"25% more than the first one.\"\n    *   25% of the first guess is $0.25 \\times 80 = 20$.\n    *   25% more than 80 is $80 + 20 = 100$.\n    *   So, the third guess is **100**.\n\nNow, we calculate the average of these three guesses:\n*   Sum of guesses: $80 + 60 + 100 = 240$\n*   Number of guesses: $3$\n*   Average: $240 / 3 = 80$\n\nThe answer is 80."
+        },
+        {
+          "correct": true,
+          "tokens": 667,
+          "reply": "To solve this problem, we need to calculate the total hours spent per day and then multiply that by the number of days in a week.\n\n1.  **Calculate the daily hours:**\n    John has 10 dogs. Each dog requires 0.5 hours of care per day.\n    $$10 \\text{ dogs} \\times 0.5 \\text{ hours/dog} = 5 \\text{ hours per day}$$\n\n2.  **Calculate the weekly hours:**\n    There are 7 days in a week.\n    $$5 \\text{ hours/day} \\times 7 \\text{ days/week} = 35 \\text{ hours per week}$$\n\nThe answer is 35."
+        },
+        {
+          "correct": true,
+          "tokens": 959,
+          "reply": "Let $g$ represent the number of gold coins and $s$ represent the number of silver coins.\n\nFrom the problem, we can set up two equations:\n1.  The total number of coins is 110:\n    $$g + s = 110$$\n2.  There are 30 more gold coins than silver coins:\n    $$g = s + 30$$\n\nWe can substitute the value of $g$ from the second equation into the first equation:\n$$(s + 30) + s = 110$$\n\nCombine like terms:\n$$2s + 30 = 110$$\n\nSubtract 30 from both sides:\n$$2s = 80$$\n\nDivide by 2:\n$$s = 40$$\n\nNow that we know there are 40 silver coins, we can find the number of gold coins using the second equation:\n$$g = 40 + 30$$\n$$g = 70$$\n\nAlternatively, we can add the two original equations together:\n$$(g + s) + (g - s) = 110 + 30$$\n$$2g = 140$$\n$$g = 70$$\n\nBoth methods yield 70 gold coins.\n\nThe answer is 70."
+        },
+        {
+          "correct": true,
+          "tokens": 513,
+          "reply": "Raymond has 40 jewels.\nAaron has 5 more jewels than half of Raymond's jewels.\nHalf of Raymond's jewels is $40 / 2 = 20$.\nAaron has $20 + 5 = 25$ jewels.\nSiobhan has 2 fewer jewels than Aaron.\nSiobhan has $25 - 2 = 23$ jewels.\n\nThe answer is 23."
+        },
+        {
+          "correct": true,
+          "tokens": 982,
+          "reply": "1.  **Analyze the first period:** Mike plays for the first 20 minutes and scores 4 points.\n2.  **Analyze the second period:** Mike plays for the second 20 minutes. He scores 25% more points than he did in the first period.\n3.  **Calculate the points for the second period:**\n    *   Find 25% of the points scored in the first period: $0.25 \\times 4 = 1$ point.\n    *   Add this increase to the original amount: $4 + 1 = 5$ points.\n4.  **Calculate the total points:** Add the points from the first period and the second period together.\n    *   $4 \\text{ (first period)} + 5 \\text{ (second period)} = 9 \\text{ total points}$.\n\nThe answer is 9."
+        },
+        {
+          "correct": true,
+          "tokens": 6438,
+          "reply": "To solve this problem, we need to determine the total cost Terry spends on yogurt over a 30-day period.\n\n**Step 1: Calculate the total number of yogurts needed.**\nTerry eats 2 yogurts per day. Over the course of 30 days, the total number of yogurts required is:\n$$2 \\text{ yogurts/day} \\times 30 \\text{ days} = 60 \\text{ yogurts}$$\n\n**Step 2: Determine how many packs of yogurt are needed.**\nThe sale price is 4 yogurts for $5.00. We need to find out how many sets of 4 yogurts are required to get 60 yogurts.\n$$60 \\text{ yogurts} \\div 4 \\text{ yogurts/pack} = 15 \\text{ packs}$$\n\n**Step 3: Calculate the total cost.**\nSince Terry needs 15 packs of yogurt and each pack costs $5.00, the total cost is:\n$$15 \\text{ packs} \\times \\$5.00/\\text{pack} = \\$75.00$$\n\nAlternatively, we can calculate the cost per day:\nCost per yogurt = $\\$5.00 / 4 = \\$1.25$\nDaily cost = $2 \\text{ yogurts} \\times \\$1.25/\\text{yogurt} = \\$2.50$\nTotal cost for 30 days = $30 \\text{ days} \\times \\$2.50/\\text{day} = \\$75.00$\n\nBoth methods yield the same result.\n\nThe answer is \\boxed{75.00}."
+        },
+        {
+          "correct": true,
+          "tokens": 7306,
+          "reply": "To solve this problem, we need to determine the number of Lego sets remaining based on the financial information provided, as the financial outcome contradicts the initial plan to sell \"all\" the sets.\n\n1.  **Calculate the total cost of the video games:**\n    John bought 8 video games at $20 each.\n    $$8 \\times 20 = 160$$\n    So, he spent $160 on video games.\n\n2.  **Calculate the total money earned from selling the Lego sets:**\n    We know he has $5 left over after buying the games.\n    $$\\text{Total Money Earned} = \\text{Cost of Games} + \\text{Money Left}$$\n    $$\\text{Total Money Earned} = 160 + 5 = 165$$\n    So, he earned $165 in total.\n\n3.  **Calculate the number of Lego sets sold:**\n    The price of each Lego set is $15.\n    $$\\text{Sets Sold} = \\frac{\\text{Total Money Earned}}{\\text{Price per Set}}$$\n    $$\\text{Sets Sold} = \\frac{165}{15} = 11$$\n    So, he sold 11 Lego sets.\n\n4.  **Calculate the number of Lego sets remaining:**\n    John started with 13 Lego sets.\n    $$\\text{Sets Remaining} = \\text{Initial Sets} - \\text{Sets Sold}$$\n    $$\\text{Sets Remaining} = 13 - 11 = 2$$\n\nAlthough the problem states he \"plans to sell all his toys,\" the financial outcome indicates he only sold enough to cover the games and the remaining balance, leaving 2 sets unsold.\n\nThe answer is 2."
+        },
+        {
+          "correct": true,
+          "tokens": 2687,
+          "reply": "To find John's average running speed, we need to determine the total distance he runs and the total time he spends running.\n\n1.  **Calculate the total time spent running:**\n    *   On the first day, John runs for 3 hours.\n    *   On the other two days, he runs half as much as the first day. Half of 3 hours is $3 / 2 = 1.5$ hours.\n    *   So, the total time for the other two days is $1.5 + 1.5 = 3$ hours.\n    *   Total time per week = $3 \\text{ hours (Day 1)} + 3 \\text{ hours (Days 2 & 3)} = 6$ hours.\n\n2.  **Identify the total distance:**\n    *   The problem states that John runs 60 miles a week.\n\n3.  **Calculate the speed:**\n    *   Speed is calculated as Total Distance divided by Total Time.\n    *   $\\text{Speed} = \\frac{60 \\text{ miles}}{6 \\text{ hours}} = 10 \\text{ miles per hour}$.\n\nThe answer is 10 mph."
+        },
+        {
+          "correct": true,
+          "tokens": 1882,
+          "reply": "Here is the step-by-step solution:\n\n1.  **Determine the speeds:**\n    *   We are given that the speed of skipping ($v_{skip}$) is 3 miles per hour (mph).\n    *   The speed of skipping is half as fast as running ($v_{run}$). Therefore, $v_{run} = 2 \\times v_{skip} = 2 \\times 3 = 6$ mph.\n    *   The speed of running is four times faster than walking ($v_{walk}$). Therefore, $v_{walk} = \\frac{v_{run}}{4} = \\frac{6}{4} = 1.5$ mph.\n\n2.  **Determine the time spent on each activity:**\n    *   The total time available is 6 hours.\n    *   She spends one-third of the time running: $t_{run} = \\frac{1}{3} \\times 6 = 2$ hours.\n    *   She spends two-thirds of the time walking: $t_{walk} = \\frac{2}{3} \\times 6 = 4$ hours.\n\n3.  **Calculate the distance traveled:**\n    *   Distance running ($d_{run}$) = Speed $\\times$ Time = $6 \\text{ mph} \\times 2 \\text{ hours} = 12$ miles.\n    *   Distance walking ($d_{walk}$) = Speed $\\times$ Time = $1.5 \\text{ mph} \\times 4 \\text{ hours} = 6$ miles.\n\n4.  **Calculate the total distance:**\n    *   Total Distance = $d_{run} + d_{walk} = 12 + 6 = 18$ miles.\n\nThe answer is 18."
+        },
+        {
+          "correct": true,
+          "tokens": 7430,
+          "reply": "The problem asks us to determine the age of Brandon's iPhone based on the ages of Suzy's and Ben's iPhones.\n\n1.  **Identify Suzy's iPhone age:**\n    The problem states, \"If Suzy\u2019s iPhone is 1 year old\".\n    So, $S = 1$.\n\n2.  **Determine Ben's iPhone age:**\n    The problem states, \"Ben's iPhone is two times older than Suzy's iPhone.\"\n    In the context of standard word problems, the phrase \"two times older\" is commonly interpreted as \"two times as old\" (multiplicative relationship), meaning Ben's age is 2 times Suzy's age.\n    Calculation: $B = 2 \\times S = 2 \\times 1 = 2$.\n    *(Note: While strictly \"two times older\" could imply an additive difference of 2 times the base, i.e., $1 + 2 = 3$, in most general word problem contexts, \"times older\" is treated synonymously with \"times as old\". We will proceed with the multiplicative interpretation as it is the standard convention for this type of problem.)*\n\n3.  **Determine Brandon's iPhone age:**\n    The problem states, \"Brandon's iPhone is four times as old as Ben's iPhone.\"\n    Calculation: $D = 4 \\times B = 4 \\times 2 = 8$.\n\n4.  **Final Calculation:**\n    Suzy's iPhone = 1 year.\n    Ben's iPhone = 2 years.\n    Brandon's iPhone = 8 years.\n\nThe answer is 8.\n\nThe answer is 8."
+        },
+        {
+          "correct": true,
+          "tokens": 5882,
+          "reply": "1.  **Identify the Dragon's Range:** The dragon breathes fire within a distance of 1000 feet. This is the maximum distance Polly can stand and remain safe from the flames.\n\n2.  **Identify the Javelin's Range (Base):** Without the gemstone, Polly can throw the javelin 400 feet.\n\n3.  **Calculate the Javelin's Range (With Gem):** When holding the gemstone, the javelin can be thrown three times farther than the base range.\n    $$400 \\text{ feet} \\times 3 = 1200 \\text{ feet}$$\n\n4.  **Determine the Safe Distance Outside the Fire:** Polly can stand up to 1200 feet away from the dragon to hit it with the javelin. Since the fire reaches 1000 feet, the distance she can stand *outside* the fire zone is the difference between the javelin's range and the dragon's range.\n    $$1200 \\text{ feet} - 1000 \\text{ feet} = 200 \\text{ feet}$$\n\nThe answer is 200 feet."
+        },
+        {
+          "correct": true,
+          "tokens": 900,
+          "reply": "To solve this problem, we need to determine the total number of pie pieces available and then subtract the number of pieces left over to find the number of pieces taken.\n\n1.  **Calculate the total number of pieces:**\n    Grandma baked 5 pies, and each pie was cut into 8 pieces.\n    $$5 \\text{ pies} \\times 8 \\text{ pieces/pie} = 40 \\text{ total pieces}$$\n\n2.  **Calculate the number of pieces taken:**\n    We know that 14 pieces were remaining after the guests ate. To find the number of pieces taken, we subtract the remaining pieces from the total number of pieces.\n    $$40 \\text{ total pieces} - 14 \\text{ remaining pieces} = 26 \\text{ pieces taken}$$\n\nThe answer is 26."
+        },
+        {
+          "correct": true,
+          "tokens": 1966,
+          "reply": "1.  **Calculate the remaining calories:**\n    Your daily calorie target is 2000 calories, and you have already consumed 1800 calories.\n    $$2000 - 1800 = 200 \\text{ calories remaining.}$$\n\n2.  **Determine the weight and calories per serving:**\n    The bag contains 300g and has 5 servings.\n    $$\\text{Weight per serving} = \\frac{300\\text{g}}{5} = 60\\text{g per serving.}$$\n    Each serving contains 250 calories.\n\n3.  **Calculate the grams allowed for the remaining calories:**\n    You have 200 calories left to eat. Since 60g of chips equals 250 calories, we can set up a proportion to find the grams ($x$) for 200 calories:\n    $$\\frac{60\\text{g}}{250\\text{cal}} = \\frac{x\\text{g}}{200\\text{cal}}$$\n    $$x = \\frac{60 \\times 200}{250}$$\n    $$x = \\frac{12000}{250}$$\n    $$x = 48\\text{g}$$\n\n    Alternatively, calculate the calories per gram:\n    $$\\text{Total calories in bag} = 5 \\times 250 = 1250 \\text{ calories.}$$\n    $$\\text{Total weight} = 300\\text{g.}$$\n    $$\\text{Calories per gram} = \\frac{1250}{300} \\approx 4.167 \\text{ cal/g.}$$\n    $$\\text{Grams allowed} = \\frac{200 \\text{ cal}}{4.167 \\text{ cal/g}} = 48\\text{g.}$$\n\nThe answer is 48."
+        },
+        {
+          "correct": true,
+          "tokens": 1911,
+          "reply": "To find Charlie's net profit, we need to calculate the total cost of the supplies and the total revenue from the sales, then subtract the cost from the revenue.\n\n**Step 1: Calculate the cost per candle.**\nCharlie uses 1 pound of beeswax to make 10 candles. The cost for 1 pound of beeswax and wicks is $10.00.\nCost per candle = $\\frac{\\$10.00}{10 \\text{ candles}} = \\$1.00 \\text{ per candle}$.\n\n**Step 2: Calculate the total cost for 20 candles.**\nSince the cost per candle is $1.00, the total cost to make 20 candles is:\nTotal Cost = $20 \\text{ candles} \\times \\$1.00/\\text{candle} = \\$20.00$.\n\n**Step 3: Calculate the total revenue from selling 20 candles.**\nCharlie sells each candle for $2.00.\nTotal Revenue = $20 \\text{ candles} \\times \\$2.00/\\text{candle} = \\$40.00$.\n\n**Step 4: Calculate the net profit.**\nNet Profit = Total Revenue - Total Cost\nNet Profit = $\\$40.00 - \\$20.00 = \\$20.00$.\n\nThe answer is $20.00."
+        },
+        {
+          "correct": true,
+          "tokens": 5087,
+          "reply": "Here is the step-by-step calculation to solve the problem:\n\n1.  **Determine the time per article:**\n    The problem states that a blog article takes an average of 4 hours to research and write. We will use this rate for all articles.\n\n2.  **Calculate the hours spent on Monday:**\n    *   Number of articles: 5\n    *   Total hours: $5 \\text{ articles} \\times 4 \\text{ hours/article} = 20 \\text{ hours}$.\n\n3.  **Calculate the hours spent on Tuesday:**\n    *   Number of articles: The problem states she wrote \"2/5 times more articles on Tuesday than on Monday\".\n    *   First, calculate the increase: $\\frac{2}{5} \\times 5 \\text{ articles} = 2 \\text{ articles}$.\n    *   Add this increase to Monday's count: $5 \\text{ articles} + 2 \\text{ articles} = 7 \\text{ articles}$.\n    *   Total hours: $7 \\text{ articles} \\times 4 \\text{ hours/article} = 28 \\text{ hours}$.\n\n4.  **Calculate the hours spent on Wednesday:**\n    *   Number of articles: The problem states she wrote \"twice the number of articles she wrote on Tuesday\".\n    *   Tuesday's count was 7 articles.\n    *   Wednesday's count: $7 \\text{ articles} \\times 2 = 14 \\text{ articles}$.\n    *   Total hours: $14 \\text{ articles} \\times 4 \\text{ hours/article} = 56 \\text{ hours}$.\n\n5.  **Calculate the total hours for the three days:**\n    *   Monday: 20 hours\n    *   Tuesday: 28 hours\n    *   Wednesday: 56 hours\n    *   Total: $20 + 28 + 56 = 104 \\text{ hours}$.\n\nThe answer is 104."
+        },
+        {
+          "correct": true,
+          "tokens": 1003,
+          "reply": "Here is the step-by-step solution:\n\n1.  **Identify the starting amount:** Candice started with 80 post-it notes in her purse.\n2.  **Identify the amount used:** She used 220 post-it notes for the coffee cups.\n3.  **Identify the remaining amount:** She had 23 post-it notes left over.\n4.  **Calculate the total number of notes needed:** To find the total number of notes she had before using them, add the number used to the number remaining.\n    $$220 \\text{ (used)} + 23 \\text{ (remaining)} = 243 \\text{ total notes}$$\n5.  **Calculate the number in the package:** Subtract the initial amount she had from the total amount needed to find out how many were in the package she bought.\n    $$243 \\text{ (total)} - 80 \\text{ (initial)} = 163 \\text{ notes in the package}$$\n\nAlternatively, you can set up an equation where $P$ is the number of notes in the package:\n$$80 + P - 220 = 23$$\n$$P - 140 = 23$$\n$$P = 163$$\n\nThe answer is 163."
+        },
+        {
+          "correct": true,
+          "tokens": 1796,
+          "reply": "First, let's determine the number of blue ties John bought.\nHe spent $200 on blue ties, and each blue tie costs $40.\nNumber of blue ties = Total spent on blue ties / Cost per blue tie\nNumber of blue ties = $200 / $40 = 5 blue ties.\n\nNext, let's determine the number of red ties.\nHe buys twice as many red ties as blue ties.\nNumber of red ties = 2 * Number of blue ties\nNumber of red ties = 2 * 5 = 10 red ties.\n\nNow, let's determine the cost of a single red tie.\nRed ties cost 50% more than blue ties.\nCost per red tie = Cost per blue tie + (50% of Cost per blue tie)\nCost per red tie = $40 + ($40 * 0.50) = $40 + $20 = $60.\n\nNow, let's calculate the total amount spent on red ties.\nTotal cost for red ties = Number of red ties * Cost per red tie\nTotal cost for red ties = 10 * $60 = $600.\n\nFinally, let's calculate the total amount spent on all ties.\nTotal spent = Total spent on blue ties + Total spent on red ties\nTotal spent = $200 + $600 = $800.\n\nThe answer is $800."
+        },
+        {
+          "correct": true,
+          "tokens": 921,
+          "reply": "To solve this problem, we need to ensure that the units of measurement are consistent before performing the division.\n\n1.  **Identify the total length of the wire:** The problem states the wire is 4 feet long.\n2.  **Identify the length of each piece:** The problem states each piece is 6 inches long.\n3.  **Convert units:** Since the piece length is in inches, we should convert the total wire length from feet to inches. There are 12 inches in 1 foot.\n    $$4 \\text{ feet} \\times 12 \\text{ inches/foot} = 48 \\text{ inches}$$\n4.  **Calculate the number of pieces:** Divide the total length in inches by the length of each piece.\n    $$48 \\text{ inches} \\div 6 \\text{ inches/piece} = 8 \\text{ pieces}$$\n\nThe answer is 8."
+        },
+        {
+          "correct": true,
+          "tokens": 1048,
+          "reply": "To find the total number of unoccupied units, we can follow these steps:\n\n1.  **Calculate the total number of units in the building:**\n    There are 15 floors, and each floor has 8 units.\n    $$15 \\text{ floors} \\times 8 \\text{ units/floor} = 120 \\text{ total units}$$\n\n2.  **Determine the fraction of unoccupied units:**\n    The problem states that 3/4 of the building is occupied. Therefore, the remaining fraction is unoccupied.\n    $$1 - \\frac{3}{4} = \\frac{1}{4}$$\n    So, 1/4 of the units are unoccupied.\n\n3.  **Calculate the number of unoccupied units:**\n    Multiply the total number of units by the fraction of unoccupied units.\n    $$120 \\text{ total units} \\times \\frac{1}{4} = 30 \\text{ unoccupied units}$$\n\n    Alternatively, you can calculate the occupied units first:\n    $$120 \\times \\frac{3}{4} = 90 \\text{ occupied units}$$\n    Then subtract from the total:\n    $$120 - 90 = 30 \\text{ unoccupied units}$$\n\nThe answer is 30."
+        }
+      ]
+    },
+    "mmlu_pro": {
+      "summary": {
+        "n": 56,
+        "correct": 32,
+        "accuracy": 0.5714285714285714,
+        "seconds": 1838.1078862499562,
+        "tokens": 402309,
+        "tokens_per_answer": 7184.089285714285,
+        "tok_s": 218.87126594118305,
+        "soc_w": 28.248800220948834,
+        "chip_j": 51924.342463225556,
+        "chip_j_per_correct": 1622.6357019757986
+      },
+      "rows": [
+        {
+          "correct": true,
+          "tokens": 753,
+          "reply": "The answer is (I).",
+          "subject": "business"
+        },
+        {
+          "correct": true,
+          "tokens": 5373,
+          "reply": "The question asks about the fiduciary duties of managers in a corporate context.\n\n1.  **First Blank:** \"Managers are entrusted to run the company in the best interest of ________.\"\n    *   In traditional corporate law and the standard \"Shareholder Primacy\" model, managers (directors and officers) have a fiduciary duty to act in the best interest of the **Shareholders**. While modern stakeholder theory exists, the legal definition of the fiduciary duty is primarily owed to the shareholders.\n    *   This eliminates options with \"Stakeholders\" (C, D, I, J) and \"Customers\" (E) and \"Employees\" (H) as the primary beneficiary in the context of fiduciary duties.\n    *   This leaves options A, B, F, G.\n\n2.  **Second and Third Blanks:** \"...as well as a duty of ________ and of ________.\"\n    *   Managers have fiduciary duties, primarily the **Duty of Care** and the **Duty of Loyalty** (or Diligence).\n    *   A key fiduciary principle is that managers must *not* act in their own **Self-interest** at the expense of the company. Therefore, any option containing \"Self-interest\" as a duty is incorrect.\n    *   Options A, B, C, G, and I all contain \"Self-interest\" in the duty list. This eliminates them.\n    *   This leaves Option F: Shareholders, Care and Skill, Diligence.\n    *   \"Care and Skill\" is a common description of the standard of conduct required under the Duty of Care (often phrased as \"reasonable care and skill\"). \"Diligence\" is often used interchangeably with or alongside Care in corporate governance contexts (e.g., UK Companies Act 2006).\n    *   Option F is the only option that correctly identifies the beneficiaries (Shareholders) and lists valid duties without including \"Self-interest\".\n\nThe answer is (F).\n\nThe answer is (F).",
+          "subject": "business"
+        },
+        {
+          "correct": false,
+          "tokens": 6242,
+          "reply": "The question asks to identify the correct terms to fill in the blanks regarding the issues associated with downsizing.\n\n1.  **First Blank:** \"There are two main issues associated with _____ sizing.\" The context describes employees being made redundant and laid off. This refers to **Down**sizing. This eliminates options with \"Up\" (C, E, G, H, I).\n2.  **Second Blank:** \"_______ is a key issue as due to the information policy of the corporation it can be argued that employees have a right to know if they are being made redundant.\" This refers to the ethical or informational right of the employee. In organizational theory, the right to know one's employment status is often linked to **Autonomy** (specifically information autonomy) or Involvement. However, looking at the remaining options for the third blank helps distinguish.\n3.  **Third and Fourth Blanks:** \"_______ is a second issue, particularly the ________ package that employees receive when laid off.\"\n    *   The third blank must be a concept that can be an \"issue\" related to the package.\n    *   The fourth blank must describe the \"package\".\n    *   Let's evaluate the remaining options (A, B, D, F, J).\n    *   (B) Third word: Independence. \"Independence is a second issue, particularly the Benefit package...\" -> Independence is not a package.\n    *   (D) Third word: Autonomy. \"Autonomy is a second issue, particularly the Benefit package...\" -> Autonomy is not a package.\n    *   (F) Third word: Autonomy. \"Autonomy is a second issue, particularly the Compensation package...\" -> Autonomy is not a package.\n    *   (J) Third word: Remuneration. Fourth word: Compensation. \"Remuneration is a second issue, particularly the Compensation package...\" -> While grammatically possible, \"Remuneration\" and \"Compensation\" are synonyms, making the sentence semantically redundant.\n    *   (A) Third word: Remuneration. Fourth word: Benefit. \"Remuneration is a second issue, particularly the Benefit package...\" -> This makes logical sense. Remuneration (pay) is the general issue, and the Benefit package is the specific financial package received.\n\n    Comparing (A) and (J): (A) uses \"Benefit\" which is a specific type of package, whereas (J) uses \"Compensation\" which is synonymous with \"Remuneration\". (A) is structurally superior and avoids redundancy. Additionally, \"Autonomy\" fits the \"right to know\" argument well in the context of information rights in downsizing literature.\n\nThe answer is (A).\n\nThe answer is (A).",
+          "subject": "business"
+        },
+        {
+          "correct": false,
+          "tokens": 569,
+          "reply": "The description provided refers to the **Ethics of care**, which emphasizes moral reasoning based on relationships, empathy, and emotional responsiveness rather than abstract rational principles or rules.\n\nThe answer is (H).",
+          "subject": "business"
+        },
+        {
+          "correct": false,
+          "tokens": 16384,
+          "reply": "",
+          "subject": "law"
+        },
+        {
+          "correct": false,
+          "tokens": 16384,
+          "reply": "",
+          "subject": "law"
+        },
+        {
+          "correct": false,
+          "tokens": 16384,
+          "reply": "",
+          "subject": "law"
+        },
+        {
+          "correct": false,
+          "tokens": 16384,
+          "reply": "",
+          "subject": "law"
+        },
+        {
+          "correct": false,
+          "tokens": 16384,
+          "reply": "",
+          "subject": "psychology"
+        },
+        {
+          "correct": false,
+          "tokens": 16384,
+          "reply": "",
+          "subject": "psychology"
+        },
+        {
+          "correct": true,
+          "tokens": 9838,
+          "reply": "The question asks for the motivation behind rule-following in the second stage of Kohlberg's preconventional level of moral development.\n\n1.  **Recall Kohlberg's Stages:**\n    *   **Level 1: Preconventional Morality**\n        *   **Stage 1 (Obedience and Punishment Orientation):** Children obey rules to avoid punishment. (Option G matches this).\n        *   **Stage 2 (Instrumental Exchange Orientation):** Children obey rules if they benefit them personally. They view rules as a means to satisfy their own needs or get something in return. This is often described as \"Instrumental Exchange\" or \"Self-Interest\".\n    *   **Level 2: Conventional Morality**\n        *   **Stage 3 (Good Interpersonal Relationships):** Children obey rules to gain social approval. (Option J matches this).\n        *   **Stage 4 (Maintaining the Social Order):** Children obey rules to uphold the social order/laws. (Option D matches this).\n\n2.  **Analyze the Options:**\n    *   (A) \"they are taught that rules are unbreakable.\" -> Stage 1 or 4.\n    *   (B) \"they enjoy following the rules.\" -> Stage 3.\n    *   (C) \"they are rewarded for following rules.\" -> This describes the outcome of Stage 2, but is less precise than the definition of the motivation.\n    *   (D) \"they feel they have a personal duty to uphold rules and laws.\" -> Stage 4.\n    *   (E) \"doing so helps them satisfy their personal needs.\" -> This is the definition of **Instrumental Exchange** (Stage 2). The child obeys rules because they benefit them personally (satisfy needs).\n    *   (G) \"doing so helps them avoid punishment.\" -> Stage 1.\n    *   (J) \"they fear societal disapproval.\" -> Stage 3.\n\n3.  **Distinguish between (C) and (E):**\n    *   Kohlberg's Stage 2 is technically defined as **Instrumental Exchange**. The core motivation is to satisfy personal needs or wants (\"What's in it for me?\").\n    *   Option (E) explicitly states \"satisfy their personal needs,\" which is the direct definition of the Instrumental Exchange orientation.\n    *   Option (C) states \"they are rewarded,\" which is a specific consequence of the exchange, but (E) describes the underlying *motivation* (Instrumental Exchange) more accurately.\n    *   In standard psychology test banks, the distinction is often drawn as Stage 1 = Avoid Punishment, Stage 2 = Satisfy Personal Needs (Instrumental Exchange).\n    *   Therefore, (E) is the most accurate answer.\n\nThe answer is (E).",
+          "subject": "psychology"
+        },
+        {
+          "correct": false,
+          "tokens": 5127,
+          "reply": "Phenylketonuria (PKU) is a genetic metabolic disorder where the body cannot break down the amino acid phenylalanine. This accumulation is toxic to the brain and causes intellectual disability (mental retardation). The condition is preventable by managing the diet to restrict phenylalanine intake and supplementing with tyrosine (an amino acid often grouped with vitamins in the context of nutritional supplementation in this specific question format). Among the provided options, \"vitamin supplements\" is the only choice that refers to nutritional intervention, which is the standard method for preventing the mental retardation associated with PKU.\n\nThe answer is (D).",
+          "subject": "psychology"
+        },
+        {
+          "correct": true,
+          "tokens": 2188,
+          "reply": "Mitosis is the process of cell division that results in two genetically identical daughter cells and is responsible for growth and repair in somatic (non-reproductive) cells. In plants, the primary regions of active cell division are the meristems, specifically the apical meristems found at the tips of shoots and roots.\n\n*   **(A) cross section of muscle tissue:** Muscle tissue is differentiated. While some repair occurs, it is not the primary site of active growth via mitosis.\n*   **(B) longitudinal section of a shoot tip:** The shoot tip contains the apical meristem, which is a region of undifferentiated cells actively undergoing mitosis to produce new cells for growth (elongation of the stem and production of new leaves). This is the most definitive example of mitotic activity among the options.\n*   **(C), (D), (E), (F), (G):** These are mostly differentiated tissues or structures where cell division is not the primary function.\n*   **(H) cross section of an anther:** The anther is the site of pollen production. The precursor cells (microsporocytes) undergo meiosis to produce microspores. While the pollen grain itself undergoes mitosis later, the anther is most commonly associated with meiosis in the context of distinguishing between the two processes in plant anatomy questions.\n\nTherefore, the shoot tip is the location most likely to show examples of mitotic cell divisions.\n\nThe answer is (B).",
+          "subject": "biology"
+        },
+        {
+          "correct": true,
+          "tokens": 893,
+          "reply": "The light-dependent reactions of photosynthesis occur in the thylakoid membranes of chloroplasts. During these reactions, light energy is used to split water molecules, releasing oxygen as a byproduct and generating energy carriers in the form of ATP and NADPH. These molecules are then transported to the stroma, where the Calvin cycle (light-independent reactions) takes place. The Calvin cycle uses the chemical energy stored in ATP to drive the synthesis of carbohydrates and uses the high-energy electrons and hydrogen ions from NADPH to reduce carbon dioxide into organic molecules. Therefore, the light reactions supply the Calvin cycle with ATP and NADPH.\n\nThe answer is (D).",
+          "subject": "biology"
+        },
+        {
+          "correct": true,
+          "tokens": 1558,
+          "reply": "To produce offspring with silver fur (genotype $bb$), both parents must contribute a recessive $b$ allele. Since the parents both have brown fur (the dominant phenotype), they must possess at least one dominant $B$ allele. Therefore, both parents must be heterozygous ($Bb$) to carry the recessive allele without expressing the silver phenotype. A cross between two $Bb$ parents ($Bb \\times Bb$) can produce $bb$ offspring (25% probability).\n\nThe answer is (C).",
+          "subject": "biology"
+        },
+        {
+          "correct": false,
+          "tokens": 14818,
+          "reply": "The question asks which molecule contains the fewest number of nucleotides in reference to a segment of DNA.\n\n1.  **Analyze the Reference:** The \"segment of DNA\" (Option H) serves as the baseline length, let's call it $L$.\n2.  **Analyze the Options:**\n    *   (B), (J) Substitution/Point mutation: Length is $L$.\n    *   (E) Duplication mutation: Length is $> L$.\n    *   (F) Primary RNA transcript (before splicing): Length is $\\approx L$ (includes introns).\n    *   (H) Original DNA segment: Length is $L$.\n    *   (G) DNA after deletion mutation: Length is $L - \\delta$ (where $\\delta > 0$). This is strictly shorter than $L$.\n    *   (C), (D) Final processed mRNA: Length is $L - \\text{introns}$. This is shorter than $L$ if the segment includes introns (gene locus).\n    *   (I) cDNA: Length is $\\approx$ mRNA.\n    *   (A) tRNA transcript: If the segment is a protein-coding gene, this is not derived from it. If it is a tRNA gene, it is shorter than the DNA due to processing.\n3.  **Comparison:**\n    *   Both (G) and (C) are shorter than (H).\n    *   The comparison between (G) and (C) depends on the size of the deletion ($\\delta$) versus the size of the introns.\n    *   However, in many biological contexts, \"segment of DNA\" is often interpreted as the **coding sequence** (exons). If the segment is the coding sequence, the mRNA (which corresponds to the coding sequence) has the same length as the DNA segment (ignoring UTRs). In this case, the DNA strand with a deletion mutation is strictly shorter than the original DNA segment, and thus shorter than the mRNA.\n    *   If the segment is the **gene locus** (including introns), the mRNA is shorter than the DNA. However, a deletion mutation is a specific alteration. If the deletion is small (e.g., 1 base) and introns are large, mRNA is shorter. If the deletion is large, DNA is shorter.\n    *   Given the phrasing \"In reference to a segment of DNA\", it often implies the coding region or the specific sequence being analyzed. If the segment is the coding region, mRNA length $\\approx$ DNA length. Thus, the DNA with a deletion is the shortest.\n    *   Additionally, some answer keys for this specific question identify the DNA strand with a deletion mutation as the correct answer because it represents a direct reduction of the reference DNA segment itself, whereas mRNA length depends on the gene structure (introns).\n    *   Assuming the standard interpretation where \"segment of DNA\" refers to the coding sequence or the question prioritizes the direct modification of the DNA strand:\n        *   DNA with deletion < Original DNA.\n        *   mRNA $\\approx$ Original DNA (if coding sequence).\n        *   Therefore, DNA with deletion is the fewest.\n\nThe answer is (G).\n\nThe answer is (G).",
+          "subject": "biology"
+        },
+        {
+          "correct": true,
+          "tokens": 1601,
+          "reply": "The substance has three key properties:\n1.  **High melting point:** This indicates strong bonding within the structure. This rules out molecular solids held together by intermolecular forces like dipole-dipole, London dispersion, or hydrogen bonding (Options A, D, F, G, I), which typically have low melting points.\n2.  **Poor conductor of electricity:** This rules out metallic bonding (Option H), as metals are good conductors. It also distinguishes between ionic and covalent network solids in their solid state (both are insulators), but the distinction is usually made based on solubility or conductivity in molten state.\n3.  **Does not dissolve in water:** Ionic compounds (Option B) generally dissolve in water to form ions. Covalent network solids (Option C), such as diamond or quartz, consist of atoms bonded in a continuous lattice and do not dissociate into ions in water, making them insoluble.\n\nTherefore, the combination of a high melting point, poor electrical conductivity, and insolubility in water is characteristic of a covalent network solid.\n\nThe answer is (C).",
+          "subject": "chemistry"
+        },
+        {
+          "correct": true,
+          "tokens": 1702,
+          "reply": "To determine which molecule has an octet of electrons around the central atom, we analyze the Lewis structure and electron count for the central atom in each option:\n\n1.  **BF\u2083 (Boron Trifluoride):** Boron is in Group 13 and has 3 valence electrons. It forms 3 single bonds with Fluorine atoms. This results in $3 \\times 2 = 6$ electrons around the Boron atom. Boron is an exception to the octet rule and is electron-deficient.\n2.  **BeF\u2082 (Beryllium Difluoride):** Beryllium is in Group 2 and has 2 valence electrons. It forms 2 single bonds with Fluorine atoms. This results in $2 \\times 2 = 4$ electrons around the Beryllium atom. It is electron-deficient.\n3.  **PF\u2085 (Phosphorus Pentafluoride):** Phosphorus is in Group 15 and has 5 valence electrons. It forms 5 single bonds with Fluorine atoms. This results in $5 \\times 2 = 10$ electrons around the Phosphorus atom. This is an expanded octet.\n4.  **NH\u2084\u207a (Ammonium Ion):** Nitrogen is in Group 15 and has 5 valence electrons. It forms 4 single bonds with Hydrogen atoms. The positive charge indicates the loss of one electron from the neutral NH\u2083 molecule. In the Lewis structure, Nitrogen is bonded to 4 Hydrogens with no lone pairs. The total number of electrons around the Nitrogen atom is $4 \\times 2 = 8$ electrons. This satisfies the octet rule.\n5.  **SF\u2086 (Sulfur Hexafluoride):** Sulfur is in Group 16 and has 6 valence electrons. It forms 6 single bonds with Fluorine atoms. This results in $6 \\times 2 = 12$ electrons around the Sulfur atom. This is an expanded octet.\n\nOnly NH\u2084\u207a has exactly 8 electrons (an octet) around the central atom.\n\nThe answer is (D).",
+          "subject": "chemistry"
+        },
+        {
+          "correct": true,
+          "tokens": 2028,
+          "reply": "To find the volume of KOH needed, we must determine the stoichiometry of the neutralization reaction.\n\n1.  **Calculate the moles of H\u2083PO\u2084:**\n    $$ \\text{Moles of H}_3\\text{PO}_4 = \\text{Molarity} \\times \\text{Volume (L)} $$\n    $$ \\text{Moles of H}_3\\text{PO}_4 = 0.150 \\, \\text{mol/L} \\times 0.0500 \\, \\text{L} = 0.00750 \\, \\text{mol} $$\n\n2.  **Determine the mole ratio:**\n    Phosphoric acid (H\u2083PO\u2084) is a triprotic acid, meaning it releases 3 H\u207a ions per molecule. Potassium hydroxide (KOH) is a monobasic base, releasing 1 OH\u207b ion per formula unit. The balanced equation for complete neutralization is:\n    $$ \\text{H}_3\\text{PO}_4 + 3\\text{KOH} \\rightarrow \\text{K}_3\\text{PO}_4 + 3\\text{H}_2\\text{O} $$\n    Therefore, 1 mole of H\u2083PO\u2084 requires 3 moles of KOH.\n\n3.  **Calculate the moles of KOH needed:**\n    $$ \\text{Moles of KOH} = 3 \\times \\text{Moles of H}_3\\text{PO}_4 $$\n    $$ \\text{Moles of KOH} = 3 \\times 0.00750 \\, \\text{mol} = 0.0225 \\, \\text{mol} $$\n\n4.  **Calculate the volume of KOH:**\n    $$ \\text{Volume of KOH} = \\frac{\\text{Moles of KOH}}{\\text{Molarity of KOH}} $$\n    $$ \\text{Volume of KOH} = \\frac{0.0225 \\, \\text{mol}}{0.250 \\, \\text{mol/L}} = 0.0900 \\, \\text{L} $$\n    Convert to milliliters:\n    $$ 0.0900 \\, \\text{L} \\times 1000 \\, \\text{mL/L} = 90.0 \\, \\text{mL} $$\n\nThe answer is (B).",
+          "subject": "chemistry"
+        },
+        {
+          "correct": true,
+          "tokens": 5351,
+          "reply": "To determine the hybridization of the central atom in each molecule/ion, we analyze the number of electron domains (sigma bonds + lone pairs) around the central atom.\n\n1.  **CO\u2082 (Carbon Dioxide):**\n    *   Central Atom: Carbon (C)\n    *   Structure: O=C=O\n    *   Electron Domains: 2 double bonds (count as 2 regions of electron density). There are no lone pairs on the Carbon atom.\n    *   Steric Number: 2.\n    *   Hybridization: **sp**.\n\n2.  **CO\u2083\u00b2\u207b (Carbonate Ion):**\n    *   Central Atom: Carbon (C)\n    *   Structure: Resonance hybrid with one double bond and two single bonds to Oxygen atoms.\n    *   Electron Domains: 3 sigma bonds (to 3 Oxygen atoms). There are no lone pairs on the Carbon atom.\n    *   Steric Number: 3.\n    *   Hybridization: **sp\u00b2**.\n\n3.  **NO\u2082\u207b (Nitrite Ion):**\n    *   Central Atom: Nitrogen (N)\n    *   Structure: Resonance hybrid with one double bond and one single bond to Oxygen atoms, plus one lone pair on the Nitrogen atom.\n    *   Electron Domains: 2 sigma bonds + 1 lone pair = 3 regions of electron density.\n    *   Steric Number: 3.\n    *   Hybridization: **sp\u00b2**.\n\n4.  **NO\u2083\u207b (Nitrate Ion):**\n    *   Central Atom: Nitrogen (N)\n    *   Structure: Resonance hybrid with one double bond and two single bonds to Oxygen atoms.\n    *   Electron Domains: 3 sigma bonds (to 3 Oxygen atoms). There are no lone pairs on the Nitrogen atom.\n    *   Steric Number: 3.\n    *   Hybridization: **sp\u00b2**.\n\n**Conclusion:**\nThe molecules/ions exhibiting sp\u00b2 hybridization are CO\u2083\u00b2\u207b, NO\u2082\u207b, and NO\u2083\u207b. CO\u2082 exhibits sp hybridization.\n\nComparing this with the given options:\n(A) NO2- only\n(B) CO2 and CO32-\n(C) CO2 only\n(D) CO2 and NO3-\n(E) NO2- and NO3-\n(F) CO32- and NO3-\n(G) NO3- only\n(H) CO2 and NO2-\n(I) CO32- only\n(J) CO32-, NO2- and NO3-\n\nOption (J) correctly lists all three species with sp\u00b2 hybridization.\n\nThe answer is (J).",
+          "subject": "chemistry"
+        },
+        {
+          "correct": false,
+          "tokens": 2950,
+          "reply": "The question asks for a \"less obvious\" reason for the Inca to fight many wars. The most obvious reasons for any empire to wage war are typically to expand territory (B) and to gain control of vital resources (E). While demonstrating military prowess (A) is a factor, the political function of war to create social cohesion and unity among a diverse population is often cited in historical analysis as a deeper, less obvious strategic driver for the stability of large empires like the Inca.\n\nThe answer is (C).",
+          "subject": "history"
+        },
+        {
+          "correct": true,
+          "tokens": 1768,
+          "reply": "Monumental works, such as temples, palaces, ziggurats, and pyramids, require the centralized organization of labor and resources that defines ancient state societies. These structures are the most visible and public physical manifestations of state power and social complexity. While pyramids are a specific type of monumental work, they are not universal to all ancient state societies, making \"monumental works\" the more inclusive and accurate category.\n\nThe answer is (D).",
+          "subject": "history"
+        },
+        {
+          "correct": true,
+          "tokens": 1297,
+          "reply": "Cahokia, located near present-day Collinsville, Illinois, was the largest pre-Columbian city north of Mexico. Archaeological evidence indicates it was built on a large mound system, with estimates suggesting around 120 earthen mounds were present. The population at its peak is generally estimated to be around 10,000 to 20,000 people, with 10,000 being a commonly cited figure in historical contexts.\n\nThe answer is (C).",
+          "subject": "history"
+        },
+        {
+          "correct": false,
+          "tokens": 16384,
+          "reply": "",
+          "subject": "history"
+        },
+        {
+          "correct": true,
+          "tokens": 559,
+          "reply": "The Gulf of Tonkin Resolution, passed by Congress in August 1964, authorized President Lyndon B. Johnson to take military action in Southeast Asia without a formal declaration of war. This legislative move effectively gave the executive branch broad powers to escalate the conflict, leading to a significant increase in US military involvement and troop deployment in Vietnam.\n\nThe answer is (C).",
+          "subject": "other"
+        },
+        {
+          "correct": true,
+          "tokens": 2290,
+          "reply": "Focus group research is a qualitative method used to explore attitudes, motivations, and perceptions. Participants are typically selected purposively rather than randomly (A), and the results are not statistically generalizable to a larger population (B). Instead, the qualitative insights gained from focus groups are often used to identify themes and questions that can be tested in subsequent quantitative surveys (C). The facilitator guides the discussion (I), the group size is typically 6-10 participants (J), and the data is used for decision-making (E).\n\nThe answer is (C).",
+          "subject": "other"
+        },
+        {
+          "correct": false,
+          "tokens": 1979,
+          "reply": "To craft an effective primary message, you must first understand the current attitudes and beliefs of the audience regarding the service. Without knowing how the target audiences currently perceive the bus system (e.g., as unsafe, expensive, or confusing), you cannot tailor a message that resonates with them or addresses their specific barriers. Selecting the medium (A) or defining the benefits (B) comes after understanding the audience's current perception.\n\nThe answer is (C).",
+          "subject": "other"
+        },
+        {
+          "correct": false,
+          "tokens": 16384,
+          "reply": "",
+          "subject": "other"
+        },
+        {
+          "correct": false,
+          "tokens": 16384,
+          "reply": "",
+          "subject": "health"
+        },
+        {
+          "correct": false,
+          "tokens": 16384,
+          "reply": "",
+          "subject": "health"
+        },
+        {
+          "correct": false,
+          "tokens": 16384,
+          "reply": "",
+          "subject": "health"
+        },
+        {
+          "correct": false,
+          "tokens": 16384,
+          "reply": "",
+          "subject": "health"
+        },
+        {
+          "correct": true,
+          "tokens": 2940,
+          "reply": "In the calculation of Gross Domestic Product (GDP), expenditures are typically categorized into four main components: Consumption (C), Investment (I), Government Spending (G), and Net Exports (NX).\n\n*   **Consumption (C)** refers to spending by households on final goods and services.\n*   **Investment (I)** refers to spending by businesses on capital goods (machinery, equipment, structures) and changes in inventories.\n*   **Government Spending (G)** refers to spending by government agencies.\n*   **Net Exports (NX)** refers to exports minus imports.\n\nLet's evaluate the options:\n*   (A), (B), (C), and (F) involve businesses purchasing capital goods or structures, which falls under **Investment (I)**.\n*   (D) and (H) are non-market activities (homeowner mowing own lawn, barber cutting own hair), which are **not included** in GDP.\n*   (E) is an intermediate good (flour), which is **not included** in GDP to avoid double counting (only the final donuts are counted).\n*   (G) involves a household spending money on a service (eating out), which is a classic example of **Consumption (C)**.\n\nThe answer is (G).",
+          "subject": "economics"
+        },
+        {
+          "correct": false,
+          "tokens": 16384,
+          "reply": "",
+          "subject": "economics"
+        },
+        {
+          "correct": true,
+          "tokens": 795,
+          "reply": "The Federal Reserve (the Fed) uses monetary policy tools to influence the money supply. The primary tools are open market operations, the discount rate, and reserve requirements.\n\n*   **Decreasing government spending** and **tax rates** are fiscal policy tools used by the government, not the Fed.\n*   **Selling assets** (foreign exchange reserves, Treasury securities) removes money from the banking system, decreasing the money supply.\n*   **Increasing interest rates** or **increasing the reserve ratio** restricts lending and decreases the money supply.\n*   **A lower discount rate** allows commercial banks to borrow money from the Fed at a lower cost. This increases the reserves of the commercial banks, which in turn allows them to lend more, thereby increasing the overall money supply.\n\nThe answer is (B).",
+          "subject": "economics"
+        },
+        {
+          "correct": true,
+          "tokens": 5981,
+          "reply": "The question asks for the expected outcome given that the world price of copper is higher than the domestic (U.S.) price of copper ($P_{world} > P_{domestic}$).\n\n1.  **Analyze the Price Differential:** When the world price is higher than the domestic price, it means that copper is cheaper to buy in the U.S. than in the rest of the world. Conversely, U.S. producers can sell their copper at a higher price in the international market than they currently receive domestically.\n2.  **Determine Trade Flows:**\n    *   **Consumers:** Since domestic copper is cheaper than imported copper (because $P_{domestic} < P_{world}$), consumers will prefer to buy domestic copper. Imports will be low.\n    *   **Producers:** Since the world price is higher, producers have an incentive to sell their copper abroad to get the higher price. This leads to an increase in exports.\n    *   **Trade Balance:** Because exports are likely to exceed imports (due to the price advantage of domestic producers), the U.S. will be a net exporter of copper.\n3.  **Evaluate Options:**\n    *   (A) Demand for U.S. copper to fall: Incorrect. Domestic copper is cheaper, so demand is likely higher relative to imports.\n    *   (B) Tariff: Incorrect. Tariffs are used to protect domestic producers when imports are cheap ($P_{world} < P_{domestic}$). Here, imports are expensive.\n    *   (C) Subsidize: Incorrect. Producers are already selling at a lower price than the world market, suggesting they are not being subsidized to the extent of the world price, or rather, the market condition favors exports.\n    *   (D) Import more: Incorrect. Imports are expensive compared to domestic goods.\n    *   (E) Decrease production: Incorrect. Higher world prices incentivize production for export.\n    *   (F) Demand for imported copper to fall: Incorrect. Imports are expensive, so demand is low.\n    *   (G) Trade deficit: Incorrect. Exports > Imports.\n    *   (H) Domestic price to increase: While the domestic price *would* tend to rise in a free market to meet the world price, the most direct and standard economic classification for the trade relationship based on this price differential is the trade balance (Net Exporter vs. Net Importer).\n    *   (I) Net exporter: Correct. If the world price is higher, the country exports the good to capture the higher price.\n    *   (J) Export quotas: Incorrect. There is no reason to restrict exports when they are profitable.\n\nThe standard economic rule is: If $P_{world} > P_{domestic}$, the country is a net exporter. If $P_{world} < P_{domestic}$, the country is a net importer.\n\nThe answer is (I).\n\nThe answer is (I).",
+          "subject": "economics"
+        },
+        {
+          "correct": false,
+          "tokens": 7068,
+          "reply": "The first statement is a fundamental theorem in ring theory. A ring homomorphism $f: R \\to S$ is injective (one-to-one) if and only if its kernel $\\ker(f) = \\{r \\in R \\mid f(r) = 0_S\\}$ is the trivial subgroup $\\{0_R\\}$. This is a standard result, so Statement 1 is **True**.\n\nThe second statement is \"Q is an ideal in R.\" In the context of the provided text, the rings $R$ and $Q$ are not defined. Without specific definitions or context (e.g., $R$ being the ring of integers and $Q$ being the set of rational numbers, or $Q$ being the quotient field of $R$), the truth value of this statement cannot be determined. It is not a general theorem (like Statement 1), nor is it universally false or true without context. Therefore, the truth value is **Not Given**.\n\nMatching these evaluations to the options:\nStatement 1: True\nStatement 2: Not Given\nThis corresponds to Option (E).\n\nThe answer is (E).",
+          "subject": "math"
+        },
+        {
+          "correct": true,
+          "tokens": 6172,
+          "reply": "The question asks for the truth values of two mathematical statements.\n\n**Statement 1:** \"R is a splitting field of some polynomial over Q.\"\nIn standard mathematical notation, $\\mathbb{Q}$ denotes the field of rational numbers and $\\mathbb{R}$ denotes the field of real numbers. A splitting field of a polynomial $f(x) \\in \\mathbb{Q}[x]$ is an algebraic extension of $\\mathbb{Q}$. The field of real numbers $\\mathbb{R}$ contains transcendental numbers (like $\\pi$ and $e$) and is not an algebraic extension of $\\mathbb{Q}$. Therefore, $\\mathbb{R}$ cannot be a splitting field of any polynomial over $\\mathbb{Q}$. Thus, Statement 1 is **False**.\n\n**Statement 2:** \"There is a field with 60 elements.\"\nThe order of any finite field (Galois field) must be a prime power, i.e., $p^n$ where $p$ is a prime number and $n$ is a positive integer. The number 60 can be factored as $60 = 2^2 \\cdot 3 \\cdot 5$. Since 60 is not a prime power, there is no field with 60 elements. Thus, Statement 2 is **False**.\n\nBoth statements are False. This corresponds to option (H).\n\nThe answer is (H).",
+          "subject": "math"
+        },
+        {
+          "correct": true,
+          "tokens": 730,
+          "reply": "Statement 1 is false because a set of two vectors in $\\mathbb{R}^2$ can be linearly dependent (e.g., if one vector is the zero vector, or if the two vectors are scalar multiples of each other).\n\nStatement 2 is true because if a set of vectors spans a subspace $V$ and is linearly independent, it forms a basis for $V$. The dimension of $V$ is defined as the number of vectors in a basis, which is $k$.\n\nThe answer is (C).",
+          "subject": "math"
+        },
+        {
+          "correct": true,
+          "tokens": 1397,
+          "reply": "In group theory, a permutation is defined as a bijection from a set to itself. A cycle is a specific type of permutation that permutes a subset of elements in a cyclic order while fixing the rest.\n\n1.  **Statement 1 (\"Every permutation is a cycle\")**: This is **False**. While every cycle is a permutation, not every permutation is a single cycle. For example, the permutation $(1\\ 2)(3\\ 4)$ in the symmetric group $S_4$ is a product of two disjoint cycles, not a single cycle.\n2.  **Statement 2 (\"Every cycle is a permutation\")**: This is **True**. By definition, a cycle is a bijection on a set, which satisfies the definition of a permutation.\n\nTherefore, Statement 1 is False and Statement 2 is True. This corresponds to option (H).\n\nThe answer is (H).",
+          "subject": "math"
+        },
+        {
+          "correct": false,
+          "tokens": 16384,
+          "reply": "",
+          "subject": "physics"
+        },
+        {
+          "correct": false,
+          "tokens": 16384,
+          "reply": "",
+          "subject": "physics"
+        },
+        {
+          "correct": true,
+          "tokens": 648,
+          "reply": "Asteroids are primarily distinguished from stars in sky surveys because they move across the sky relative to the fixed background stars, whereas stars appear stationary over short observation periods. This apparent motion allows astronomers to identify them as they drift between exposures.\n\nThe answer is (D).",
+          "subject": "physics"
+        },
+        {
+          "correct": true,
+          "tokens": 890,
+          "reply": "The Andromeda Galaxy (M31) is the nearest major galaxy to the Milky Way. Astronomers have measured its distance to be approximately 2.538 million light-years, which is commonly rounded to 2.5 million light-years in general contexts.\n\nThe answer is (B).",
+          "subject": "physics"
+        },
+        {
+          "correct": true,
+          "tokens": 4226,
+          "reply": "The problem describes a situation where the software specification is ambiguous regarding the behavior when multiple values satisfy the condition. In software engineering and requirements analysis, the specification serves as the contract between the developer and the user/client. If the specification is ambiguous, it is not a valid requirement for implementation.\n\n1.  **Analyze the Options:**\n    *   (A) Returning an error stops the program unnecessarily and doesn't solve the ambiguity.\n    *   (C) Outputting a message is a side effect and does not define the return value required by the method signature.\n    *   (D) Returning every occurrence changes the return type (e.g., from `int` to `List<Integer>`), which might break existing code relying on the current signature.\n    *   (E) and (G) suggest making an arbitrary choice (last/largest index). While deterministic, this is an assumption that might not match the user's intent.\n    *   (H) Assuming there is only one value is a risky constraint that might not hold for the input data.\n    *   (B) Suggests modifying the specification. This aligns with the best practice of clarifying requirements before implementation. It ensures the code meets the actual intended needs of the system.\n\n2.  **Conclusion:** The most professional and correct action when a specification is incomplete or ambiguous is to clarify it. Therefore, modifying the specification to define the expected behavior is the best course of action.\n\nThe answer is (B).",
+          "subject": "computer science"
+        },
+        {
+          "correct": true,
+          "tokens": 552,
+          "reply": "The program initializes `result` to 0.\nThe outer loop runs 3 times.\nInside the outer loop, the inner loop runs `y` times.\nInside the inner loop, `result` is incremented by 1.\nTherefore, the inner loop adds `y` to `result` for each of the 3 iterations of the outer loop.\nTotal additions = $3 \\times y = 3y$.\nThe answer is (A).",
+          "subject": "computer science"
+        },
+        {
+          "correct": false,
+          "tokens": 16384,
+          "reply": "",
+          "subject": "computer science"
+        },
+        {
+          "correct": false,
+          "tokens": 16384,
+          "reply": "",
+          "subject": "computer science"
+        },
+        {
+          "correct": true,
+          "tokens": 1128,
+          "reply": "The sentence \"David teaches Chris\" consists of a subject (\"David\"), a predicate (\"teaches\"), and an object (\"Chris\").\n1.  **Identify the constants:** $d$ represents David, and $c$ represents Chris.\n2.  **Identify the predicate:** $Txy$ represents the relation \"$x$ teaches $y$\".\n3.  **Construct the formula:** Since David ($d$) is the subject and Chris ($c$) is the object, we substitute $d$ for $x$ and $c$ for $y$. This results in the formula $Tdc$.\n\nComparing this to the options:\n(A) $Tdc$ matches our derived formula.\n(G) $Tcd$ would mean \"Chris teaches David\".\n(H) $Tdd$ would mean \"David teaches David\".\n\nThe answer is (A).",
+          "subject": "philosophy"
+        },
+        {
+          "correct": true,
+          "tokens": 8258,
+          "reply": "To determine the relationship between the two propositions, we construct a truth table for the three variables $M$, $N$, and $O$. There are $2^3 = 8$ possible combinations of truth values.\n\n**Proposition 1:** $P = (\\sim M \\supset \\sim N) \\lor (O \\equiv N)$\n**Proposition 2:** $Q = (\\sim M \\cdot N) \\cdot [(\\sim O \\lor \\sim N) \\cdot (O \\lor N)]$\n\nNote that the term $[(\\sim O \\lor \\sim N) \\cdot (O \\lor N)]$ is logically equivalent to $\\sim(O \\equiv N)$.\nSo, $Q = (\\sim M \\cdot N) \\cdot \\sim(O \\equiv N)$.\n\n**Truth Table Analysis:**\n\n| M | N | O | $\\sim M$ | $\\sim N$ | $\\sim M \\supset \\sim N$ | $O \\equiv N$ | $P$ | $\\sim O$ | $\\sim N$ | $\\sim O \\lor \\sim N$ | $O \\lor N$ | $Q$ |\n|---|---|---|---|---|---|---|---|---|---|---|---|---|---|\n| T | T | T | F | F | T | T | **T** | F | F | F | T | F |\n| T | T | F | F | F | T | F | **T** | T | F | T | F | F |\n| T | F | T | F | T | T | F | **T** | F | T | T | T | F |\n| T | F | F | F | T | T | T | **T** | T | T | T | T | F |\n| F | T | T | T | F | F | T | **T** | F | F | F | T | F |\n| F | T | F | T | F | F | F | **F** | T | F | T | F | **T** |\n| F | F | T | T | T | T | F | **T** | F | T | T | T | F |\n| F | F | F | T | T | T | T | **T** | T | T | T | T | F |\n\n**Evaluation:**\n1.  **Logical Equivalence:** Are $P$ and $Q$ always the same truth value?\n    No. In Row 6, $P$ is False and $Q$ is True. In all other rows, $P$ is True and $Q$ is False. Thus, they are not logically equivalent.\n2.  **Contradictory:** Are $P$ and $Q$ always opposite truth values?\n    Yes. In every row, one is True and the other is False.\n    -   Rows 1, 2, 3, 4, 5, 7, 8: $P$ is True, $Q$ is False.\n    -   Row 6: $P$ is False, $Q$ is True.\n    Since they cannot both be true and cannot both be false, they are contradictory.\n\nSince the statements are contradictory, they are also inconsistent (a set of contradictory statements is inconsistent). However, the specific relationship requested is \"Contradictory\".\n\nThe answer is (D).\n\nThe answer is (D).",
+          "subject": "philosophy"
+        },
+        {
+          "correct": true,
+          "tokens": 8534,
+          "reply": "The problem asks for an immediate (one-step) consequence in Propositional Logic (PL) from the given premises.\n\n**Premises:**\n1. $U \\supset W$\n2. $W \\supset (X \\equiv \\sim Y)$\n3. $(X \\equiv \\sim Y) \\supset Z$\n4. $\\sim Z$\n\n**Analysis:**\nAn immediate consequence is derived by applying a single rule of inference to the premises.\n- **Hypothetical Syllogism (HS):** Combines two conditional statements ($P \\supset Q$ and $Q \\supset R$) to derive $P \\supset R$.\n  - Applying HS to Premises 2 and 3: $W \\supset (X \\equiv \\sim Y)$ and $(X \\equiv \\sim Y) \\supset Z$ yields $W \\supset Z$.\n  - Option (A) is $\\sim W \\lor Z$, which is logically equivalent to $W \\supset Z$. However, this requires converting the implication to a disjunction, which is an equivalence transformation, not the direct result of the rule application in its standard form.\n- **Modus Tollens (MT):** Combines a conditional statement ($P \\supset Q$) and the negation of the consequent ($\\sim Q$) to derive the negation of the antecedent ($\\sim P$).\n  - Applying MT to Premises 3 and 4: $(X \\equiv \\sim Y) \\supset Z$ and $\\sim Z$ yields $\\sim(X \\equiv \\sim Y)$.\n  - Option (I) is $\\sim(X \\equiv \\sim Y)$, which is the direct result of this rule application.\n\n**Comparison:**\nBoth (A) and (I) represent valid one-step inferences from subsets of the premises. However, Option (I) is the direct result of applying Modus Tollens to the last two premises, utilizing the specific negation premise ($\\sim Z$) provided. Option (A) is the result of Hypothetical Syllogism but is presented in disjunctive form ($\\sim W \\lor Z$), which is an equivalent form rather than the direct implication form ($W \\supset Z$). In the context of logic problems, the direct result of a rule application (Modus Tollens yielding a negation) is often considered the \"immediate consequence\" when a negation premise is present. Furthermore, using the negation premise is crucial for the argument's structure (breaking the chain).\n\nTherefore, $\\sim(X \\equiv \\sim Y)$ is the most appropriate immediate consequence.\n\nThe answer is (I).",
+          "subject": "philosophy"
+        },
+        {
+          "correct": true,
+          "tokens": 1506,
+          "reply": "The sentence \"Holly loves Frances\" involves the predicate $Lxy$, where $x$ is the lover and $y$ is the loved one. Holly is represented by $h$ and Frances by $f$. Substituting these into the predicate gives $Lhf$.\n\nThe answer is (A).",
+          "subject": "philosophy"
+        },
+        {
+          "correct": true,
+          "tokens": 1499,
+          "reply": "To find the number of lamps required, we first calculate the total area of the room and the total luminous flux needed to achieve the desired illuminance.\n\n1.  **Calculate the Area ($A$):**\n    $$A = \\text{length} \\times \\text{width} = 4\\text{ m} \\times 3\\text{ m} = 12\\text{ m}^2$$\n\n2.  **Calculate the Total Lumens Required ($\\Phi_{\\text{total}}$):**\n    $$\\Phi_{\\text{total}} = \\text{Illuminance} (E) \\times \\text{Area} (A)$$\n    $$\\Phi_{\\text{total}} = 50\\text{ lux} \\times 12\\text{ m}^2 = 600\\text{ lumens}$$\n\n3.  **Calculate the Number of Lamps ($N$):**\n    $$N = \\frac{\\Phi_{\\text{total}}}{\\text{Lumens per lamp}}$$\n    $$N = \\frac{600\\text{ lumens}}{300\\text{ lumens/lamp}} = 2\\text{ lamps}$$\n\nThe answer is (C).",
+          "subject": "engineering"
+        },
+        {
+          "correct": true,
+          "tokens": 875,
+          "reply": "A stack is a data structure where elements are added and removed from the top, following the Last-In-First-Out (LIFO) principle. This distinguishes it from a queue, which operates on a First-In-First-Out (FIFO) basis. Flash memory is a type of non-volatile storage, and LILO is a boot loader, neither of which describes the operation of a stack.\n\nThe answer is (C).",
+          "subject": "engineering"
+        },
+        {
+          "correct": true,
+          "tokens": 956,
+          "reply": "Gross errors, also known as blunders, are typically caused by human mistakes such as misreading a scale, recording the wrong value, or dropping equipment. Instrumental errors arise from defects in the measuring device, while systematic errors result from consistent bias in the measurement process. Therefore, errors mainly caused by human mistakes are classified as gross errors.\n\nThe answer is (A).",
+          "subject": "engineering"
+        },
+        {
+          "correct": true,
+          "tokens": 742,
+          "reply": "An ideal inductor is defined as having zero resistance. Power dissipation in a component is typically calculated as $P = I^2 R$. Since the resistance $R$ of an ideal inductor is zero, the power dissipated is zero. Additionally, in AC circuits, an ideal inductor stores energy in its magnetic field and returns it to the source, resulting in zero average power dissipation.\n\nThe answer is (H).",
+          "subject": "engineering"
+        }
+      ]
+    },
+    "humaneval": {
+      "summary": {
+        "n": 40,
+        "correct": 35,
+        "accuracy": 0.875,
+        "seconds": 510.2177293749992,
+        "tokens": 89971,
+        "tokens_per_answer": 2249.275,
+        "tok_s": 176.3384430215933,
+        "soc_w": 29.871654182240583,
+        "chip_j": 15241.047569537988,
+        "chip_j_per_correct": 435.45850198679966
+      },
+      "rows": [
+        {
+          "correct": true,
+          "tokens": 781,
+          "reply": "```python\nfrom typing import List\n\n\ndef has_close_elements(numbers: List[float], threshold: float) -> bool:\n    \"\"\" Check if in given list of numbers, are any two numbers closer to each other than\n    given threshold.\n    >>> has_close_elements([1.0, 2.0, 3.0], 0.5)\n    False\n    >>> has_close_elements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n    True\n    \"\"\"\n    n = len(numbers)\n    for i in range(n):\n        for j in range(i + 1, n):\n            if abs(numbers[i] - numbers[j]) < threshold:\n                return True\n    return False\n```"
+        },
+        {
+          "correct": false,
+          "tokens": 16384,
+          "reply": ""
+        },
+        {
+          "correct": true,
+          "tokens": 316,
+          "reply": "```python\ndef truncate_number(number: float) -> float:\n    \"\"\" Given a positive floating point number, it can be decomposed into\n    and integer part (largest integer smaller than given number) and decimals\n    (leftover part always smaller than 1).\n\n    Return the decimal part of the number.\n    >>> truncate_number(3.5)\n    0.5\n    \"\"\"\n    return number - int(number)\n```"
+        },
+        {
+          "correct": true,
+          "tokens": 585,
+          "reply": "```python\nfrom typing import List\n\n\ndef below_zero(operations: List[int]) -> bool:\n    \"\"\" You're given a list of deposit and withdrawal operations on a bank account that starts with\n    zero balance. Your task is to detect if at any point the balance of account fallls below zero, and\n    at that point function should return True. Otherwise it should return False.\n    >>> below_zero([1, 2, 3])\n    False\n    >>> below_zero([1, 2, -4, 5])\n    True\n    \"\"\"\n    balance = 0\n    for operation in operations:\n        balance += operation\n        if balance < 0:\n            return True\n    return False\n```"
+        },
+        {
+          "correct": true,
+          "tokens": 583,
+          "reply": "```python\nfrom typing import List\n\n\ndef mean_absolute_deviation(numbers: List[float]) -> float:\n    \"\"\" For a given list of input numbers, calculate Mean Absolute Deviation\n    around the mean of this dataset.\n    Mean Absolute Deviation is the average absolute difference between each\n    element and a centerpoint (mean in this case):\n    MAD = average | x - x_mean |\n    >>> mean_absolute_deviation([1.0, 2.0, 3.0, 4.0])\n    1.0\n    \"\"\"\n    if not numbers:\n        return 0.0\n    \n    mean = sum(numbers) / len(numbers)\n    absolute_differences = [abs(x - mean) for x in numbers]\n    mad = sum(absolute_differences) / len(numbers)\n    \n    return mad\n```"
+        },
+        {
+          "correct": false,
+          "tokens": 1157,
+          "reply": "```python\nfrom typing import List\n\n\ndef intersperse(numbers: List[int], delimeter: int) -> List[int]:\n    \"\"\" Insert a number 'delimeter' between every two consecutive elements of input list `numbers'\n    >>> intersperse([], 4)\n    []\n    >>> intersperse([1, 2, 3], 4)\n    [1, 4, 2, 4, 3]\n    \"\"\"\n    if not numbers:\n        return []\n    \n    result = [numbers[0]]\n    for i in range(1, len(numbers)):\n        result.append(numbers[i-1])\n        result.append(delimeter)\n        result.append(numbers[i])\n    \n    return result\n```"
+        },
+        {
+          "correct": true,
+          "tokens": 912,
+          "reply": "```python\nfrom typing import List\n\n\ndef parse_nested_parens(paren_string: str) -> List[int]:\n    \"\"\" Input to this function is a string represented multiple groups for nested parentheses separated by spaces.\n    For each of the group, output the deepest level of nesting of parentheses.\n    E.g. (()()) has maximum two levels of nesting while ((())) has three.\n\n    >>> parse_nested_parens('(()()) ((())) () ((())()())')\n    [2, 3, 1, 3]\n    \"\"\"\n    result = []\n    \n    # Split the string by spaces to get individual groups\n    groups = paren_string.split()\n    \n    for group in groups:\n        max_level = 0\n        current_level = 0\n        \n        for char in group:\n            if char == '(':\n                current_level += 1\n                max_level = max(max_level, current_level)\n            elif char == ')':\n                current_level -= 1\n        \n        result.append(max_level)\n    \n    return result\n```"
+        },
+        {
+          "correct": true,
+          "tokens": 460,
+          "reply": "```python\nfrom typing import List\n\n\ndef filter_by_substring(strings: List[str], substring: str) -> List[str]:\n    \"\"\" Filter an input list of strings only for ones that contain given substring\n    >>> filter_by_substring([], 'a')\n    []\n    >>> filter_by_substring(['abc', 'bacd', 'cde', 'array'], 'a')\n    ['abc', 'bacd', 'array']\n    \"\"\"\n    return [string for string in strings if substring in string]\n```"
+        },
+        {
+          "correct": true,
+          "tokens": 416,
+          "reply": "```python\nfrom typing import List, Tuple\n\n\ndef sum_product(numbers: List[int]) -> Tuple[int, int]:\n    \"\"\" For a given list of integers, return a tuple consisting of a sum and a product of all the integers in a list.\n    Empty sum should be equal to 0 and empty product should be equal to 1.\n    >>> sum_product([])\n    (0, 1)\n    >>> sum_product([1, 2, 3, 4])\n    (10, 24)\n    \"\"\"\n    total_sum = 0\n    total_product = 1\n    \n    for num in numbers:\n        total_sum += num\n        total_product *= num\n    \n    return (total_sum, total_product)\n```"
+        },
+        {
+          "correct": true,
+          "tokens": 819,
+          "reply": "```python\nfrom typing import List, Tuple\n\n\ndef rolling_max(numbers: List[int]) -> List[int]:\n    \"\"\" From a given list of integers, generate a list of rolling maximum element found until given moment\n    in the sequence.\n    >>> rolling_max([1, 2, 3, 2, 3, 4, 2])\n    [1, 2, 3, 3, 3, 4, 4]\n    \"\"\"\n    if not numbers:\n        return []\n    \n    result = []\n    current_max = numbers[0]\n    \n    for num in numbers:\n        current_max = max(current_max, num)\n        result.append(current_max)\n    \n    return result\n```"
+        },
+        {
+          "correct": true,
+          "tokens": 1226,
+          "reply": "```python\ndef is_palindrome(string: str) -> bool:\n    \"\"\" Test if given string is a palindrome \"\"\"\n    return string == string[::-1]\n\n\ndef make_palindrome(string: str) -> str:\n    \"\"\" Find the shortest palindrome that begins with a supplied string.\n    Algorithm idea is simple:\n    - Find the longest postfix of supplied string that is a palindrome.\n    - Append to the end of the string reverse of a string prefix that comes before the palindromic suffix.\n    >>> make_palindrome('')\n    ''\n    >>> make_palindrome('cat')\n    'catac'\n    >>> make_palindrome('cata')\n    'catac'\n    \"\"\"\n    if not string:\n        return string\n\n    # Find the longest palindromic suffix\n    for length in range(len(string), 0, -1):\n        suffix = string[-length:]\n        if suffix == suffix[::-1]:\n            prefix = string[:-length]\n            return string + prefix[::-1]\n\n    return string\n```"
+        },
+        {
+          "correct": true,
+          "tokens": 917,
+          "reply": "```python\nfrom typing import List\n\n\ndef string_xor(a: str, b: str) -> str:\n    \"\"\" Input are two strings a and b consisting only of 1s and 0s.\n    Perform binary XOR on these inputs and return result also as a string.\n    >>> string_xor('010', '110')\n    '100'\n    \"\"\"\n    result = []\n    for i in range(len(a)):\n        if i < len(b):\n            result.append('1' if (a[i] == '1') ^ (b[i] == '1') else '0')\n        else:\n            result.append('0')\n    return ''.join(result)\n```"
+        },
+        {
+          "correct": true,
+          "tokens": 373,
+          "reply": "```python\nfrom typing import List, Optional\n\n\ndef longest(strings: List[str]) -> Optional[str]:\n    \"\"\" Out of list of strings, return the longest one. Return the first one in case of multiple\n    strings of the same length. Return None in case the input list is empty.\n    >>> longest([])\n\n    >>> longest(['a', 'b', 'c'])\n    'a'\n    >>> longest(['a', 'bb', 'ccc'])\n    'ccc'\n    \"\"\"\n    if not strings:\n        return None\n    \n    longest_str = strings[0]\n    for s in strings:\n        if len(s) > len(longest_str):\n            longest_str = s\n    \n    return longest_str\n```"
+        },
+        {
+          "correct": true,
+          "tokens": 622,
+          "reply": "```python\ndef greatest_common_divisor(a: int, b: int) -> int:\n    \"\"\" Return a greatest common divisor of two integers a and b\n    >>> greatest_common_divisor(3, 5)\n    1\n    >>> greatest_common_divisor(25, 15)\n    5\n    \"\"\"\n    while b != 0:\n        a, b = b, a % b\n    return a\n```"
+        },
+        {
+          "correct": true,
+          "tokens": 343,
+          "reply": "```python\nfrom typing import List\n\n\ndef all_prefixes(string: str) -> List[str]:\n    \"\"\" Return list of all prefixes from shortest to longest of the input string\n    >>> all_prefixes('abc')\n    ['a', 'ab', 'abc']\n    \"\"\"\n    prefixes = []\n    for i in range(len(string)):\n        prefixes.append(string[:i+1])\n    return prefixes\n```"
+        },
+        {
+          "correct": true,
+          "tokens": 337,
+          "reply": "```python\ndef string_sequence(n: int) -> str:\n    \"\"\" Return a string containing space-delimited numbers starting from 0 upto n inclusive.\n    >>> string_sequence(0)\n    '0'\n    >>> string_sequence(5)\n    '0 1 2 3 4 5'\n    \"\"\"\n    return ' '.join(str(i) for i in range(n + 1))\n```"
+        },
+        {
+          "correct": true,
+          "tokens": 377,
+          "reply": "```python\ndef count_distinct_characters(string: str) -> int:\n    \"\"\" Given a string, find out how many distinct characters (regardless of case) does it consist of\n    >>> count_distinct_characters('xyzXYZ')\n    3\n    >>> count_distinct_characters('Jerry')\n    4\n    \"\"\"\n    # Convert string to lowercase and create a set of unique characters\n    distinct_chars = set(string.lower())\n    return len(distinct_chars)\n```"
+        },
+        {
+          "correct": true,
+          "tokens": 867,
+          "reply": "```python\nfrom typing import List\n\n\ndef parse_music(music_string: str) -> List[int]:\n    \"\"\" Input to this function is a string representing musical notes in a special ASCII format.\n    Your task is to parse this string and return list of integers corresponding to how many beats does each\n    not last.\n\n    Here is a legend:\n    'o' - whole note, lasts four beats\n    'o|' - half note, lasts two beats\n    '.|' - quater note, lasts one beat\n\n    >>> parse_music('o o| .| o| o| .| .| .| .| o o')\n    [4, 2, 1, 2, 2, 1, 1, 1, 1, 4, 4]\n    \"\"\"\n    beats_map = {\n        'o': 4,\n        'o|': 2,\n        '.|': 1\n    }\n    \n    notes = music_string.split()\n    result = []\n    \n    for note in notes:\n        result.append(beats_map[note])\n    \n    return result\n```"
+        },
+        {
+          "correct": true,
+          "tokens": 699,
+          "reply": "```python\ndef how_many_times(string: str, substring: str) -> int:\n    \"\"\" Find how many times a given substring can be found in the original string. Count overlaping cases.\n    >>> how_many_times('', 'a')\n    0\n    >>> how_many_times('aaa', 'a')\n    3\n    >>> how_many_times('aaaa', 'aa')\n    3\n    \"\"\"\n    if not substring:\n        return 0\n    \n    count = 0\n    for i in range(len(string) - len(substring) + 1):\n        if string[i:i+len(substring)] == substring:\n            count += 1\n    \n    return count\n```"
+        },
+        {
+          "correct": true,
+          "tokens": 668,
+          "reply": "```python\nfrom typing import List\n\n\ndef sort_numbers(numbers: str) -> str:\n    \"\"\" Input is a space-delimited string of numberals from 'zero' to 'nine'.\n    Valid choices are 'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight' and 'nine'.\n    Return the string with numbers sorted from smallest to largest\n    >>> sort_numbers('three one five')\n    'one three five'\n    \"\"\"\n    number_map = {\n        'zero': 0,\n        'one': 1,\n        'two': 2,\n        'three': 3,\n        'four': 4,\n        'five': 5,\n        'six': 6,\n        'seven': 7,\n        'eight': 8,\n        'nine': 9\n    }\n    \n    words = numbers.split()\n    sorted_words = sorted(words, key=lambda x: number_map[x])\n    \n    return ' '.join(sorted_words)\n```"
+        },
+        {
+          "correct": true,
+          "tokens": 967,
+          "reply": "```python\nfrom typing import List, Tuple\n\n\ndef find_closest_elements(numbers: List[float]) -> Tuple[float, float]:\n    \"\"\" From a supplied list of numbers (of length at least two) select and return two that are the closest to each\n    other and return them in order (smaller number, larger number).\n    >>> find_closest_elements([1.0, 2.0, 3.0, 4.0, 5.0, 2.2])\n    (2.0, 2.2)\n    >>> find_closest_elements([1.0, 2.0, 3.0, 4.0, 5.0, 2.0])\n    (2.0, 2.0)\n    \"\"\"\n    sorted_numbers = sorted(numbers)\n    min_diff = float('inf')\n    closest_pair = (sorted_numbers[0], sorted_numbers[1])\n    \n    for i in range(len(sorted_numbers) - 1):\n        diff = sorted_numbers[i + 1] - sorted_numbers[i]\n        if diff < min_diff:\n            min_diff = diff\n            closest_pair = (sorted_numbers[i], sorted_numbers[i + 1])\n    \n    return closest_pair\n```"
+        },
+        {
+          "correct": true,
+          "tokens": 820,
+          "reply": "```python\nfrom typing import List\n\n\ndef rescale_to_unit(numbers: List[float]) -> List[float]:\n    \"\"\" Given list of numbers (of at least two elements), apply a linear transform to that list,\n    such that the smallest number will become 0 and the largest will become 1\n    >>> rescale_to_unit([1.0, 2.0, 3.0, 4.0, 5.0])\n    [0.0, 0.25, 0.5, 0.75, 1.0]\n    \"\"\"\n    min_val = min(numbers)\n    max_val = max(numbers)\n    \n    if max_val == min_val:\n        return [0.0] * len(numbers)\n    \n    range_val = max_val - min_val\n    return [(num - min_val) / range_val for num in numbers]\n```"
+        },
+        {
+          "correct": true,
+          "tokens": 627,
+          "reply": "```python\nfrom typing import List, Any\n\n\ndef filter_integers(values: List[Any]) -> List[int]:\n    \"\"\" Filter given list of any python values only for integers\n    >>> filter_integers(['a', 3.14, 5])\n    [5]\n    >>> filter_integers([1, 2, 3, 'abc', {}, []])\n    [1, 2, 3]\n    \"\"\"\n    return [value for value in values if isinstance(value, int)]\n```"
+        },
+        {
+          "correct": true,
+          "tokens": 165,
+          "reply": "```python\ndef strlen(string: str) -> int:\n    \"\"\" Return length of given string\n    >>> strlen('')\n    0\n    >>> strlen('abc')\n    3\n    \"\"\"\n    return len(string)\n```"
+        },
+        {
+          "correct": true,
+          "tokens": 1128,
+          "reply": "```python\ndef largest_divisor(n: int) -> int:\n    \"\"\" For a given number n, find the largest number that divides n evenly, smaller than n\n    >>> largest_divisor(15)\n    5\n    \"\"\"\n    if n <= 1:\n        return 1\n\n    # Find the smallest divisor greater than 1\n    smallest_divisor = n\n    for i in range(2, int(n**0.5) + 1):\n        if n % i == 0:\n            smallest_divisor = i\n            break\n\n    # If no divisor found (n is prime), largest proper divisor is 1\n    if smallest_divisor == n:\n        return 1\n\n    return n // smallest_divisor\n```"
+        },
+        {
+          "correct": true,
+          "tokens": 822,
+          "reply": "```python\nfrom typing import List\n\n\ndef factorize(n: int) -> List[int]:\n    \"\"\" Return list of prime factors of given integer in the order from smallest to largest.\n    Each of the factors should be listed number of times corresponding to how many times it appeares in factorization.\n    Input number should be equal to the product of all factors\n    >>> factorize(8)\n    [2, 2, 2]\n    >>> factorize(25)\n    [5, 5]\n    >>> factorize(70)\n    [2, 5, 7]\n    \"\"\"\n    factors = []\n    \n    # Handle edge case for n <= 1\n    if n <= 1:\n        return []\n    \n    # Check for factor 2\n    while n % 2 == 0:\n        factors.append(2)\n        n //= 2\n    \n    # Check for odd factors from 3 onwards\n    i = 3\n    while i * i <= n:\n        while n % i == 0:\n            factors.append(i)\n            n //= i\n        i += 2\n    \n    # If n > 1 after checking all factors, then n itself is prime\n    if n > 1:\n        factors.append(n)\n    \n    return factors\n```"
+        },
+        {
+          "correct": true,
+          "tokens": 855,
+          "reply": "```python\nfrom typing import List\n\ndef remove_duplicates(numbers: List[int]) -> List[int]:\n    \"\"\" From a list of integers, remove all elements that occur more than once.\n    Keep order of elements left the same as in the input.\n    >>> remove_duplicates([1, 2, 3, 2, 4])\n    [1, 3, 4]\n    \"\"\"\n    from collections import Counter\n    \n    count = Counter(numbers)\n    result = []\n    for num in numbers:\n        if count[num] == 1:\n            result.append(num)\n    \n    return result\n```"
+        },
+        {
+          "correct": true,
+          "tokens": 208,
+          "reply": "```python\ndef flip_case(string: str) -> str:\n    \"\"\" For a given string, flip lowercase characters to uppercase and uppercase to lowercase.\n    >>> flip_case('Hello')\n    'hELLO'\n    \"\"\"\n    return string.swapcase()\n```"
+        },
+        {
+          "correct": true,
+          "tokens": 266,
+          "reply": "```python\nfrom typing import List\n\n\ndef concatenate(strings: List[str]) -> str:\n    \"\"\" Concatenate list of strings into a single string\n    >>> concatenate([])\n    ''\n    >>> concatenate(['a', 'b', 'c'])\n    'abc'\n    \"\"\"\n    return \"\".join(strings)\n```"
+        },
+        {
+          "correct": true,
+          "tokens": 414,
+          "reply": "```python\nfrom typing import List\n\n\ndef filter_by_prefix(strings: List[str], prefix: str) -> List[str]:\n    \"\"\" Filter an input list of strings only for ones that start with a given prefix.\n    >>> filter_by_prefix([], 'a')\n    []\n    >>> filter_by_prefix(['abc', 'bcd', 'cde', 'array'], 'a')\n    ['abc', 'array']\n    \"\"\"\n    return [string for string in strings if string.startswith(prefix)]\n```"
+        },
+        {
+          "correct": true,
+          "tokens": 465,
+          "reply": "```python\ndef get_positive(l: list):\n    \"\"\"Return only positive numbers in the list.\n    >>> get_positive([-1, 2, -4, 5, 6])\n    [2, 5, 6]\n    >>> get_positive([5, 3, -5, 2, -3, 3, 9, 0, 123, 1, -10])\n    [5, 3, 2, 3, 9, 123, 1]\n    \"\"\"\n    return [x for x in l if x > 0]\n```"
+        },
+        {
+          "correct": true,
+          "tokens": 569,
+          "reply": "```python\ndef is_prime(n):\n    \"\"\"Return true if a given number is prime, and false otherwise.\n    >>> is_prime(6)\n    False\n    >>> is_prime(101)\n    True\n    >>> is_prime(11)\n    True\n    >>> is_prime(13441)\n    True\n    >>> is_prime(61)\n    True\n    >>> is_prime(4)\n    False\n    >>> is_prime(1)\n    False\n    \"\"\"\n    if n < 2:\n        return False\n    if n == 2:\n        return True\n    if n % 2 == 0:\n        return False\n    i = 3\n    while i * i <= n:\n        if n % i == 0:\n            return False\n        i += 2\n    return True\n```"
+        },
+        {
+          "correct": true,
+          "tokens": 1831,
+          "reply": "```python\nimport math\n\n\ndef poly(xs: list, x: float):\n    \"\"\"\n    Evaluates polynomial with coefficients xs at point x.\n    return xs[0] + xs[1] * x + xs[1] * x^2 + .... xs[n] * x^n\n    \"\"\"\n    return sum([coeff * math.pow(x, i) for i, coeff in enumerate(xs)])\n\n\ndef find_zero(xs: list):\n    \"\"\" xs are coefficients of a polynomial.\n    find_zero find x such that poly(x) = 0.\n    find_zero returns only only zero point, even if there are many.\n    Moreover, find_zero only takes list xs having even number of coefficients\n    and largest non zero coefficient as it guarantees\n    a solution.\n    >>> round(find_zero([1, 2]), 2) # f(x) = 1 + 2x\n    -0.5\n    >>> round(find_zero([-6, 11, -6, 1]), 2) # (x - 1) * (x - 2) * (x - 3) = -6 + 11x - 6x^2 + x^3\n    1.0\n    \"\"\"\n    def f(x):\n        return poly(xs, x)\n    \n    # Try to find a bracket [a, b] where f(a) and f(b) have opposite signs\n    a = -100.0\n    b = 100.0\n    \n    # Search for a sign change\n    while abs(f(a)) < 1e-10 and abs(f(b)) < 1e-10:\n        a += 1.0\n        b += 1.0\n    \n    # If still no sign change, use Newton's method with initial guess\n    if abs(f(a)) < 1e-10 and abs(f(b)) < 1e-10:\n        a = 0.0\n        b = 1.0\n    \n    # Bisection method to find the root\n    for _ in range(100):\n        c = (a + b) / 2.0\n        if f(c) == 0:\n            return c\n        if f(a) * f(c) < 0:\n            b = c\n        else:\n            a = c\n        if abs(b - a) < 1e-10:\n            return (a + b) / 2\n    \n    return (a + b) / 2\n```"
+        },
+        {
+          "correct": true,
+          "tokens": 1360,
+          "reply": "```python\ndef sort_third(l: list):\n    \"\"\"This function takes a list l and returns a list l' such that\n    l' is identical to l in the indicies that are not divisible by three, while its values at the indicies that are divisible by three are equal\n    to the values of the corresponding indicies of l, but sorted.\n    >>> sort_third([1, 2, 3])\n    [1, 2, 3]\n    >>> sort_third([5, 6, 3, 4, 8, 9, 2])\n    [2, 6, 3, 4, 8, 9, 5]\n    \"\"\"\n    result = list(l)\n    indices = [l[i] for i in range(len(l)) if i % 3 == 0]\n    indices.sort()\n    \n    for i in range(len(l)):\n        if i % 3 == 0:\n            result[i] = indices[i // 3]\n    \n    return result\n```"
+        },
+        {
+          "correct": true,
+          "tokens": 400,
+          "reply": "```python\ndef unique(l: list):\n    \"\"\"Return sorted unique elements in a list\n    >>> unique([5, 3, 5, 2, 3, 3, 9, 0, 123])\n    [0, 2, 3, 5, 9, 123]\n    \"\"\"\n    return sorted(list(set(l)))\n```"
+        },
+        {
+          "correct": true,
+          "tokens": 245,
+          "reply": "```python\ndef max_element(l: list):\n    \"\"\"Return maximum element in the list.\n    >>> max_element([1, 2, 3])\n    3\n    >>> max_element([5, 3, -5, 2, -3, 3, 9, 0, 123, 1, -10])\n    123\n    \"\"\"\n    return max(l)\n```"
+        },
+        {
+          "correct": false,
+          "tokens": 16384,
+          "reply": ""
+        },
+        {
+          "correct": true,
+          "tokens": 835,
+          "reply": "```python\ndef sort_even(l: list):\n    \"\"\"This function takes a list l and returns a list l' such that\n    l' is identical to l in the odd indicies, while its values at the even indicies are equal\n    to the values of the even indicies of l, but sorted.\n    >>> sort_even([1, 2, 3])\n    [1, 2, 3]\n    >>> sort_even([5, 6, 3, 4])\n    [3, 6, 5, 4]\n    \"\"\"\n    # Extract values at even indices\n    even_values = [l[i] for i in range(0, len(l), 2)]\n    # Sort the even values\n    even_values.sort()\n    # Create result list\n    result = [None] * len(l)\n    # Place sorted even values at even indices\n    for i, val in enumerate(even_values):\n        result[2 * i] = val\n    # Place original odd values at odd indices\n    for i in range(1, len(l), 2):\n        result[i] = l[i]\n    return result\n```"
+        },
+        {
+          "correct": false,
+          "tokens": 16384,
+          "reply": ""
+        },
+        {
+          "correct": false,
+          "tokens": 16384,
+          "reply": ""
+        }
+      ]
+    }
+  }
+}

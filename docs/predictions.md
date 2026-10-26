@@ -602,3 +602,21 @@ Two smoke tests have now been seen, so two clauses are no longer blind and will 
 Changes, for time and so that cut-off thoughts do not dominate: 16,384 tokens per reply and 18,432 context per slot;
 samples cut to GSM8K 50, MMLU-Pro 4 per subject (56), HumanEval 40. Still two passes in mirrored order on a quiet Mac.
 The accuracy and energy clauses stay blind: neither smoke run measured them at these settings.
+
+### 12:47 entry (what thinking costs): verdict at 15:42
+
+Run 13:37 to 15:41 on the M5 Pro. GSM8K 50, MMLU-Pro 56, HumanEval 40; 16,384 tokens per reply; off, on, on, off.
+Accuracy and tokens were identical in both passes of each condition (the decoding is repeatable), so the two passes
+differ only in energy. The first thinking pass (13:45 to 14:42) overlapped this session's box-server tests and
+schematic commits; its idle reading was 2.97 W against 0.56 to 1.77 W for the others, and MMLU-Pro drew 35.8 W
+against 28.2 W at a similar speed. Its energy is reported, not trusted.
+- Tokens: x8.8 GSM8K, x8.3 MMLU-Pro (inside 4 to 10), x12.4 HumanEval (outside 3 to 8). Seen in the smoke tests;
+  not counted.
+- Accuracy: GSM8K 98.0 to 92.0 (-6.0; 3 to 10 up predicted), MMLU-Pro 64.3 to 57.1 (-7.1; 5 to 15 up predicted),
+  HumanEval 85.0 to 87.5 (+2.5; 0 to 10 predicted). Missed on two tasks of three. Every lost answer but one was a
+  reply cut off at 16,384 tokens; on the questions where thinking finished it tied or won on all three tasks.
+- Joules per correct over the three tasks: x7.2 on the clean pair (second passes), x8.1 with all four passes
+  (3 to 8 predicted). Not resolved: inside on the clean data, just outside with the busy pass. Not cheaper on any
+  single task: held on every pairing.
+- Cut off: 6%, 30% and 10% of thinking replies (under 5% predicted). Failed in the smoke test; not counted.
+Note 29.

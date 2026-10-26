@@ -85,6 +85,11 @@ runs slowly does not save energy per token. Finish fast, then idle.
 Foundry today ships the first row without the clock cap and with the draft off by default
 (Fast mode turns it on). The gaps between Foundry and this table are the next things to build.
 
+Thinking stays off by default on small models. On a 4B it cost about seven times the energy per correct
+answer and scored lower on maths and knowledge, because a third of its knowledge replies ran out of room
+(note 29). A 2,048-token thinking budget that falls back to a plain answer kept its gain on code at a
+third of the tokens, in a replay of recorded replies.
+
 ## From one machine to a cell
 
 The same recipe scaled: six capped decode modules and one prefill module in a cell, a hundred cells in
@@ -102,3 +107,4 @@ energy, so the gap a cell has to close is named: host, supplies, fans and idle.
 - Whether an 8-slot 7B beats a 1-slot 32B per correct answer on the Strix Halo. Both are measured
   alone; the comparison is not.
 - Speculative decoding on a model family other than Qwen2.5. The format and batching findings hold on IBM's Granite 3.3 2B (note 28).
+- The thinking budget with a fallback, run live rather than replayed, on a larger code sample.

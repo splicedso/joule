@@ -9,3 +9,15 @@ mmlu_pro {"n": 56, "correct": 36, "accuracy": 0.6429, "seconds": 347.9281, "toke
 humaneval {"n": 40, "correct": 34, "accuracy": 0.85, "seconds": 54.1554, "tokens": 7279, "tokens_per_answer": 181.975, "tok_s": 134.4095, "soc_w": 25.9016, "chip_j": 1402.71, "chip_j_per_correct": 41.2562}
 overall {"model": "qwen35-4b-Q4_0.gguf", "slots": 8, "think": "0", "max_tokens": 16384, "server_args": "", "idle_soc_w": 1.7692, "mean_accuracy": 0.8243, "chip_j_per_correct_all": 113.4441}
 gsm8k {"n": 50, "correct": 46, "accuracy": 0.92, "seconds": 684.1038, "tokens": 161418, "tokens_per_answer": 3228.36, "tok_s": 235.9554, "soc_w": 31.7885, "chip_j": 21746.6407, "chip_j_per_correct": 472.7531}
+mmlu_pro {"n": 56, "correct": 32, "accuracy": 0.5714, "seconds": 1936.1746, "tokens": 402174, "tokens_per_answer": 7181.6786, "tok_s": 207.7158, "soc_w": 35.7992, "chip_j": 69313.4641, "chip_j_per_correct": 2166.0458}
+humaneval {"n": 40, "correct": 35, "accuracy": 0.875, "seconds": 807.8028, "tokens": 90003, "tokens_per_answer": 2250.075, "tok_s": 111.417, "soc_w": 29.6441, "chip_j": 23946.5854, "chip_j_per_correct": 684.1882}
+overall {"model": "qwen35-4b-Q4_0.gguf", "slots": 8, "think": "1", "max_tokens": 16384, "server_args": "", "idle_soc_w": 2.9683, "mean_accuracy": 0.7888, "chip_j_per_correct_all": 1017.7583}
+gsm8k {"n": 50, "correct": 46, "accuracy": 0.92, "seconds": 649.2672, "tokens": 161418, "tokens_per_answer": 3228.36, "tok_s": 248.6157, "soc_w": 29.5189, "chip_j": 19165.6299, "chip_j_per_correct": 416.6441}
+mmlu_pro {"n": 56, "correct": 32, "accuracy": 0.5714, "seconds": 1838.1079, "tokens": 402309, "tokens_per_answer": 7184.0893, "tok_s": 218.8713, "soc_w": 28.2488, "chip_j": 51924.3425, "chip_j_per_correct": 1622.6357}
+humaneval {"n": 40, "correct": 35, "accuracy": 0.875, "seconds": 510.2177, "tokens": 89971, "tokens_per_answer": 2249.275, "tok_s": 176.3384, "soc_w": 29.8717, "chip_j": 15241.0476, "chip_j_per_correct": 435.4585}
+overall {"model": "qwen35-4b-Q4_0.gguf", "slots": 8, "think": "1", "max_tokens": 16384, "server_args": "", "idle_soc_w": 0.5572, "mean_accuracy": 0.7888, "chip_j_per_correct_all": 763.9913}
+gsm8k {"n": 50, "correct": 49, "accuracy": 0.98, "seconds": 68.6099, "tokens": 18283, "tokens_per_answer": 365.66, "tok_s": 266.4778, "soc_w": 30.8414, "chip_j": 2116.0243, "chip_j_per_correct": 43.1842}
+mmlu_pro {"n": 56, "correct": 36, "accuracy": 0.6429, "seconds": 355.7639, "tokens": 48708, "tokens_per_answer": 869.7857, "tok_s": 136.911, "soc_w": 26.4494, "chip_j": 9409.7334, "chip_j_per_correct": 261.3815}
+humaneval {"n": 40, "correct": 34, "accuracy": 0.85, "seconds": 52.7599, "tokens": 7279, "tokens_per_answer": 181.975, "tok_s": 137.9646, "soc_w": 22.33, "chip_j": 1178.1313, "chip_j_per_correct": 34.6509}
+overall {"model": "qwen35-4b-Q4_0.gguf", "slots": 8, "think": "0", "max_tokens": 16384, "server_args": "", "idle_soc_w": 0.7032, "mean_accuracy": 0.8243, "chip_j_per_correct_all": 106.7554}
+exit 0 15:41:02
