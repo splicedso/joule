@@ -69,6 +69,22 @@ DeepSeek's own draft heads (`--spec-type draft-mtp`, `draft-dspark`).
   decoding at low concurrency only (note 25), the per-machine batch (note 24).
 - Bar: beats its own base on the general eval and on the tuned tasks, at no more cost per correct answer.
 
+**Phase 2 pilot, starting now: beat the base with its own answers (Martin, 26 October: "with the Halo, lock in
+and train the models to be better than what they are derivatives of").**
+- Method: rejection-sampling fine-tuning. The model answers each training problem four times (temperature 0.8,
+  its own chat format, no length limit below 1,024 tokens); a checker keeps the correct answers, at most two per
+  problem; the model is fine-tuned on those, one epoch, full weights at 1.5B (qat.py's plain path, QUANT=0, with
+  its data swapped). Then the same again from the improved model (a second round), if the first one pays.
+- Data, all with checkable answers: GSM8K train (MIT, maths, the answer number) and MBPP train (CC-BY-4.0, code,
+  its tests run in a separate process). Nothing from any test set.
+- First model: Qwen2.5 1.5B Instruct, because its stock numbers are measured on both machines. Then the same
+  recipe on Qwen3.6 35B-A3B with LoRA, the flagship's first base.
+- Judged on `general_eval.py`, never on the training tasks alone: GSM8K test, HumanEval (code it did not train on;
+  MBPP is the training set) and MMLU-Pro (knowledge, a guard against forgetting).
+- Bar: at least 3 points over the stock model on GSM8K at Q4_0; HumanEval and MMLU-Pro no worse than 1 point below
+  stock; tokens per answer within 20% of stock (note 27's trap was answers a third as long). If the first round
+  misses, the note says which of the three failed.
+
 **Phase 3: the pod.**
 - The V1 pod design (84 nodes) holds about 9 replicas of DeepSeek V4 Pro at 4.5 bits. That is the "runs on one of
   our clusters" goal, and it starts with Phase 1's two-node measurement, not before.
