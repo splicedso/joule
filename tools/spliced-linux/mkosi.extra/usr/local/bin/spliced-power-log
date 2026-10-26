@@ -1,14 +1,19 @@
 #!/bin/sh
-# Append package power (W), active shader clock (MHz), GPU busy (%) and every hwmon temperature (C) every N s.
+# Append package power (W), active shader clock (MHz), GPU busy (%) and every hwmon temperature (C, named)
+# every N seconds. Exits non-zero with a message if there is no amdgpu device, instead of logging nothing.
+#   spliced-power-log OUT.csv [N]
 OUT="$1"; N="${2:-10}"
-D=$(ls -d /sys/class/drm/card*/device | head -1)
+D=$(ls -d /sys/class/drm/card*/device 2>/dev/null | head -1)
+[ -n "$D" ] && [ -d "$D/hwmon" ] || { echo "spliced-power-log: no amdgpu device with hwmon; not logging" >&2; exit 2; }
 HW=$(ls -d "$D"/hwmon/hwmon* | head -1)
-[ -f "$OUT" ] || echo "epoch,package_w,sclk_mhz,busy_pct,temps_c" >> "$OUT"
+mkdir -p "$(dirname "$OUT")" || exit 1
+names=$(for h in /sys/class/hwmon/hwmon*; do for f in "$h"/temp*_input; do [ -e "$f" ] && printf ',%s_%s_c' "$(cat "$h/name")" "$(basename "$f" _input)"; done; done)
+[ -f "$OUT" ] || echo "epoch,package_w,sclk_mhz,busy_pct$names" >> "$OUT"
 while true; do
-  P=$(cat "$HW/power1_average" 2>/dev/null || echo 0); P=$(echo "scale=1; $P/1000000" | bc)
-  C=$(grep '\*' "$D/pp_dpm_sclk" | grep -o '[0-9]*Mhz' | tr -d 'Mhz')
-  B=$(cat "$D/gpu_busy_percent" 2>/dev/null || echo 0)
-  T=$(for f in /sys/class/hwmon/hwmon*/temp*_input; do echo "scale=1; $(cat $f)/1000" | bc; done | tr '\n' ' ')
-  echo "$(date +%s),$P,$C,$B,$T" >> "$OUT"
+  P=$(awk '{printf "%.1f", $1/1000000}' "$HW/power1_average" 2>/dev/null || echo "")
+  C=$(grep '\*' "$D/pp_dpm_sclk" 2>/dev/null | grep -o '[0-9]*Mhz' | grep -o '[0-9]*' | head -1)
+  B=$(cat "$D/gpu_busy_percent" 2>/dev/null)
+  T=$(for h in /sys/class/hwmon/hwmon*; do for f in "$h"/temp*_input; do [ -e "$f" ] && awk '{printf ",%.1f", $1/1000}' "$f"; done; done)
+  echo "$(date +%s),$P,$C,$B$T" >> "$OUT"
   sleep "$N"
 done

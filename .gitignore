@@ -4,3 +4,6 @@ __pycache__/
 data/
 vendor/
 logs/
+tools/spliced-linux/image/
+tools/spliced-linux/mkosi.cache/
+tools/spliced-linux/mkosi.builddir/

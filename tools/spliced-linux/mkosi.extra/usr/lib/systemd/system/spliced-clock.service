@@ -1,6 +1,6 @@
 [Unit]
 Description=Spliced clock policy: cap the shader clock and verify it under load
-After=multi-user.target
+After=sysinit.target
 Before=spliced-fabric.service
 
 [Service]
