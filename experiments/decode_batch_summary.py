@@ -26,4 +26,6 @@ for b in sorted(by):
     tok_s = (p1["tok_s"] + p2["tok_s"]) / 2
     w = (p1["watts"] + p2["watts"]) / 2
     print(f'| {b} | {tok_s:.1f} | {tok_s / b:.1f} | {w:.1f} | {p1["mj_per_token"]:.0f} | {p2["mj_per_token"]:.0f} | {m:.0f} | {100 * (1 - m / base):.0f}% less | {100 * spread:.1f}% |')
+thin = sorted({r["batch"] for r in d["rows"] if r["samples"] < 5})
+if thin: print(f"\nthin windows (under 5 power samples) at batch {thin}: those rows lean on a second tool or a longer answer")
 print("\nper_token_factor:", json.dumps(factor))

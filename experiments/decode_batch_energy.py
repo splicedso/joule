@@ -8,13 +8,14 @@ machine's power sampler for watts over the same window. Two passes, the second r
     uv run python experiments/decode_batch_energy.py models/qwen2.5-7b-instruct-q4_0.gguf results/decode-batch-mac-7b.json
 
 Mac: power from macmon (chip only). Linux: from the amdgpu hwmon (package). Wall power is not measured
-here; the note says so. Never run with a browser or Blender open.
+here; the note says so. Never run with a browser or Blender open. ANSWER=512 in the environment lengthens
+every window four times (keep 128 for a row meant to compare with note 24).
 """
 import json, os, shutil, subprocess, sys, threading, time, urllib.request
 
 MODEL, OUT = sys.argv[1], sys.argv[2]
 BATCHES = [1, 2, 4, 8, 16, 32]
-ANSWER = 128
+ANSWER = int(os.environ.get("ANSWER", 128))  # tokens per answer; note 24 used 128. A 1.5B at batch 1 gives a 0.7 s window at 128: raise it for small models
 PROMPT = "Write a plain paragraph about the weather in a city of your choice, about two hundred words long."
 SERVER = shutil.which("llama-server") or "/opt/homebrew/bin/llama-server"
 PORT = 18555
