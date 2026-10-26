@@ -56,6 +56,8 @@ The same shape at a fifth of the size: lowest at 16, 12% more at 32, total throu
 
 Batch 1 to 8 reproduces note 1, which measured the same model and format with a different tool (llama-batched-bench, 512-token answers): 104.7, 103.3, 54.3 and 29.3 mJ per token there against 97, 100, 53 and 30 here, within 8% at every batch, including the finding that batch 2 saves nothing because chip power nearly doubles.
 
+**Checked with longer windows.** The 1.5B's small-batch rows above rest on 2 to 4 power samples each. A third prediction, committed before the rerun, repeated them with 512-token answers, four times every window, 11 to 75 samples each (`ANSWER=512`, `results/decode-batch-mac-1.5b-q4_0-a512.json`). Batch 1 to 8 came back at 105, 103, 54 and 30 mJ per token, within 8% of the short run, the knee stayed at 16 and batch 32 stayed above it. The passes did not agree within 5%: they spread 4 to 10%, and the second pass was higher at every batch. The second pass runs in reverse, straight after the two longest windows, so it meets a warmer chip. That is a run-order effect the short run was too brief to show, and it is the reason the tables above are means of both orders.
+
 ## What this changes
 
 - Fabric's cost table carried note 1's 1.5B curve to batch 8 as its batch curve, labelled as transferred. It now carries the 7B curve to 32, still transferred to the Strix Halo until the same script runs there, with the knee at 16.
@@ -65,7 +67,7 @@ Batch 1 to 8 reproduces note 1, which measured the same model and format with a 
 ## Limits
 
 - Chip energy only, not wall. Idle and board power are a fixed cost per second, so at the wall batching pays more than this table shows and the knee moves later, not earlier.
-- Short windows. 7B: 2.3 seconds and 10 power samples at batch 1, 12.7 seconds at 32; two batches spread over 5% between passes. 1.5B: 0.7 seconds and 2 samples at batch 1, 3 to 4 samples through batch 8, 7 at 16 and 19 at 32, so its small-batch rows are thin on power and stand on their agreement with note 1; the knee rows have 7 and 19 samples.
+- Short windows. 7B: 2.3 seconds and 10 power samples at batch 1, 12.7 seconds at 32; two batches spread over 5% between passes. 1.5B: 0.7 seconds and 2 samples at batch 1, 3 to 4 samples through batch 8, 7 at 16 and 19 at 32, so its small-batch rows were thin on power; a 512-token rerun with 11 to 75 samples per window reproduced them within 8% (section 4). Longer windows show a run-order effect: the reversed pass, after the batch-32 runs, reads 4 to 10% higher.
 - One prompt and one answer length. Longer contexts make the KV-cache read a larger share of each step and move the knee down (note 14 measured batching at 4,096-token contexts on the Windows laptop; this run did not vary context).
 - The 7B is Q4_K_M, not the Q4_0 the prediction names. Note 5 found the two read the same bytes with Q4_K costing more to unpack; the shape of the curve should carry, the mJ figures are Q4_K_M's.
 - Why batch 32 is slower in total than 16 was not isolated; the server was started fresh per batch and the context per slot was constant, so it is the batch, not memory pressure from a larger context.
@@ -78,6 +80,7 @@ uv run python experiments/decode_batch_energy.py models/Qwen2.5-7B-Instruct-Q4_K
 uv run python experiments/decode_batch_summary.py results/decode-batch-mac-7b-q4km.json
 uv run python experiments/decode_batch_energy.py models/qwen2.5-1.5b-instruct-q4_0.gguf results/decode-batch-mac-1.5b-q4_0.json
 uv run python experiments/decode_batch_summary.py results/decode-batch-mac-1.5b-q4_0.json
+ANSWER=512 uv run python experiments/decode_batch_energy.py models/qwen2.5-1.5b-instruct-q4_0.gguf results/decode-batch-mac-1.5b-q4_0-a512.json
 ```
 
-Nothing else running: no browser, no Blender. Raw results: `results/decode-batch-mac-7b-q4km.json`, `results/decode-batch-mac-1.5b-q4_0.json`.
+Nothing else running: no browser, no Blender. Raw results: `results/decode-batch-mac-7b-q4km.json`, `results/decode-batch-mac-1.5b-q4_0.json`, `results/decode-batch-mac-1.5b-q4_0-a512.json`.

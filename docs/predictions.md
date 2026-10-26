@@ -162,3 +162,12 @@ Note 24's 1.5B rows at batch 1 to 8 had 2 to 4 samples each. This rerun checks t
   attention reads a longer KV cache on average (up to about 540 tokens against about 150).
 - The knee stays at 16; batch 32 still costs more per token than 16.
 - Passes within 5% at every batch, now that no window has fewer than 8 samples.
+
+### Result (2026-10-25, 23:41 PT; run started 23:40:50, prediction commit 3b014a5 at 23:40:34, label fixed in 36418f3 before the start)
+
+- Batch 1 to 8 within 10% of the 128-token run: 105, 103, 54, 30 against 97, 100, 53, 30 (+8, +3, +2, 0%),
+  higher where it moved. Held.
+- Knee at 16 (26 mJ), batch 32 higher (29). Held.
+- Passes within 5% at every batch: missed. Spread 3.8 to 10.4%, and pass 2 is higher than pass 1 in all six
+  rows. Pass 2 runs in reverse, straight after the two longest windows (batch 32, about 16 s each), so it
+  meets a warmer chip; that is run order, not noise. Every window had 11 to 75 power samples.
