@@ -22,22 +22,29 @@ the Strix Halo part, 128 GB of memory, storage, the network ports, its own fan. 
 is not a carrier that needs a host; it is a node that is a computer. Everything about the sizes
 changes with that:
 
-- **Node.** One box, 0.2 by 0.2 by 0.05 m, air in through slots on both sides, a blower over a fin
-  stack, air out the back. Power barrel, two network ports, one USB-C for setup, a badge. It runs
-  Spliced Linux and Fabric alone; it is the desk unit, the local-hosting product, and the thing we
-  already have on the bench (minus the badge and our image).
-- **Tray.** A 2U, 19-inch, 0.5 m deep tray holds eight nodes flat in two rows of four, with a fan
-  bar at the rear that pulls through both rows; the rear row is reached by sliding the tray out.
-  No host board: every node is its own host. The tray carries only power distribution and a
-  front lip.
-- **Pod.** Eighteen trays in a 42U rack is 144 nodes, a power shelf at the bottom and a 32-port
-  switch at the top; the tray's own ports uplink through a small switch per tray or a breakout.
+- **Node.** The box on the bench is AMD's Ryzen AI Halo developer platform, RAH-001 (board by
+  Compal): 150 by 150 by 45 mm, 1.2 kg, two blowers, air in through the top and both sides across a
+  finned heatsink and out the rear, 120 W TDP on a 240 W USB-C supply. Rear: USB-C power, three
+  USB-C (two USB4), HDMI, one 10GbE, a lock slot. Dimensions and airflow from AMD's user guide and
+  reviews, not a ruler; Martin can confirm with one. The node design matches that shape exactly,
+  with a badge, Spliced Linux and Fabric. It is the desk unit and the local-hosting product.
+- **Tray.** The top-and-side intake decides the tray: nodes cannot be stacked or packed tight. A
+  2U, 19-inch, 0.3 m deep tray holds two nodes flat, side by side with 100 mm between them and
+  clear air above, backs to a rear plenum with three fans pulling through. No host board: every node
+  is its own host. The tray carries power distribution and a front lip. Two per tray is honest for
+  the box as it is; a Spliced shell with front intake, which is the carrier design, would allow
+  three or four across. That is the first piece of hardware worth making.
+- **Pod.** Eighteen trays in a 42U rack is 36 nodes, about 3.1 kW busy on the measured per-node
+  figures (85 W plus the tray fans), a power shelf at the bottom and a 32-port switch at the top; the
+  node's own 10GbE uplinks to it. A pod of 36 serves about 6,900 tokens per second on a 7B.
 - **Row.** Pods in hot-aisle containment, as before.
 
-The numbers per node are the measured module numbers, because the node is the module we measure:
-81 to 87 W capped at eight slots, 17 to 26 W idle, 192 tokens per second on a 7B. The overhead
-question becomes the node's own fan and power stage plus the tray's fan bar, which the box we own
-already answers for the first part: the whole machine, not the package, is what the power log reads.
+The numbers per node are the measured module numbers, because the node is the box we measure:
+81 to 87 W capped at eight slots, 17 to 26 W idle, 192 tokens per second on a 7B. Those are package
+readings; the node's own blowers, memory and the 240 W brick are outside them, and the one number
+V1 needs first is the node's wall power under the cap, which costs a plug-in meter and an afternoon.
+The row controller, Spliced Linux and Fabric run on the nodes themselves; the only Spliced hardware
+in V1 is the tray's sheet metal and, later, the carrier shell.
 
 The sled-with-carriers design below is kept as the record of the previous revision.
 
