@@ -222,3 +222,17 @@ model learns from average 93 tokens (median 85, 90th percentile 150).
 - Against stock Q4_0, QAT Q2_K is **25 to 50% cheaper** per correct answer at 8 slots, almost all of it from
   shorter answers. If that happens, the bar's energy half is met for the wrong reason, and the note says so:
   the win belongs to the fine-tuning, which a Q4_0 file of the same model keeps and improves on.
+
+## 2026-10-26, 07:31 PT
+
+**Lattice v1, the plain fine-tune control** (Strix Halo, `experiments/lattice_plain.sh`: `qat.py` with QUANT=0, so the
+identical data, 910 steps, LR, schedule, seed and fp32 masters, with fake quantization off; exported at F16 and plain
+Q4_0; quality.py GSM8K-250, 8 slots, two passes). QAT gave 24% at Q2_K and 26% at Q4_0 (stock Q4_0 65.6%), with answers
+of 84 to 86 tokens against stock's 248; the Q4_0 control showed the export is not the loss, not which of the grid or
+the terse GSM8K answers is.
+- The plain fine-tune scores **55 to 65%** at F16: within 11 points of stock. The 2-bit grid, not the data, did most of
+  the damage, and the next Lattice step is a grid that matches llama.cpp's Q2_K mix.
+- Its answers are short too: **85 to 110 tokens**. The data sets the length, the grid does not.
+- Its Q4_0 file is within 2 points of its F16.
+- Because answers are about 2.5 times shorter at a similar accuracy, its Q4_0 file is **cheaper per correct answer than
+  stock Q4_0 by 40 to 60%** at 8 slots: the length effect, measured on its own.

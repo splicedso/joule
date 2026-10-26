@@ -26,7 +26,8 @@ the artefact is a real Q2_K file quality.py can run.
     .venv-torch/bin/python experiments/lattice/qat.py models/hf-1.5b models/lattice-1.5b-qat
 
 Environment: STEPS (0 = one epoch of GSM8K train), LR (1e-5), BATCH (8), SEQ (1024), GENERAL_FRAC (0.3),
-GROUP (16), EVAL_EVERY (100), SEED (3).
+GROUP (16), EVAL_EVERY (100), SEED (3), QUANT (1; 0 trains the identical setup with fake quantization off:
+fp32 masters for the same linears, same data, steps, LR and schedule, so only the grid differs).
 """
 
 import json
@@ -52,6 +53,7 @@ GENERAL_FRAC = float(os.environ.get("GENERAL_FRAC", 0.3))
 GROUP = int(os.environ.get("GROUP", 16))
 EVAL_EVERY = int(os.environ.get("EVAL_EVERY", 100))
 SEED = int(os.environ.get("SEED", 3))
+QUANT = os.environ.get("QUANT", "1") != "0"   # 0: the same fine-tune with fake quantization off (the plain control)
 QMAX = 3                      # 2-bit: q in 0..3
 HELD_OUT = 200
 GSM8K_TRAIN = Path("data/gsm8k-train.jsonl")
@@ -101,13 +103,13 @@ class QLinear(nn.Module):
         return FakeQuant.apply(g, self.scale.clamp(min=1e-6), self.min).view(out_f, in_f)
 
     def forward(self, x):
-        w = self.quantized_weight()
+        w = self.quantized_weight() if QUANT else self.weight
         return F.linear(x, w.to(x.dtype), None if self.bias is None else self.bias.to(x.dtype))
 
     def bake(self) -> nn.Linear:
         lin = nn.Linear(self.weight.shape[1], self.weight.shape[0], bias=self.bias is not None)
         with torch.no_grad():
-            lin.weight.copy_(self.quantized_weight().to(torch.bfloat16))
+            lin.weight.copy_((self.quantized_weight() if QUANT else self.weight).to(torch.bfloat16))
             if self.bias is not None:
                 lin.bias.copy_(self.bias.to(torch.bfloat16))
         return lin.to(torch.bfloat16)
@@ -209,8 +211,8 @@ def main():
     v0 = validate(model, held, pad)
     print(f"{DEVICE}: {n_q} linears fake-quantized (group {GROUP}, {QMAX + 1} levels); {len(train)} train, {len(held)} held out; "
           f"{total} steps, batch {BATCH}; held-out loss before training {v0:.4f}", flush=True)
-    qc0 = quant_check(model)
-    print("quant check at step 0:", json.dumps(qc0), flush=True)
+    qc0 = quant_check(model) if QUANT else None
+    print("quant check at step 0:" if QUANT else "QUANT=0: fake quantization off (plain fine-tune)", json.dumps(qc0) if QUANT else "", flush=True)
     log = [{"step": 0, "valid_loss": v0}]
     order = list(range(len(train))); random.shuffle(order)
     t0, pos = time.monotonic(), 0
@@ -236,13 +238,14 @@ def main():
             v = validate(model, held, pad)
             log.append({"step": step, "train_loss": loss.item(), "valid_loss": v})
             print(f"step {step} held-out loss {v:.4f}", flush=True)
-    qc1 = quant_check(model)
-    print("quant check at the end:", json.dumps(qc1), flush=True)
+    qc1 = quant_check(model) if QUANT else None
+    if QUANT:
+        print("quant check at the end:", json.dumps(qc1), flush=True)
     n_b = swap(model, False)
     model.config.use_cache = True
     model.to(torch.bfloat16).save_pretrained(out)
     tok.save_pretrained(out)
-    (out / "train_log.json").write_text(json.dumps({"steps": total, "lr": LR, "batch": BATCH, "group": GROUP, "general_frac": GENERAL_FRAC,
+    (out / "train_log.json").write_text(json.dumps({"quant": QUANT, "steps": total, "lr": LR, "batch": BATCH, "group": GROUP, "general_frac": GENERAL_FRAC,
                                                     "baked_linears": n_b, "quant_check_step0": qc0, "quant_check_end": qc1, "peak_gib": torch.cuda.max_memory_allocated() / 2**30 if DEVICE == "cuda" else None,
                                                     "minutes": (time.monotonic() - t0) / 60, "log": log}, indent=2) + "\n")
     print(f"saved {out} ({n_b} linears baked) after {(time.monotonic() - t0) / 60:.1f} min", flush=True)
