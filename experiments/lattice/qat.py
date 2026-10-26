@@ -25,7 +25,8 @@ the artefact is a real Q2_K file quality.py can run.
 
     .venv-torch/bin/python experiments/lattice/qat.py models/hf-1.5b models/lattice-1.5b-qat
 
-Environment: STEPS (0 = one epoch of GSM8K train), LR (1e-5), BATCH (8), SEQ (1024), GENERAL_FRAC (0.3),
+Environment: DATA (a JSONL of {"prompt", "response"} to train on instead of GSM8K's worked answers; one epoch then
+counts the general-text batches on top), STEPS (0 = one epoch of GSM8K train), LR (1e-5), BATCH (8), SEQ (1024), GENERAL_FRAC (0.3),
 GROUP (16), EVAL_EVERY (100), SEED (3), QUANT (1; 0 trains the identical setup with fake quantization off:
 fp32 masters for the same linears, same data, steps, LR and schedule, so only the grid differs).
 """
@@ -53,7 +54,8 @@ GENERAL_FRAC = float(os.environ.get("GENERAL_FRAC", 0.3))
 GROUP = int(os.environ.get("GROUP", 16))
 EVAL_EVERY = int(os.environ.get("EVAL_EVERY", 100))
 SEED = int(os.environ.get("SEED", 3))
-QUANT = os.environ.get("QUANT", "1") != "0"   # 0: the same fine-tune with fake quantization off (the plain control)
+QUANT = os.environ.get("QUANT", "1") != "0"
+DATA = os.environ.get("DATA")   # a JSONL of {"prompt", "response"} to train on instead of GSM8K's worked answers (e.g. RFT)   # 0: the same fine-tune with fake quantization off (the plain control)
 QMAX = 3                      # 2-bit: q in 0..3
 HELD_OUT = 200
 GSM8K_TRAIN = Path("data/gsm8k-train.jsonl")
@@ -145,6 +147,20 @@ def gsm8k_examples(tok):
     return out[:-HELD_OUT], out[-HELD_OUT:]
 
 
+def data_examples(tok, path):
+    """Chat examples from a JSONL of {"prompt": user text, "response": assistant text}, loss on the response only,
+    in the same chat format as gsm8k_examples; 200 held out (seeded shuffle) for the validation loss."""
+    rows = [json.loads(l) for l in Path(path).read_text().splitlines()]
+    random.Random(SEED).shuffle(rows)
+    out = []
+    for r in rows:
+        prompt = tok.apply_chat_template([{"role": "user", "content": r["prompt"]}], tokenize=False, add_generation_prompt=True)
+        p_ids = tok(prompt, add_special_tokens=False)["input_ids"]
+        a_ids = tok(r["response"] + "<|im_end|>", add_special_tokens=False)["input_ids"]
+        out.append(((p_ids + a_ids)[:SEQ], ([-100] * len(p_ids) + a_ids)[:SEQ]))
+    return out[:-HELD_OUT], out[-HELD_OUT:]
+
+
 def general_batch(mm, rng, n, length=512):
     """Random windows of general text; labels are the ids (the loss shifts by one), loss on every token."""
     starts = rng.integers(0, len(mm) - length, size=n)
@@ -199,10 +215,11 @@ def main():
     model.gradient_checkpointing_enable()
     model.config.use_cache = False
     n_q = swap(model, True)
-    train, held = gsm8k_examples(tok)
+    train, held = data_examples(tok, DATA) if DATA else gsm8k_examples(tok)
     mm = np.memmap(GENERAL, dtype=np.uint32, mode="r")
     pad = tok.pad_token_id
-    total = STEPS or math.ceil(len(train) / BATCH)
+    # with DATA, one epoch means every example once, so the steps given to general text are added on top
+    total = STEPS or (math.ceil(len(train) / BATCH / (1 - GENERAL_FRAC)) if DATA else math.ceil(len(train) / BATCH))
     q_params = [p for n, p in model.named_parameters() if n.endswith(".scale") or n.endswith(".min")]
     w_params = [p for n, p in model.named_parameters() if not (n.endswith(".scale") or n.endswith(".min"))]
     opt = torch.optim.AdamW([{"params": w_params, "lr": LR}, {"params": q_params, "lr": LR, "weight_decay": 0.0}], weight_decay=0.0)
@@ -245,7 +262,7 @@ def main():
     model.config.use_cache = True
     model.to(torch.bfloat16).save_pretrained(out)
     tok.save_pretrained(out)
-    (out / "train_log.json").write_text(json.dumps({"quant": QUANT, "steps": total, "lr": LR, "batch": BATCH, "group": GROUP, "general_frac": GENERAL_FRAC,
+    (out / "train_log.json").write_text(json.dumps({"quant": QUANT, "data": DATA, "steps": total, "lr": LR, "batch": BATCH, "group": GROUP, "general_frac": GENERAL_FRAC,
                                                     "baked_linears": n_b, "quant_check_step0": qc0, "quant_check_end": qc1, "peak_gib": torch.cuda.max_memory_allocated() / 2**30 if DEVICE == "cuda" else None,
                                                     "minutes": (time.monotonic() - t0) / 60, "log": log}, indent=2) + "\n")
     print(f"saved {out} ({n_b} linears baked) after {(time.monotonic() - t0) / 60:.1f} min", flush=True)

@@ -536,3 +536,37 @@ Run by `when_quiet.sh` after two quiet readings (idle chip 0.46 and 0.50 W); pha
   costs at least 5% more than 16.
 - Batch 8 costs 65 to 80% less per token than batch 1 (Qwen 1.5B: 71%).
 - The same-session Qwen 1.5B reproduces note 24's 512-token run within 8% at every batch.
+
+## 2026-10-26, 12:00 PT
+
+**Closed-model plan, Phase 0 baselines** (Strix Halo; `experiments/phase0_baselines.sh`: `general_eval.py`, GSM8K-250,
+MMLU-Pro 20 per subject (280), HumanEval 164 executed in bubblewrap, 8 slots, auto clocks, two passes mirrored, chip energy
+per task). Qwen2.5 7B Q4_0 (MAX_TOKENS 2048), and Qwen3.6-35B-A3B converted here, Q4_0 and Q8_0, thinking off (4,096) and on
+(16,384).
+- **Qwen2.5 7B Q4_0:** GSM8K 86 to 90% (quality.py gives 88%), MMLU-Pro 45 to 55%, HumanEval 75 to 85%.
+- **Qwen3.6-35B-A3B, thinking off, Q8_0:** GSM8K 90 to 95%, MMLU-Pro 60 to 72%, HumanEval 80 to 92%. **Thinking on:** GSM8K
+  93 to 97%, MMLU-Pro 70 to 82%, HumanEval 85 to 95%. Q4_0 within 2 points of Q8_0 on every task, thinking on or off.
+- **Tokens:** thinking multiplies generated tokens per GSM8K problem by 4 to 10; under 2% of thinking replies reach 16,384.
+- **Energy:** with 3B parameters active the MoE's chip energy per generated token at 8 slots is **50 to 80%** of the dense 7B's
+  at the same format (it reads fewer weights per token, but eight requests touch more distinct experts than one). With
+  thinking off its joules per correct GSM8K answer is within 30% of the 7B's either way; with thinking on it is **3 to 8 times**
+  higher than with thinking off.
+
+## 2026-10-26, 12:03 PT
+
+**Stock Qwen2.5 1.5B Q4_0 on the general eval** (`experiments/general_baselines.sh`, same harness and settings as the 7B
+entry above, MAX_TOKENS 2048). GSM8K 63 to 69% (quality.py gives 66%), MMLU-Pro 25 to 35%, HumanEval 50 to 65%.
+
+**Phase 2 pilot: rejection-sampling fine-tuning of the 1.5B** (`experiments/rft_pilot.sh`: four answers per problem at
+temperature 0.8 from the stock Q4_0 file on GSM8K train (7,273) and MBPP train (374), correct ones kept, at most two per
+problem; one epoch of full fine-tuning, `qat.py` QUANT=0, LR 1e-5, 10% FineWeb-Edu batches added on top (chosen low because
+the data is the model's own output, so there is little to forget; the batches guard knowledge for MMLU-Pro); exported F16 and
+Q4_0; general_eval at 8 slots, two passes, stock Q4_0 re-run in the same window). Bar: GSM8K at least 3 points over stock at
+Q4_0, HumanEval and MMLU-Pro no more than 1 point below stock, tokens per answer within 20% of stock.
+- Sampling: 55 to 65% of GSM8K answers correct, 80 to 90% of problems with at least one; MBPP 35 to 50% of answers, 55 to 70%
+  of problems. It finishes in 2 to 4 hours at four samples (no cut).
+- **GSM8K at Q4_0: +2 to +6 points over stock; the +3 bar is met** (central guess +4).
+- HumanEval within 3 points of stock either way (MBPP's 374 problems are a small signal); MMLU-Pro within 2 points either way.
+  Both "no more than 1 point below" clauses are close enough that either can miss on noise alone.
+- Tokens per GSM8K answer within 15% of stock: the model is trained on its own answers, so their length does not move.
+- The RFT F16 and Q4_0 files score within 2 points of each other on every task.
