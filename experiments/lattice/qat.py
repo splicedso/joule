@@ -27,7 +27,8 @@ the artefact is a real Q2_K file quality.py can run.
 
 Environment: DATA (a JSONL of {"prompt", "response"} to train on instead of GSM8K's worked answers; one epoch then
 counts the general-text batches on top), STEPS (0 = one epoch of GSM8K train), LR (1e-5), BATCH (8), SEQ (1024), GENERAL_FRAC (0.3),
-GROUP (16), EVAL_EVERY (100), SEED (3), QUANT (1; 0 trains the identical setup with fake quantization off:
+GROUP (16), EVAL_EVERY (100), CKPT_EVERY (200: a resumable checkpoint in the output
+directory, picked up automatically when the run is started again), DEVICE (cuda or cpu), SEED (3), QUANT (1; 0 trains the identical setup with fake quantization off:
 fp32 masters for the same linears, same data, steps, LR and schedule, so only the grid differs).
 """
 
@@ -35,6 +36,7 @@ import json
 import math
 import os
 import random
+import shutil
 import re
 import sys
 import time
@@ -54,14 +56,16 @@ GENERAL_FRAC = float(os.environ.get("GENERAL_FRAC", 0.3))
 GROUP = int(os.environ.get("GROUP", 16))
 EVAL_EVERY = int(os.environ.get("EVAL_EVERY", 100))
 SEED = int(os.environ.get("SEED", 3))
-QUANT = os.environ.get("QUANT", "1") != "0"
-DATA = os.environ.get("DATA")   # a JSONL of {"prompt", "response"} to train on instead of GSM8K's worked answers (e.g. RFT)   # 0: the same fine-tune with fake quantization off (the plain control)
+QUANT = os.environ.get("QUANT", "1") != "0"   # 0: the same fine-tune with fake quantization off (the plain control)
+DATA = os.environ.get("DATA")   # a JSONL of {"prompt", "response"} to train on instead of GSM8K's worked answers (e.g. RFT)
+CKPT_EVERY = int(os.environ.get("CKPT_EVERY", 200))   # a resumable checkpoint in the output directory every N steps (0: never); a restart with the same output directory resumes from it
+STOP_AFTER = int(os.environ.get("STOP_AFTER", 0))     # test hook: exit right after the checkpoint at this step, as a crash would
 QMAX = 3                      # 2-bit: q in 0..3
 HELD_OUT = 200
 GSM8K_TRAIN = Path("data/gsm8k-train.jsonl")
 GENERAL = Path("data/kinetic/train.bin")
 INSTRUCTION = "Solve the problem. Think step by step, then finish with a line of the form 'The answer is N.'"
-DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
+DEVICE = os.environ.get("DEVICE") or ("cuda" if torch.cuda.is_available() else "cpu")
 
 
 class FakeQuant(torch.autograd.Function):
@@ -225,16 +229,32 @@ def main():
     opt = torch.optim.AdamW([{"params": w_params, "lr": LR}, {"params": q_params, "lr": LR, "weight_decay": 0.0}], weight_decay=0.0)
     warm = max(1, min(50, total // 10))
     sched = torch.optim.lr_scheduler.LambdaLR(opt, lambda s: min(1.0, (s + 1) / warm) * 0.5 * (1 + math.cos(math.pi * min(1.0, s / total))))
-    v0 = validate(model, held, pad)
-    print(f"{DEVICE}: {n_q} linears {'fake-quantized (group ' + str(GROUP) + ', ' + str(QMAX + 1) + ' levels)' if QUANT else 'with fp32 masters, NOT quantized (QUANT=0)'}; {len(train)} train, {len(held)} held out; "
-          f"{total} steps, batch {BATCH}; held-out loss before training {v0:.4f}", flush=True)
-    qc0 = quant_check(model) if QUANT else None
-    print("quant check at step 0:" if QUANT else "QUANT=0: fake quantization off (plain fine-tune)", json.dumps(qc0) if QUANT else "", flush=True)
-    log = [{"step": 0, "valid_loss": v0}]
-    order = list(range(len(train))); random.shuffle(order)
-    t0, pos = time.monotonic(), 0
+    config = {"src": src, "total": total, "lr": LR, "batch": BATCH, "seq": SEQ, "general_frac": GENERAL_FRAC, "group": GROUP,
+              "quant": QUANT, "data": DATA, "seed": SEED}
+    ckpt = out / "checkpoint" / "latest.pt"
+    start, resumed, t0 = 1, None, time.monotonic()
+    if CKPT_EVERY and ckpt.exists():
+        c = torch.load(ckpt, map_location=DEVICE, weights_only=False)
+        if c["config"] != config:
+            sys.exit(f"{ckpt} is from a different run ({c['config']} against {config}); remove it or use another output directory")
+        model.load_state_dict(c["model"]); opt.load_state_dict(c["opt"]); sched.load_state_dict(c["sched"])
+        log, order, pos, qc0 = c["log"], c["order"], c["pos"], c["qc0"]
+        random.setstate(c["py_random"]); rng.bit_generator.state = c["np_rng"]; torch.set_rng_state(c["torch_rng"])
+        if DEVICE == "cuda" and c.get("cuda_rng") is not None:
+            torch.cuda.set_rng_state(c["cuda_rng"])
+        t0 -= c["elapsed"]; start = resumed = c["step"] + 1
+        print(f"{DEVICE}: resumed from the checkpoint at step {c['step']} of {total} ({c['elapsed'] / 60:.1f} min already spent)", flush=True)
+    else:
+        v0 = validate(model, held, pad)
+        print(f"{DEVICE}: {n_q} linears {'fake-quantized (group ' + str(GROUP) + ', ' + str(QMAX + 1) + ' levels)' if QUANT else 'with fp32 masters, NOT quantized (QUANT=0)'}; {len(train)} train, {len(held)} held out; "
+              f"{total} steps, batch {BATCH}; held-out loss before training {v0:.4f}", flush=True)
+        qc0 = quant_check(model) if QUANT else None
+        print("quant check at step 0:" if QUANT else "QUANT=0: fake quantization off (plain fine-tune)", json.dumps(qc0) if QUANT else "", flush=True)
+        log = [{"step": 0, "valid_loss": v0}]
+        order = list(range(len(train))); random.shuffle(order)
+        pos = 0
     model.train()
-    for step in range(1, total + 1):
+    for step in range(start, total + 1):
         if rng.random() < GENERAL_FRAC:
             batch = general_batch(mm, rng, BATCH)
         else:
@@ -255,6 +275,16 @@ def main():
             v = validate(model, held, pad)
             log.append({"step": step, "train_loss": loss.item(), "valid_loss": v})
             print(f"step {step} held-out loss {v:.4f}", flush=True)
+        if CKPT_EVERY and step % CKPT_EVERY == 0 and step < total:   # the model, the optimizer, the data order and every RNG: a resume replays the run exactly
+            ckpt.parent.mkdir(parents=True, exist_ok=True)
+            torch.save({"step": step, "config": config, "model": model.state_dict(), "opt": opt.state_dict(), "sched": sched.state_dict(),
+                        "log": log, "order": order, "pos": pos, "qc0": qc0, "py_random": random.getstate(), "np_rng": rng.bit_generator.state,
+                        "torch_rng": torch.get_rng_state(), "cuda_rng": torch.cuda.get_rng_state() if DEVICE == "cuda" else None,
+                        "elapsed": time.monotonic() - t0}, ckpt.with_suffix(".tmp"))
+            os.replace(ckpt.with_suffix(".tmp"), ckpt)
+            print(f"checkpoint at step {step} ({ckpt.stat().st_size / 2**30:.1f} GiB)", flush=True)
+            if STOP_AFTER == step:
+                print(f"STOP_AFTER={step}: exiting here, as a crash would", flush=True); sys.exit(3)
     qc1 = quant_check(model) if QUANT else None
     if QUANT:
         print("quant check at the end:", json.dumps(qc1), flush=True)
@@ -262,7 +292,8 @@ def main():
     model.config.use_cache = True
     model.to(torch.bfloat16).save_pretrained(out)
     tok.save_pretrained(out)
-    (out / "train_log.json").write_text(json.dumps({"quant": QUANT, "data": DATA, "steps": total, "lr": LR, "batch": BATCH, "group": GROUP, "general_frac": GENERAL_FRAC,
+    shutil.rmtree(out / "checkpoint", ignore_errors=True)   # the final model is saved; the checkpoint has done its job
+    (out / "train_log.json").write_text(json.dumps({"quant": QUANT, "data": DATA, "steps": total, "lr": LR, "batch": BATCH, "group": GROUP, "general_frac": GENERAL_FRAC, "checkpoint_every": CKPT_EVERY, "resumed_from": resumed,
                                                     "baked_linears": n_b, "quant_check_step0": qc0, "quant_check_end": qc1, "peak_gib": torch.cuda.max_memory_allocated() / 2**30 if DEVICE == "cuda" else None,
                                                     "minutes": (time.monotonic() - t0) / 60, "log": log}, indent=2) + "\n")
     print(f"saved {out} ({n_b} linears baked) after {(time.monotonic() - t0) / 60:.1f} min", flush=True)
