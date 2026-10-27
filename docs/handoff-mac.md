@@ -27,7 +27,7 @@ Preview: `.claude/launch.json` config `spliced-site`, port 8772. Images carry `?
 
 ## Next, in order (kept current; items leave the list when done)
 
-000. **State at 27 Oct 00:37.** Notes 29 to 32 are published; the modes question is answered for the 4B. Thinking
+000. **State at 27 Oct 11:27.** The answer-mode run D (`--reasoning-budget 2048`, Think capped at 2,560, plain fallback; prediction 01:02, commit 4a9c94a) ran B pass 1, D passes 1 and 2, then Martin paused everything at 03:06; the missing B pass 2 is queued alone (`experiments/modes_mac_d_b2.sh`, log appended to `results/log/modes-d-mac.log`) behind `when_quiet.sh`. So far D matches its replay (HE 92.1%, GSM8K 97.0%, MMLU-Pro 71.4%) at B's chip power. The Foundry change is drafted on local branch `think-cut-thought` (eddea3a), not merged: merge only if note 33's rule is met. The Strix was shut down at 03:10 and booted at 11:10, which ended Martin's Illusion job unfinished; Linux restarted its chain at 11:12 (pid 5020), rft_train first. Before that, at 00:37: Notes 29 to 32 are published; the modes question is answered for the 4B. Thinking
    off is best per joule on maths and knowledge; on code a 2,048-token budget with plain fallback adds about 12 points.
    llama.cpp's own `--reasoning-budget` (answer from the cut thought) gains 2 to 4 points on code and knowledge, but
    one knowledge answer in six then reasons on in plain view until the reply limit, and it cost 16 to 17% more per
