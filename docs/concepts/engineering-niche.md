@@ -100,16 +100,28 @@ microcontroller. That is a real board, but a small one.
 - **Readout:** an RP2040 reads the five monitors and streams over USB with its own timestamps, synced to the host
   clock. `phase` already records when each request starts and ends, so energy per request and per correct answer
   come from the same files as today.
-- **Calibration:** against a bench supply, a known load and a good multimeter, then against the chip's own sensors on
-  the Strix Halo box and, where it can be read, the board's INA236.
+- **Calibration:** against a bench supply, a known load and a good multimeter, then against the chip's own sensors,
+  and on a Framework board, where it can be read, the board's INA236.
+
+**Correction at 00:44: our Strix Halo box is not a Framework board.** Read-only checks on it (DMI, hwmon, sysfs) show
+AMD's own Ryzen AI Halo developer platform, built by Compal (product RAH-001), powered through an AC adapter. Its only
+package reading is the GPU driver's PPT; no shunt monitor is visible without root. So the five-rail ATX tap fits the
+Framework Desktop board that the portable cluster designs use, which we do not have yet. On the machines we own, the
+meter measures one DC input: the Strix box's adapter output and, through a USB-C pass-through, the Mac's.
+
+That makes the first board smaller still: **one INA228 channel on a DC input, inline with the Strix box's adapter**,
+with the adapter's connector on both ends. It is step 1 below made into a board, it measures the whole Strix box per
+request, and its schematic is one channel of the five-rail tap, which follows when a Framework board is in hand. The
+adapter's voltage, current and connector are on its label and still to be read.
 
 **Order of work.** Nothing is bought without Martin.
 1. Read the INA228 datasheet and schematic page 107. Breadboard one channel from an INA228 breakout (sold at $15 to
    $29) on a 12 V supply and a resistor load, read it from a Raspberry Pi Pico.
-2. Draw the five-channel schematic in KiCad; review it together before layout.
+2. Draw the one-channel DC tap in KiCad; review it together before layout.
 3. Lay out the board, order it with the connectors and shunts, assemble, and bring it up one rail at a time.
 4. Firmware and the `phase` bridge (ours), then calibration.
-5. The first note: what a Strix Halo board draws, rail by rail, per correct answer, against what its own sensors say.
+5. The first note: what the Strix Halo box draws at its DC input per correct answer, against what its PPT reading says.
+6. The five-rail ATX tap, when a Framework Desktop board is here.
 
 PowerSensor3 stays the reference to read before drawing anything: its paper and repository show how a 20 kHz
 open meter handles sampling, isolation and time markers. Building our own board instead of starting with it follows
