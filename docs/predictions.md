@@ -692,3 +692,22 @@ condition (162 and 163 of 164 replies byte-identical). Thinking off 78.0% (128/1
 All four clauses missed; three in the budget's favour. The decision rule (gain at least 3 points) is met. Energy
 pass gaps 6.9% and 8.0%, both over 3%, both with the second pass costlier and its idle reading higher (1.6 W).
 Note 30.
+
+## 2026-10-26, 21:21 PT
+
+**Three answer modes on code** (M5 Pro; Qwen3.5 4B Q4_0; HumanEval 164 in the macOS sandbox; 8 requests at once;
+`experiments/modes_mac.sh`, mirrored A B C C B A under `when_quiet.sh`). A: thinking off, replies capped at 2,048
+tokens. B: note 30's budget (think up to 2,048, else ask again without thinking), every reply capped at 2,048. C:
+llama.cpp's own `--reasoning-budget 2048`, which ends the thought at 2,048 tokens and lets the model answer, 4,096
+tokens per reply in all. Reference: note 30's uncapped runs, same day and machine: thinking off 78.0%, 442 tokens,
+120.0 J per correct; budget 89.6%, 1,282 tokens, 201.9 J.
+Seen before writing: decoding repeats, so note 30's replies fix A and B's answers. Replayed: A 78.0% at 267 tokens per
+problem, B 89.6% at 1,107; no passing reply was longer than 2,048 tokens. Those are reported, not counted. C was
+smoke-tested on problems 1 to 3 at a 40-token budget, only to check that it works.
+- A costs 40 to 65 J per correct answer: the runaway replies were most of thinking-off's energy.
+- B costs 150 to 185 J per correct answer.
+- C scores 86 to 92% at 900 to 1,200 tokens per problem.
+- C costs 5 to 20% less than B per correct answer.
+Decision rule, set now: Foundry's Think switch moves from B's policy to C's if C is within 1 point of B (or better)
+and at least 5% cheaper per correct answer. A cap on plain replies is not adopted in Foundry whatever A measures: in a
+chat, a long answer is often the right one, and HumanEval does not test that.
