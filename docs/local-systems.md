@@ -91,7 +91,9 @@ answer and scored lower on maths and knowledge, because a third of its knowledge
 all 164 HumanEval problems it took the 4B from 78.0% to 89.6% for 1.7 times the energy per correct answer (note 30).
 So thinking is set per task, with a budget, never unlimited. Letting the model answer from a cut thought,
 instead of starting over, scored a few points higher on code and knowledge (notes 31 and 32), but one knowledge
-answer in six kept reasoning until the reply limit, and it cost more. Foundry keeps the fallback.
+answer in six kept reasoning until the reply limit, and it cost more. Capping the whole reply at 2,560 tokens fixes
+that: answering from the cut thought then beat starting over on code, maths and knowledge (92.1%, 97.0% and 71.4%
+against 89.6%, 96.0% and 68.8%) at no extra energy per correct answer (note 33). Foundry's Think does that now.
 
 ## From one machine to a cell
 
@@ -110,4 +112,4 @@ energy, so the gap a cell has to close is named: host, supplies, fans and idle.
 - Whether an 8-slot 7B beats a 1-slot 32B per correct answer on the Strix Halo. Both are measured
   alone; the comparison is not.
 - Speculative decoding on a model family other than Qwen2.5. The format and batching findings hold on IBM's Granite 3.3 2B (note 28).
-- A budget on the answer as well as the thought, so a cut thought cannot run on in the reply (note 32).
+- Whether a capped answer after a cut thought holds on a model larger than 4B (note 33 measured the 4B).
