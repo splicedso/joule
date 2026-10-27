@@ -798,3 +798,18 @@ and decoding mostly repeats, so the replay gives D's scores: HumanEval 92.1% at 
 Decision rule, set now: Foundry's Think switch moves to D (the server always started with `--reasoning-budget 2048`,
 Think requests capped at 2,560 tokens, the plain fallback unchanged) if D is no less accurate than B on any of the
 three tasks, at least 2 points better on one, and no more than 10% costlier per correct answer on any.
+
+### 01:02 entry (a capped answer after a cut thought): verdict at 12:15
+
+Run 01:07 to 03:06 on the M5 Pro (B pass 1, D passes 1 and 2), paused there by Martin, and B pass 2 run alone 11:38 to
+12:14 under the same gate. B: HumanEval 147 and 147 (89.6%), GSM8K 96 and 96, MMLU-Pro 77 and 77 (68.8%). D: 151 and 151
+(92.1%), 97 and 97, 80 and 80 (71.4%). No reply changed score between passes in either mode.
+- D within 1 point of its replay on every task: 92.1, 97.0 and 71.4 against 92.1, 97.0 and 71.4; tokens 1,084, 1,578
+  and 2,305 against about 1,085, 1,576 and 2,304; fell back on 3, 3 and 31. Held.
+- D's chip power within 1.5 W of B's on every task: -0.84, -0.32 and +0.25 W (30.4 to 30.5 W against 30.2 to 31.2).
+  Held: the flag adds no power once replies stop at 2,560.
+- D's J per correct within 8% of B's on every task: 128.9 against 138.3 (-6.8%), 179.2 against 186.6 (-4.0%), 358.6
+  against 359.9 (-0.4%). Held.
+Decision rule met: D no less accurate on any task, 2.4 points better on HumanEval and 2.7 on MMLU-Pro, and no costlier
+per correct answer anywhere. Foundry's Think moves to D. Per question, D beats B on 6 HumanEval, 1 GSM8K and 5 MMLU-Pro
+questions and loses 2, 0 and 2, so the gain is real on this set but small. Note 33.

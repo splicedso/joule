@@ -1,0 +1,29 @@
+01:02 idle chip 1.26 W
+01:07 idle chip 0.72 W
+01:07 quiet; running experiments/modes_mac_d.sh
+humaneval {"n": 164, "correct": 147, "accuracy": 0.8963, "seconds": 646.6762, "tokens": 181624, "tokens_per_answer": 1107.4634, "tok_s": 280.8577, "soc_w": 31.5164, "chip_j": 20380.8823, "chip_j_per_correct": 138.6455}
+gsm8k {"n": 100, "correct": 96, "accuracy": 0.96, "seconds": 583.6771, "tokens": 160710, "tokens_per_answer": 1607.1, "tok_s": 275.3406, "soc_w": 30.867, "chip_j": 18016.3493, "chip_j_per_correct": 187.6703}
+mmlu_pro {"n": 112, "correct": 77, "accuracy": 0.6875, "seconds": 923.5664, "tokens": 247290, "tokens_per_answer": 2207.9464, "tok_s": 267.7555, "soc_w": 30.2002, "chip_j": 27891.8519, "chip_j_per_correct": 362.2318}
+overall {"model": "qwen35-4b-Q4_0.gguf", "slots": 8, "think": null, "think_budget": 2048, "max_tokens": 2048, "server_args": "", "idle_soc_w": 0.5547, "mean_accuracy": 0.8479, "chip_j_per_correct_all": 207.1534}
+humaneval {"n": 164, "correct": 151, "accuracy": 0.9207, "seconds": 640.5997, "tokens": 177893, "tokens_per_answer": 1084.7134, "tok_s": 277.6976, "soc_w": 30.3858, "chip_j": 19465.1122, "chip_j_per_correct": 128.908}
+gsm8k {"n": 100, "correct": 97, "accuracy": 0.97, "seconds": 553.3656, "tokens": 157454, "tokens_per_answer": 1574.54, "tok_s": 284.5388, "soc_w": 30.5653, "chip_j": 16913.8093, "chip_j_per_correct": 174.3692}
+mmlu_pro {"n": 112, "correct": 80, "accuracy": 0.7143, "seconds": 941.3158, "tokens": 258204, "tokens_per_answer": 2305.3929, "tok_s": 274.3011, "soc_w": 30.4518, "chip_j": 28664.7864, "chip_j_per_correct": 358.3098}
+overall {"model": "qwen35-4b-Q4_0.gguf", "slots": 8, "think": null, "think_budget": 2560, "max_tokens": 2048, "server_args": "--reasoning-budget 2048", "idle_soc_w": 1.8203, "mean_accuracy": 0.8683, "chip_j_per_correct_all": 198.304}
+humaneval {"n": 164, "correct": 151, "accuracy": 0.9207, "seconds": 641.2855, "tokens": 177622, "tokens_per_answer": 1083.061, "tok_s": 276.978, "soc_w": 30.3713, "chip_j": 19476.6781, "chip_j_per_correct": 128.9846}
+gsm8k {"n": 100, "correct": 97, "accuracy": 0.97, "seconds": 586.0868, "tokens": 158184, "tokens_per_answer": 1581.84, "tok_s": 269.8986, "soc_w": 30.4579, "chip_j": 17850.9542, "chip_j_per_correct": 184.0305}
+mmlu_pro {"n": 112, "correct": 80, "accuracy": 0.7143, "seconds": 942.2326, "tokens": 258088, "tokens_per_answer": 2304.3571, "tok_s": 273.9111, "soc_w": 30.4704, "chip_j": 28710.1871, "chip_j_per_correct": 358.8773}
+overall {"model": "qwen35-4b-Q4_0.gguf", "slots": 8, "think": null, "think_budget": 2560, "max_tokens": 2048, "server_args": "--reasoning-budget 2048", "idle_soc_w": 0.6283, "mean_accuracy": 0.8683, "chip_j_per_correct_all": 201.3348}
+stopped by Martin at 03:06 (pause); B pass 2 not run
+resumed by Martin at 11:12:16: B pass 2 alone (experiments/modes_mac_d_b2.sh)
+11:12 idle chip 12.55 W
+11:17 idle chip 1.41 W
+11:22 idle chip 15.13 W
+11:27 idle chip 13.74 W
+11:33 idle chip 0.47 W
+11:38 idle chip 0.45 W
+11:38 quiet; running experiments/modes_mac_d_b2.sh
+humaneval {"n": 164, "correct": 147, "accuracy": 0.8963, "seconds": 655.9332, "tokens": 181630, "tokens_per_answer": 1107.5, "tok_s": 276.9032, "soc_w": 30.9221, "chip_j": 20282.821, "chip_j_per_correct": 137.9784}
+gsm8k {"n": 100, "correct": 96, "accuracy": 0.96, "seconds": 578.2061, "tokens": 161386, "tokens_per_answer": 1613.86, "tok_s": 279.115, "soc_w": 30.7917, "chip_j": 17803.9669, "chip_j_per_correct": 185.458}
+mmlu_pro {"n": 112, "correct": 77, "accuracy": 0.6875, "seconds": 911.1, "tokens": 246974, "tokens_per_answer": 2205.125, "tok_s": 271.0723, "soc_w": 30.2148, "chip_j": 27528.7314, "chip_j_per_correct": 357.516}
+overall {"model": "qwen35-4b-Q4_0.gguf", "slots": 8, "think": null, "think_budget": 2048, "max_tokens": 2048, "server_args": "", "idle_soc_w": 0.5989, "mean_accuracy": 0.8479, "chip_j_per_correct_all": 205.0485}
+exit 0 12:14:22
