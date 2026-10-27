@@ -743,3 +743,24 @@ and 7,183 on MMLU-Pro. C has never been run on either task.
 Decision rule, set now: Foundry's Think switch moves from B's policy to C's if, across note 31's HumanEval and these
 two tasks, C is no less accurate than B on any, at least 2 points better on one of these two, and no more than 10%
 costlier per correct answer on any.
+
+## 2026-10-26, 23:57 PT
+
+**Qwen3.6-35B-A3B with llama-server's own reasoning budget** (Strix Halo; `experiments/phase0_baselines.sh`, STAGE=eval, a
+third mode added before any Qwen3.6 eval ran, on the Mac lead's ask after note 31: THINK=1, `--reasoning-budget 2048`, 4,096
+per reply, 6,144 per slot, as `experiments/modes_mac_qa.sh`'s C; results named `-native-`; Q4_0 and Q8_0; runs after the
+thinking-off and THINK_BUDGET=2048 (fallback) conditions in pass 1, before them in pass 2; each run behind the GPU gate).
+Seen before writing: note 31 (Qwen3.5 4B, HumanEval-164): C 92.1% against the fallback's 89.6%, identical replies on the 138
+problems whose thought finished, 18 against 14 on the 26 that ran long, tokens 1,076 against 1,107, energy per correct 4.7%
+more on the mean of C's passes with one pass 36.2 W against 31 to 33 W. The Mac's GSM8K/MMLU-Pro comparison (22:29 entry)
+has not reported. Qwen3.6 has never run here in any mode; the 12:00 and 21:03 entries' clauses for the other two modes stand.
+- C is within 2 points of the fallback on GSM8K at the same format (both near thinking off; the problems are easy for a 35B).
+- C beats the fallback on MMLU-Pro by 0 to 6 points and on HumanEval by 0 to 5 points, at the same format; it loses on
+  neither by more than 1 point.
+- C uses fewer tokens per answer than the fallback: 0 to 15% fewer on MMLU-Pro and HumanEval (no re-ask), within 5% on GSM8K.
+- C's joules per correct answer are within 10% of the fallback's on every task, in either direction.
+- Q4_0 is within 2 points of Q8_0 under C on every task.
+- Replies cut by the budget (reply tokens over 2,048) are 10 to 30% of GSM8K, 30 to 60% of MMLU-Pro, 15 to 40% of
+  HumanEval, the same shares as the fallback condition's.
+Decision rule for the Halo: the 22:29 entry's rule applies here too, scored on the Qwen3.6 cells (C no less accurate than
+the fallback on any task, at least 2 points better on one, no more than 10% costlier per correct answer on any).
