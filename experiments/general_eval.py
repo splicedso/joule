@@ -19,6 +19,9 @@ TASKS defaults to gsm8k,mmlu_pro (add humaneval with EXEC_OK=1). Environment: N_
 MAX_TOKENS (1024), CTX_PER_SLOT (4096), THINK ("0" or "1": passed as chat_template_kwargs.enable_thinking for
 models that reason before answering; unset leaves the model's default), SERVER_ARGS (extra llama-server flags).
 Thinking tokens count as generated tokens: they are what the energy pays for.
+THINK_BUDGET=N (with THINK unset): ask with thinking on and at most N tokens; a reply stopped by that limit is
+discarded and the question asked again with thinking off and MAX_TOKENS. Both replies' tokens count, and the row
+records "fallback".
 """
 import json, os, re, subprocess, sys, tempfile, time, urllib.request
 from concurrent.futures import ThreadPoolExecutor
@@ -32,6 +35,7 @@ import quality  # noqa: E402  (GSM8K data and answer reading)
 PORT = 8794
 MAX_TOKENS = int(os.environ.get("MAX_TOKENS", "1024"))
 THINK = os.environ.get("THINK")
+THINK_BUDGET = int(os.environ.get("THINK_BUDGET", "0"))
 MMLU_URL = "https://huggingface.co/datasets/TIGER-Lab/MMLU-Pro/resolve/main/data/test-00000-of-00001.parquet"
 HE_URL = "https://huggingface.co/datasets/openai/openai_humaneval/resolve/main/openai_humaneval/test-00000-of-00001.parquet"
 LETTERS = "ABCDEFGHIJ"
@@ -126,15 +130,27 @@ def task_humaneval():
 TASKS = {"gsm8k": task_gsm8k, "mmlu_pro": task_mmlu_pro, "humaneval": task_humaneval}
 
 
-def ask(prompt):
-    body = {"messages": [{"role": "user", "content": prompt}], "max_tokens": MAX_TOKENS, "temperature": 0, "cache_prompt": False}
-    if THINK in ("0", "1"):
-        body["chat_template_kwargs"] = {"enable_thinking": THINK == "1"}
+def complete(prompt, max_tokens, think):
+    body = {"messages": [{"role": "user", "content": prompt}], "max_tokens": max_tokens, "temperature": 0, "cache_prompt": False}
+    if think in ("0", "1"):
+        body["chat_template_kwargs"] = {"enable_thinking": think == "1"}
     req = urllib.request.Request(f"http://127.0.0.1:{PORT}/v1/chat/completions", data=json.dumps(body).encode(),
                                  headers={"Content-Type": "application/json"})
     with urllib.request.urlopen(req, timeout=1800) as r:
         out = json.load(r)
-    return out["choices"][0]["message"].get("content") or "", out["usage"]["completion_tokens"]
+    choice = out["choices"][0]
+    return choice["message"].get("content") or "", out["usage"]["completion_tokens"], choice.get("finish_reason")
+
+
+def ask(prompt):
+    if not THINK_BUDGET:
+        text, tokens, _ = complete(prompt, MAX_TOKENS, THINK)
+        return text, tokens, False
+    text, tokens, finish = complete(prompt, THINK_BUDGET, "1")
+    if finish != "length":
+        return text, tokens, False
+    text, more, _ = complete(prompt, MAX_TOKENS, "0")
+    return text, tokens + more, True
 
 
 def main():
@@ -164,8 +180,8 @@ def main():
                     replies = list(ex.map(lambda it: ask(it["prompt"]), items))
                 t1 = time.monotonic()
                 soc_w, _ = mean_power(s.window(t0, t1))
-                rows = [{"correct": bool(score(it, text)), "tokens": tok, "reply": text,
-                         **({"subject": it["subject"]} if "subject" in it else {})} for it, (text, tok) in zip(items, replies)]
+                rows = [{"correct": bool(score(it, text)), "tokens": tok, "reply": text, **({"fallback": True} if fell else {}),
+                         **({"subject": it["subject"]} if "subject" in it else {})} for it, (text, tok, fell) in zip(items, replies)]
                 correct, tokens, secs = sum(r["correct"] for r in rows), sum(r["tokens"] for r in rows), t1 - t0
                 results[name] = {"summary": {"n": len(rows), "correct": correct, "accuracy": correct / len(rows), "seconds": secs,
                                              "tokens": tokens, "tokens_per_answer": tokens / len(rows), "tok_s": tokens / secs,
@@ -175,7 +191,7 @@ def main():
     finally:
         server.terminate(); server.wait(timeout=60)
     total_j = sum(r["summary"]["chip_j"] for r in results.values()); total_c = sum(r["summary"]["correct"] for r in results.values())
-    overall = {"model": Path(model).name, "slots": slots, "think": THINK, "max_tokens": MAX_TOKENS, "server_args": os.environ.get("SERVER_ARGS", ""),
+    overall = {"model": Path(model).name, "slots": slots, "think": THINK, "think_budget": THINK_BUDGET, "max_tokens": MAX_TOKENS, "server_args": os.environ.get("SERVER_ARGS", ""),
                "idle_soc_w": idle[0], "mean_accuracy": sum(r["summary"]["accuracy"] for r in results.values()) / len(results),
                "chip_j_per_correct_all": total_j / total_c if total_c else None}
     print("overall", json.dumps({k: round(v, 4) if isinstance(v, float) else v for k, v in overall.items()}))

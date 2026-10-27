@@ -16,7 +16,8 @@ def load(paths):
     for p in paths:
         d = json.load(open(p))
         o = d["overall"]
-        groups[(o["model"], o.get("think"), o.get("max_tokens"), o.get("server_args", ""))].append(d)
+        think = f"budget {o['think_budget']}" if o.get("think_budget") else o.get("think")
+        groups[(o["model"], think, o.get("max_tokens"), o.get("server_args", ""))].append(d)
     return groups
 
 
@@ -31,7 +32,8 @@ def summarize(runs):
                        "tokens_per_answer": sum(x["tokens_per_answer"] for x in s) / len(s),
                        "j_per_correct": sum(jpc) / len(jpc) if jpc else None,
                        "spread": (max(jpc) - min(jpc)) / (sum(jpc) / len(jpc)) if len(jpc) > 1 else None,
-                       "cut_off": sum(1 for row in rows if mt and row["tokens"] >= mt) / len(rows), "n": s[0]["n"]}
+                       "cut_off": sum(1 for row in rows if mt and row["tokens"] >= mt) / len(rows), "n": s[0]["n"],
+                       "fallback": sum(1 for row in rows if row.get("fallback")) / len(rows)}
     return tasks
 
 
@@ -40,13 +42,13 @@ def main():
     keys = list(groups)
     summ = {k: summarize(groups[k]) for k in keys}
     label = lambda k: f"{k[0]}, think={k[1]}, max {k[2]}" + (f", {k[3]}" if k[3] else "")
-    print("| condition | task | n | passes | accuracy | tokens per answer | J per correct | spread | cut off |")
-    print("|---|---|---:|---:|---:|---:|---:|---:|---:|")
+    print("| condition | task | n | passes | accuracy | tokens per answer | J per correct | spread | cut off | fell back |")
+    print("|---|---|---:|---:|---:|---:|---:|---:|---:|---:|")
     for k in keys:
         for t, v in summ[k].items():
             j = f"{v['j_per_correct']:.1f}" if v["j_per_correct"] else "-"
             sp = f"{v['spread']:.1%}" if v["spread"] is not None else "-"
-            print(f"| {label(k)} | {t} | {v['n']} | {v['passes']} | {v['accuracy']:.1%} | {v['tokens_per_answer']:.0f} | {j} | {sp} | {v['cut_off']:.0%} |")
+            print(f"| {label(k)} | {t} | {v['n']} | {v['passes']} | {v['accuracy']:.1%} | {v['tokens_per_answer']:.0f} | {j} | {sp} | {v['cut_off']:.0%} | {v['fallback']:.0%} |")
     if len(keys) > 1:
         base = summ[keys[0]]
         print(f"\nAgainst {label(keys[0])}:")

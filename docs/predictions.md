@@ -620,3 +620,20 @@ against 28.2 W at a similar speed. Its energy is reported, not trusted.
   single task: held on every pairing.
 - Cut off: 6%, 30% and 10% of thinking replies (under 5% predicted). Failed in the smoke test; not counted.
 Note 29.
+
+## 2026-10-26, 20:08 PT
+
+**Thinking budget with fallback, live** (M5 Pro; Qwen3.5 4B Q4_0 as in note 29; `experiments/general_eval.py`
+HumanEval, all 164 problems, in the macOS sandbox; 8 requests at once; 16,384 tokens per reply. Conditions: thinking
+off, and THINK_BUDGET=2048, which asks with thinking on and at most 2,048 tokens and, if that reply hits the limit,
+asks again with thinking off. Both replies' tokens and energy count. Mirrored order, off, budget, budget, off;
+`experiments/budget_mac.sh` under `when_quiet.sh`.)
+What has been seen: note 29's replay of the first 40 problems (+7.5 points at 4.6x tokens), and two smoke tests of
+the new mode on problems 1 to 4 (budget 256 and 4,096), which only checked that both paths work. Problems 41 to 164
+have never been run with thinking.
+- The budget raises HumanEval accuracy over thinking off by 2 to 8 points.
+- Tokens per problem: 3 to 6 times thinking off.
+- Chip joules per correct answer: 3 to 7 times thinking off.
+- 4 to 15% of problems fall back.
+Decision rule, set now: Foundry offers the budget as a "think on code" setting only if the gain is at least 3 points;
+under that, thinking stays off on this model and the setting is not built.
