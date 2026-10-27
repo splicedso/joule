@@ -19,14 +19,14 @@ DeepSeek V4 Flash on one or two nodes, GLM-5.2 on three (`fabric/moe.py`), or fo
 
 | node fact | value | label |
 |---|---|---|
-| board | Mini-ITX, 170 x 170 mm | sourced (Mini-ITX format) |
-| power connectors | 24-pin ATX, plus a CPU connector (8-pin or 12-pin: sources disagree) | sourced, to verify |
+| board | Mini-ITX, 170 x 170 mm, 1.6 mm thick; four 3.96 mm holes in the standard Mini-ITX pattern (154.94 x 157.48 mm, top-left hole offset 22.86 mm) | sourced ([Framework drawing](https://github.com/FrameworkComputer/Framework-Desktop/blob/main/Mainboard/FRAMEWORK_DESKTOP_MAIN_PCB_V0.pdf), sheet 2) |
+| power connectors | 24-pin ATX and an 8-pin CPU (EPS) connector, both 4.2 mm pitch wire-to-board (Bellwether 70387-2468 and 70387-0868, Mini-Fit Jr class), on the edge beside the PCIe slot | sourced ([Framework drawing](https://github.com/FrameworkComputer/Framework-Desktop/blob/main/Mainboard/FRAMEWORK_DESKTOP_MAIN_PCB_V0.pdf), sheet 1 parts list; Framework knowledge base) |
 | power | 120 W sustained, 140 W boost (Framework setting) | sourced |
 | peak at the wall, one mini PC | 160 to 180 W | sourced (ServeTheHome) |
 | idle | about 20 W package | measured (Fabric cost table) |
 | network | 5 Gbit Ethernet, 2 x USB4, PCIe x4 slot | sourced (Framework, reviews) |
-| cooling | 120 mm fan on a six-heatpipe heatsink | sourced |
-| width with cooler | at most 96.8 mm (Framework's own case is that wide) | sourced, upper bound |
+| cooling | 120 mm fan on a heatsink with a duct, fan blowing onto the board; heatsink screws on a 78.0 x 87.0 mm pattern (custom, not a socket standard) | sourced ([Framework drawing](https://github.com/FrameworkComputer/Framework-Desktop/blob/main/Mainboard/FRAMEWORK_DESKTOP_MAIN_PCB_V0.pdf), sheet 6) |
+| height with cooler | 83.2 mm at most from the underside parts to the top of the duct (fan 75.88 mm); the underside parts stand at most 3.0 mm, so standard 6.35 mm standoffs clear them | sourced ([Framework drawing](https://github.com/FrameworkComputer/Framework-Desktop/blob/main/Mainboard/FRAMEWORK_DESKTOP_MAIN_PCB_V0.pdf), sheets 3 and 6) |
 
 ## 2. Power budget
 
@@ -34,7 +34,7 @@ DeepSeek V4 Flash on one or two nodes, GLM-5.2 on three (`fabric/moe.py`), or fo
 |---|---:|---:|---:|---|
 | node, peak at 12 V | 165 W | 4 | 660 W | estimate (180 W wall less supply loss) |
 | network switch | 20 W | 1 | 20 W | estimate |
-| intake fans, 120 mm | 3 W | 4 | 12 W | estimate |
+| intake fans, 92 mm | 3 W | 4 | 12 W | estimate |
 | controller and front panel | 3 W | 1 | 3 W | estimate |
 | **total at 12 V** | | | **695 W (58 A)** | |
 
@@ -62,18 +62,22 @@ so 5 Gbit is enough for v0. USB4 between neighbouring nodes is a later option fo
 ## 5. Air
 
 About 700 W of heat. Air needed for a 15 C rise, from the heat equation (Q = m c dT): about 0.039 m3/s, or 82 CFM
-(estimate, sea-level air). Four 120 mm intake fans in front, one per node lane, each moving about 20 CFM through the
-lane at low speed, with each node's own cooler fan doing the rest. To verify with a fan-and-thermometer mock-up.
+(estimate, sea-level air). Four 92 mm intake fans in front, one per node lane, each moving about 20 CFM through the
+lane at moderate speed (a 120 mm fan is wider than a 100 mm lane; v0 drew four of them, which do not fit), with each node's own cooler fan doing the rest. To verify with a fan-and-thermometer mock-up.
 
-## 6. Size (estimate, to confirm with the board drawing)
+## 6. Size
 
-Nodes on edge in four lanes of 97 mm: about 388 mm wide. Depth: 30 mm intake and grille, 170 mm board, 120 mm rear bay
-for the supply, the switch and the distribution board: about 320 mm. Height: about 220 mm. About 27 litres, a little
-smaller than a cabin suitcase.
+Nodes on edge in four lanes of 100 mm. A lane is a 1.5 mm tray, a 6.35 mm standoff, the 1.6 mm board, 77.7 mm of
+cooler above the board (sourced) and a 12 mm gap for the cooler fan to draw from (estimate: to confirm with the
+mock-up, since a fan starved of intake air moves less). Four lanes: about 400 mm wide. Each board's rear I/O, with
+its Ethernet, faces the rear bay; its power connectors are on the edge beside the PCIe slot, which faces the case
+floor. Depth: 30 mm intake and grille, 170 mm board, 120 mm rear bay
+for the supply, the switch and the distribution board: about 320 mm. Height: about 220 mm. So 400 x 320 x 220 mm, about 28
+litres, a little smaller than a cabin suitcase.
 
 ## Open before anything is bought
 
-1. The board's mechanical drawing: mounting holes, keep-outs, cooler height.
-2. The CPU power connector's pin count.
-3. The 12 V supply model and its connectors.
-4. Whether five buyers want it (the brief's business column).
+1. The intake gap each cooler fan needs, from the mock-up. (The board's holes, keep-outs, cooler height and 8-pin CPU
+   connector were settled on 26 October from Framework's drawing.)
+2. The 12 V supply model and its connectors.
+3. Whether five buyers want it (the brief's business column).

@@ -7,7 +7,7 @@ NODES = 4
 NODE_W12 = 165          # W per node at 12 V, peak (estimate)
 SWITCH_W, FAN_W, CTRL_W = 20, 3, 3
 PSU_W = 1000
-LANE, BOARD, FRONT, REAR, HEIGHT = 97, 170, 30, 120, 220   # mm
+LANE, BOARD, FRONT, REAR, HEIGHT = 100, 170, 30, 120, 220   # mm; lane = tray 1.5 + standoff 6.35 + board 1.6 + cooler 77.7 + intake gap 12 (estimate)
 POWER, DATA, CTRL, AIR, INK, MUTE = "#c2410c", "#1d4ed8", "#15803d", "#64748b", "#111111", "#6b7280"
 FONT = "font-family='Helvetica Neue, Helvetica, Arial, sans-serif'"
 
@@ -95,7 +95,7 @@ for i, (name, load, prot) in enumerate(branches):
         s.text(x + 65, 512, "24-pin: picoPSU", 11, MUTE, "middle")
 s.text(30, 570, "Sequencing: the controller enables one node every 2 s, so their inrush does not add up.", 13, INK)
 s.text(30, 592, "Branch wiring 16 AWG at 14 A (estimate; check against the chosen connector). Monitors report to the controller on I2C.", 13, INK)
-s.text(30, 614, "The CPU connector's pin count (8 or 12) is unconfirmed: verify on the board's drawing before choosing connectors.", 13, POWER)
+s.text(30, 614, "Board connectors from Framework's drawing: 24-pin ATX and 8-pin CPU (EPS), both 4.2 mm pitch, Mini-Fit Jr class.", 13, POWER)
 s.save("power.svg")
 
 # --- network.svg ------------------------------------------------------------------------------------------------
@@ -115,7 +115,7 @@ s.save("network.svg")
 # --- layout.svg: top view, mm to scale ---------------------------------------------------------------------------
 k = 1.9
 W, D = NODES * LANE, FRONT + BOARD + REAR
-s = Sheet(int(W * k) + 260, int(D * k) + 300, "Portable cluster v0: layout, top view", f"to scale; about {W} x {D} x {HEIGHT} mm, {W * D * HEIGHT / 1e6:.0f} litres (estimate until the board drawing)")
+s = Sheet(int(W * k) + 260, int(D * k) + 300, "Portable cluster v0: layout, top view", f"to scale; about {W} x {D} x {HEIGHT} mm, {W * D * HEIGHT / 1e6:.0f} litres; lane from the board drawing, intake gap estimated")
 ox, oy = 120, 160
 s.rect(ox, oy, W * k, D * k, "", "", INK)
 for i in range(NODES):
@@ -128,7 +128,7 @@ by = oy + (FRONT + BOARD) * k
 s.rect(ox + 10, by + 10, 150 * k, REAR * k - 20, "12 V supply", "", POWER, size=13)
 s.rect(ox + 170 * k, by + 10, 110 * k, REAR * k - 20, "Distribution", "board", POWER, size=13)
 s.rect(ox + 290 * k, by + 10, W * k - 290 * k - 10, REAR * k - 20, "Switch", "", DATA, size=13)
-s.text(ox + W * k / 2, oy - 52, "air in: 4 x 120 mm fans behind a filtered grille", 12, AIR, "middle")
+s.text(ox + W * k / 2, oy - 52, "air in: 4 x 92 mm fans, one per lane, behind a filtered grille", 12, AIR, "middle")
 s.text(ox + W * k / 2, oy + D * k + 62, "air out: rear, past the supply and the switch", 12, AIR, "middle")
 s.text(ox - 12, oy + FRONT * k / 2 + 4, f"{FRONT}", 11, MUTE, "end"); s.text(ox - 12, oy + (FRONT + BOARD / 2) * k, f"{BOARD}", 11, MUTE, "end")
 s.text(ox - 12, by + REAR * k / 2, f"{REAR}", 11, MUTE, "end"); s.text(ox + W * k + 14, oy + D * k / 2, f"{W} mm wide", 11, MUTE); s.text(ox + W * k + 14, oy + D * k / 2 + 16, f"({NODES} lanes of {LANE})", 11, MUTE)
