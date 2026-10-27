@@ -87,8 +87,9 @@ Foundry today ships the first row without the clock cap and with the draft off b
 
 Thinking stays off by default on small models. On a 4B it cost about seven times the energy per correct
 answer and scored lower on maths and knowledge, because a third of its knowledge replies ran out of room
-(note 29). A 2,048-token thinking budget that falls back to a plain answer kept its gain on code at a
-third of the tokens, in a replay of recorded replies.
+(note 29). On code, a 2,048-token thinking budget that falls back to a plain answer is worth having: run live on
+all 164 HumanEval problems it took the 4B from 78.0% to 89.6% for 1.7 times the energy per correct answer (note 30).
+So thinking is set per task, with a budget, never unlimited.
 
 ## From one machine to a cell
 
@@ -107,4 +108,4 @@ energy, so the gap a cell has to close is named: host, supplies, fans and idle.
 - Whether an 8-slot 7B beats a 1-slot 32B per correct answer on the Strix Halo. Both are measured
   alone; the comparison is not.
 - Speculative decoding on a model family other than Qwen2.5. The format and batching findings hold on IBM's Granite 3.3 2B (note 28).
-- The thinking budget with a fallback, run live rather than replayed, on a larger code sample.
+- A cap on plain code replies near 2,048 tokens. Two runaway replies were 45% of thinking-off's tokens in note 30.

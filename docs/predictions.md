@@ -637,3 +637,18 @@ have never been run with thinking.
 - 4 to 15% of problems fall back.
 Decision rule, set now: Foundry offers the budget as a "think on code" setting only if the gain is at least 3 points;
 under that, thinking stays off on this model and the setting is not built.
+
+### 20:08 entry (thinking budget with fallback, live): verdict at 21:10
+
+Run 20:13 to 21:09 on the M5 Pro, idle 0.48 to 1.62 W before each pass. Accuracy identical in both passes of each
+condition (162 and 163 of 164 replies byte-identical). Thinking off 78.0% (128/164); budget 2,048 89.6% (147/164).
+- Accuracy +11.6 points (2 to 8 predicted). Missed, above the range: 20 problems fixed, 1 broken. On problems 41 to
+  164, never run with thinking before, +12.9 points. On problems 1 to 40, 34 against 37, exactly as the replay said.
+- Tokens per problem x2.90 (3 to 6 predicted). Missed narrowly.
+- Joules per correct x1.68 (3 to 7 predicted). Missed, below the range: two thinking-off replies (problems 132 and
+  134) ran to 16,384 tokens, 45% of thinking-off's tokens, decoded at the end of the run nearly alone, so thinking
+  off paid 205 mJ per token against 136 for the budget.
+- Fell back on 26 of 164 (16%; 4 to 15% predicted). Missed narrowly.
+All four clauses missed; three in the budget's favour. The decision rule (gain at least 3 points) is met. Energy
+pass gaps 6.9% and 8.0%, both over 3%, both with the second pass costlier and its idle reading higher (1.6 W).
+Note 30.

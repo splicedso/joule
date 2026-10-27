@@ -1,0 +1,12 @@
+20:08 idle chip 0.54 W
+20:13 idle chip 0.45 W
+20:13 quiet; running experiments/budget_mac.sh
+humaneval {"n": 164, "correct": 128, "accuracy": 0.7805, "seconds": 598.702, "tokens": 72413, "tokens_per_answer": 441.5427, "tok_s": 120.95, "soc_w": 24.7634, "chip_j": 14825.906, "chip_j_per_correct": 115.8274}
+overall {"model": "qwen35-4b-Q4_0.gguf", "slots": 8, "think": "0", "think_budget": 0, "max_tokens": 16384, "server_args": "", "idle_soc_w": 0.4848, "mean_accuracy": 0.7805, "chip_j_per_correct_all": 115.8274}
+humaneval {"n": 164, "correct": 147, "accuracy": 0.8963, "seconds": 1013.45, "tokens": 210271, "tokens_per_answer": 1282.1402, "tok_s": 207.4804, "soc_w": 28.1125, "chip_j": 28490.6409, "chip_j_per_correct": 193.8139}
+overall {"model": "qwen35-4b-Q4_0.gguf", "slots": 8, "think": null, "think_budget": 2048, "max_tokens": 16384, "server_args": "", "idle_soc_w": 0.598, "mean_accuracy": 0.8963, "chip_j_per_correct_all": 193.8139}
+humaneval {"n": 164, "correct": 147, "accuracy": 0.8963, "seconds": 1074.7397, "tokens": 210303, "tokens_per_answer": 1282.3354, "tok_s": 195.6781, "soc_w": 28.7305, "chip_j": 30877.8251, "chip_j_per_correct": 210.0532}
+overall {"model": "qwen35-4b-Q4_0.gguf", "slots": 8, "think": null, "think_budget": 2048, "max_tokens": 16384, "server_args": "", "idle_soc_w": 1.5897, "mean_accuracy": 0.8963, "chip_j_per_correct_all": 210.0532}
+humaneval {"n": 164, "correct": 128, "accuracy": 0.7805, "seconds": 608.6569, "tokens": 72463, "tokens_per_answer": 441.8476, "tok_s": 119.0539, "soc_w": 26.1081, "chip_j": 15890.8473, "chip_j_per_correct": 124.1472}
+overall {"model": "qwen35-4b-Q4_0.gguf", "slots": 8, "think": "0", "think_budget": 0, "max_tokens": 16384, "server_args": "", "idle_soc_w": 1.6157, "mean_accuracy": 0.7805, "chip_j_per_correct_all": 124.1472}
+exit 0 21:09:49
