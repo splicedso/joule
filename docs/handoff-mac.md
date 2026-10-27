@@ -27,14 +27,16 @@ Preview: `.claude/launch.json` config `spliced-site`, port 8772. Images carry `?
 
 ## Next, in order (kept current; items leave the list when done)
 
-000. **State at 26 Oct 15:45.** Note 29 (what thinking costs) is published: on the 4B, thinking lost accuracy by
-   running out of tokens; a 2,048-token budget with plain fallback keeps the code gain (replay,
-   `experiments/think_fallback.py`). Next for it: measure that policy live on a larger HumanEval sample, prediction
-   first. The portable cluster v0 sheets are in `docs/concepts/portable-cluster/` (c613817); open items are the
-   board's mechanical drawing and the CPU connector pin count; asked Martin whether to start the distribution
-   board in KiCad. **The Linux session was unreachable at 15:44** (its bridge address returned 409 and ListAgents
-   no longer lists it); the note 29 guidance for it is at the top of `docs/handoff-linux.md`. Martin has to reopen
-   it; until then nothing new runs on the Strix.
+000. **State at 26 Oct 21:35.** Notes 29 and 30 are published: thinking on a 4B loses answers by running out of
+   room; a 2,048-token budget with plain fallback took HumanEval-164 from 78.0% to 89.6% at 1.68x J per correct.
+   Foundry has a Think switch built on that policy (foundry 428c56f; thinking off is now sent explicitly), so the
+   Linux box image must re-vendor Foundry at 428c56f or later before it is built. Next measurement candidates: a
+   cap near 2,048 tokens on plain code replies (two runaways were 45% of thinking-off's tokens), and llama.cpp's
+   own `--reasoning-budget`, which forces the thought to end instead of discarding it (unmeasured). The portable
+   cluster sheets use Framework's mechanical drawing (bce4682); Martin has not yet answered whether to start the
+   distribution board in KiCad. Linux reconnected at about 20:45; PRs 31 to 34 merged (31 and 32 by hand, 745f7f2);
+   its night chain (RFT training with checkpoints, RFT eval, 32B void-cell rerun, Qwen3.6, box smoke, image) waits
+   behind a GPU gate for Martin's Illusion AI job, expected to free the Strix between 03:30 and 05:00.
 00. **The plan for now (Martin, 26 Oct ~14:00): the Spliced AI computer**, a compact offline box running open-weight
    models, plus our lightweight models (`docs/concepts/ai-computer.md`). Chassis, power, cooling and controller are
    Martin's; OS, serving, models and measurement are ours. `foundry/box/server.py` serves the interface from the box
