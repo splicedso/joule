@@ -637,3 +637,12 @@ have never been run with thinking.
 - 4 to 15% of problems fall back.
 Decision rule, set now: Foundry offers the budget as a "think on code" setting only if the gain is at least 3 points;
 under that, thinking stays off on this model and the setting is not built.
+
+## Results so far, 2026-10-26, 20:59 PT (predictions above left unedited)
+
+- **12:00 entry, Qwen2.5 7B Q4_0 on the general eval** (`results/general-halo-baselines.md`): GSM8K 86 to 90%: missed,
+  91.4% (91.6, 91.2). MMLU-Pro 45 to 55%: held, 50.4%. HumanEval 75 to 85%: held, 79.0%. The Qwen3.6 clauses of that entry
+  are still to run.
+- **12:03 entry, stock 1.5B Q4_0**: GSM8K 63 to 69%: held, 68.6% (67.2, 70.0). MMLU-Pro 25 to 35%: held, 27.1%. HumanEval
+  50 to 65%: held, 56.1%. Energy spreads over 3% on every 1.5B task (4.0, 25.7, 11.0%) and on the 7B's GSM8K (7.1%) and
+  MMLU-Pro (9.0%), flagged on the page. The RFT clauses of that entry are still to run.
