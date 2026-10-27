@@ -27,16 +27,16 @@ Preview: `.claude/launch.json` config `spliced-site`, port 8772. Images carry `?
 
 ## Next, in order (kept current; items leave the list when done)
 
-000. **State at 26 Oct 21:16.** Notes 29 and 30 are published: thinking on a 4B loses answers by running out of
-   room; a 2,048-token budget with plain fallback took HumanEval-164 from 78.0% to 89.6% at 1.68x J per correct.
-   Foundry has a Think switch built on that policy (foundry 428c56f; thinking off is now sent explicitly), so the
-   Linux box image must re-vendor Foundry at 428c56f or later before it is built. Next measurement candidates: a
-   cap near 2,048 tokens on plain code replies (two runaways were 45% of thinking-off's tokens), and llama.cpp's
-   own `--reasoning-budget`, which forces the thought to end instead of discarding it (unmeasured). The portable
-   cluster sheets use Framework's mechanical drawing (bce4682); Martin has not yet answered whether to start the
-   distribution board in KiCad. Linux reconnected at about 20:45; PRs 31 to 34 merged (31 and 32 by hand, 745f7f2);
-   its night chain (RFT training with checkpoints, RFT eval, 32B void-cell rerun, Qwen3.6, box smoke, image) waits
-   behind a GPU gate for Martin's Illusion AI job, expected to free the Strix between 03:30 and 05:00.
+000. **State at 26 Oct 22:40.** Notes 29, 30 and 31 are published. Note 31: llama.cpp's own `--reasoning-budget
+   2048` (answer from the cut thought) scored 92.1% on HumanEval-164 against 89.6% for Foundry's fallback policy;
+   the two differ only on the 26 problems whose thought ran long (18 right against 14). Energy was not 5% cheaper, so
+   by the rule set before the run Foundry keeps its fallback. The same test on GSM8K 100 and MMLU-Pro 112 is running
+   (`experiments/modes_mac_qa.sh`, prediction 22:34, accuracy-led rule; about two hours from 22:40): keep the Mac idle
+   until `results/log/modes-qa-mac.log` ends in "exit". The plain-reply cap stays out of Foundry by the rule.
+   Foundry 428c56f has the Think switch, so the Linux box image must re-vendor Foundry at 428c56f or later. Martin has
+   not answered whether to start the distribution board in KiCad. Linux's night chain (RFT, 32B void-cell rerun,
+   Qwen3.6, box smoke, image) waits behind a GPU gate for Martin's Illusion AI job, expected to free the Strix between
+   03:30 and 05:00.
 00. **The plan for now (Martin, 26 Oct ~14:00): the Spliced AI computer**, a compact offline box running open-weight
    models, plus our lightweight models (`docs/concepts/ai-computer.md`). Chassis, power, cooling and controller are
    Martin's; OS, serving, models and measurement are ours. `foundry/box/server.py` serves the interface from the box
