@@ -34,8 +34,9 @@ Preview: `.claude/launch.json` config `spliced-site`, port 8772. Images carry `?
    correct answer (note 32), so by the pre-set rule Foundry keeps the fallback (no Foundry change). Next modes test:
    a budget on the answer as well as the thought, and a larger model. Linux PR 35 merged (49fdd14): the Qwen3.6 evals
    in its night chain now include the built-in budget, prediction 23:57. Hardware: Martin asked for a small, impactful
-   hardware niche to start; the proposal is an inline power meter board for small AI computers (concept doc in
-   `docs/concepts/power-meter/`, in progress), then a USB-C PD power input. KiCad distribution board question still
+   hardware niche to start; it was answered on 26 Oct (`docs/concepts/engineering-niche.md`), and its new section
+   "The first board" (d36a3b4) makes it concrete: an ATX tap with an INA228 per rail, five rails, Martin's KiCad
+   design, nothing bought without him; then a USB-C 48 V input. Asked Linux which board the Strix box is. KiCad distribution board question still
    unanswered. Foundry 428c56f is vendored on Linux's image branch. Linux's chain waits behind the GPU gate for the
    Illusion job (expected to free 03:30 to 05:00).
 00. **The plan for now (Martin, 26 Oct ~14:00): the Spliced AI computer**, a compact offline box running open-weight
