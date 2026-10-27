@@ -39,6 +39,7 @@ ev() {  # tag model think max_tokens pass; think: 0 (off), bN (THINK_BUDGET=N wi
     0)  T=THINK=0;               CTX=$(($4 + 4096));         SA="";;
     b*) T=THINK_BUDGET=${3#b};   CTX=$(($4 + ${3#b} + 4096)); SA="";;
     n*) T=THINK=1;               CTX=$(($4 + ${3#n}));        SA="--reasoning-budget ${3#n}";;   # 4,096 + 2,048 = 6,144 per slot, as experiments/modes_mac_qa.sh
+    c*) T=THINK_BUDGET=${3#c};   CTX=$(($4 + ${3#c} + 4096)); SA="--reasoning-budget 2048";;    # note 33's capped answer: thought cut at 2,048, reply capped at N, re-asked without thinking at max_tokens
   esac
   env $T SERVER_ARGS="$SA" MAX_TOKENS=$4 CTX_PER_SLOT=$CTX EXEC_OK=1 uv run --with pyarrow python experiments/general_eval.py \
     "$2" "results/general-halo-$1-pass$5.json" gsm8k,mmlu_pro,humaneval 8; }
@@ -47,7 +48,10 @@ Q=models/quant/qwen3.6-35b-a3b
 # thinking at 16,384 lost answers to the cut-off). Changed from THINK=1 at 16,384 on 2026-10-26 before any eval ran.
 # Third mode added 2026-10-26 23:55 before any eval ran (Mac lead's ask after note 31): llama-server's own --reasoning-budget 2048,
 # thinking on, 4,096 per reply, 6,144 per slot; results named -native-.
-RUNS="q36-Q4_0-nothink:$Q-Q4_0.gguf:0:4096 q36-Q8_0-nothink:$Q-Q8_0.gguf:0:4096 q36-Q4_0-budget2048:$Q-Q4_0.gguf:b2048:4096 q36-Q8_0-budget2048:$Q-Q8_0.gguf:b2048:4096 q36-Q4_0-native:$Q-Q4_0.gguf:n2048:4096 q36-Q8_0-native:$Q-Q8_0.gguf:n2048:4096"
+RUNS="q36-Q4_0-nothink:$Q-Q4_0.gguf:0:4096 q36-Q8_0-nothink:$Q-Q8_0.gguf:0:4096 q36-Q4_0-budget2048:$Q-Q4_0.gguf:b2048:4096 q36-Q8_0-budget2048:$Q-Q8_0.gguf:b2048:4096 q36-Q4_0-native:$Q-Q4_0.gguf:n2048:4096 q36-Q8_0-native:$Q-Q8_0.gguf:n2048:4096 q36-Q4_0-native2560:$Q-Q4_0.gguf:c2560:4096"
+# Fourth mode, Q4_0 only (the format Foundry ships), added 2026-10-27 on the Mac lead's ask after note 33: Foundry's Think policy
+# since foundry 53c32e3 (server --reasoning-budget 2048, the reply capped at 2,560, a reply stopped there re-asked without
+# thinking). Difference from Foundry: its re-ask has no cap; here it is 4,096 like the other modes. Last in pass 1, first in pass 2.
 for r in $RUNS; do IFS=:; set -- $r; unset IFS; ev "$1" "$2" "$3" "$4" 1; done
 for r in $(echo $RUNS | tr ' ' '\n' | tac); do IFS=:; set -- $r; unset IFS; ev "$1" "$2" "$3" "$4" 2; done   # pass 2 reversed
 echo "=== PHASE 0 DONE $(date) ==="

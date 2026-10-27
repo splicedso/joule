@@ -813,3 +813,28 @@ Run 01:07 to 03:06 on the M5 Pro (B pass 1, D passes 1 and 2), paused there by M
 Decision rule met: D no less accurate on any task, 2.4 points better on HumanEval and 2.7 on MMLU-Pro, and no costlier
 per correct answer anywhere. Foundry's Think moves to D. Per question, D beats B on 6 HumanEval, 1 GSM8K and 5 MMLU-Pro
 questions and loses 2, 0 and 2, so the gain is real on this set but small. Note 33.
+
+## 2026-10-27, 12:21 PT
+
+**Qwen3.6-35B-A3B with the capped answer, Foundry's Think policy since note 33** (Strix Halo; `experiments/phase0_baselines.sh`,
+STAGE=eval, a fourth mode added before any Qwen3.6 eval ran, on the Mac lead's ask after note 33: THINK_BUDGET=2560 with
+`--reasoning-budget 2048`, MAX_TOKENS=4096, CTX_PER_SLOT=10,752; the thought is cut at 2,048, the model answers from it, a reply
+stopped at 2,560 is dropped and asked again with thinking off; Q4_0 only, the format Foundry ships; results named
+`-native2560-`, last in pass 1 and first in pass 2; behind the GPU gate). One difference from Foundry: its re-ask has no cap
+(app.js sends no max_tokens); here it is 4,096, the same as the fallback mode's, so the two modes differ only in the first ask.
+Seen before writing: note 33 (Qwen3.5 4B, M5 Pro): the capped answer beat the fallback by 2.4, 1.0 and 2.7 points on
+HumanEval, GSM8K and MMLU-Pro at 7, 4 and 0% less energy per correct answer, chip power within a watt, re-asks on 3, 3 and 31
+of 164, 100 and 112; note 32's extra 5 to 6 W came with replies allowed to run to 4,096. No Qwen3.6 cell has run yet; the
+21:03 and 23:57 entries' clauses for the other three modes stand. The question is whether a 35B, which should run long less
+often, still gains from answering out of a cut thought at equal energy.
+- Accuracy against the fallback mode (THINK_BUDGET=2048) at Q4_0: never lower by more than 1 point on any task, and higher by
+  at least 1 point on one of MMLU-Pro and HumanEval; within 2 points of the uncapped native mode on every task.
+- Re-asks (first reply stopped at 2,560): GSM8K 0 to 5% of problems, MMLU-Pro 5 to 25%, HumanEval 0 to 8%, all below the
+  4B's 3, 28 and 2% on MMLU-Pro and about the same on the other two; in every task fewer than the fallback mode's re-asks.
+- Package power during the run within 3 W of the fallback mode's on every task, and no higher than the uncapped native mode's.
+- Energy per correct answer within 8% of the fallback mode's on every task, and on MMLU-Pro 0 to 15% below the uncapped
+  native mode's.
+- Tokens per answer within 10% of the fallback mode's on every task.
+Decision rule, set now, for a 35B box: note 33's rule scored on these Q4_0 cells (never less accurate than the fallback, at
+least 2 points better on one task, no more than 10% costlier per correct answer on any) says whether Foundry's policy also
+holds for the 35B; a miss is reported, not acted on, until the Mac lead decides.
