@@ -1,0 +1,25 @@
+{
+  "model": "1.5b-Q4_0.gguf",
+  "temperature": 0.8,
+  "samples_per_problem": 4,
+  "cut_to_2": false,
+  "projected_h_at_4": null,
+  "seconds_this_run": 6742.850357698015,
+  "answers": 30588,
+  "gsm8k": {
+    "problems": 7273,
+    "answers": 29092,
+    "correct_rate": 0.7243915853155507,
+    "problems_with_a_correct_answer": 0.9188780420734223,
+    "tokens_per_answer": 238.35477107108483,
+    "hit_max_tokens": 68
+  },
+  "mbpp": {
+    "problems": 374,
+    "answers": 1496,
+    "correct_rate": 0.4859625668449198,
+    "problems_with_a_correct_answer": 0.7032085561497327,
+    "tokens_per_answer": 117.95320855614973,
+    "hit_max_tokens": 1
+  }
+}

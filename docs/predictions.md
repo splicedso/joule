@@ -838,3 +838,19 @@ often, still gains from answering out of a cut thought at equal energy.
 Decision rule, set now, for a 35B box: note 33's rule scored on these Q4_0 cells (never less accurate than the fallback, at
 least 2 points better on one task, no more than 10% costlier per correct answer on any) says whether Foundry's policy also
 holds for the 35B; a miss is reported, not acted on, until the Mac lead decides.
+
+### 12:03 entry of 26 October (RFT pilot on the 1.5B): verdict at 13:57, 27 October
+
+Sampling 26 October 17:18 to 19:10; training 27 October 11:13 to 13:07 after the box's reboot; evals 13:08 to 13:47 behind the
+gate, idle 6.8 to 7.9 W before four runs and 17.4 and 17.7 W before two (flagged). Accuracy the same to within a point in both
+passes of every cell. Stock Q4_0 re-run in the window: 69.6% GSM8K, 27.5% MMLU-Pro, 54.9% HumanEval. RFT Q4_0: 61.4 / 28.4 / 42.7;
+RFT F16: 67.6 / 27.1 / 43.9.
+- Sampling: 72.4% of GSM8K answers correct (55 to 65 predicted), missed above; 91.9% of problems with one (80 to 90), missed
+  above; MBPP 48.6% of answers (35 to 50), held; 70.3% of problems (55 to 70), held; 1 h 52 min (2 to 4 h), missed below.
+- GSM8K at Q4_0 +2 to +6: -8.2. Missed; the +3 bar is not met.
+- HumanEval within 3: -12.2, missed. MMLU-Pro within 2: +0.9, held.
+- Tokens per GSM8K answer within 15%: 270 against 268, held.
+- F16 and Q4_0 within 2 points on every task: 6.2 apart on GSM8K, missed.
+Four clauses missed, three held (counting the sampling bullet's parts: three above or below their ranges, two held). The bar
+is missed on GSM8K, HumanEval and MMLU-Pro's tokens (3.5x). The energy columns mix a file-layout speed difference (qat.py's
+tied Q6_K embedding decodes 25% slower than the stock file) with the weights. `results/general-halo-rft-1.5b.md`.

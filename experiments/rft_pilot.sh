@@ -9,11 +9,15 @@ export PATH="$HOME/.local/bin:/home/martin/spliced/phase/vendor/llama.cpp/build-
 cd /home/martin/spliced/phase
 mkdir -p data/rft results/rft
 if [ "${STAGE:-train}" = train ]; then
-  echo "=== sample $(date) ==="
-  uv run --with pyarrow python experiments/rft/sample.py models/quant/1.5b-Q4_0.gguf data/rft/samples-1.5b.jsonl
-  cp data/rft/samples-1.5b.summary.json results/rft/sampling-1.5b.json
-  echo "=== build $(date) ==="
-  python3 experiments/rft/build.py data/rft/samples-1.5b.jsonl data/rft/rft-1.5b.jsonl | tee results/rft/dataset-1.5b.json
+  if [ -f data/rft/rft-1.5b.jsonl ] && [ -f results/rft/sampling-1.5b.json ]; then
+    echo "=== sampling and build done earlier, kept (their summaries hold the original run's times) $(date) ==="
+  else
+    echo "=== sample $(date) ==="
+    uv run --with pyarrow python experiments/rft/sample.py models/quant/1.5b-Q4_0.gguf data/rft/samples-1.5b.jsonl
+    cp data/rft/samples-1.5b.summary.json results/rft/sampling-1.5b.json
+    echo "=== build $(date) ==="
+    python3 experiments/rft/build.py data/rft/samples-1.5b.jsonl data/rft/rft-1.5b.jsonl | tee results/rft/dataset-1.5b.json
+  fi
   echo "=== train (QUANT=0, DATA, GENERAL_FRAC 0.1) $(date) ==="
   QUANT=0 DATA=data/rft/rft-1.5b.jsonl GENERAL_FRAC=0.1 LR=1e-5 .venv-torch/bin/python experiments/lattice/qat.py models/hf-1.5b models/rft-1.5b
   cp models/rft-1.5b/train_log.json results/rft/train-log-1.5b.json
@@ -25,7 +29,7 @@ if [ "${STAGE:-train}" = train ]; then
 else
   if pgrep -f 'llama-serve[r]|quality[.]py|teacher[.]py|train_[a-z]*[.]py|qat[.]py|curl -sL -C' | grep -vx -e $$ -e $PPID >/dev/null; then echo "GPU or network busy, abort"; exit 1; fi
   [ "$(cat /sys/class/drm/card0/device/power_dpm_force_performance_level)" = auto ] || { echo "clock not auto, abort"; exit 1; }
-  ev() { echo "=== $1 pass$3 $(date) ==="; MAX_TOKENS=2048 CTX_PER_SLOT=6144 EXEC_OK=1 uv run --with pyarrow python experiments/general_eval.py \
+  ev() { sh experiments/gpu_gate.sh 12 || exit 1; echo "=== $1 pass$3 $(date) ==="; MAX_TOKENS=2048 CTX_PER_SLOT=6144 EXEC_OK=1 uv run --with pyarrow python experiments/general_eval.py \
     "$2" "results/general-halo-$1-pass$3.json" gsm8k,mmlu_pro,humaneval 8; }
   ev 1.5b-Q4_0-rftwindow models/quant/1.5b-Q4_0.gguf 1; ev 1.5b-rft-Q4_0 models/quant/1.5b-rft-Q4_0.gguf 1; ev 1.5b-rft-F16 models/quant/1.5b-rft-F16.gguf 1
   ev 1.5b-rft-F16 models/quant/1.5b-rft-F16.gguf 2; ev 1.5b-rft-Q4_0 models/quant/1.5b-rft-Q4_0.gguf 2; ev 1.5b-Q4_0-rftwindow models/quant/1.5b-Q4_0.gguf 2
