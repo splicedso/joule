@@ -43,7 +43,7 @@ in both passes of every cell.
 
 **GSM8K.** Per pass the RFT Q4_0 lost 45 and 47 problems the stock file had right and won 24 and 27, a net -21 and -20 of 250.
 At F16 it is 2.0 points under stock Q4_0, so the fine-tuning itself did not help on its own task, and quantizing the fine-tuned
-weights to Q4_0 cost another 6.2 points where the stock weights lose little. That is the same shape as note 20's plain
+weights to Q4_0 cost another 6.2 points where the stock weights lose little. That is the same shape as note 27's plain
 fine-tune control (`notes/2026-10-lattice-v1.md`), which lost at full precision and lost more at Q4_0, with the difference that
 this run's data was the model's own answers, not GSM8K's shorter worked answers, so answer length did not move (270 against 268).
 
