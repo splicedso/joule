@@ -779,3 +779,22 @@ differ, same score; built-in 5 of 112 differ, all long thoughts.
 Decision rule not met: built-in 16 to 17% costlier per correct on MMLU-Pro in both passes (36 to 37 W against 30 to
 32 W for every other MMLU-Pro pass at the same speed; unexplained; my own sessions answered messages near the end of
 both). Built-in pass 2 idled at 14 W before starting; its GSM8K energy is excluded. Foundry keeps the fallback. Note 32.
+
+## 2026-10-27, 01:02 PT
+
+**A capped answer after a cut thought** (M5 Pro; Qwen3.5 4B Q4_0; HumanEval 164, GSM8K first 100, MMLU-Pro first 8 per
+subject; 8 requests at once; `experiments/modes_mac_d.sh`, mirrored B D D B under `when_quiet.sh`). B: Foundry's Think
+today (think up to 2,048, else ask again without thinking, every reply capped at 2,048). D: the server ends the thought
+at 2,048 (`--reasoning-budget 2048`), the reply may run to 2,560 tokens in all, and a reply stopped there is asked again
+without thinking, capped at 2,048. Smoke-tested on HumanEval 1 to 3 at a 200/300 budget, only to check both paths run.
+Seen before writing: notes 31 and 32 recorded every reply of B, of thinking off and of the uncapped built-in budget,
+and decoding mostly repeats, so the replay gives D's scores: HumanEval 92.1% at about 1,085 tokens per problem, GSM8K
+97.0% at 1,576, MMLU-Pro 71.4% at about 2,304 (falling back on 3, 3 and 31 questions); B 89.6%, 96.0%, 68.8% at 1,107,
+1,612 and 2,208. Those are reported, not counted.
+- D lands within 1 point of its replay on every task.
+- D's chip power is within 1.5 W of B's on every task: note 32's extra 5 to 6 W came from replies running on to 4,096
+  tokens, which D stops at 2,560, not from the server flag.
+- D's joules per correct answer are within 8% of B's on every task.
+Decision rule, set now: Foundry's Think switch moves to D (the server always started with `--reasoning-budget 2048`,
+Think requests capped at 2,560 tokens, the plain fallback unchanged) if D is no less accurate than B on any of the
+three tasks, at least 2 points better on one, and no more than 10% costlier per correct answer on any.
