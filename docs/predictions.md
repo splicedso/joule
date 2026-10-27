@@ -765,7 +765,7 @@ has not reported. Qwen3.6 has never run here in any mode; the 12:00 and 21:03 en
 Decision rule for the Halo: the 22:29 entry's rule applies here too, scored on the Qwen3.6 cells (C no less accurate than
 the fallback on any task, at least 2 points better on one, no more than 10% costlier per correct answer on any).
 
-### 22:29 entry (the built-in budget on maths and knowledge): verdict at 00:40
+### 22:29 entry (the built-in budget on maths and knowledge): verdict at 00:35
 
 Run 22:37 to 00:34 on the M5 Pro. GSM8K 100: all three 96.0%, the same 96. MMLU-Pro 112: off 69.6% (78), fallback
 68.8% (77), built-in 80 and 82 (72.3%). Replies identical between passes for off; fallback 3 of 112 and 1 of 100

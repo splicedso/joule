@@ -27,7 +27,7 @@ Preview: `.claude/launch.json` config `spliced-site`, port 8772. Images carry `?
 
 ## Next, in order (kept current; items leave the list when done)
 
-000. **State at 27 Oct 00:52.** Notes 29 to 32 are published; the modes question is answered for the 4B. Thinking
+000. **State at 27 Oct 00:37.** Notes 29 to 32 are published; the modes question is answered for the 4B. Thinking
    off is best per joule on maths and knowledge; on code a 2,048-token budget with plain fallback adds about 12 points.
    llama.cpp's own `--reasoning-budget` (answer from the cut thought) gains 2 to 4 points on code and knowledge, but
    one knowledge answer in six then reasons on in plain view until the reply limit, and it cost 16 to 17% more per
