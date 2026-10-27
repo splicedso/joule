@@ -27,7 +27,7 @@ Preview: `.claude/launch.json` config `spliced-site`, port 8772. Images carry `?
 
 ## Next, in order (kept current; items leave the list when done)
 
-000. **State at 26 Oct 21:35.** Notes 29 and 30 are published: thinking on a 4B loses answers by running out of
+000. **State at 26 Oct 21:16.** Notes 29 and 30 are published: thinking on a 4B loses answers by running out of
    room; a 2,048-token budget with plain fallback took HumanEval-164 from 78.0% to 89.6% at 1.68x J per correct.
    Foundry has a Think switch built on that policy (foundry 428c56f; thinking off is now sent explicitly), so the
    Linux box image must re-vendor Foundry at 428c56f or later before it is built. Next measurement candidates: a
