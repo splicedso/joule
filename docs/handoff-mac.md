@@ -27,11 +27,11 @@ Preview: `.claude/launch.json` config `spliced-site`, port 8772. Images carry `?
 
 ## Next, in order (kept current; items leave the list when done)
 
-000. **State at 26 Oct 22:40.** Notes 29, 30 and 31 are published. Note 31: llama.cpp's own `--reasoning-budget
+000. **State at 26 Oct 22:32.** Notes 29, 30 and 31 are published. Note 31: llama.cpp's own `--reasoning-budget
    2048` (answer from the cut thought) scored 92.1% on HumanEval-164 against 89.6% for Foundry's fallback policy;
    the two differ only on the 26 problems whose thought ran long (18 right against 14). Energy was not 5% cheaper, so
    by the rule set before the run Foundry keeps its fallback. The same test on GSM8K 100 and MMLU-Pro 112 is running
-   (`experiments/modes_mac_qa.sh`, prediction 22:34, accuracy-led rule; about two hours from 22:40): keep the Mac idle
+   (`experiments/modes_mac_qa.sh`, prediction 22:29, accuracy-led rule; about two hours from 22:33): keep the Mac idle
    until `results/log/modes-qa-mac.log` ends in "exit". The plain-reply cap stays out of Foundry by the rule.
    Foundry 428c56f has the Think switch, so the Linux box image must re-vendor Foundry at 428c56f or later. Martin has
    not answered whether to start the distribution board in KiCad. Linux's night chain (RFT, 32B void-cell rerun,

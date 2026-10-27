@@ -3,7 +3,7 @@
 #   A  thinking off, replies capped at 2,048 tokens
 #   B  THINK_BUDGET=2048 with fallback to thinking off, every reply capped at 2,048
 #   C  llama.cpp's own reasoning budget: thinking on, the server ends the thought at 2,048 tokens, 4,096 per reply in all
-# Note 31 is the same comparison on HumanEval. Prediction: docs/predictions.md, 26 October 22:34 entry.
+# Note 31 is the same comparison on HumanEval. Prediction: docs/predictions.md, 26 October 22:29 entry.
 set -e
 cd "$(dirname "$0")/.."
 export N_GSM8K=100 N_PER_SUBJECT=8

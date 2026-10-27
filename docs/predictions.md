@@ -712,7 +712,7 @@ Decision rule, set now: Foundry's Think switch moves from B's policy to C's if C
 and at least 5% cheaper per correct answer. A cap on plain replies is not adopted in Foundry whatever A measures: in a
 chat, a long answer is often the right one, and HumanEval does not test that.
 
-### 21:21 entry (three answer modes on code): verdict at 22:34
+### 21:21 entry (three answer modes on code): verdict at 22:29
 
 Run 21:36 to 22:28 on the M5 Pro. Every reply byte-identical between the two passes of each condition (492 of 492).
 A (off, capped) 78.0% at 267 tokens; B (fallback, capped) 89.6% at 1,107; C (built-in budget) 92.1% (151/164) at
@@ -726,7 +726,7 @@ did not, B's fresh answer scored 14 (the same as A) and C's answer from the cut 
   cheaper, and the token count says about 3% cheaper. None of the three reaches 5%.
 One clause held. The decision rule is not met: Foundry's Think switch keeps B's policy. Note 31.
 
-## 2026-10-26, 22:34 PT
+## 2026-10-26, 22:29 PT
 
 **The built-in budget on maths and knowledge** (M5 Pro; Qwen3.5 4B Q4_0; GSM8K first 100, MMLU-Pro first 8 per
 subject (112); 8 requests at once; `experiments/modes_mac_qa.sh`, mirrored A B C C B A under `when_quiet.sh`). A, B
