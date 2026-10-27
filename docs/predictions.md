@@ -851,6 +851,7 @@ RFT F16: 67.6 / 27.1 / 43.9.
 - HumanEval within 3: -12.2, missed. MMLU-Pro within 2: +0.9, held.
 - Tokens per GSM8K answer within 15%: 270 against 268, held.
 - F16 and Q4_0 within 2 points on every task: 6.2 apart on GSM8K, missed.
-Four clauses missed, three held (counting the sampling bullet's parts: three above or below their ranges, two held). The bar
-is missed on GSM8K, HumanEval and MMLU-Pro's tokens (3.5x). The energy columns mix a file-layout speed difference (qat.py's
+Of the entry's six clauses, four missed (sampling, GSM8K gain, HumanEval, F16 against Q4_0) and two held (MMLU-Pro, GSM8K
+tokens); the sampling clause's parts, given separately: three outside their ranges, two held. The bar is missed on three of
+its four parts: GSM8K, HumanEval, and tokens per answer within 20% on every task (MMLU-Pro 3.5x and HumanEval 0.6x). The energy columns mix a file-layout speed difference (qat.py's
 tied Q6_K embedding decodes 25% slower than the stock file) with the weights. `results/general-halo-rft-1.5b.md`.

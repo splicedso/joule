@@ -1,8 +1,8 @@
 # RFT pilot on the 1.5B: rejection-sampling fine-tuning made the model worse
 
 **Prediction verdict (12:03 entry of 26 October):** the bar is missed on three of its four parts. GSM8K at Q4_0 fell 8.2 points
-(the bar asked for +3), HumanEval fell 12.2 (no more than -1 allowed), MMLU-Pro tokens per answer rose 3.5x (within 20% allowed);
-only GSM8K's token count stayed put. Of the entry's clauses, the sampling yields came in above their ranges and the run faster,
+(the bar asked for +3), HumanEval fell 12.2 (no more than -1 allowed), and tokens per answer moved outside the allowed 20% on two
+tasks (MMLU-Pro 3.5x, HumanEval 0.6x); only GSM8K's token count stayed put. Of the entry's clauses, the sampling yields came in above their ranges and the run faster,
 the MMLU-Pro and GSM8K-token clauses held, and the GSM8K gain, the HumanEval and the F16-against-Q4_0 clauses missed.
 
 Strix Halo (AMD Ryzen AI Max+ 395, RAH-001), llama.cpp 620d2225c Vulkan, PyTorch ROCm for the training. 27 October 2026.
@@ -88,7 +88,7 @@ pass 2 idle was the 17.7 W one and it drew 99 W against 91 W at the same tokens)
 - RFT F16 and Q4_0 within 2 points of each other on every task: 6.2 apart on GSM8K, missed.
 
 The bar (GSM8K +3 at Q4_0; HumanEval and MMLU-Pro no more than 1 under; tokens within 20%) is missed on GSM8K, on HumanEval and on
-MMLU-Pro's tokens. The 10% FineWeb share was chosen low on the argument that the model's own answers leave little to forget; the
+tokens per answer (MMLU-Pro 3.5x, HumanEval 0.6x). The 10% FineWeb share was chosen low on the argument that the model's own answers leave little to forget; the
 HumanEval result says the share, or the 3.5% code share in the data, was too low to keep code, and the GSM8K result says the
 recipe loses accuracy on its own task before quantization and more after it. No RFT file goes anywhere near the box.
 
