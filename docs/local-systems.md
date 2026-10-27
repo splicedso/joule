@@ -90,8 +90,8 @@ answer and scored lower on maths and knowledge, because a third of its knowledge
 (note 29). On code, a 2,048-token thinking budget that falls back to a plain answer is worth having: run live on
 all 164 HumanEval problems it took the 4B from 78.0% to 89.6% for 1.7 times the energy per correct answer (note 30).
 So thinking is set per task, with a budget, never unlimited. Letting the model answer from a cut thought,
-instead of starting over, scored 92.1% against 89.6% at about the same cost (note 31); it is being tested on maths
-and knowledge before Foundry changes.
+instead of starting over, scored a few points higher on code and knowledge (notes 31 and 32), but one knowledge
+answer in six kept reasoning until the reply limit, and it cost more. Foundry keeps the fallback.
 
 ## From one machine to a cell
 
@@ -110,4 +110,4 @@ energy, so the gap a cell has to close is named: host, supplies, fans and idle.
 - Whether an 8-slot 7B beats a 1-slot 32B per correct answer on the Strix Halo. Both are measured
   alone; the comparison is not.
 - Speculative decoding on a model family other than Qwen2.5. The format and batching findings hold on IBM's Granite 3.3 2B (note 28).
-- Answering from a cut thought on maths and knowledge questions. On code it gained four problems in 164 (note 31).
+- A budget on the answer as well as the thought, so a cut thought cannot run on in the reply (note 32).

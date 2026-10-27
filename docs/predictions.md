@@ -743,3 +743,18 @@ and 7,183 on MMLU-Pro. C has never been run on either task.
 Decision rule, set now: Foundry's Think switch moves from B's policy to C's if, across note 31's HumanEval and these
 two tasks, C is no less accurate than B on any, at least 2 points better on one of these two, and no more than 10%
 costlier per correct answer on any.
+
+### 22:29 entry (the built-in budget on maths and knowledge): verdict at 00:40
+
+Run 22:37 to 00:34 on the M5 Pro. GSM8K 100: all three 96.0%, the same 96. MMLU-Pro 112: off 69.6% (78), fallback
+68.8% (77), built-in 80 and 82 (72.3%). Replies identical between passes for off; fallback 3 of 112 and 1 of 100
+differ, same score; built-in 5 of 112 differ, all long thoughts.
+- Fallback within 1 point of off on both: 0 and 0.9. Held.
+- Fallback rate 20 to 50% GSM8K, 60 to 90% MMLU-Pro: 32% and 67%. Held.
+- Built-in within 2 points of off on GSM8K: 0. Held.
+- Built-in beats fallback on MMLU-Pro by 0 to 6: +2.7 and +4.5. Held.
+- Built-in uses 5 to 15% fewer MMLU-Pro tokens: 1.7% more. Missed: 18 of 112 answers ran to the 4,096 limit after the
+  thought was ended (4 right), 29% of its tokens.
+Decision rule not met: built-in 16 to 17% costlier per correct on MMLU-Pro in both passes (36 to 37 W against 30 to
+32 W for every other MMLU-Pro pass at the same speed; unexplained; my own sessions answered messages near the end of
+both). Built-in pass 2 idled at 14 W before starting; its GSM8K energy is excluded. Foundry keeps the fallback. Note 32.
