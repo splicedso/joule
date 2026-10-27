@@ -711,3 +711,35 @@ smoke-tested on problems 1 to 3 at a 40-token budget, only to check that it work
 Decision rule, set now: Foundry's Think switch moves from B's policy to C's if C is within 1 point of B (or better)
 and at least 5% cheaper per correct answer. A cap on plain replies is not adopted in Foundry whatever A measures: in a
 chat, a long answer is often the right one, and HumanEval does not test that.
+
+### 21:21 entry (three answer modes on code): verdict at 22:34
+
+Run 21:36 to 22:28 on the M5 Pro. Every reply byte-identical between the two passes of each condition (492 of 492).
+A (off, capped) 78.0% at 267 tokens; B (fallback, capped) 89.6% at 1,107; C (built-in budget) 92.1% (151/164) at
+1,076. On the 138 problems whose thought finished inside 2,048 tokens, B and C wrote the same reply; on the 26 that
+did not, B's fresh answer scored 14 (the same as A) and C's answer from the cut thought 18.
+- A costs 40 to 65 J per correct answer: 43.6. Held.
+- B costs 150 to 185 J: 141.8. Missed, below the range.
+- C scores 86 to 92% at 900 to 1,200 tokens: 92.1% at 1,076. Missed by 0.1 point, above the range.
+- C costs 5 to 20% less than B: 4.7% more on the mean of its two passes. Missed. Its first pass drew 36.2 W against
+  31 to 33 W for every other pass, at the same token count, with no cause found; its second pass alone is 5.7%
+  cheaper, and the token count says about 3% cheaper. None of the three reaches 5%.
+One clause held. The decision rule is not met: Foundry's Think switch keeps B's policy. Note 31.
+
+## 2026-10-26, 22:34 PT
+
+**The built-in budget on maths and knowledge** (M5 Pro; Qwen3.5 4B Q4_0; GSM8K first 100, MMLU-Pro first 8 per
+subject (112); 8 requests at once; `experiments/modes_mac_qa.sh`, mirrored A B C C B A under `when_quiet.sh`). A, B
+and C exactly as in the 21:21 entry: off capped at 2,048; fallback with every reply capped at 2,048; llama.cpp's
+`--reasoning-budget 2048` with 4,096 per reply.
+Seen before writing: note 29 ran GSM8K 1 to 50 and MMLU-Pro 4 per subject with unlimited thinking; its replay of B at
+2,048 matched thinking off exactly on both (98.0% and 64.3%), and its thoughts ran a median 3,228 tokens on GSM8K
+and 7,183 on MMLU-Pro. C has never been run on either task.
+- B is within 1 point of A on both tasks.
+- B falls back on 20 to 50% of GSM8K and 60 to 90% of MMLU-Pro.
+- C is within 2 points of A on GSM8K.
+- C beats B on MMLU-Pro by 0 to 6 points.
+- C uses 5 to 15% fewer tokens than B on MMLU-Pro.
+Decision rule, set now: Foundry's Think switch moves from B's policy to C's if, across note 31's HumanEval and these
+two tasks, C is no less accurate than B on any, at least 2 points better on one of these two, and no more than 10%
+costlier per correct answer on any.
