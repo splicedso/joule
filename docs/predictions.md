@@ -646,3 +646,34 @@ under that, thinking stays off on this model and the setting is not built.
 - **12:03 entry, stock 1.5B Q4_0**: GSM8K 63 to 69%: held, 68.6% (67.2, 70.0). MMLU-Pro 25 to 35%: held, 27.1%. HumanEval
   50 to 65%: held, 56.1%. Energy spreads over 3% on every 1.5B task (4.0, 25.7, 11.0%) and on the 7B's GSM8K (7.1%) and
   MMLU-Pro (9.0%), flagged on the page. The RFT clauses of that entry are still to run.
+
+## 2026-10-26, 21:03 PT
+
+**Lattice v2 at 32B, rerun of the void cells** (Strix Halo; `experiments/lattice32_rerun.sh`, the same files as the 11:04 entry,
+SHA256 checked, same protocol: quality.py GSM8K-250, 8 slots, auto clocks, two mirrored passes; new output names). The 11:04
+search ran to completion, but from 12:51 to 14:42 another job shared the GPU (the power log shows it at 100% between runs, 108
+to 121 W in three "idle" windows, CPU load 2.3 to 2.5), so IQ3_XXS pass 1, Q3_K_M passes 1 and 2, the end of IQ2_XS pass 1 and
+the start of IQ3_XXS pass 2 are void for energy. The rerun takes Q4_0 as the anchor, then IQ2_XS, IQ3_XXS, Q3_K_M (pass 2
+reversed), each run behind a gate (no compute client in /sys/class/kfd, GPU busy under 5% for 60 s; an idle reading over 15 W
+re-gates three times, then aborts), with the shader, fabric and SoC clocks sampled every 2 s during each run. Clean cells so
+far: Q4_0 558.3 / 553.1 J per correct at 95.6%, 55.5 / 55.6 tok/s; calibrated Q2_K 476.9 / 491.2 J at 95.6 / 96.4%;
+IQ2_M 859.9 / 990.9 J at 90.4 / 89.2%, 35.6 / 29.2 tok/s; IQ2_XS pass 2 717.9 J at 91.6%, 38.9 tok/s.
+- Q4_0 reproduces its clean cells: both passes within 3% of 555.7 J per correct, 95 to 97%.
+- Accuracy is unchanged by the disturbance, so these are replications: IQ2_XS 90 to 94%, IQ3_XXS 89 to 93%, Q3_K_M 95 to 97%.
+- **All three formats cost more per token than Q2_K's 2,050 mJ and lose to it per correct answer:** IQ2_XS 2,500 to 3,300
+  mJ per token at 38 to 48 tok/s; IQ3_XXS 3,100 to 4,500 at 27 to 39 tok/s; Q3_K_M 2,800 to 4,200 at 29 to 44 tok/s. None
+  lands under 560 J per correct, so the 11:04 entry's "Q3_K_M between Q2_K and Q4_0" stays missed.
+- **The fabric-clock lead:** the earlier passes disagreed by 15 to 18% on IQ2_M and IQ2_XS with the marked fabric level lower in
+  the slower pass. Prediction: for the three formats here, pass 2 (later, warmer) is slower than pass 1 by 5 to 25% on tokens
+  per second, Q4_0 within 3%, and where the clock log has marked fabric levels the slower pass shows the lower one.
+
+**Qwen3.6-35B-A3B with a 2,048-token thinking budget** (Strix Halo; `experiments/phase0_baselines.sh`, STAGE=eval, changed before
+any eval ran: the "thinking on at 16,384" condition of the 12:00 entry is replaced by THINK_BUDGET=2048 with fallback to thinking
+off at 4,096, on the Mac lead's direction after note 29; THINK=0 at 4,096 stays the baseline, Q4_0 and Q8_0, mirrored passes, each
+run behind the GPU gate). The 12:00 entry's thinking-off clauses stand. For the budget condition:
+- Fell back (thinking cut at 2,048, re-asked with thinking off): GSM8K 10 to 30% of problems, MMLU-Pro 30 to 60%, HumanEval 15
+  to 40%.
+- Accuracy against thinking off at the same format: GSM8K within 2 points either way; MMLU-Pro +2 to +8; HumanEval +3 to +10.
+- Tokens per answer 2.5 to 4 times thinking off; joules per correct answer 2.5 to 5 times, so the budget does not pay on GSM8K
+  and pays on MMLU-Pro and HumanEval only if a point is worth more than double the energy.
+- Q4_0 within 2 points of Q8_0 on every task under the budget, as predicted for thinking off.
