@@ -29,7 +29,8 @@ Environment: DATA (a JSONL of {"prompt", "response"} to train on instead of GSM8
 counts the general-text batches on top), STEPS (0 = one epoch of GSM8K train), LR (1e-5), BATCH (8), SEQ (1024), GENERAL_FRAC (0.3),
 GROUP (16), EVAL_EVERY (100), CKPT_EVERY (200: a resumable checkpoint in the output
 directory, picked up automatically when the run is started again), DEVICE (cuda or cpu), SEED (3), QUANT (1; 0 trains the identical setup with fake quantization off:
-fp32 masters for the same linears, same data, steps, LR and schedule, so only the grid differs).
+fp32 masters for the same linears, same data, steps, LR and schedule, so only the grid differs), LORA_R (0; with QUANT=0, a rank-R LoRA on the
+same linears with everything else frozen, merged into the weights at the end; LORA_ALPHA defaults to 2R).
 """
 
 import json
@@ -60,6 +61,8 @@ QUANT = os.environ.get("QUANT", "1") != "0"   # 0: the same fine-tune with fake 
 DATA = os.environ.get("DATA")   # a JSONL of {"prompt", "response"} to train on instead of GSM8K's worked answers (e.g. RFT)
 CKPT_EVERY = int(os.environ.get("CKPT_EVERY", 200))   # a resumable checkpoint in the output directory every N steps (0: never); a restart with the same output directory resumes from it
 STOP_AFTER = int(os.environ.get("STOP_AFTER", 0))     # test hook: exit right after the checkpoint at this step, as a crash would
+LORA_R = int(os.environ.get("LORA_R", 0))             # >0 (QUANT=0 only): train a rank-R LoRA on every block linear, the rest frozen; merged into the weights at the end
+LORA_ALPHA = float(os.environ.get("LORA_ALPHA", 2 * LORA_R))
 QMAX = 3                      # 2-bit: q in 0..3
 HELD_OUT = 200
 GSM8K_TRAIN = Path("data/gsm8k-train.jsonl")
@@ -121,15 +124,41 @@ class QLinear(nn.Module):
         return lin.to(torch.bfloat16)
 
 
+class LoRALinear(nn.Module):
+    """nn.Linear kept frozen (bf16) plus a rank-LORA_R update B @ A (A fp32, Kaiming-uniform; B zeros, so the model starts
+    unchanged), scaled by LORA_ALPHA / LORA_R; bake() merges the update into the weight and returns the plain nn.Linear."""
+
+    def __init__(self, lin: nn.Linear):
+        super().__init__()
+        self.base = lin
+        self.base.weight.requires_grad_(False)
+        if self.base.bias is not None:
+            self.base.bias.requires_grad_(False)
+        out_f, in_f = lin.weight.shape
+        self.lora_a = nn.Parameter(torch.empty(LORA_R, in_f, dtype=torch.float32, device=lin.weight.device))
+        nn.init.kaiming_uniform_(self.lora_a, a=math.sqrt(5))
+        self.lora_b = nn.Parameter(torch.zeros(out_f, LORA_R, dtype=torch.float32, device=lin.weight.device))
+        self.scaling = LORA_ALPHA / LORA_R
+
+    def forward(self, x):
+        return self.base(x) + (x @ self.lora_a.t().to(x.dtype) @ self.lora_b.t().to(x.dtype)) * self.scaling
+
+    def bake(self) -> nn.Linear:
+        with torch.no_grad():
+            self.base.weight += (self.lora_b @ self.lora_a * self.scaling).to(self.base.weight.dtype)
+        self.base.weight.requires_grad_(True)
+        return self.base
+
+
 def swap(model, to_q=True):
-    """Replace every nn.Linear in the transformer blocks with a QLinear (or bake them back)."""
+    """Replace every nn.Linear in the transformer blocks with a QLinear, or a LoRALinear when LORA_R is set (or bake them back)."""
     n = 0
     for layer in model.model.layers:
         for parent in (layer.self_attn, layer.mlp):
             for name, child in list(parent.named_children()):
                 if to_q and isinstance(child, nn.Linear):
-                    setattr(parent, name, QLinear(child)); n += 1
-                elif not to_q and isinstance(child, QLinear):
+                    setattr(parent, name, LoRALinear(child) if LORA_R else QLinear(child)); n += 1
+                elif not to_q and isinstance(child, (QLinear, LoRALinear)):
                     setattr(parent, name, child.bake()); n += 1
     return n
 
@@ -216,21 +245,26 @@ def main():
     random.seed(SEED); rng = np.random.default_rng(SEED); torch.manual_seed(SEED)
     tok = AutoTokenizer.from_pretrained(src)
     model = AutoModelForCausalLM.from_pretrained(src, dtype=torch.bfloat16).to(DEVICE)
-    model.gradient_checkpointing_enable()
+    model.gradient_checkpointing_enable(gradient_checkpointing_kwargs={"use_reentrant": False})   # non-reentrant: gradients reach LoRA parameters inside a block even though the block's input (frozen embeddings) carries none
     model.config.use_cache = False
+    if LORA_R and QUANT:
+        sys.exit("LORA_R needs QUANT=0 (a LoRA on fake-quantized linears is not implemented)")
     n_q = swap(model, True)
+    if LORA_R:   # only the LoRA factors train; embeddings, norms, biases and the output layer stay as loaded
+        for n_, p in model.named_parameters():
+            p.requires_grad_(n_.endswith(".lora_a") or n_.endswith(".lora_b"))
     train, held = data_examples(tok, DATA) if DATA else gsm8k_examples(tok)
     mm = np.memmap(GENERAL, dtype=np.uint32, mode="r")
     pad = tok.pad_token_id
     # with DATA, one epoch means every example once, so the steps given to general text are added on top
     total = STEPS or (math.ceil(len(train) / BATCH / (1 - GENERAL_FRAC)) if DATA else math.ceil(len(train) / BATCH))
-    q_params = [p for n, p in model.named_parameters() if n.endswith(".scale") or n.endswith(".min")]
-    w_params = [p for n, p in model.named_parameters() if not (n.endswith(".scale") or n.endswith(".min"))]
+    q_params = [p for n, p in model.named_parameters() if p.requires_grad and (n.endswith(".scale") or n.endswith(".min"))]
+    w_params = [p for n, p in model.named_parameters() if p.requires_grad and not (n.endswith(".scale") or n.endswith(".min"))]
     opt = torch.optim.AdamW([{"params": w_params, "lr": LR}, {"params": q_params, "lr": LR, "weight_decay": 0.0}], weight_decay=0.0)
     warm = max(1, min(50, total // 10))
     sched = torch.optim.lr_scheduler.LambdaLR(opt, lambda s: min(1.0, (s + 1) / warm) * 0.5 * (1 + math.cos(math.pi * min(1.0, s / total))))
     config = {"src": src, "total": total, "lr": LR, "batch": BATCH, "seq": SEQ, "general_frac": GENERAL_FRAC, "group": GROUP,
-              "quant": QUANT, "data": DATA, "seed": SEED}
+              "quant": QUANT, "data": DATA, "seed": SEED, "lora_r": LORA_R, "lora_alpha": LORA_ALPHA}
     ckpt = out / "checkpoint" / "latest.pt"
     start, resumed, t0 = 1, None, time.monotonic()
     if CKPT_EVERY and ckpt.exists():
@@ -246,7 +280,10 @@ def main():
         print(f"{DEVICE}: resumed from the checkpoint at step {c['step']} of {total} ({c['elapsed'] / 60:.1f} min already spent)", flush=True)
     else:
         v0 = validate(model, held, pad)
-        print(f"{DEVICE}: {n_q} linears {'fake-quantized (group ' + str(GROUP) + ', ' + str(QMAX + 1) + ' levels)' if QUANT else 'with fp32 masters, NOT quantized (QUANT=0)'}; {len(train)} train, {len(held)} held out; "
+        how = ('fake-quantized (group ' + str(GROUP) + ', ' + str(QMAX + 1) + ' levels)' if QUANT else
+               f'with a rank-{LORA_R} LoRA (alpha {LORA_ALPHA:g}), {sum(p.numel() for p in w_params):,} trained parameters, the rest frozen' if LORA_R else
+               'with fp32 masters, NOT quantized (QUANT=0)')
+        print(f"{DEVICE}: {n_q} linears {how}; {len(train)} train, {len(held)} held out; "
               f"{total} steps, batch {BATCH}; held-out loss before training {v0:.4f}", flush=True)
         qc0 = quant_check(model) if QUANT else None
         print("quant check at step 0:" if QUANT else "QUANT=0: fake quantization off (plain fine-tune)", json.dumps(qc0) if QUANT else "", flush=True)
@@ -294,6 +331,7 @@ def main():
     tok.save_pretrained(out)
     shutil.rmtree(out / "checkpoint", ignore_errors=True)   # the final model is saved; the checkpoint has done its job
     (out / "train_log.json").write_text(json.dumps({"quant": QUANT, "data": DATA, "steps": total, "lr": LR, "batch": BATCH, "group": GROUP, "general_frac": GENERAL_FRAC, "checkpoint_every": CKPT_EVERY, "resumed_from": resumed,
+                                                    "lora_r": LORA_R, "lora_alpha": LORA_ALPHA,
                                                     "baked_linears": n_b, "quant_check_step0": qc0, "quant_check_end": qc1, "peak_gib": torch.cuda.max_memory_allocated() / 2**30 if DEVICE == "cuda" else None,
                                                     "minutes": (time.monotonic() - t0) / 60, "log": log}, indent=2) + "\n")
     print(f"saved {out} ({n_b} linears baked) after {(time.monotonic() - t0) / 60:.1f} min", flush=True)

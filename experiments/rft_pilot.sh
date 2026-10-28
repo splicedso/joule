@@ -21,10 +21,8 @@ if [ "${STAGE:-train}" = train ]; then
   echo "=== train (QUANT=0, DATA, GENERAL_FRAC 0.1) $(date) ==="
   QUANT=0 DATA=data/rft/rft-1.5b.jsonl GENERAL_FRAC=0.1 LR=1e-5 .venv-torch/bin/python experiments/lattice/qat.py models/hf-1.5b models/rft-1.5b
   cp models/rft-1.5b/train_log.json results/rft/train-log-1.5b.json
-  echo "=== export $(date) ==="
-  uv run --with "numpy<3" --with sentencepiece --with "transformers>=4.45" --with torch --with safetensors \
-    --with ./vendor/llama.cpp/gguf-py python vendor/llama.cpp/convert_hf_to_gguf.py models/rft-1.5b --outtype f16 --outfile models/quant/1.5b-rft-F16.gguf
-  llama-quantize models/quant/1.5b-rft-F16.gguf models/quant/1.5b-rft-Q4_0.gguf Q4_0
+  echo "=== export (stock tensor layout: experiments/rft/export.sh) $(date) ==="
+  sh experiments/rft/export.sh models/rft-1.5b models/quant/1.5b-rft    # the 27 October pilot used convert + llama-quantize directly: tied layout, 25% slower
   echo "=== RFT TRAIN STAGE DONE $(date) ==="
 else
   if pgrep -f 'llama-serve[r]|quality[.]py|teacher[.]py|train_[a-z]*[.]py|qat[.]py|curl -sL -C' | grep -vx -e $$ -e $PPID >/dev/null; then echo "GPU or network busy, abort"; exit 1; fi
