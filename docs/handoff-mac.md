@@ -27,7 +27,7 @@ Preview: `.claude/launch.json` config `spliced-site`, port 8772. Images carry `?
 
 ## New mark (22:12, 27 Oct)
 
-Martin's new mark (upright bar, pointed ends) is everywhere: site 3027bea (live; the site stays black and white), Foundry 463528e (the ingot is retired), the spliced/bridge/derating README logos, the image pinned by Linux (a8b2ffa). Kit and colours in site/brand/README.md; three schemes (black, white, Meta blue). Not yet redone: the badge renders on the Systems pages (cell, decode, desk, lineup, node, rack), about an hour of Blender; waiting on Martin. He uploads the GitHub org picture and the LinkedIn logo and banner.
+Martin's new mark (upright bar, pointed ends) is everywhere: site 3027bea (live; the site stays black and white), Foundry 463528e (the ingot is retired), the spliced/bridge/derating README logos, the image pinned by Linux (a8b2ffa). Kit and colours in site/brand/README.md; three schemes (black, white, Meta blue). The ten badge renders on the Designs page were redone at Martin's ok (site fab37a9, live 01:40 28 Oct); queue in site/render/queue-mark.sh. The word on a badge is centred, so its centre sits 1.9 mark-heights in from the plate edge. He uploads the GitHub org picture and the LinkedIn logo and banner.
 
 ## Next, in order (kept current; items leave the list when done)
 
