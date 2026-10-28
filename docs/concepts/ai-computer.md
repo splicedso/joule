@@ -65,6 +65,7 @@ systems; Claude sessions own the software; both own the product decisions.
   Foundry already shows tokens per second and energy per answer; the box version adds the model library and the
   measured settings (Q4_0 below 32B, the right number of requests at once, a draft only at low load).
 - Next: the box server, which serves Foundry's interface and answers its calls over HTTP. Started 26 October.
+- On the network (`--lan`) the box asks for its access code, made on first start (foundry 26081ff, 27 October).
 
 ### 9. Models (Claude, Linux session)
 - The defaults are chosen on `experiments/general_eval.py` (maths, knowledge, executed code) by joules per correct
