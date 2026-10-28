@@ -18,7 +18,9 @@ every model width we measured, on the M5 Pro, the RTX 5070 Ti Laptop GPU and the
 (notes 1, 4, 6). Below 4 bits the token gets more expensive, not cheaper, because unpacking the
 format costs more than the bytes it saves (note 5): on a 7B, a calibrated 2-bit token costs 18%
 more chip energy than a 4-bit one and Q4_0 is 21% cheaper per correct answer (note 22). At 32B
-the sign flips: calibrated Q2_K costs 16% less per correct answer at equal accuracy. The
+the sign flips: calibrated Q2_K costs 13 to 16% less per correct answer at equal accuracy, and calibrated Q3_K_M matches
+Q4_0 on accuracy and energy at 85% of the bytes, the format to take when Q4_0 does not fit. The IQ formats decode at 58 to
+80% of Q4_0's speed on this Vulkan build and cost more per correct answer (results/lattice32-halo.md). The
 crossover sits between 7B and 32B on the Strix Halo and is machine dependent.
 
 **Model size: the largest that fits with room to batch.** Per correct answer, a 7B serving eight
