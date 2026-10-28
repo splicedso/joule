@@ -1,0 +1,6 @@
+1d0
+<  1536, 151936, 1, 1 | Q6_K | output.weight
+3c2
+<  1536, 151936, 1, 1 | Q4_0 | token_embd.weight
+---
+>  1536, 151936, 1, 1 | Q6_K | token_embd.weight

@@ -909,3 +909,34 @@ behind the GPU gate, idle before each 5.6 to 6.8 W (one 34.2 W reading before Q4
   15 samples per run, reads higher in the faster pass (IQ2_XS 1,104 against 883 MHz), a lead only.
 Three clauses held, one held in its bold claim with both Q3_K_M ranges missed, one missed. Energy pass gaps over 3%,
 flagged: IQ2_XS 11.5%, IQ3_XXS 10.3% (Q4_0 1.4%, Q3_K_M 0.5%).
+
+## 2026-10-27, 18:50 PT
+
+**RFT v2 on the 1.5B: two arms, one change each** (Strix Halo; `experiments/rft_v2.sh`, queued behind the night chain's image
+stage; the pilot's dataset `data/rft/rft-1.5b.jsonl` unchanged, 13,155 examples, 96.5% GSM8K; `experiments/lattice/qat.py`
+as the pilot ran it, QUANT=0, batch 8, 1,800 steps, GENERAL_FRAC 0.1, cosine with warm-up; export through
+`experiments/rft/export.sh` in the stock tensor layout, output.weight Q6_K and token_embd Q4_0; evals as the pilot's,
+general_eval.py GSM8K-250, MMLU-Pro 280, HumanEval 164, 8 slots, MAX_TOKENS 2048, two passes mirrored, each run behind the GPU
+gate, stock Q4_0 re-run in each window). The pilot (PR 37, 27 October): stock Q4_0 69.6 / 27.5 / 54.9 on GSM8K / MMLU-Pro /
+HumanEval, 268 / 44 / 188 tokens per answer; RFT Q4_0 61.4 / 28.4 / 42.7, 270 / 152 / 112; RFT F16 67.6 / 27.1 / 43.9.
+- **Arm LR**: the pilot with LR 2e-6 instead of 1e-5. Nothing else changes.
+- **Arm LoRA**: the pilot with a rank-16 LoRA (alpha 32) on the same 196 block linears, everything else frozen, LR 1e-4,
+  merged into the weights at export. If only one arm fits, cut this one: arm LR changes one number in a recipe that has run,
+  LoRA adds code and changes what trains as well as how fast.
+- Before both, the pilot's checkpoint re-exported in the stock layout (`models/quant/1.5b-rft-untied-Q4_0.gguf`, from the
+  same tied F16) and run in arm LR's eval window; its tied file ran at 0.77x stock's tokens per second (PR 37).
+Predictions (two-pass means; Q4_0 unless said):
+- Untied pilot export: GSM8K within 1 point of the tied file's 61.4; tokens per second and mJ per token on GSM8K within 5% of
+  stock's in the same window; joules per correct answer on GSM8K 1.05 to 1.20x stock, the remaining gap being the lost points.
+- Arm LR at F16: GSM8K 68 to 71 (the pilot's F16 lost 2.0; at a fifth of the rate the fine-tune no longer loses on its own
+  task). Arm LR at Q4_0: GSM8K 65.5 to 70.5, the F16-to-Q4_0 drop under 3 points (pilot 6.2); HumanEval 48 to 55 (pilot
+  42.7) at 150 to 200 tokens per answer (docstrings kept; pilot 112); MMLU-Pro within 2 points of stock at no more than 2x
+  stock's tokens per answer (pilot 3.5x).
+- Arm LoRA at Q4_0: GSM8K 67 to 72, the F16-to-Q4_0 drop under 2 points; HumanEval 50 to 56 at 160 to 200 tokens; MMLU-Pro
+  within 2 points at no more than 1.5x stock's tokens. Training 60 to 90% of the pilot's 113.6 minutes, peak memory under
+  20 GiB (pilot 31.9).
+- Neither arm reaches stock +3 on GSM8K at Q4_0 (72.6), so neither clears the pilot's bar (GSM8K at least stock +3,
+  HumanEval at least stock -1, tokens per answer within 20% on all three tasks). Both beat the pilot on GSM8K and HumanEval
+  at Q4_0.
+Decision rule, set now: an arm that clears the bar becomes the Phase 2 recipe. If neither does, Phase 2 moves to the data
+(a code share of at least 30%, and GSM8K's own worked answers against the model's) before the optimizer is touched again.
