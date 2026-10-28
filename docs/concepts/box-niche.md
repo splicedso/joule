@@ -51,6 +51,14 @@ added.
 
 Items 1, 3 and 5 are software the Claude sessions can build. Item 2 decides the operating system. Item 4 is writing.
 
+**What item 2 takes (Linux session's check, 27 October).** Disk encryption counts only on the exact kernel a FIPS 140-3
+certificate names, so the kernel must be both certified and new enough for this GPU (gfx1151 needs Linux 6.9 or later).
+Our image is Debian, which has no certificate. Of the active certificates, only Rocky Linux 9 with CIQ's FIPS kernel
+(certificate 5452) covers a kernel that knows gfx1151; RHEL 9, Alma 9, Oracle 9, Ubuntu 22.04 and 24.04, SLES 15 and Amazon
+Linux 2023 certify older kernels. RHEL 10, SLE 16 and Amazon Linux's 6.12 kernel have no certificate yet. So the one path today
+is a Rocky 9 image on CIQ's subscription (price not published, untested on this board, without the newer ROCm fixes; Vulkan is
+fine). Network encryption is easier: the distributions' OpenSSL modules carry their own certificates.
+
 ## Risks, plainly
 
 - **The deadline that drove urgency is paused.** The Department of War suspended CMMC Phase 2 (third-party Level 2
