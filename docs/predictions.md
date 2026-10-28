@@ -527,6 +527,20 @@ Run by `when_quiet.sh` after two quiet readings (idle chip 0.46 and 0.50 W); pha
 - GSM8K-250: Q4_0 within 3 points of Q8_0: missed narrowly (75.2% against 78.8%, 3.6 points). Q4_0 the cheapest per
   correct answer of the three: held, narrowly (20.0 J against 20.4 for Q4_K_M and 20.6 for Q8_0). Note 28.
 
+## 2026-10-26, 11:04 PT
+
+**Lattice v2 at 32B, a post-training format search** (Strix Halo; `experiments/lattice32_formats.sh`: Qwen2.5 32B
+Instruct, Q2_K, IQ2_M, IQ2_XS, IQ3_XXS and Q3_K_M all quantized from the same F16 with note 22's GSM8K imatrix, stock Q4_0
+as the reference; quality.py GSM8K-250, 8 slots, auto clocks, two passes in mirrored order). Note 22: Q4_0 94.8% at 563.6 J
+per correct answer, calibrated Q2_K 95.6% at 473.7 J, 1,992 against 2,224 mJ per token.
+- Accuracy: Q3_K_M and IQ3_XXS within 1 point of Q4_0; Q2_K and IQ2_M within 2 points; **IQ2_XS falls 2 to 6 points
+  below**, outside the band.
+- Energy per token: the IQ formats save bytes but cost more to unpack on this GPU's Vulkan path, so **IQ2_M and IQ2_XS are
+  no cheaper per token than Q2_K** (within 5% either side), and Q3_K_M sits between Q2_K and Q4_0.
+- Answer length is the same across formats within 5% (the same model, lightly perturbed).
+- **The calibrated Q2_K stays the cheapest per correct answer inside the band**, within 5% of whatever comes second; no format
+  beats note 22's 473.7 J by more than 5%. The ranking is set by tokens per second, not file size.
+
 ## 2026-10-26, 11:52 PT
 
 **Batching on a second family** (M5 Pro; Granite 3.3 2B Q4_0 and, in the same session, Qwen2.5 1.5B Q4_0;
@@ -855,3 +869,43 @@ Of the entry's six clauses, four missed (sampling, GSM8K gain, HumanEval, F16 ag
 tokens); the sampling clause's parts, given separately: three outside their ranges, two held. The bar is missed on three of
 its four parts: GSM8K, HumanEval, and tokens per answer within 20% on every task (MMLU-Pro 3.5x and HumanEval 0.6x). The energy columns mix a file-layout speed difference (qat.py's
 tied Q6_K embedding decodes 25% slower than the stock file) with the weights. `results/general-halo-rft-1.5b.md`.
+
+### 11:04 entry of 26 October (Lattice v2 at 32B, the format search): verdict at 18:12, 27 October
+
+Clean cells only (`results/lattice32-halo.md`): Q4_0, Q2_K and IQ2_M from the 26 October run, IQ2_XS, IQ3_XXS and Q3_K_M from
+the 27 October rerun; two-pass means. Q4_0 95.6%, 555.7 J per correct, 2,211 mJ per token, 240 tokens per answer.
+- Accuracy: Q3_K_M 96.0% (within 1 point, held); IQ3_XXS 90.0% (5.6 below, missed); Q2_K 96.0% (held); IQ2_M 89.8%
+  (5.8 below, missed); IQ2_XS 92.8%, 2.8 below (held, inside the 2 to 6 band). Three of five formats as predicted; the two
+  misses are the 3-bit IQ3_XXS and IQ2_M, both further below Q4_0 than the 2-bit IQ2_XS.
+- Energy per token: IQ2_M 3,662 and IQ2_XS 2,774 mJ against Q2_K's 2,048, 79% and 35% dearer, far outside "within 5%
+  either side" (missed; the direction, no cheaper, held). Q3_K_M 2,270 mJ, 3% above Q4_0, not between Q2_K and Q4_0 (missed).
+- Answer length within 5%: Q3_K_M 238 and IQ3_XXS 229 tokens held; Q2_K 227 and IQ2_M 227 are 5.4% shorter and IQ2_XS 210
+  is 12.5% shorter. Missed.
+- Q2_K cheapest inside the band: held (484.1 J, nothing else under 554). "Within 5% of whatever comes second": missed,
+  Q4_0 is second at 555.7 and Q2_K is 12.9% under it. No format beats 473.7 J by more than 5%: held (none beats it at all). Ranking set
+  by tokens per second, not file size: held. The J-per-correct order Q2_K, Q4_0, Q3_K_M, IQ2_XS, IQ2_M, IQ3_XXS is the
+  tokens-per-second order (60.0, 55.6, 54.4, 44.6, 32.4, 32.8; the last two tie within 1% on both); by file size IQ2_XS
+  would be first and Q4_0 last.
+Five clauses held outright (Q3_K_M, Q2_K and IQ2_XS accuracy; Q2_K cheapest; nothing beats 473.7; ranking by speed), seven
+missed (IQ3_XXS and IQ2_M accuracy; IQ formats' per-token band; Q3_K_M between; answer length; Q2_K within 5% of second).
+
+### 21:03 entry of 26 October (Lattice v2 at 32B, rerun of the void cells): verdict at 18:12, 27 October
+
+Rerun 27 October 15:02 to 18:07 after the box's reboot (shutdown 03:10, boot 11:10; the same files, SHA256 checked), each run
+behind the GPU gate, idle before each 5.6 to 6.8 W (one 34.2 W reading before Q4_0 pass 2 re-gated once, then 6.6 W).
+- Q4_0 reproduces: 550.7 and 558.3 J per correct (0.9% under, 0.5% over 555.7), 95.6 and 95.2%. Held.
+- Replications: IQ2_XS 92.8 and 92.8% (90 to 94), IQ3_XXS 89.2 and 90.8% (89 to 93), Q3_K_M 96.0 and 96.0% (95 to 97). Held.
+- All three dearer per token than Q2_K's 2,050 mJ and losing per correct answer: held (2,774, 3,658 and 2,270 mJ; 628, 932
+  and 564 J against 484). IQ2_XS 2,611 and 2,936 mJ at 42.0 and 47.3 tok/s and IQ3_XXS 3,518 and 3,799 mJ at 31.5 and 34.0
+  tok/s inside their ranges; **Q3_K_M 2,268 and 2,273 mJ at 54.5 and 54.3 tok/s, under its 2,800 to 4,200 and over its 29
+  to 44**: the range was seeded by the void cells, which were the other job, not the format. "None under 560 J per correct":
+  held by 2 J (Q3_K_M 562.4 and 565.3). Clean, Q3_K_M is Q4_0's equal (1.5% dearer per correct, 2.7% per token, 2% slower)
+  at 85% of the bytes.
+- The fabric-clock lead: missed. Pass 2 was faster, not slower: IQ2_XS by 12.7%, IQ3_XXS by 8.1%; Q3_K_M within 0.3%; Q4_0
+  within 0.7% (held). The sysfs log marks a fabric level in 3 to 56 of 529 to 915 samples per run (0.3 to 10%), too sparse
+  to call; where marked, IQ2_XS's slower pass shows 1,850 MHz and its faster pass 1,600, the opposite of the lead. The shader
+  clock, marked on every sample, was higher in the slower pass (IQ2_XS 2,640 against 2,523 MHz; IQ3_XXS 2,810 against 2,756)
+  at the same package power within 0.3 W. The speed gap is not in any clock this log can see; the SoC clock, marked in 1 to
+  15 samples per run, reads higher in the faster pass (IQ2_XS 1,104 against 883 MHz), a lead only.
+Three clauses held, one held in its bold claim with both Q3_K_M ranges missed, one missed. Energy pass gaps over 3%,
+flagged: IQ2_XS 11.5%, IQ3_XXS 10.3% (Q4_0 1.4%, Q3_K_M 0.5%).
